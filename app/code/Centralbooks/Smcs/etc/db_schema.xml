@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+
+    <table name="centralbooks_smcs_token" resource="default" engine="innodb" comment="SMCS Token Table">
+
+        <column xsi:type="int" name="entity_id" unsigned="true" nullable="false" identity="true"/>
+        <column xsi:type="text" name="auth_token" nullable="false" comment="Auth Token"/>
+        <column xsi:type="timestamp" name="expires_at" nullable="false" comment="Expiry"/>
+        <column xsi:type="smallint" name="is_dp" nullable="false" default="0"/>
+        <column xsi:type="int" name="user_id" nullable="false"/>
+
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+
+    </table>
+
+</schema>

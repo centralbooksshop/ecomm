@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Webapi:etc/webapi.xsd">
+     <!--<route url="/V1/freshchat/getNaviosionproduct" method="POST">
+        <service class="Centralbooks\Freshchat\Api\NavisionproductInterface" method="getNaviosionproduct"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>-->
+    <route url="/V1/freshchat/getCustomerorder" method="GET">
+        <service class="Centralbooks\Freshchat\Api\NavisionproductInterface" method="getCustomerorder"/>
+        <resources>
+            <resource ref="Magento_Customer::group"/>
+        </resources>
+    </route>
+
+     <!-- <route method="POST" url="/V1/custom/custom-api/">
+        <service class="Centralbooks\Freshchat\Api\NavisionproductInterface" method="getPost"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route> -->
+
+    <route url="/V1/freshchat/Creatermabot" method="GET">
+        <service class="Centralbooks\Freshchat\Api\NavisionproductInterface" method="Creatermabot"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+    <route url="/V1/freshchat/getRMAinformation" method="GET">
+        <service class="Centralbooks\Freshchat\Api\NavisionproductInterface" method="getRMAinformation"/>
+        <resources>
+            <resource ref="Magento_Customer::group"/>
+        </resources>
+    </route>
+    <route url="/V1/freshchat/getIteminformation" method="GET">
+        <service class="Centralbooks\Freshchat\Api\NavisionproductInterface" method="getIteminformation"/>
+        <resources>
+            <resource ref="Magento_Customer::group"/>
+        </resources>
+    </route>
+    <route url="/V1/freshchat/Createrma" method="POST">
+        <service class="Centralbooks\Freshchat\Api\NavisionproductInterface" method="Createrma"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+</routes>

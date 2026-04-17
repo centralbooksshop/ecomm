@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @package     Plumrocket_RMA
+ * @copyright   Copyright (c) 2017 Plumrocket Inc. (https://plumrocket.com)
+ * @license     https://plumrocket.com/license   End-user License Agreement
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceBlock name="sales_order_tabs">
+            <block class="Plumrocket\RMA\Block\Adminhtml\Sales\Order\View\Tab\Returns" name="sales_order_returns.grid.container"/>
+            <action method="addTab">
+                <argument name="name" xsi:type="string">order_returns</argument>
+                <argument name="block" xsi:type="string">sales_order_returns.grid.container</argument>
+            </action>
+        </referenceBlock>
+
+        <referenceBlock name="sales_order_returns.grid.container">
+            <uiComponent name="sales_order_view_returns_grid"/>
+        </referenceBlock>
+    </body>
+</page>

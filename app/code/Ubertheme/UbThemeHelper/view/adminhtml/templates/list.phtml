@@ -1,0 +1,106 @@
+<?php
+/* @var \Ubertheme\UbThemeHelper\Block\Adminhtml\ThemeList $block */
+?>
+<ul class="ub-themes-grid">
+    <?php
+        $themes = $block->getThemes();
+        $ubThemes = [];
+        $otherThemes = [];
+        //filter for ub themes
+        foreach ($themes as $theme) {
+            if ($block::isMatched($theme, 'ubertheme')) {
+                $ubThemes[] = $theme;
+            } else {
+                $otherThemes[] = $theme;
+            }
+        }
+    ?>
+    <?php if (sizeof($themes)): ?>
+        <!-- UB Themes Listing -->
+        <?php foreach ($ubThemes as $theme): ?>
+            <?php
+                $isActivated = ($theme->getThemeId() == $block->getActivatedThemeId()) ? 1 : 0;
+                $isChildTheme = ($theme->getParentTheme()) ? true : false;
+            ?>
+            <li class="theme-item <?= ($isActivated) ? 'active' : '' ?> <?= ($isChildTheme) ? 'child-theme' : '' ?>">
+                <a class="preview-image" href="<?php echo $block->getCustomThemeUrl($theme->getThemeId()); ?>">
+                    <span class="image-wrap move-long" style="background-image: url('<?php echo $block->getThemePreReviewImageUrl($theme); ?>');"></span>
+                </a>
+                <div class="ub-actions">
+                    <div class="info">
+                        <div class="theme-name"><?php echo $theme->getThemeTitle() ?></div>
+                        <?php
+                        if ($parentTheme = $theme->getParentTheme()):
+                        $settingUrl = $block->getSettingUrl($parentTheme);
+                        ?>
+                        <div class="parent-theme-name">
+                            <label><?= __('Child theme'); ?>|<?= __('Parent'); ?>:</label>
+                            <?php if ($settingUrl) :?>
+                                <a title="<?= __('View Parent Theme\'s Configuration') ?>" href="<?= $settingUrl ?>">
+                                    <span><?php echo $parentTheme->getThemeTitle() ?></span>
+                                </a>
+                            <?php else: ?>
+                                <span><?php echo $parentTheme->getThemeTitle() ?></span>
+                            <?php endif; ?>
+                        </div>
+                        <?php endif; ?>
+                    </div>
+                    <div class="ub-buttons">
+                        <?php if (!$isActivated): ?>
+                            <a class="button btn-active" href="<?php echo $block->getActiveThemeUrl($theme->getThemeId()); ?>">
+                                <span> <span><i class="fa fa-check-circle-o"></i> <?php echo __('Activate'); ?></span></span>
+                            </a>
+                        <?php endif ?>
+                        <a class="button btn-customize first" href="<?php echo $block->getSettingUrl($theme); ?>">
+                            <span> <span><i class="fa fa-cogs"></i> <?php echo __('Settings'); ?></span> </span>
+                        </a>
+                    </div>
+                </div>
+            </li>
+        <?php endforeach ?>
+        <!--// UB Themes Listing -->
+
+        <!-- Other Themes Listing -->
+        <?php foreach ($otherThemes as $theme): ?>
+            <?php
+                $isActivated = ($theme->getThemeId() == $block->getActivatedThemeId()) ? 1 : 0;
+                $isChildTheme = ($theme->getParentTheme()) ? true : false;
+            ?>
+            <li class="theme-item <?= ($isActivated) ? 'active' : '' ?> <?= ($isChildTheme) ? 'child-theme' : '' ?>">
+                <a class="preview-image" href="<?php echo $block->getCustomThemeUrl($theme->getThemeId()); ?>">
+                    <span class="image-wrap move-long" style="background-image: url('<?php echo $block->getThemePreReviewImageUrl($theme); ?>');"></span>
+                </a>
+                <div class="ub-actions">
+                    <div class="info">
+                        <div class="theme-name"><?php echo $theme->getThemeTitle() ?></div>
+                        <?php
+                        if ($parentTheme = $theme->getParentTheme()):
+                            $settingUrl = $block->getSettingUrl($parentTheme);
+                        ?>
+                        <div class="parent-theme-name">
+                            <label><?= __('Child theme'); ?>|<?= __('Parent'); ?>:</label>
+                            <?php if ($settingUrl) :?>
+                                <a title="<?= __('View Parent Theme\'s Configuration') ?>" href="<?= $settingUrl ?>">
+                                    <span><?php echo $parentTheme->getThemeTitle() ?></span>
+                                </a>
+                            <?php else: ?>
+                                <span><?php echo $parentTheme->getThemeTitle() ?></span>
+                            <?php endif; ?>
+                        </div>
+                        <?php endif; ?>
+                    </div>
+                    <div class="ub-buttons">
+                        <?php if (!$isActivated): ?>
+                            <a class="button btn-active" href="<?php echo $block->getActiveThemeUrl($theme->getThemeId()); ?>">
+                                <span> <span><i class="fa fa-check-circle-o"></i> <?php echo __('Activate'); ?></span></span>
+                            </a>
+                        <?php endif ?>
+                    </div>
+                </div>
+            </li>
+        <?php endforeach ?>
+        <!--// Other Themes Listing -->
+    <?php else: ?>
+        <li><?php echo __('There are not theme found.');?></li>
+    <?php endif;?>
+</ul>

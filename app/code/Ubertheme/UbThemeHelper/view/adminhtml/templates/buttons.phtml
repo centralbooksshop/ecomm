@@ -1,0 +1,98 @@
+<div class="page-actions">
+    <div class="page-actions-inner">
+        <div class="page-actions-buttons">
+            <ul class="ub-data-sample-buttons">
+                <li>
+                    <a id="btn-import" class="action action-primary" href="javascript:void(0);">
+                        <span><i class="fa fa-download"></i> <?php echo __('Import Sample Data'); ?></span>
+                    </a>
+                </li>
+                <!-- This button only use for Ubertheme's developers-->
+                <?php
+                    /** @var \Ubertheme\UbThemeHelper\Helper\Data $helper **/
+                    $helper = $this->helper('Ubertheme\UbThemeHelper\Helper\Data');
+                    $ubDev = $helper->getRequest()->getParam('ubdev', null);
+                ?>
+                <?php if(!is_null($ubDev)): ?>
+                    <li>
+                        <a id="btn-export" class="action action-secondary" href="javascript:void(0);">
+                            <span><i class="fa fa-upload"></i> <?php echo __('Export Sample Data'); ?></span>
+                        </a>
+                    </li>
+                <?php endif; ?>
+            </ul>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    require([
+        'jquery',
+        'Magento_Ui/js/modal/alert',
+        'Magento_Ui/js/modal/confirm',
+        'prototype',
+        'domReady!'
+    ], function($, $alert, $confirm) {
+        'use strict';
+
+        //update stores switcher label
+        $('.store-switcher-label').html('<?= __('Scope:') ?>');
+
+        //ajax request to export sample data
+        $('#btn-export').on('click', function() {
+            var $btnExport = $(this);
+            var params = {};
+            new Ajax.Request('<?php echo $block->getUrl('ubthemehelper/sampledata/export'); ?>', {
+                parameters:     params,
+                loaderArea:     true,
+                asynchronous:   true,
+                onCreate: function() {
+                    $btnExport.addClass("disabled");
+                },
+                onSuccess: function(response) {
+                    var rs = response.responseJSON;
+                    if (rs.status == 'done') {
+                        //alert message
+                        $.mage.alert({title: rs.message});
+                    }
+                    $btnExport.removeClass("disabled");
+                }
+            });
+
+            return false;
+        });
+
+        //ajax request to import sample data
+        $('#btn-import').on('click', function() {
+            var $btnImport = $(this);
+            var params = {};
+            $confirm({
+                title: '<?php echo __("Already import our sample data before? Proceeding \'Import Sample Data\' again will overwrite your imported data including blocks, pages, widgets."); ?>',
+                'content': '',
+                actions: {
+                    confirm: function() {
+                        new Ajax.Request('<?php echo $block->getUrl('ubthemehelper/sampledata/import') ?>', {
+                            parameters: params,
+                            loaderArea: true,
+                            asynchronous: true,
+                            onCreate: function () {
+                                $btnImport.addClass("disabled");
+                            },
+                            onSuccess: function (response) {
+                                var rs = response.responseJSON;
+                                if (rs.status == 'done') {
+                                    //alert message
+                                    $alert({title: rs.message});
+                                }
+                                $btnImport.removeClass("disabled");
+                            }
+                        });
+                    },
+                    cancel: function(){},
+                    always: function(){}
+                }
+            });
+
+            return false;
+        });
+    });
+</script>

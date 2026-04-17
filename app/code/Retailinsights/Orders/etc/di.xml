@@ -1,0 +1,162 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                  <item name="sales_order_grid_data_source" xsi:type="string">Retailinsights\Orders\Model\ResourceModel\Order\Grid\Collection</item>
+
+                  <item name="sales_order_invoice_grid_data_source" xsi:type="string">Retailinsights\Orders\Model\ResourceModel\Order\Invoice\Grid\Collection</item>
+                  <item name="sales_order_shipment_grid_data_source" xsi:type="string">Retailinsights\Orders\Model\ResourceModel\Order\Shipment\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Retailinsights\Orders\Model\ResourceModel\Order\Grid\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">sales_order_grid</argument>
+            <argument name="resourceModel" xsi:type="string">Magento\Sales\Model\ResourceModel\Order</argument>
+        </arguments>
+    </type>
+
+	<!-- sales order duplicate start-->
+   
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="retailinsights_salesordergrid_list_data_source" xsi:type="string">Retailinsights\Orders\Model\ResourceModel\SalesOrderGrid\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Retailinsights\Orders\Model\ResourceModel\SalesOrderGrid\Grid\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">sales_order_grid</argument>
+            <argument name="eventPrefix" xsi:type="string">retailinsights_salesordergrid_grid_collection</argument>
+            <argument name="eventObject" xsi:type="string">salesordergrid_grid_collection</argument>
+            <argument name="resourceModel" xsi:type="string">Magento\Sales\Model\ResourceModel\Order</argument>
+        </arguments>
+    </type>
+    <!-- sales order duplicate end -->
+
+
+	<!-- sales order split failed start-->
+   
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="retailinsights_salesorderfailed_list_data_source" xsi:type="string">Retailinsights\Orders\Model\ResourceModel\SplitOrderFailed\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Retailinsights\Orders\Model\ResourceModel\SplitOrderFailed\Grid\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">sales_order_grid</argument>
+            <argument name="eventPrefix" xsi:type="string">retailinsights_salesordergrid_grid_collection</argument>
+            <argument name="eventObject" xsi:type="string">salesordergrid_grid_collection</argument>
+            <argument name="resourceModel" xsi:type="string">Magento\Sales\Model\ResourceModel\Order</argument>
+        </arguments>
+    </type>
+    <!-- sales order split failed end -->
+    
+	<virtualType name="Retailinsights\Orders\Model\ResourceModel\Order\Invoice\Grid\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">sales_invoice_grid</argument>
+            <argument name="resourceModel" xsi:type="string">Magento\Sales\Model\ResourceModel\Order\Invoice</argument>
+        </arguments>
+    </virtualType>
+
+	<virtualType name="Retailinsights\Orders\Model\ResourceModel\Order\Shipment\Grid\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">sales_shipment_grid</argument>
+            <argument name="resourceModel" xsi:type="string">Magento\Sales\Model\ResourceModel\Order\Shipment</argument>
+        </arguments>
+    </virtualType>
+
+    <type name="Magento\Checkout\Model\Cart">
+        <plugin name="prevent_add_to" type="Retailinsights\Orders\Plugin\PreventAddToCart"/>
+    </type>
+    <preference for="Magento\Sales\Controller\Adminhtml\Order\Pdfinvoices" type="Retailinsights\Orders\Controller\Adminhtml\Rewrite\Order\Pdfinvoices" />
+
+    <type name="Magento\Sales\Model\Order\Pdf\Invoice">
+        <plugin name="vendor_extension_sales_model_order_pdf_invoice"
+                type="Retailinsights\Orders\Plugin\Invoice" sortOrder="10" />
+    </type>
+    <preference for="Magento\Ui\Model\Export\ConvertToCsv" type="Retailinsights\Orders\Model\Export\ConvertToCsv" />
+
+	<type name="Magento\Framework\View\Element\UiComponent\DataProvider\Reporting">
+        <plugin name="sales_grid_collection" type="Retailinsights\Orders\Model\Plugin\Sales\Order\Grid" disabled="true"/>
+    </type>
+
+    <type name="Magento\Checkout\Controller\Sidebar\UpdateItemQty">
+        <plugin name="quantity_update" type="Retailinsights\Orders\Plugin\UpdateItemQty" sortOrder="10"/>
+    </type>
+	<type name="Magento\Framework\View\Element\UiComponent\DataProvider\FilterApplierInterface">
+        <plugin name="sales_order_grid_filter_modifier"
+                type="Retailinsights\Orders\Plugin\FilterApplier"
+                sortOrder="1"/>
+    </type>
+
+	<type name="Magento\Sales\Model\Order\Item">
+        <plugin name="retailinsights_order_item_name_plugin"
+                type="Retailinsights\Orders\Plugin\OrderItemNamePlugin"
+                sortOrder="10"
+                disabled="false" />
+    </type>
+
+	   <!-- sales order will be given start-->
+
+        <!-- Map your data source handle to your grid collection -->
+		<type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+			<arguments>
+				<argument name="collections" xsi:type="array">
+					<item name="retailinsights_willbegiven_list_data_source"
+						  xsi:type="string">Retailinsights\Orders\Model\ResourceModel\Order\Item\Grid\Collection</item>
+				</argument>
+			</arguments>
+		</type>
+
+		<!-- Grid Collection configuration -->
+		<type name="Retailinsights\Orders\Model\ResourceModel\Order\Item\Grid\Collection">
+			<arguments>
+				<!-- Database table -->
+				<argument name="mainTable" xsi:type="string">sales_order_item</argument>
+
+				<!-- Correct resource model (must extend AbstractDb) -->
+				<argument name="resourceModel" xsi:type="string">
+					Retailinsights\Orders\Model\ResourceModel\Order\Item\Grid
+				</argument>
+			</arguments>
+		</type>
+		
+		<!-- sales order will be given end -->
+		
+		<!-- sales order will be given details start-->
+
+        <!-- Map your data source handle to your grid collection -->
+		<type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+			<arguments>
+				<argument name="collections" xsi:type="array">
+					<item name="retailinsights_willbegivenitems_list_data_source"
+						  xsi:type="string">Retailinsights\Orders\Model\ResourceModel\Order\Item\Details\Collection</item>
+				</argument>
+			</arguments>
+		</type>
+
+		<!-- Grid Collection configuration -->
+		<type name="Retailinsights\Orders\Model\ResourceModel\Order\Item\Details\Collection">
+			<arguments>
+				<!-- Database table -->
+				<argument name="mainTable" xsi:type="string">sales_order_item</argument>
+
+				<!-- Correct resource model (must extend AbstractDb) -->
+				<argument name="resourceModel" xsi:type="string">
+					Retailinsights\Orders\Model\ResourceModel\Order\Item\Grid
+				</argument>
+			</arguments>
+		</type>
+		
+		<!-- sales order will be given details end -->
+
+    <preference for="Magento\Bundle\Model\Sales\Order\Pdf\Items\Invoice" type="Retailinsights\Orders\Model\Magento\Bundle\Order\Pdf\Items\Invoice" />
+    <!-- <preference for="Magento\Bundle\Model\Sales\Order\Pdf\Items\Invoice" type="Retailinsights\Orders\Model\Bundle\Order\Pdf\Items\Invoice" /> -->
+</config>

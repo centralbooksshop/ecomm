@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @package     Plumrocket_RMA
+ * @copyright   Copyright (c) 2017 Plumrocket Inc. (https://plumrocket.com)
+ * @license     https://plumrocket.com/license   End-user License Agreement
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Email:etc/email_templates.xsd">
+    <template id="prrma_email_email_customer_new_template" label="New RMA - Customer Email" file="customer_new.html" type="html" module="Plumrocket_RMA" area="frontend"/>
+    <template id="prrma_email_email_customer_update_template" label="RMA Updates - Customer Email" file="customer_update.html" type="html" module="Plumrocket_RMA" area="frontend"/>
+    <template id="prrma_email_email_manager_new_template" label="New RMA - Manager Email" file="manager_new.html" type="html" module="Plumrocket_RMA" area="frontend"/>
+    <template id="prrma_email_email_manager_update_template" label="RMA Updates  - Manager Email" file="manager_update.html" type="html" module="Plumrocket_RMA" area="frontend"/>
+</config>

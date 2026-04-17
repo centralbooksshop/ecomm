@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../Magento/Backend/etc/menu.xsd">
+    <menu>
+        <add id="Retailinsights_EcomCustom::ProcessEcomOrder" title="Process Ecom Orders" module="Retailinsights_EcomCustom" sortOrder="30" parent="Magento_Sales::sales" action="ecomcustom/processecomorder" resource="Retailinsights_EcomCustom::ProcessEcomOrder"/>
+        
+		<add id="Retailinsights_EcomCustom::ProcessedEcomOrdersList" title="Processed Ecom Orders List" module="Retailinsights_EcomCustom" sortOrder="40" parent="Magento_Sales::sales" action="ecomcustom/processedecomorderslist" resource="Retailinsights_EcomCustom::ProcessedEcomOrdersList"/>
+        
+		<!-- <add id="Retailinsights_EcomCustom::PendingEcomOrders" title="Pending Ecom Orders List" module="Retailinsights_EcomCustom" sortOrder="50" parent="Magento_Sales::sales" action="ecomcustom/pendingecomorders" resource="Retailinsights_EcomCustom::PendingEcomOrders"/> -->
+
+<add id="Retailinsights_EcomCustom::OptionalBooksReports" title="Optional Books Reports" module="Retailinsights_EcomCustom" sortOrder="10" parent="Magento_Sales::sales" action="ecomcustom/optionalbooksreports" resource="Retailinsights_EcomCustom::OptionalBooksReports"/>
+    </menu>
+</config>

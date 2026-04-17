@@ -1,0 +1,45 @@
+.header-font {
+    font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    color : #41362f;
+    font-weight: 400;
+    font-size: 2rem;
+    line-height: 1.2;
+}
+
+.header-style{
+    width: 90% !important;
+    border-bottom: 1px solid #cccccc;
+    margin-bottom: 1.7rem;
+    padding: 1.4rem 0 .5rem;
+}
+
+.label-font {
+    font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    color : #41362f;
+    font-weight: 400;
+    font-size: 1.4rem;
+    line-height: 1.5;
+}
+
+#setup-form button{
+    font-size: 1.6rem;
+    letter-spacing: 0.025em;
+    background-color: #eb5202;
+    border-color: #eb5202;
+    color :#ffffff;
+    text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.25);
+    float: right;
+    padding-top: 0.6875em;
+    padding-bottom: 0.6875em;
+}
+
+
+.required-text{
+    color :#e22626;
+    font-size: 1.5rem;
+    font-weight: 500;
+    line-height: 1;
+    margin-left: 5px;
+    margin-top: 0.5rem;
+    position: absolute;
+}

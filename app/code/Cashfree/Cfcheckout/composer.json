@@ -1,0 +1,30 @@
+{
+    "name": "gocashfree/cashfree-magento",
+    "description": "payment gateway extension for magento by Cashfree",
+    "require": {
+        "php": "7.*|^8.1"
+    },
+    "keywords": [
+      "cashfree", "magento", "payments", "india",
+      "payment gateway", "wallets", "netbanking"
+    ],
+    "suggest": {
+      "magento/module-checkout-agreements": "100.0.*"
+    },
+    "homepage": "https://cashfree.com",
+    "support": {
+      "email": "techsupport@gocashfree.com",
+      "docs": "https://docs.cashfree.com/docs/"
+    },
+    "type": "magento2-module",
+    "version": "3.3.2",
+    "license": [
+        "MIT"
+    ],
+    "autoload": {
+        "files": [ "registration.php" ],
+        "psr-4": {
+            "Cashfree\\Cfcheckout\\": ""
+        }
+    }
+}

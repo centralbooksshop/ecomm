@@ -1,0 +1,11 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:App/etc/routes.xsd">
+	<router id="admin">
+		<route id="schoolhub" frontName="schoolhub">
+			<module name="Centralbooks_SchoolHub" before="Magento_Backend"/>
+		</route>
+		<route frontName="centralbooks_schoolhub" id="centralbooks_schoolhub">
+			<module before="Magento_Backend" name="Centralbooks_SchoolHub"/>
+		</route>
+	</router>
+</config>

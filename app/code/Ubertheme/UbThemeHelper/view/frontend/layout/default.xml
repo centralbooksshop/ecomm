@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2016 Ubertheme.com All rights reserved.
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+	<head>
+		<css src="Ubertheme_UbThemeHelper::css/style.dev.css" />
+	</head>
+	<body>
+		<referenceContainer name="after.body.start">
+			<block class="Magento\Framework\View\Element\Template"
+				   name="container.ubertheme.general"
+				   template="Ubertheme_UbThemeHelper::general.phtml"/>
+		</referenceContainer>
+		<referenceContainer name="before.body.end">
+			<block class="Ubertheme\UbThemeHelper\Block\InfiniteScroll\Initial"
+				   name="infinitescroll.initial"
+				   template="Ubertheme_UbThemeHelper::infiniteScroll/initial.phtml" />
+		</referenceContainer>
+		<referenceContainer name="head.additional">
+			<block class="Magento\Framework\View\Element\Template"
+				   name="ub_themehelper_head"
+				   template="Ubertheme_UbThemeHelper::head.phtml" />
+		</referenceContainer>
+		<!--<referenceContainer name="header-wrapper">
+			<block class="Magento\Framework\View\Element\Template"
+			name="ub_switch_style_demo" template="Ubertheme_UbThemeHelper::demo_switcher.phtml" before="-" />
+		</referenceContainer>-->
+    </body>
+</page>

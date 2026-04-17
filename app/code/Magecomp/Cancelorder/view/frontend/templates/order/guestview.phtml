@@ -1,0 +1,65 @@
+<?php
+$helper = $this->helper('Magecomp\Cancelorder\Helper\Data');
+$_order = $block->getOrder();
+if ($helper->isCancelOrderAllowed()):?>
+    <?php if($helper->OrderStatusCheck($_order->getStatus())) : ?>
+        <?php if ($helper->isCommentEnabled()): ?>
+            <a style="float: right;padding-left: 15px;" href="#content-div-cancelorder-<?php echo $_order->getId(); ?>" class="action view border-none fancybox">
+                <span><?php echo $helper->getCancelOrderButtonText(); ?></span>
+            </a>
+            <div style="display: none">
+                <div id="content-div-cancelorder-<?php echo $_order->getId(); ?>">
+                    <div id="info-testy-create" style="padding: 4px;">
+                        <form class="form contact"
+                              action="<?php echo $helper->getCancelOrderUrl($_order); ?>"
+                              id="commentForm"
+                              method="post"
+                              data-hasrequired="<?php echo __('* Required Fields') ?>"
+                              data-mage-init='{"validation":{}}'>
+                            <fieldset class="fieldset">
+                                <legend class="legend"><span style="font-weight: 400;"><?php echo $helper->getPopupFormHeaderText(); ?></span></legend><br />
+                                <?php if (!empty($helper->getCancelReasons())): ?>
+                                    <div class="field name required" style="margin-bottom: 10px;">
+                                        <label class="label" for="comment"><span><?php echo __('Cancel Reasons') ?></span></label>
+                                        <div class="control">
+                                            <select name="cancel_reasons">
+                                                <?php echo $helper->getCancelReasons();?>
+                                                <option><?php echo __("Others")?></option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                <?php endif; ?>
+                                <div class="field name required" style="margin-bottom: 10px;">
+                                    <label class="label" for="comment"><span><?php echo __('Comment') ?></span></label>
+                                    <div class="control">
+                                        <textarea name="comment" id="comment" title="<?php echo __('Comment') ?>" class="input-text" cols="45" rows="6" data-validate="{required:true}"></textarea>
+                                    </div>
+                                </div>
+                                <p><?php echo $helper->getPopupFormNote(); ?></p>
+                                <div class="actions-toolbar">
+                                    <div class="primary">
+                                        <button type="submit" title="<?php echo __('Submit') ?>" class="action submit primary">
+                                            <span><?php echo __('Submit') ?></span>
+                                        </button>
+                                        <button type="reset" class="button" value="<?php echo __('Reset') ?>"><span><span><?php echo __('Reset') ?></span></span></button>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        <?php else: ?>
+            <a style="float: right;padding-left: 15px;" href="<?php echo $helper->getCancelOrderUrl($_order) ?>" class="action view">
+                <span><?php echo $helper->getCancelOrderButtonText(); ?></span>
+            </a>
+        <?php endif; ?>
+        <script type="text/javascript">
+            require(['jquery', 'cpfancybox'], function () {
+                jQuery(document).ready(function () {
+                    jQuery(".fancybox").fancybox();
+                });
+            });
+        </script>
+    <?php endif; ?>
+<?php endif; ?>

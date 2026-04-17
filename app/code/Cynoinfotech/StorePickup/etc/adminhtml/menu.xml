@@ -1,0 +1,19 @@
+<?xml version="1.0" ?>
+<!--
+/**
+ * @author CynoInfotech Team
+ * @package Cynoinfotech_StorePickup
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend/etc.menu.xsd">
+	<menu>	
+
+	    <add id='Cynoinfotech_StorePickup::Import' title='Import Store CSV' module='Cynoinfotech_StorePickup' sortOrder='1' action='storepickup/import' resource='Cynoinfotech_StorePickup::import' parent='Cynoinfotech_Base::base' />
+
+		<add id ="Cynoinfotech_StorePickup::storepickups" title="Manage Stores" module="Cynoinfotech_StorePickup" sortOrder='2' resource="Cynoinfotech_StorePickup::stores" action="storepickup/index/index" parent="Cynoinfotech_Base::base" />
+		
+		<add id ="Cynoinfotech_StorePickup::storepickuporder" title="Manage Store Orders" module="Cynoinfotech_StorePickup" sortOrder='3' resource="Cynoinfotech_StorePickup::storeorder" action="storepickup/storeorder/index" parent="Cynoinfotech_Base::base" />
+
+        <add id='Cynoinfotech_StorePickup::storepickup_configuration' title='Configuration' module='Cynoinfotech_StorePickup' sortOrder='4' action='adminhtml/system_config/edit/section/carriers/' resource='Cynoinfotech_StorePickup::storepickup_configuration' parent='Cynoinfotech_Base::base' />
+	</menu>
+</config>

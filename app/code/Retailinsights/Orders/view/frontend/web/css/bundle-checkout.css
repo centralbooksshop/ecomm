@@ -1,0 +1,25 @@
+/* HARD OVERRIDE when bundle is invalid */
+.checkout-cart-index .cart-summary button.action.primary.checkout.bundle-disabled,
+.checkout-cart-index .cart-summary button.action.primary.checkout.bundle-disabled:hover,
+.checkout-cart-index .cart-summary button.action.primary.checkout.bundle-disabled:focus {
+    background-color: #c2c2c2 !important;
+    border-color: #c2c2c2 !important;
+    color: #666 !important;
+
+    opacity: 0.6 !important;
+    cursor: not-allowed !important;
+    pointer-events: none !important;
+
+    box-shadow: none !important;
+    background-image: none !important;
+}
+
+/* Optional badge */
+.checkout-cart-index .cart-summary button.action.primary.checkout.bundle-disabled::after {
+    content: 'Review Required';
+    display: block;
+    font-size: 11px;
+    color: #b30000;
+    margin-top: 2px;
+    text-align: center;
+}

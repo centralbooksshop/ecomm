@@ -1,0 +1,26 @@
+<?php /** @var $block \Retailinsights\Orders\Block\Adminhtml\UploadForm */ ?>
+<?php
+/** @var $block \Retailinsights\Orders\Block\Adminhtml\MassUploadForm */
+$backUrl = $block->getUrl('*/*/index'); // or use referer
+if ($block->getRequest()->getServer('HTTP_REFERER')) {
+    $backUrl = $block->getRequest()->getServer('HTTP_REFERER');
+}
+?>
+<form action="<?php echo $block->getFormAction(); ?>" method="post" enctype="multipart/form-data">
+    <?php echo $block->getBlockHtml('formkey'); ?>
+    
+	<input type="hidden" name="selected" value="<?= $block->getSelectedIdsString(); ?>" />
+	<input type="hidden" name="back_url" value="<?= $backUrl; ?>" />
+
+    <div class="admin__field field">
+        <label class="label" for="ack_file"><span><?php echo __('Acknowledgement File'); ?></span></label>
+        <div class="control">
+            <input type="file" name="acknowledgement_file" id="ack_file" required />
+        </div>
+    </div>
+
+    <div class="actions">
+        <button type="submit" class="action-primary"><span><?php echo __('Mass Upload'); ?></span></button>
+        <button type="button" class="action-secondary" onclick="window.history.back();"><span><?php echo __('Back'); ?></span></button>
+    </div>
+</form>

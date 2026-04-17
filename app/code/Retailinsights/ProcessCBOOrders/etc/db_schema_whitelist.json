@@ -1,0 +1,8 @@
+{
+    "cbo_assign_shippment": {
+        "column": {
+            "dispatched_on": true,
+            "deliveryboy_id": true
+        }
+    }
+}

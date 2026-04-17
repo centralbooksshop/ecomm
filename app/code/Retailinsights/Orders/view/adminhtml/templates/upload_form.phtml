@@ -1,0 +1,17 @@
+<?php /** @var $block \Retailinsights\Orders\Block\Adminhtml\UploadForm */ ?>
+<form action="<?php echo $block->getFormAction(); ?>" method="post" enctype="multipart/form-data">
+    <?php echo $block->getBlockHtml('formkey'); ?>
+    <input type="hidden" name="item_id" value="<?php echo $block->getItemId(); ?>" />
+
+    <div class="admin__field field">
+        <label class="label" for="ack_file"><span><?php echo __('Acknowledgement File'); ?></span></label>
+        <div class="control">
+            <input type="file" name="acknowledgement_file" id="ack_file" required />
+        </div>
+    </div>
+
+    <div class="actions">
+        <button type="submit" class="action-primary"><span><?php echo __('Upload'); ?></span></button>
+        <button type="button" class="action-secondary" onclick="window.history.back();"><span><?php echo __('Back'); ?></span></button>
+    </div>
+</form>

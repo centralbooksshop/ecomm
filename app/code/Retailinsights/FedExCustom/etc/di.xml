@@ -1,0 +1,50 @@
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../lib/internal/Magento/Framework/ObjectManager/etc/config.xsd">
+    <virtualType name="RHUiExampleBlogFilterPool" type="Magento\Framework\View\Element\UiComponent\DataProvider\FilterPool">
+        <arguments>
+            <argument name="appliers" xsi:type="array">
+                <item name="regular" xsi:type="object">Magento\Framework\View\Element\UiComponent\DataProvider\RegularFilter</item>
+                <item name="fulltext" xsi:type="object">Magento\Framework\View\Element\UiComponent\DataProvider\FulltextFilter</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="RHUiExampleBlogFilterPool" type="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider">
+        <arguments>
+            <argument name="collection" xsi:type="object" shared="false">Retailinsights\FedExCustom\Model\ResourceModel\ProcessFedexOrders\Collection</argument>
+            <argument name="filterPool" xsi:type="object" shared="false">RHUiExampleBlogFilterPool</argument>
+        </arguments>
+    </virtualType>
+    
+    <type name="Retailinsights\FedExCustom\Model\ResourceModel\ProcessFedexOrders\Grid\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">cbo_assign_shippment</argument>
+            <argument name="eventPrefix" xsi:type="string">retailinsights_processfedexorders_processedfedexorderslist_grid_collection</argument>
+            <argument name="eventObject" xsi:type="string">processedfedexorderslist_grid_collection</argument>
+            <argument name="resourceModel" xsi:type="string">Retailinsights\FedExCustom\Model\ResourceModel\ProcessFedexOrders</argument>
+        </arguments>
+    </type>
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="retailinsights_processfedexorders_processedfedexorderslist_listing_data_source" xsi:type="string">Retailinsights\FedExCustom\Model\ResourceModel\ProcessFedexOrders\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+    <!-- Pending Fedex labels -->
+    <type name="Retailinsights\FedExCustom\Model\ResourceModel\PendingFedexOrders\Grid\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">sales_order</argument>
+            <argument name="eventPrefix" xsi:type="string">retailinsights_processfedexorders_pendingfedexorderslist_grid_collection</argument>
+            <argument name="eventObject" xsi:type="string">pendingfedexorderslist_grid_collection</argument>
+            <argument name="resourceModel" xsi:type="string">Retailinsights\FedExCustom\Model\ResourceModel\PendingFedexOrders</argument>
+        </arguments>
+    </type>
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="retailinsights_processfedexorders_pendingfedexorderslist_listing_data_source" xsi:type="string">Retailinsights\FedExCustom\Model\ResourceModel\PendingFedexOrders\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+
+</config>
+

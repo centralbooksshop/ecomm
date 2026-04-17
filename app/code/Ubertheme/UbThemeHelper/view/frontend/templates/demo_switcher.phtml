@@ -1,0 +1,41 @@
+<script type="text/javascript">
+    // Define some styles
+    var style1 = {
+        '@body__background-color': '#ff0000',
+        '@font-family__base' : 'Cursive'
+    };
+    var style2 = {
+        '@body__background-color': '#ffff00',
+        '@font-family__base' : 'Arial'
+    };
+    var style3 = {
+        '@body__background-color': '#000000',
+        '@font-family__base' : 'fantasy'
+    };
+    //apply style for each change
+    require([
+        'jquery',
+        'less/less.min',
+        'domReady!'
+    ],function($, lessjs) {
+        $('.switch-demo').each(function() {
+            $(this).on('click', function() {
+                var style = $(this).data('stylechange');
+                if (style == 'style1') {
+                    lessjs.modifyVars(style1);
+                } else if (style == 'style2') {
+                    lessjs.modifyVars(style2);
+                } else if (style == 'style3') {
+                    lessjs.modifyVars(style3);
+                }
+            });
+        });
+    });
+</script>
+
+<h3><strong><?php echo __('Switch style by Lesjs demo'); ?></strong></h3>
+<ul>
+    <li><a href="javascript:void(0);" class="switch-demo" data-stylechange="style1" >Style 1</a></li>
+    <li><a href="javascript:void(0);" class="switch-demo" data-stylechange="style2" >Style 2</a></li>
+    <li><a href="javascript:void(0);" class="switch-demo" data-stylechange="style3" >Style 3</a></li>
+</ul>

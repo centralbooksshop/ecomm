@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2016 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<layout xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_layout.xsd">
+    <update handle="empty"/>
+    <referenceContainer name="page.wrapper">
+        <container name="header.container" as="header_container" htmlTag="header" htmlClass="page-header" before="main.content" />
+        <container name="topsl1.container" as="topsl1_container" htmlTag="div" htmlClass="topsl1 wrap" after="header.container" />
+        <container name="topsl2.container" as="topsl2_container" htmlTag="div" htmlClass="topsl2 wrap" before="main.content" />
+        <container name="page.top" as="page_top" label="After Container Tops2" after="topsl2.container"/>
+        <container name="bots1.container" as="bots1_container" htmlTag="div" htmlClass="bots1 wrap" after="main.content" />
+        <container name="bots2.container" as="bots2_container" htmlTag="div" htmlClass="bots2 wrap" after="bots1.container" />
+        <container name="footer-container" as="footer" before="before.body.end" htmlTag="footer" htmlClass="pagefooter"  after="-" />
+    </referenceContainer>
+</layout>

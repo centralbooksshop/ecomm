@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2016 Ubertheme.com All rights reserved.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Acl/etc/acl.xsd">
+    <acl>
+        <resources>
+            <resource id="Magento_Backend::admin">
+                <resource id="Ubertheme_Base::content">
+                    <resource id="Ubertheme_UbThemeHelper::ubthemehelper_content" title="UB Theme Helper" sortOrder="999" >
+                        <resource id="Ubertheme_UbThemeHelper::settings" title="Configuration" sortOrder="1" >
+                            <resource id="Ubertheme_UbThemeHelper::listing_themes" title="Listing Themes" sortOrder="1" />
+                            <resource id="Ubertheme_UbThemeHelper::activate_theme" title="Activate Theme" sortOrder="2" />
+                            <resource id="Ubertheme_UbThemeHelper::view_settings" title="View Theme Settings" sortOrder="3" />
+                            <resource id="Ubertheme_UbThemeHelper::save_settings" title="Edit Theme Settings" sortOrder="4" />
+                            <resource id="Ubertheme_UbThemeHelper::import_data" title="Import Sample Data" sortOrder="5" />
+                        </resource>
+                    </resource>
+                </resource>
+            </resource>
+        </resources>
+    </acl>
+</config>

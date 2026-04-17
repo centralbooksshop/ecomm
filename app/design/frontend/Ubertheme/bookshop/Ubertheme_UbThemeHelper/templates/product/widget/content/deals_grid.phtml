@@ -1,0 +1,168 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+use Magento\Framework\App\Action\Action;
+
+// @codingStandardsIgnoreFile
+
+/** @var \Magento\CatalogWidget\Block\Product\ProductsList $block */
+/** @var \Ubertheme\UbThemeHelper\Helper\Data  $ubHelper */
+$ubHelper = $this->helper('Ubertheme\UbThemeHelper\Helper\Data');
+
+//Check and build custom CSS classes
+$customClasses = [];
+if (!(bool) $ubHelper->getParam('category_view/general/add_to_cart')) {
+    $customClasses[] = 'hide-add-to-cart';
+}
+if (!(bool) $ubHelper->getParam('category_view/general/add_to_compare')) {
+    $customClasses[] = 'hide-add-to-compare';
+}
+if (!(bool) $ubHelper->getParam('category_view/general/add_to_wishlist')) {
+    $customClasses[] = 'hide-add-to-wishlist';
+}
+if (!(bool) $ubHelper->getParam('category_view/general/rating')) {
+    $customClasses[] = 'hide-rating';
+}
+if (!(bool) $ubHelper->getParam('category_view/general/price')) {
+    $customClasses[] = 'hide-price';
+}
+if (!(bool) $ubHelper->getParam('category_view/general/show_author')) {
+    $customClasses[] = 'hide-author';
+}
+if (!(bool) $ubHelper->getParam('category_view/general/swatches')) {
+    $customClasses[] = 'hide-swatches';
+}
+$customClasses = implode(' ', $customClasses);
+
+?>
+<?php if ($exist = ($block->getProductCollection() && $block->getProductCollection()->getSize())): ?>
+    <?php
+    $_productCollection = $block->getLoadedProductCollection();
+    $_helper = $this->helper('Magento\Catalog\Helper\Output');
+    $type = 'widget-product-grid';
+
+    $mode = 'grid';
+
+    $image = 'special_products_content_widget_list';
+    $items = $block->getProductCollection()->getItems();
+
+    $showWishlist = false;
+    $showCompare = false;
+    $showCart = true;
+    $templateType = \Magento\Catalog\Block\Product\ReviewRendererInterface::SHORT_VIEW;
+    $description = false;
+    ?>
+    <div class="block widget block-products-list <?= /* @noEscape */ $mode ?>">
+        <?php if ($block->getTitle()): ?>
+            <div class="block-title">
+                <strong><?= $block->escapeHtml(__($block->getTitle())) ?></strong>
+            </div>
+        <?php endif ?>
+        <div class="block-content">
+            <?= /* @noEscape */ '<!-- ' . $image . '-->' ?>
+            <div class="products-<?= /* @noEscape */ $mode ?> <?= /* @noEscape */ $mode ?>">
+                <ol class="product-items <?= /* @noEscape */ $type.' '.$customClasses ?>">
+                    <?php $iterator = 1; ?>
+                    <?php foreach ($items as $_item): ?>
+                        <?php
+                            $ubLabel = $ubHelper->getProductOptionTextByAttribute($_item, 'ub_label');
+                            $ubAuthor = $ubHelper->getProductOptionTextByAttribute($_item, 'ub_author');
+                            $discountPercent = $ubHelper->getDiscountPercent($_item);
+                        ?>
+                        <?= /* @noEscape */ ($iterator++ == 1) ? '<li class="product-item">' : '</li><li class="product-item">' ?>
+                        <div class="product-item-info">
+                            <div class="item-photo">
+                                <div class="ub-icon-label label-<?php echo strtolower(str_replace(' ', '', $ubLabel));?>"><?php echo $ubLabel; ?></div>
+                                <?php if ($discountPercent) : ?>
+                                    <span class="ub-icon-label label-sales"> <?php echo "- {$discountPercent}%"; ?></span>
+                                <?php endif; ?>
+                                <a href="<?= $block->escapeUrl($block->getProductUrl($_item)) ?>" class="product-item-photo">
+                                    <?= $block->getImage($_item, $image)->toHtml() ?>
+                                </a>
+                                <div class="product-item-actions">
+                                    <div class="actions-primary">
+                                        <?php if ($_item->isSaleable()): ?>
+                                            <?php $postParams = $block->getAddToCartPostParams($_item); ?>
+                                            <form data-role="tocart-form" data-product-sku="<?= $block->escapeHtml($_item->getSku()) ?>" action="<?= /* @NoEscape */ $postParams['action'] ?>" method="post">
+                                                <input type="hidden" name="product" value="<?= /* @escapeNotVerified */ $postParams['data']['product'] ?>">
+                                                <input type="hidden" name="<?= /* @escapeNotVerified */ Action::PARAM_NAME_URL_ENCODED ?>" value="<?= /* @escapeNotVerified */ $postParams['data'][Action::PARAM_NAME_URL_ENCODED] ?>">
+                                                <?= $block->getBlockHtml('formkey') ?>
+                                                <button type="submit"
+                                                        title="<?= $block->escapeHtml(__('Add to Cart')) ?>"
+                                                        class="action tocart primary">
+                                                    <span><?= /* @escapeNotVerified */ __('Add to Cart') ?></span>
+                                                </button>
+                                            </form>
+                                        <?php else: ?>
+                                            <?php if ($_item->getIsSalable()): ?>
+                                                <div class="stock available"><span><?= $block->escapeHtml(__('In stock')) ?></span></div>
+                                            <?php else: ?>
+                                                <div class="stock unavailable"><span><?= $block->escapeHtml(__('Out of stock')) ?></span></div>
+                                            <?php endif; ?>
+                                        <?php endif; ?>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="product-item-details">
+                                <strong class="product-item-name">
+                                    <a title="<?= $block->escapeHtml($_item->getName()) ?>"
+                                       href="<?= $block->escapeUrl($block->getProductUrl($_item)) ?>"
+                                       class="product-item-link">
+                                        <?= $block->escapeHtml($_item->getName()) ?>
+                                    </a>
+                                </strong>
+                                <div class="ub-author"><?= $ubAuthor; ?></div>
+                                <?php if ($templateType): ?>
+                                    <?= $block->getReviewsSummaryHtml($_item, $templateType, true) ?>
+                                <?php endif; ?>
+
+                                <?= $block->getProductPriceHtml($_item, $type) ?>
+
+                                <!-- Start CountDown -->
+                                <?php
+                                    $id = $_item->getId().'-'.uniqid();
+                                    $strEndDate = strtotime($_item->getSpecialToDate());
+                                    $check = date('G:i:s', $strEndDate);
+                                    if ($check == "0:00:00") {
+                                        $endDate = date('m/d/Y \2\3\:\5\9\:\0\0', $strEndDate);
+                                    }else{
+                                        $endDate = date('m/d/Y G:i:s', $strEndDate);
+                                    }
+                                ?>
+                                <div id="countdown-<?php echo $id; ?>" class="ub-countdown">
+                                    <ul>
+                                        <li class="days">%%D%% <span class="text"><?php echo __('Day');?></span></li>
+                                        <li class="hours">%%H%% <span class="text"><?php echo __('Hours');?></span></li>
+                                        <li class="minutes">%%M%% <span class="text"><?php echo __('Mins');?></span></li>
+                                        <li class="seconds">%%S%% <span class="text"><?php echo __('Secs');?></span></li>
+                                    </ul>
+                                </div>
+                                <script type="text/javascript">
+                                    require([
+                                        "jquery",
+                                        "Ubertheme_Base/js/ubCountDown",
+                                        "domReady!"
+                                    ], function ($) {
+                                        'use strict';
+                                        $.mage.ubCountDown({
+                                            element: "#countdown-<?= $id; ?>",
+                                            endDate: "<?= $endDate; ?>",
+                                            expiredMessage: "<?= __('Expired');?>"
+                                        });
+                                    });
+                                </script>
+                                <!-- End CountDown -->
+
+                                <?= $block->getProductDetailsHtml($_item) ?>
+                            </div>
+                        </div>
+                        <?= ($iterator == count($items) + 1) ? '</li>' : '' ?>
+                    <?php endforeach ?>
+                </ol>
+            </div>
+            <?= $block->getPagerHtml() ?>
+        </div>
+    </div>
+<?php endif;?>

@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @package     Plumrocket_RMA
+ * @copyright   Copyright (c) 2021 Plumrocket Inc. (https://plumrocket.com)
+ * @license     https://plumrocket.com/license   End-user License Agreement
+ */
+-->
+<extensions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:noNamespaceSchemaLocation="urn:magento:module:Plumrocket_Base:etc/pr_extensions.xsd">
+    <extension name="RMA"
+               title="RMA"
+               config_section="prrma"
+               is_enabled_path="prrma/general/enabled"
+               documentation="https://plumrocket.com/docs/magento-rma/v2"
+               url="https://plumrocket.com/magento-rma"
+               marketplace_url="https://marketplace.magento.com/plumrocket-module-rma.html"
+    >
+        <customer key="94061287508cead39f629ea22c1e66d7695d392823"/>
+    </extension>
+</extensions>

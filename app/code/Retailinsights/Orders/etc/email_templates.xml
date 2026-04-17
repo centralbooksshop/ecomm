@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Mail/etc/email_templates.xsd">
+
+    <template id="order_delivered_email_template"
+              label="Order Delivered Email"
+              file="order_delivered_email.html"
+              type="html"
+              module="Retailinsights_Orders"
+              area="frontend"/>
+
+	<template id="feedback_request_email_template" label="Feedback Request Email" file="feedback_request_email.html" type="html" module="Retailinsights_Orders" area="frontend"/>
+</config>

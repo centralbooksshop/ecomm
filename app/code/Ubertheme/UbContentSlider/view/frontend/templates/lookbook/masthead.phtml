@@ -1,0 +1,209 @@
+<?php
+    /** @var  $imageHelper \Ubertheme\UbContentSlider\Helper\Image */
+    $imageHelper = $this->helper('Ubertheme\UbContentSlider\Helper\Image');
+    /** @var $block \Ubertheme\UbContentSlider\Block\Slider */
+    // Get mobile detect object
+    /** @var \Ubertheme\Base\Helper\MobileDetect $detect */
+    $detect = \Magento\Framework\App\ObjectManager::getInstance()->create('Ubertheme\Base\Helper\MobileDetect');
+    $deviceType = ($detect->isMobile() ? ($detect->isTablet() ? 'tablet' : 'mobile') : 'desktop');
+?>
+
+<?php if ($config->enable): ?>
+    <div class="lookbook-masthead">
+        <?php if ($config->show_title): ?>
+            <div class="lookbook-title">
+                <strong> <?php echo $block->escapeHtml($config->title); ?> </strong>
+            </div>
+        <?php endif; ?>
+        <?php if (sizeof($items)): ?>
+            <div class="lookbook-items <?php echo $config->addition_class;?>">
+                <?php foreach($items as $key => $item): ?>
+                    <?php
+                    $itemWidth = ($config->item_width) ? $config->item_width .'px' : 'auto';
+                    $itemHeight = ($config->item_height) ? $config->item_height .'px' : 'auto';
+                    //always add additional class 'click-to-play' if is video case
+                    if (isset($item['video_id']) && $item['video_id']) {
+                        $item['additional_class'] = "click-to-play {$item['additional_class']}";
+                    }
+                    $itemClasses = "item {$item['additional_class']}";
+                    if ($deviceType == 'mobile'
+                        && isset($item['mobile_image'])
+                        && $item['mobile_image']) {
+                        $item['image'] = $item['mobile_image'];
+                    }
+                    $videoCoverUrl = null;
+                    if ($item['video_cover']) {
+                        if ($config->item_width) {
+                            $videoCoverUrl = $imageHelper->resize(
+                                $item['video_cover'],
+                                $config->item_width,
+                                $config->item_height,
+                                true
+                            );
+                        } else {
+                            $videoCoverUrl = $block->getSliderImageUrl($item['video_cover']);
+                        }
+                    } else if ($item['video_id']) {
+                        if ($item['content_type'] == \Ubertheme\UbContentSlider\Model\Item::CONTENT_TYPE_YOUTUBE) {
+                            $videoCoverUrl = \Ubertheme\UbContentSlider\Helper\Image::getYoutubeThumb(
+                                $item['video_id'],
+                                'hqdefault'
+                            );
+                        } else {
+                            $videoCoverUrl = \Ubertheme\UbContentSlider\Helper\Image::getVimeoThumb(
+                                $item['video_id'],
+                                'thumbnail_large'
+                            );
+                        }
+                    }
+                    ?>
+                    <div class="<?= $itemClasses ?>">
+                        <div class="lookbook-item-info">
+                            <div class="lookbook-item-photo">
+                                <?php if ($item['content_type'] == \Ubertheme\UbContentSlider\Model\Item::CONTENT_TYPE_YOUTUBE): ?>
+                                    <a href="<?php echo $item['link']; ?>"
+                                       data-video-id="<?= $item['video_id'] ?>"
+                                       data-video-width="<?= $itemWidth ?>"
+                                       data-video-height="<?= $itemHeight ?>"
+                                       class="youtube-video"
+                                       title="<?php echo $item['title']; ?>"
+                                       target="<?php echo $item['target']; ?>">
+                                        <img class="slide-image"
+                                             alt="<?php echo $item['title']; ?>"
+                                             src="<?= $videoCoverUrl ?>"
+                                             width="<?php echo $itemWidth ?>"
+                                             height="<?php echo $itemHeight ?>" />
+                                    </a>
+                                <?php elseif ($item['content_type'] == \Ubertheme\UbContentSlider\Model\Item::CONTENT_TYPE_VIMEO): ?>
+                                    <a href="<?php echo $item['link']; ?>"
+                                       class="vimeo-video"
+                                       data-video-id="<?= $item['video_id'] ?>"
+                                       data-video-width="<?= $itemWidth ?>"
+                                       data-video-height="<?= $itemHeight ?>"
+                                       title="<?php echo $item['title']; ?>"
+                                       target="<?php echo $item['target']; ?>">
+                                        <img class="slide-image"
+                                             alt="<?php echo $item['title']; ?>"
+                                             src="<?= $videoCoverUrl ?>"
+                                             width="<?php echo $itemWidth ?>"
+                                             height="<?php echo $itemHeight ?>" />
+                                    </a>
+                                <?php else: ?>
+                                    <a href="<?php echo $item['link']; ?>"
+                                       title="<?php echo $item['title']; ?>"
+                                       target="<?php echo $item['target']; ?>">
+                                        <?php
+                                        if ($config->item_width){ //has resize
+                                            //will not crop the image if has hotspot's data
+                                            if ($item['hot_spot']) {
+                                                $crop = false;
+                                            } else {
+                                                $crop = true;
+                                            }
+                                            $imageUrl = $imageHelper->resize(
+                                                $item['image'],
+                                                $config->item_width,
+                                                $config->item_height,
+                                                $crop
+                                            );
+                                        } else {
+                                            $imageUrl = $block->getSliderImageUrl($item['image']);
+                                        }
+                                        ?>
+                                        <img class="slide-image lookbook-image"
+                                             src="<?php echo $imageUrl; ?>"
+                                             alt="<?php echo $item['title']; ?>"
+                                        />
+                                    </a>
+                                    <!-- Hotspots data -->
+                                    <?php if ($item['hot_spot']) : ?>
+                                        <?php $blockID = uniqid(); ?>
+                                        <div id="hs-container-<?= $blockID ?>"
+                                             class="ub-hotspots hs-container-<?= $blockID ?>">
+                                        </div>
+                                        <script type="text/x-magento-init">
+                                            {
+                                                "#hs-container-<?= $blockID ?>": {
+                                                    "Ubertheme_UbContentSlider/js/ub-hotspot": {
+                                                        "hsContainer": "#hs-container-<?= $blockID ?>",
+                                                        "hsData": <?= trim($item['hot_spot']) ?>,
+                                                        "baseUrl":"<?= $this->getBaseUrl() ?>"
+                                                    }
+                                                }
+                                            }
+                                        </script>
+                                    <?php endif; ?>
+                                    <!--// Hotspots data -->
+                                <?php endif; ?>
+                            </div>
+                        <div class="lookbook-details">
+                            <div class="title">
+                                <a href="<?php echo $item['link']; ?>"
+                                   title="<?php echo $item['title']; ?>"
+                                   target="<?php echo $item['target']; ?>">
+                                    <?php echo $item['title']; ?>
+                                </a>
+                            </div>
+                            <div class="description"><?php echo $item['description']; ?>
+                                <a class="readmore"
+                                   href="<?php echo $item['link']; ?>"
+                                   title="<?php echo $item['title']; ?>"
+                                   target="<?php echo $item['target']; ?>"> <?= __('View More') ?>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <?php endforeach; ?>
+        </div>
+    <?php else : ?>
+        <div class="ub-content-lookbook no-items"><?php echo __("No item has been published for the lookbook yet."); ?></div>
+    <?php endif; ?>
+
+    <script type="text/javascript">
+        require(['jquery', 'domReady!'], function ($) {
+            // add class for style the lookbook page
+            $('body').addClass('cms-lookbook-page');
+            //auto hide container of slider without items
+            setTimeout(function() {
+                $('.ub-content-lookbook.no-items').slideUp().siblings('.ub-content-lookbook-title').slideUp();
+            }, 3000);
+            //play youtube video action
+            $(".youtube-video").click(function (e) {
+                var $itemWrapper = $(this).parent().parent().parent();
+                $itemWrapper.removeClass('click-to-play').addClass('clicked-to-play');
+                <?php if ($deviceType !== 'mobile'): ?>
+                if (!$itemWrapper.closest('.outside').length) { //has used inside style
+                    $itemWrapper.find('.lookbook-details').remove();
+                }
+                <?php endif; ?>
+                //make video embed
+                var $embedVideo = '<div class="youtube"><iframe width="'+$(this).data('video-width')
+                    +'" height="'+$(this).data('video-height')+'" src="https://www.youtube.com/embed/'
+                    + $(this).data('video-id') + '?autoplay=1" frameborder="0" allowfullscreen></iframe></div>';
+                $(this).children('img.slide-image').replaceWith($embedVideo);
+                return false;
+                e.preventDefault();
+            });
+            //play vimeo video action
+            $(".vimeo-video").click(function (e) {
+                var $itemWrapper = $(this).parent().parent().parent();
+                $itemWrapper.removeClass('click-to-play').addClass('clicked-to-play');
+                <?php if ($deviceType !== 'mobile'): ?>
+                if (!$itemWrapper.closest('.outside').length) { //has used inside style
+                    $itemWrapper.find('.lookbook-details').remove();
+                }
+                <?php endif; ?>
+                //make video embed
+                var $embedVideo = '<div class="vimeo"><iframe width="'+$(this).data('video-width')
+                    +'" height="'+$(this).data('video-height')+'" src="https://player.vimeo.com/video/'
+                    + $(this).data('video-id') + '?autoplay=0&loop=1&wmode=transparent&player_id=video-player-thumb-'
+                    + $(this).data('video-id')+'" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe></div>';
+                $(this).children('img.slide-image').replaceWith($embedVideo);
+                return false;
+                e.preventDefault();
+            });
+        })
+    </script>
+    </div>
+<?php endif; ?>

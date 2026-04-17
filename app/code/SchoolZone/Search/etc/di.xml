@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+ 
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Magento\Bundle\Block\Catalog\Product\View\Type\Bundle\Option\Checkbox" type="SchoolZone\Search\Block\Catalog\Product\View\Type\Bundle\Option" />
+    <preference for="Magento\Bundle\Block\Catalog\Product\View\Type\Bundle\Option\Multi" type="SchoolZone\Search\Block\Catalog\Product\View\Type\Bundle\CustomMulti" />
+    <preference for="Magento\Bundle\Block\Catalog\Product\View\Type\Bundle\Option\Radio" type="SchoolZone\Search\Block\Catalog\Product\View\Type\Bundle\CustomRadio" />
+    <preference for="Magento\Bundle\Block\Catalog\Product\View\Type\Bundle\Option\Select" type="SchoolZone\Search\Block\Catalog\Product\View\Type\Bundle\CustomSelect" />
+    <preference for="Magento\Sales\Block\Adminhtml\Order\Totals" type="SchoolZone\Search\Block\Adminhtml\Order\Totals" /> 
+    <preference for="Magento\Sales\Block\Adminhtml\Order\Invoice\Totals" type="SchoolZone\Search\Block\Adminhtml\Order\Invoice\Totals" />
+ <!--	          <preference for="Magento\Sales\Block\Adminhtml\Order\Creditmemo\Totals" type="SchoolZone\Search\Block\Adminhtml\Order\Creditmemo\Totals" /> -->
+
+    <virtualType name="SchoolZone\Search\Model\ResourceModel\NotifyReport\Grid\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">school_notify_report</argument>
+            <argument name="resourceModel" xsi:type="string">SchoolZone\Search\Model\ResourceModel\NotifyReport</argument>
+			<argument name="collections" xsi:type="array">
+            <item name="school_notify_report" xsi:type="string">SchoolZone\Search\Model\ResourceModel\NotifyReport\Grid\Collection</item>
+        </argument>
+        </arguments>
+    </virtualType>
+
+	<type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="schoolnotify_notifyreport_listing_data_source" xsi:type="string">SchoolZone\Search\Model\ResourceModel\NotifyReport\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+
+</config>

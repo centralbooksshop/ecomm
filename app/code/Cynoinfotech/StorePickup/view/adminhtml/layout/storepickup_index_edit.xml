@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author CynoInfotech Team
+ * @package Cynoinfotech_StorePickup
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="admin-2columns-left" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="editor"/>
+    <body>
+        <referenceContainer name="content">
+             <block class="Cynoinfotech\StorePickup\Block\Adminhtml\Storepickup\Edit" name="Cynoinfotech_storepickup_edit"/> 
+        </referenceContainer>
+        <referenceContainer name="left">
+            <block class="Cynoinfotech\StorePickup\Block\Adminhtml\Storepickup\Edit\Tabs" name="storepickup_tabs">
+                <!-- <block class="Cynoinfotech\StorePickup\Block\Adminhtml\StorePickup\Edit\Tab\StorePickup" name="Cynoinfotech_storepickup_edit_tab_event"/>
+                <action method="addTab">
+                    <argument name="name" xsi:type="string">storepickup</argument>
+                    <argument name="block" xsi:type="string">Cynoinfotech_storepickup_edit_tab_event</argument>
+                </action> -->
+            </block>
+        </referenceContainer>
+    </body>
+</page>

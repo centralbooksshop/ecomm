@@ -1,0 +1,424 @@
+
+// Primary Color => defined @theme__pm-color;
+.theme__pm-color(@param) when (iscolor(@param)) {
+    @theme__pm-color: @primary_color_var;
+}
+.theme__pm-color(@param) when not (iscolor(@param)) {
+    @theme__pm-color: #f0141e;
+}
+.theme__pm-color(@primary_color_var);
+
+
+// Primary text Color => defined @primary_text_color;
+.primary__text-color(@param) when (iscolor(@param)) {
+    @primary__text-color: @primary_text_color_var;
+}
+.primary__text-color(@param) when not (iscolor(@param)) {
+    @primary__text-color: #777;
+}
+.primary__text-color(@primary_text_color_var);
+
+
+// Second text Color => defined @secondary__text-color;
+.secondary__text-color(@param) when (iscolor(@param)) {
+    @secondary__text-color: @secondary_text_color_var;
+}
+.secondary__text-color(@param) when not (iscolor(@param)) {
+    @secondary__text-color: #999;
+}
+.secondary__text-color(@secondary_text_color_var);
+
+
+// Primary link Color => defined @pm__link-color;
+.pm__link-color(@param) when (iscolor(@param)) {
+    @pm__link-color: @primary_link_color_var;
+}
+.pm__link-color(@param) when not (iscolor(@param)) {
+    @pm__link-color: #000;
+}
+.pm__link-color(@primary_link_color_var);
+
+
+
+// Primary link hover color => defined @pm__link__hover-color;
+.pm__link__hover-color(@param) when (iscolor(@param)) {
+    @pm__link__hover-color: @primary_link_color_hover_var;
+}
+.pm__link__hover-color(@param) when not (iscolor(@param)) {
+    @pm__link__hover-color: #f0141e;
+}
+.pm__link__hover-color(@primary_link_color_hover_var);
+
+
+// Primary border color => defined @pm__border-color;
+.pm__border-color(@param) when (iscolor(@param)) {
+    @pm__border-color: @primary_border_color_var;
+}
+.pm__border-color(@param) when not (iscolor(@param)) {
+    @pm__border-color: #eee;
+}
+.pm__border-color(@primary_border_color_var);
+
+// Secondary border color => defined @sd__border-color;
+.sd__border-color(@param) when (iscolor(@param)) {
+    @sd__border-color: @secondary_border_color_var;
+}
+.sd__border-color(@param) when not (iscolor(@param)) {
+    @sd__border-color: #000;
+}
+.sd__border-color(@secondary_border_color_var);
+
+/*
+	Style for Body.
+*/
+
+// Body Background  => defined @body_background_var
+
+// Body Background Color => defined @body_background_color_var
+.body__bg-color(@param) when (iscolor(@param)) {
+    @body__bg-color: @body_background_color_var;
+}
+.body__bg-color(@param) when not (iscolor(@param)) {
+    @body__bg-color: transparent;
+}
+.body__bg-color(@body_background_color_var);
+
+// Body Background Image => defined @body_bg_image_var
+
+// Body Background Position => defined @body_bg_position_var
+.body__bg-position(@param) when (@param = null) {
+    @body__bg-position: 0 0;
+}
+.body__bg-position(@param) when not (@param = null) {
+    @body__bg-position: @body_bg_position_var;
+}
+.body__bg-position(@body_bg_position_var);
+
+// Body Background Repeat => defined @body_bg_repeat_var
+
+
+@basedir: '../../../../../../../../';
+
+body { 
+		.background_style (@body_background_var) when (@body_background_var = 1){
+	    background: @body__bg-color;
+	  }
+	  .background_style (@body_background_var) when (@body_background_var = 2){
+	    background: url("@{body_bg_image_var}") @body__bg-position @body_bg_repeat_var;
+	  }
+	  .background_style (@body_background_var) when (@body_background_var = 3){
+	    background: @body__bg-color url("@{body_bg_image_var}") @body__bg-position @body_bg_repeat_var;
+	  }	
+	  .background_style (@body_background_var);
+	  color: @primary__text-color;
+}
+
+
+
+
+
+/*
+	Style for Header.
+*/
+
+// Header Background  => defined @header_background_var
+
+// Header Background Color => defined @header_background_color_var
+.header__bg-color(@param) when (iscolor(@param)) {
+    @header__bg-color: @header_background_color_var;
+}
+.header__bg-color(@param) when not (iscolor(@param)) {
+    @header__bg-color: #f0141e;
+}
+.header__bg-color(@header_background_color_var);
+
+// Header Background Image => defined @header_bg_image_var
+
+// Header Background Position => defined @header_bg_position_var
+.header__bg-position(@param) when (@param = null) {
+    @header__bg-position: 0 0;
+}
+.header__bg-position(@param) when not (@param = null) {
+    @header__bg-position: @header_bg_position_var;
+}
+.header__bg-position(@header_bg_position_var);
+
+// Header Background Repeat => defined @header_bg_repeat_var
+
+.media-width(@extremum, @break) when (@extremum = 'max') and (@break = @screen__m) {
+	.page-wrapper{
+		.page-header { 
+			.header.content::before {
+				content: "";
+				position: absolute;
+				left: 0;
+				right: 0;
+				.background_style (@header_background_var) when (@header_background_var = 1){
+					background-color: @header__bg-color;
+				}
+				.background_style (@header_background_var) when (@header_background_var = 2){
+					background-image: url("@{header_bg_image_var}");
+					background-position: @header__bg-position;
+					background-repeat: @header_bg_repeat_var;
+				}
+				.background_style (@header_background_var) when (@header_background_var = 3){
+					background-color: @header__bg-color;
+					background-image: url("@{header_bg_image_var}");
+					background-position: @header__bg-position;
+					background-repeat: @header_bg_repeat_var;
+				}	
+				.background_style (@header_background_var);
+			}
+		}
+	}
+}
+
+.page-wrapper.sticky {
+	.page-header { 
+		.header.content::before {
+			content: "";
+			position: absolute;
+			left: -100%;
+			right: -100%;
+			.background_style (@header_background_var) when (@header_background_var = 1){
+				background-color: @header__bg-color;
+			}
+			.background_style (@header_background_var) when (@header_background_var = 2){
+				background-image: url("@{header_bg_image_var}");
+				background-position: @header__bg-position;
+				background-repeat: @header_bg_repeat_var;
+			}
+			.background_style (@header_background_var) when (@header_background_var = 3){
+				background-color: @header__bg-color;
+				background-image: url("@{header_bg_image_var}");
+				background-position: @header__bg-position;
+				background-repeat: @header_bg_repeat_var;
+			}	
+			.background_style (@header_background_var);
+		}
+	}
+}
+
+
+
+
+/*
+	Style for Head Setting.
+*/
+
+// Head Background  => defined @head_background_var
+
+// Head Background Color => defined @head_background_color_var
+.head__bg-color(@param) when (iscolor(@param)) {
+    @head__bg-color: @head_background_color_var;
+}
+.head__bg-color(@param) when not (iscolor(@param)) {
+    @head__bg-color: #181818;
+}
+.head__bg-color(@head_background_color_var);
+
+// Head Background Image => defined @head_bg_image_var
+
+// Head Background Position => defined @head_bg_position_var
+.head__bg-position(@param) when (@param = null) {
+    @head__bg-position: 0 0;
+}
+.head__bg-position(@param) when not (@param = null) {
+    @head__bg-position: @head_bg_position_var;
+}
+.head__bg-position(@head_bg_position_var);
+
+// Head Background Repeat => defined @head_bg_repeat_var
+
+
+
+// Head text color => defined @head__text-color;
+.head__text-color(@param) when (iscolor(@param)) {
+    @head__text-color: @head_text_color_var;
+}
+.head__text-color(@param) when not (iscolor(@param)) {
+    @head__text-color: #999;
+}
+.head__text-color(@head_text_color_var);
+
+// Head Link color => defined @head__link-color;
+.head__link-color(@param) when (iscolor(@param)) {
+    @head__link-color: @head_link_color_var;
+}
+.head__link-color(@param) when not (iscolor(@param)) {
+    @head__link-color: #999;
+}
+.head__link-color(@head_link_color_var);
+
+// Head Link Hover color => defined @head__link__hover-color;
+.head__link__hover-color(@param) when (iscolor(@param)) {
+    @head__link__hover-color: @head_link_color_hover_var;
+}
+.head__link__hover-color(@param) when not (iscolor(@param)) {
+    @head__link__hover-color: #fff;
+}
+.head__link__hover-color(@head_link_color_hover_var);
+
+
+.page-header { 
+	.panel.wrapper {
+		.background_style (@head_background_var) when (@head_background_var = 1){
+		    background-color: @head__bg-color;
+		}
+		.background_style (@head_background_var) when (@head_background_var = 2){
+			background-image: url("@{head_bg_image_var}");
+			background-origin: @head__bg-position;
+			background-repeat:  @head_bg_repeat_var;
+		}
+		.background_style (@head_background_var) when (@head_background_var = 3){
+			background-color: @head__bg-color;
+			background-image: url("@{head_bg_image_var}");
+			background-origin: @head__bg-position;
+			background-repeat:  @head_bg_repeat_var;
+		}	
+		.background_style (@head_background_var);
+	  	color: @head__text-color;
+	}
+}
+
+ul.customer-services li a {
+	color: @head__link-color;
+	&:active,
+	&:focus,
+	&:hover {
+		color: @head__link__hover-color;
+	}
+}
+
+/*
+	Style for MainContent.
+*/
+
+// Main Background  => defined @main_background_var
+
+// Main Background Color => defined @main_background_color_var
+.main__bg-color(@param) when (iscolor(@param)) {
+    @main__bg-color: @main_background_color_var;
+}
+.main__bg-color(@param) when not (iscolor(@param)) {
+    @main__bg-color: #fff;
+}
+.main__bg-color(@main_background_color_var);
+
+// Main Background Image => defined @main_bg_image_var
+
+// Main Background Position => defined @main_bg_position_var
+.main__bg-position(@param) when (@param = null) {
+    @main__bg-position: 0 0;
+}
+.main__bg-position(@param) when not (@param = null) {
+    @main__bg-position: @main_bg_position_var;
+}
+.main__bg-position(@main_bg_position_var);
+
+// Main Background Repeat => defined @main_bg_repeat_var
+
+.page-wrapper {
+		.background_style (@main_background_var) when (@main_background_var = 1){
+	    background: @main__bg-color;
+	  }
+	  .background_style (@main_background_var) when (@main_background_var = 2){
+	    background: url("@{main_bg_image_var}") @main__bg-position @main_bg_repeat_var;
+	  }
+	  .background_style (@main_background_var) when (@main_background_var = 3){
+	    background: @main__bg-color url("@{main_bg_image_var}") @main__bg-position @main_bg_repeat_var;
+	  }	
+	  .background_style (@main_background_var);
+}
+
+
+/*
+	Style for Footer.
+*/
+
+// Footer Background  => defined @footer_background_var
+
+// Footer Background Color => defined @footer_background_color_var
+.footer__bg-color(@param) when (iscolor(@param)) {
+    @footer__bg-color: @footer_background_color_var;
+}
+.footer__bg-color(@param) when not (iscolor(@param)) {
+    @footer__bg-color: #181818;
+}
+.footer__bg-color(@footer_background_color_var);
+
+// Footer Background Image => defined @footer_bg_image_var
+
+// Footer Background Position => defined @footer_bg_position_var
+.footer__bg-position(@param) when (@param = null) {
+    @footer__bg-position: 0 0;
+}
+.footer__bg-position(@param) when not (@param = null) {
+    @footer__bg-position: @footer_bg_position_var;
+}
+.footer__bg-position(@footer_bg_position_var);
+
+// Footer Background Repeat => defined @footer_bg_repeat_var
+
+// Footer text color => defined @footer__text-color;
+.footer__text-color(@param) when (iscolor(@param)) {
+    @footer__text-color: @footer_text_color_var;
+}
+.footer__text-color(@param) when not (iscolor(@param)) {
+    @footer__text-color: #777;
+}
+.footer__text-color(@footer_text_color_var);
+
+// Footer Link color => defined @footer__link-color;
+.footer__link-color(@param) when (iscolor(@param)) {
+    @footer__link-color: @footer_link_color_var;
+}
+.footer__link-color(@param) when not (iscolor(@param)) {
+    @footer__link-color: #777;
+}
+.footer__link-color(@footer_link_color_var);
+
+// Footer Link Hover color => defined @footer__link__hover-color;
+.footer__link__hover-color(@param) when (iscolor(@param)) {
+    @footer__link__hover-color: @footer_link_color_hover_var;
+}
+.footer__link__hover-color(@param) when not (iscolor(@param)) {
+    @footer__link__hover-color: #f0141e;
+}
+.footer__link__hover-color(@footer_link_color_hover_var);
+
+.bots2,
+.pagefooter {
+		.background_style (@footer_background_var) when (@footer_background_var = 1){
+	    background: @footer__bg-color;
+	  }
+	  .background_style (@footer_background_var) when (@footer_background_var = 2){
+	    background: url("@{footer_bg_image_var}") @footer__bg-position @footer_bg_repeat_var;
+	  }
+	  .background_style (@footer_background_var) when (@footer_background_var = 3){
+	    background: @footer__bg-color url("@{footer_bg_image_var}") @footer__bg-position @footer_bg_repeat_var;
+	  }	
+	  .background_style (@footer_background_var);
+	  color: @footer__text-color;
+	  a {
+			color: @footer__link-color;
+			&:active,
+			&:focus,
+			&:hover {
+				color: @footer__link__hover-color;
+			}
+	  }
+}
+
+.bots2 {
+	.block-content {
+		ul li a {
+		  color: @footer__link-color;
+			&:active,
+			&:focus,
+			&:hover {
+				color: @footer__link__hover-color;
+			}
+		}
+	}
+}

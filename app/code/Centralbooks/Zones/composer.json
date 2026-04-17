@@ -1,0 +1,22 @@
+{
+    "name": "centralbooks/module-zones",
+    "description": "Zones",
+    "type": "magento2-module",
+    "license": "proprietary",
+    "authors": [
+        {
+            "name": "centralbooks",
+            "email": "ravikumar.jaiswal@centralbooks.in"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {},
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Centralbooks\\Zones\\": ""
+        }
+    }
+}

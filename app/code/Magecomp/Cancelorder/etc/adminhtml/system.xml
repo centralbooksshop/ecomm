@@ -1,0 +1,119 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../Magento/Backend/etc/system_file.xsd">
+    <system>
+        <tab id="magecomp" translate="label" sortOrder="100" class="magecomp-logo">
+            <label><![CDATA[]]></label>
+        </tab>
+        <section id="cancelordersection" translate="label" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Cancel Order</label>
+            <tab>magecomp</tab>
+            <resource>Magecomp_Cancelorder::cancelorder_config</resource>
+            <group id="cancelordergroup" translate="label" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Configuration</label>
+                <field id="active" translate="label" type="select" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Cancel Order</label>
+                    <source_model>Magento\Config\Model\Config\Source\Enabledisable</source_model>
+                </field>
+                <field id="cancelorderbuttontext" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Frontend Button Title</label>
+                    <validate>required-entry</validate>
+                    <depends><field id="active">1</field></depends>
+                </field>
+                <field id="cancelreasons" translate="label" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Order Cancellation Reasons</label>
+                    <frontend_model>Magecomp\Cancelorder\Block\Adminhtml\Cancelreasons</frontend_model>
+                    <backend_model>Magecomp\Cancelorder\Block\Adminhtml\Config\Backend\Cancelreasons</backend_model>
+                    <validate>required-entry</validate>
+                    <depends><field id="active">1</field></depends>
+                </field>
+                <field id="usecomment" translate="label" type="select" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable Cancellation Popup</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment><![CDATA[Option to enable Frontend Order cancellation popup. If it is enabled the extension will ask user to select reason for order cancellation.]]></comment>
+                    <depends><field id="active">1</field></depends>
+                </field>
+                <field id="formheadertext" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Cancellation Popup Title</label>
+                    <validate>required-entry</validate>
+                    <depends>
+                        <field id="active">1</field>
+                        <field id="usecomment">1</field>
+                    </depends>
+                </field>
+                <field id="formnote" translate="label" type="text" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Cancellation Popup Note</label>
+                    <validate>required-entry</validate>
+                    <comment><![CDATA[Enter note that you want to display under the popup.]]></comment>
+                    <depends>
+                        <field id="active">1</field>
+                        <field id="usecomment">1</field>
+                    </depends>
+                </field>
+                <field id="customer_groups" translate="label" type="multiselect" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Customer Groups</label>
+                    <source_model>Magecomp\Cancelorder\Model\Customergroups</source_model>
+                    <validate>validate-select</validate>
+                    <depends><field id="active">1</field></depends>
+                </field>
+                <field id="order_status" translate="label" type="multiselect" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Order Statuses</label>
+                    <source_model>Magecomp\Cancelorder\Model\Config\Source\Order\Status</source_model>
+                    <validate>validate-select</validate>
+                    <depends><field id="active">1</field></depends>
+                    <comment><![CDATA[If you want to select order status Processing then Credit Memo Gerenrate Autometically]]></comment>
+                </field>
+            </group>
+            <group id="autocancel" translate="label" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Auto Cancel Order</label>
+                <depends><field id="cancelordersection/cancelordergroup/active">1</field></depends>
+                <field id="autocancleorder" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Auto Cancel Order</label>
+                    <source_model>Magento\Config\Model\Config\Source\Enabledisable</source_model>
+                </field>
+                <field id="autoorder_status" translate="label" type="multiselect" sortOrder="20" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Auto Order Statuses</label>
+                    <source_model>Magecomp\Cancelorder\Model\Config\Source\Order\Autostatus</source_model>
+                    <validate>validate-select</validate>
+                    <depends><field id="autocancleorder">1</field></depends>
+                    <comment>
+                        <![CDATA[ Select the Order Statuses Based on Which You want to Auto Cancel the Order. ]]>
+                    </comment>
+                </field>
+                <field id="paymentmethod_time" translate="label" sortOrder="30" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Payment and Duration</label>
+                    <backend_model>Magento\Config\Model\Config\Backend\Serialized\ArraySerialized</backend_model>
+                    <frontend_model>Magecomp\Cancelorder\Block\Adminhtml\Paymenttime</frontend_model>
+                    <depends><field id="autocancleorder">1</field></depends>
+                    <comment>
+                        <![CDATA[ Select Payment Method and Time For Which You want to Auto Cancel the Order. ]]>
+                    </comment>
+                </field>
+            </group>
+            <group id="emailopt" translate="label" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Email Configuration</label>
+                <depends><field id="cancelordersection/cancelordergroup/active">1</field></depends>
+                <field id="emailto" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Send Emails To</label>
+                    <comment><![CDATA[Enter admin email to get notified of each Canceled order.]]></comment>
+                    <validate>required-entry validate-email</validate>
+                </field>
+                <field id="emailsender" translate="label" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Email Sender</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Identity</source_model>
+                </field>
+                <field id="template" translate="label comment" type="select" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Email Template for Admin</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                </field>
+                <field id="template_for_customer" translate="label comment" type="select" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Email Template For Customer</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                </field>
+                <field id="template_for_cron" translate="label comment" type="select" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Email Template For Autocancle</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

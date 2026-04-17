@@ -1,0 +1,519 @@
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="fedexlabel" translate="label" type="text" sortOrder="330" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>FedEx Shipping Labels</label>
+            <tab>sales</tab>
+            <resource>Infomodus_Fedexlabel::fedexlabel</resource>
+            <group id="checker" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1"
+                   showInStore="1">
+                <label>Checker</label>
+                <frontend_model>Infomodus\Fedexlabel\Block\Adminhtml\System\Config\Fieldset\Checker</frontend_model>
+            </group>
+            <group id="credentials" translate="label" type="text" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Your FedEx Account Credentials</label>
+                <field id="userid" translate="label comment" type="password" sortOrder="200" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Key</label>
+                    <comment>Required field</comment>
+                    <validate>required-entry</validate>
+                </field>
+                <field id="password" translate="label comment" type="password" sortOrder="300" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Password</label>
+                    <comment>Required field</comment>
+                    <validate>required-entry</validate>
+                </field>
+                <field id="shippernumber" translate="label comment" type="password" sortOrder="400" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Account ID</label>
+                    <comment>Required field</comment>
+                    <validate>required-entry</validate>
+                </field>
+                <field id="meter_number" translate="label comment" type="password" sortOrder="500" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Meter Number</label>
+                    <comment>Required field</comment>
+                    <validate>required-entry</validate>
+                </field>
+            </group>
+            <group id="testmode" translate="label" type="text" sortOrder="200" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Test Mode</label>
+                <field id="testing" translate="label" type="select" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Test mode</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+            </group>
+            <group id="packaging" translate="label" type="text" sortOrder="300" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Default Packaging Settings</label>
+                <field id="packagingreference_type" translate="label comment" type="select" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Customer Reference Type</label>
+                    <source_model>Infomodus\Fedexlabel\Model\Config\ReferenceType</source_model>
+                </field>
+                <field id="packagingreferencenumbervalue" translate="label comment" type="text" sortOrder="150" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Customer Reference Value</label>
+                </field>
+                <field id="frontend_multipackes_enable" translate="label" type="select" sortOrder="200" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Create packages for each Product in an Order?</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="packages_by_attribute_enable" translate="label" type="select" sortOrder="300" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Create packages by product attribute?</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="packages_by_attribute_code" translate="label" type="select" sortOrder="400" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Attribute</label>
+                    <source_model>Infomodus\Fedexlabel\Model\Config\ProductAttributes</source_model>
+                    <depends>
+                        <field id="packages_by_attribute_enable">1</field>
+                    </depends>
+                </field>
+                <field id="product_without_box" translate="label" type="select" sortOrder="500" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Select Attribute for Individual Shipping</label>
+                    <source_model>Infomodus\Fedexlabel\Model\Config\ProductAttributes</source_model>
+                </field>
+                <field id="multipackes_attribute_width" translate="label" type="select" sortOrder="700"
+                       showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Attribute for Product Width</label>
+                    <source_model>Infomodus\Fedexlabel\Model\Config\ProductAttributes</source_model>
+                </field>
+                <field id="multipackes_attribute_height" translate="label" type="select" sortOrder="800"
+                       showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Attribute for Product Height</label>
+                    <source_model>Infomodus\Fedexlabel\Model\Config\ProductAttributes</source_model>
+                </field>
+                <field id="multipackes_attribute_length" translate="label" type="select" sortOrder="900"
+                       showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Attribute for Product Length</label>
+                    <source_model>Infomodus\Fedexlabel\Model\Config\ProductAttributes</source_model>
+                </field>
+            </group>
+            <group id="shipping" translate="label" type="text" sortOrder="400" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Default Shipping Settings</label>
+                <field id="defaultshipmentmethod" translate="label" type="select" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Default Shipping Method for Domestic</label>
+                    <source_model>Infomodus\Fedexlabel\Model\Config\Fedexmethod</source_model>
+                </field>
+                <field id="defaultshipmentmethodworld" translate="label" type="select" sortOrder="200" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Default Shipping Method for International</label>
+                    <source_model>Infomodus\Fedexlabel\Model\Config\InternationalFedexmethod</source_model>
+                </field>
+                <field id="shipping_method_native" translate="label" type="select" sortOrder="300" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Use the compliance of methods</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="button_method_native" translate="label" type="button" sortOrder="350" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Manage compliance of methods</label>
+                    <frontend_model>Infomodus\Fedexlabel\Model\Config\ShippingSettingsLink</frontend_model>
+                    <depends>
+                        <field id="shipping_method_native">1</field>
+                    </depends>
+                </field>
+                <field id="dropoff" translate="label" type="select" sortOrder="400" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Dropoff</label>
+                    <source_model>Infomodus\Fedexlabel\Model\Config\Dropoff</source_model>
+                </field>
+                <field id="packagingtypecode" translate="label" type="select" sortOrder="450" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Packaging Type Code</label>
+                    <source_model>Infomodus\Fedexlabel\Model\Config\Fedexpackagecode</source_model>
+                </field>
+                <field id="defaultshipper" translate="label" type="select" sortOrder="500" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Default Shipper address</label>
+                    <source_model>Infomodus\Fedexlabel\Model\Config\Defaultaddress</source_model>
+                </field>
+                <field id="customer_residential" translate="label" type="select" sortOrder="600" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Residential Delivery</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Required field</comment>
+                    <validate>required-entry</validate>
+                </field>
+                <field id="addtrack" translate="label" type="select" sortOrder="800" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Add tracking number automatically</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="track_send" translate="label" type="select" sortOrder="810" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Send tracking number on customer email</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="addtrack">1</field>
+                    </depends>
+                </field>
+                <field id="saturday_delivery" translate="label" type="select" sortOrder="900" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Saturday Delivery</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+            </group>
+            <group id="return" translate="label" type="text" sortOrder="500" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Return Labels</label>
+                <field id="frontend_customer_return" translate="label" type="select" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Printing "Return label" by customer</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="refundaccess" translate="label" type="select" sortOrder="200" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Refund</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="frontend_customer_return">1</field>
+                    </depends>
+                </field>
+                <field id="refundaccess_admin_email" translate="label" type="select" sortOrder="250" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Send Emails To</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Identity</source_model>
+                    <depends>
+                        <field id="frontend_customer_return">1</field>
+                        <field id="refundaccess">1</field>
+                    </depends>
+                </field>
+                <field id="refundaccess_email_template" translate="label comment" type="select" sortOrder="260" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Email Template</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                    <depends>
+                        <field id="frontend_customer_return">1</field>
+                        <field id="refundaccess">1</field>
+                    </depends>
+                </field>
+                <field id="default_return" translate="label" type="select" sortOrder="300" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Create return label by default</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="default_return_amount" translate="label" type="text" sortOrder="400" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Order amount for default return label, from</label>
+                </field>
+                <field id="default_return_method" translate="label" type="select" sortOrder="500" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Default shipping method for return labels</label>
+                    <source_model>Infomodus\Fedexlabel\Model\Config\Fedexmethod</source_model>
+                </field>
+                <field id="default_return_method_inter" translate="label" type="select" sortOrder="600" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Default shipping method for international return labels</label>
+                    <source_model>Infomodus\Fedexlabel\Model\Config\InternationalFedexmethod</source_model>
+                </field>
+                <field id="packagingreference_type" translate="label comment" type="select" sortOrder="700" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Customer Reference Type</label>
+                    <source_model>Infomodus\Fedexlabel\Model\Config\ReferenceTypeRefund</source_model>
+                </field>
+                <field id="packagingreferencenumbervalue" translate="label comment" type="text" sortOrder="710" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Customer Reference Value</label>
+                </field>
+            </group>
+            <group id="weightdimension" translate="label" type="text" sortOrder="600" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Weight and Dimensions</label>
+                <field id="weightunits" translate="label" type="select" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Weight units</label>
+                    <source_model>Infomodus\Fedexlabel\Model\Config\Weight</source_model>
+                </field>
+                <field id="defweigth" translate="label" type="text" sortOrder="200" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Default weight</label>
+                </field>
+                <field id="packweight" translate="label" type="text" sortOrder="300" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Pack weight</label>
+                </field>
+                <field id="max_weight" translate="label" type="text" sortOrder="400" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Max weight of the package</label>
+                </field>
+                <field id="dimensions_type" translate="label" type="select" sortOrder="500" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Dimensions type</label>
+                    <source_model>Infomodus\Fedexlabel\Model\Config\DimensionsType</source_model>
+                </field>
+                <field id="default_dimensions_box" translate="label" type="select" sortOrder="600" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Default box</label>
+                    <source_model>Infomodus\Fedexlabel\Model\Config\Defaultdimensionsset</source_model>
+                    <depends>
+                        <field id="dimensions_type">1</field>
+                    </depends>
+                </field>
+                <field id="unitofmeasurement" translate="label" type="select" sortOrder="700" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Default unit of dimensions</label>
+                    <source_model>Infomodus\Fedexlabel\Model\Config\Unitofmeasurement</source_model>
+                </field>
+            </group>
+            <group id="ratepayment" translate="label" type="text" sortOrder="700" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Rates and Payments</label>
+                <field id="third_party" translate="label" type="select" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Payer</label>
+                    <source_model>Infomodus\Fedexlabel\Model\Config\Methodofpayment</source_model>
+                </field>
+                <field id="currencycode" translate="label comment" type="select" sortOrder="200" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Default Currency code</label>
+                    <source_model>Magento\Config\Model\Config\Source\Locale\Currency\All</source_model>
+                    <comment>Required field</comment>
+                    <validate>required-entry</validate>
+                </field>
+                <field id="cod" translate="label" type="select" sortOrder="500" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>COD (default)</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="cod_shipping_cost" translate="label" type="select" sortOrder="500" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Add shipping cost to COD</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="cod">1</field>
+                    </depends>
+                </field>
+                <field id="insured_automaticaly" translate="label" type="select" sortOrder="550" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Add Insured Value automatically</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="dytytaxinternational" translate="label" type="select" sortOrder="600" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Payment Conditions of Duties and Taxes for International shipments</label>
+                    <source_model>Infomodus\Fedexlabel\Model\Config\DutyAndTaxInternational</source_model>
+                </field>
+            </group>
+            <group id="quantum" translate="label" type="text" sortOrder="800" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Notification</label>
+                <field id="qvn" translate="label" type="select" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Notification Enable</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="qvn_code" translate="label" type="multiselect" sortOrder="200" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Notification Type</label>
+                    <source_model>Infomodus\Fedexlabel\Model\Config\Notificationcode</source_model>
+                </field>
+                <field id="qvn_email_shipper" translate="label" type="text" sortOrder="300" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Shipper Email</label>
+                </field>
+                <field id="adult" translate="label" type="select" sortOrder="350" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Delivery Signature</label>
+                    <source_model>Infomodus\Fedexlabel\Model\Config\DeliveryConfirmation</source_model>
+                </field>
+            </group>
+            <group id="printing" translate="label" type="text" sortOrder="900" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Printing Settings</label>
+                <field id="printer" translate="label comment" type="select" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Print Type</label>
+                    <source_model>Infomodus\Fedexlabel\Model\Config\PrintType</source_model>
+                </field>
+                <field id="printer_name" translate="label" type="text" sortOrder="150" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Name of printer</label>
+                    <validate>required-entry</validate>
+                    <comment>If you use more than one printer, enter them separated by commas</comment>
+                    <depends>
+                        <field separator="|" id="printer" negative="1">pdf|png</field>
+                    </depends>
+                </field>
+                <field id="automatic_printing" translate="label comment" type="select" sortOrder="160" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Automatic printing</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field separator="|" id="printer" negative="1">pdf|png</field>
+                    </depends>
+                </field>
+                <field id="automatic_printing_ip" translate="label comment" type="text" sortOrder="170" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>IP</label>
+                    <depends>
+                        <field separator="|" id="printer" negative="1">pdf|png</field>
+                    </depends>
+                </field>
+                <field id="automatic_printing_port" translate="label comment" type="text" sortOrder="180" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Port</label>
+                    <depends>
+                        <field separator="|" id="printer" negative="1">pdf|png</field>
+                    </depends>
+                </field>
+                <field id="printer_format_pdf" translate="label comment" type="select" sortOrder="200" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Format</label>
+                    <source_model>Infomodus\Fedexlabel\Model\Config\PrintFormatPdf</source_model>
+                    <depends>
+                        <field separator="|" id="printer">pdf|png</field>
+                    </depends>
+                </field>
+                <field id="printer_format_thermal" translate="label comment" type="select" sortOrder="200" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Format</label>
+                    <source_model>Infomodus\Fedexlabel\Model\Config\PrintFormatThermal</source_model>
+                    <depends>
+                        <field separator="|" id="printer" negative="1">pdf|png</field>
+                    </depends>
+                </field>
+                <field id="bulk_printing_all" translate="label comment" type="select" sortOrder="300" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Bulk printing</label>
+                    <source_model>Infomodus\Fedexlabel\Model\Config\BulkPrinting</source_model>
+                </field>
+                <field id="copies" translate="label comment" type="text" sortOrder="400" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Copies</label>
+                    <depends>
+                        <field separator="|" id="printer">pdf|png</field>
+                    </depends>
+                </field>
+            </group>
+            <group id="paperless" translate="label" type="text" sortOrder="2600" showInDefault="1" showInWebsite="1"
+                   showInStore="1">
+                <label>International Paperless Invoice</label>
+                <field id="enable" translate="label" type="select" sortOrder="50" showInDefault="1" showInWebsite="1"
+                       showInStore="1">
+                    <label>Electronic Trade Documents</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="type" translate="label" type="select" sortOrder="100" showInDefault="1" showInWebsite="1"
+                       showInStore="1">
+                    <label>Type</label>
+                    <source_model>Infomodus\Fedexlabel\Model\Config\PaperlessType</source_model>
+                    <depends>
+                        <field id="enable">1</field>
+                    </depends>
+                </field>
+                <field id="international_comments" translate="label" type="textarea" sortOrder="200" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>International Comments</label>
+                </field>
+                <field id="reasonforexport" translate="label" type="select" sortOrder="300" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Reason for export</label>
+                    <source_model>Infomodus\Fedexlabel\Model\Config\ReasonForExport</source_model>
+                </field>
+                <field id="reasonforexport_desc" translate="label" type="text" sortOrder="310" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Reason for export description</label>
+                    <depends>
+                        <field id="reasonforexport">OTHER</field>
+                    </depends>
+                </field>
+                <field id="reasonforexport_return" translate="label" type="select" sortOrder="320" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Reason for export for return</label>
+                    <source_model>Infomodus\Fedexlabel\Model\Config\ReasonForExport</source_model>
+                </field>
+                <field id="reasonforexport_return_desc" translate="label" type="text" sortOrder="340" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Reason for export description fot return</label>
+                    <depends>
+                        <field id="reasonforexport">OTHER</field>
+                    </depends>
+                </field>
+                <field id="purpose_of_shipment" translate="label" type="select" sortOrder="350" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Purpose of shipment</label>
+                    <source_model>Infomodus\Fedexlabel\Model\Config\PurposeOfShipment</source_model>
+                </field>
+                <field id="international_termsofsale" translate="label" type="select" sortOrder="400"
+                       showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Terms of sale</label>
+                    <source_model>Infomodus\Fedexlabel\Model\Config\TermsOfSale</source_model>
+                </field>
+                <field id="product_origin_country" translate="label" type="select" sortOrder="600" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Product origin country</label>
+                    <comment>Will be used, if Product has no Country of Manufacture attribute</comment>
+                    <source_model>Magento\Directory\Model\Config\Source\Country</source_model>
+                </field>
+                <field id="product_attribute_name" translate="label" type="select" sortOrder="700"
+                       showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Attribute for product description</label>
+                    <source_model>Infomodus\Fedexlabel\Model\Config\ProductAttributes</source_model>
+                </field>
+                <field id="product_attribute_harmonized" translate="label" type="select" sortOrder="800"
+                       showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Attribute for product harmonized code</label>
+                    <source_model>Infomodus\Fedexlabel\Model\Config\ProductAttributes</source_model>
+                </field>
+                <field id="signature" translate="label comment" type="image" sortOrder="900" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Signature</label>
+                    <comment>Your image must be in either the GIF or PNG format and no larger than 240 pixels wide by 25 pixels tall</comment>
+                    <backend_model>Infomodus\Fedexlabel\Model\Config\ImageUploader</backend_model>
+                    <base_url type="media" scope_info="1">fedexlabel</base_url>
+                </field>
+                <field id="letter_head" translate="label comment" type="image" sortOrder="1000" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Logo</label>
+                    <comment>Your image must be in either the GIF or PNG format and no larger than 700 pixels wide by 50 pixels tall</comment>
+                    <backend_model>Infomodus\Fedexlabel\Model\Config\LetterHeadUploader</backend_model>
+                    <base_url type="media" scope_info="1">fedexlabel</base_url>
+                </field>
+                <field id="soldto_address" translate="label comment" type="select" sortOrder="1100" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>SoldTo address</label>
+                    <source_model>Infomodus\Fedexlabel\Model\Config\SoldToAddress</source_model>
+                </field>
+            </group>
+            <group id="alcohol" translate="label" type="text" sortOrder="2610" showInDefault="1" showInWebsite="1"
+                   showInStore="1">
+                <label>Alcohol</label>
+                <field id="alcohol" translate="label" type="select" sortOrder="1000" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Alcohol</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="alcohol_gen_opt" translate="label" type="select" sortOrder="1100" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Alcohol Regulatory Labels</label>
+                    <source_model>Infomodus\Fedexlabel\Model\Config\AlcoholGenOpt</source_model>
+                    <depends>
+                        <field id="alcohol">1</field>
+                    </depends>
+                </field>
+                <field id="alcohol_recipient_type" translate="label" type="select" sortOrder="1200" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Alcohol Recipient Type</label>
+                    <source_model>Infomodus\Fedexlabel\Model\Config\AlcoholRecipientType</source_model>
+                    <depends>
+                        <field id="alcohol">1</field>
+                    </depends>
+                </field>
+            </group>
+            <group id="frontend_autocreate_label" translate="label" type="text" sortOrder="2700" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Automatic labels creation</label>
+                <field id="frontend_order_autocreate_label_enable" translate="label" type="select" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="apply_to" translate="label" type="multiselect" sortOrder="200" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Create labels for Shipping Methods</label>
+                    <source_model>Infomodus\Fedexlabel\Model\Config\FrontShippingMethod</source_model>
+                    <comment>Required field</comment>
+                    <validate>required-entry</validate>
+                    <depends>
+                        <field id="frontend_order_autocreate_label_enable">1</field>
+                    </depends>
+                </field>
+                <field id="orderstatus" translate="label" type="multiselect" sortOrder="300" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Create labels for Order Statuses</label>
+                    <source_model>Infomodus\Fedexlabel\Model\Config\OrderStatuses</source_model>
+                    <comment>Required field</comment>
+                    <validate>required-entry</validate>
+                    <depends>
+                        <field id="frontend_order_autocreate_label_enable">1</field>
+                    </depends>
+                </field>
+            </group>
+            <group id="bulk_create_labels" translate="label" type="text" sortOrder="2800" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Settings for bulk labels creation</label>
+                <comment>
+                    <![CDATA[<b>To create labels for many orders simultaneously:</b><br>
+                        On the order's page select all orders you want to create labels.<br>
+                        Then in Actions select "Create FedEx labels for orders" and click Submit.<br>
+                        Labels will be created for selected orders in accordance with these settings.<br><br>]]>
+                </comment>
+                <field id="bulk_shipping_methods" translate="label" type="select" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Create labels for Shipping Methods</label>
+                    <source_model>Infomodus\Fedexlabel\Model\Config\BulkSpecifyTypes</source_model>
+                </field>
+                <field id="apply_to" translate="label" type="multiselect" sortOrder="200" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Specify Shipping Methods</label>
+                    <source_model>Infomodus\Fedexlabel\Model\Config\FrontShippingMethod</source_model>
+                    <comment>Required field</comment>
+                    <validate>required-entry</validate>
+                    <depends>
+                        <field id="bulk_shipping_methods">specify</field>
+                    </depends>
+                </field>
+                <field id="bulk_order_status" translate="label" type="select" sortOrder="300" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Create labels for Order Statuses</label>
+                    <source_model>Infomodus\Fedexlabel\Model\Config\BulkSpecifyTypes</source_model>
+                </field>
+                <field id="orderstatus" translate="label" type="multiselect" sortOrder="400" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Specify Order Statuses</label>
+                    <source_model>Infomodus\Fedexlabel\Model\Config\OrderStatuses</source_model>
+                    <comment>Required field</comment>
+                    <validate>required-entry</validate>
+                    <depends>
+                        <field id="bulk_order_status">specify</field>
+                    </depends>
+                </field>
+            </group>
+            <group id="additional_settings" translate="label" type="text" sortOrder="2900" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Additional settings</label>
+                <field id="orderstatuses" translate="label" type="select" sortOrder="100" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Order status after label creation</label>
+                    <source_model>Infomodus\Fedexlabel\Model\Config\OrderCustomStatuses</source_model>
+                </field>
+                <field id="smart_hub_id" translate="label" type="select" sortOrder="200" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>SmartPost Hub Id</label>
+                    <source_model>Infomodus\Fedexlabel\Model\Config\SmartPostHubId</source_model>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

@@ -1,0 +1,53 @@
+.msgZipAvailabity{
+  border-color :	#c02230; 
+  background-color : #F5DAD3 ;
+  color: #c02230 ;
+    padding:  10px ;
+    text-align:  center ;
+    margin-top: 4px ;
+  }
+  .product-add-form:before{
+        display: none;
+    }
+    .fotorama__loaded--img{
+        /*display: none;*/
+    } 
+    .product-info-main{
+        display: none;
+    }
+    .display_none{
+        display: none;
+    }
+    #product_addtocart_form{
+        display: grid;
+    }
+    .page-product-bundle .product-details{
+        max-width: 100%;
+    }
+    .options-list h2{
+        float: right;
+        margin-top: 20px;
+        color: red;
+    }
+    #bundleSummary{
+        margin-top: 0;
+        width: 70%;
+    }
+    #product-options-wrapper .fieldset-bundle-options, .page-product-bundle .product-details .box-tocart{
+        margin: 0;
+    }
+    #bundleSummary input{
+        width: 50%;
+        margin-bottom: 10px;
+    }
+    #bundleSummary .bundle-info{
+            float: right;
+    padding: 0;
+    margin: 0;
+    }
+    #bundleSummary .col-md-12{
+        text-align: right;
+    }
+    .bundle-options-container .product-add-form .bundle-options-wrapper{
+        width: 70%;
+    }

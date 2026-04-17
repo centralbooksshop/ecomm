@@ -1,0 +1,10 @@
+<?php 
+$api = $block->getApiKey();
+$url = 'https://maps.googleapis.com/maps/api/js?key='.$api.'&libraries=places';
+?>
+
+<?php if (!isset($GLOBALS['google_maps_loaded'])): ?>
+    <script type="text/javascript" src="<?= $url; ?>"></script>
+    <?php $GLOBALS['google_maps_loaded'] = true; ?>
+<?php endif; ?>
+

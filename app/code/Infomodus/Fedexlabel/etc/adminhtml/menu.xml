@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2015 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Infomodus_Fedexlabel::base" title="Infomodus" module="Infomodus_Fedexlabel" sortOrder="30" parent="Magento_Sales::sales"
+             resource="Infomodus_Fedexlabel::fedexlabel_acl"/>
+        <add id="Infomodus_Fedexlabel::fedexlabel" title="FedEx Labels" module="Infomodus_Fedexlabel" sortOrder="10"
+             action="infomodus_fedexlabel/items/" parent="Infomodus_Fedexlabel::base"
+             resource="Infomodus_Fedexlabel::items"/>
+        <add id="Infomodus_Fedexlabel::account" title="FedEx Third party shippers" module="Infomodus_Fedexlabel"
+             sortOrder="20" action="infomodus_fedexlabel/account/" parent="Infomodus_Fedexlabel::base"
+             resource="Infomodus_Fedexlabel::account"/>
+        <add id="Infomodus_Fedexlabel::boxes" title="Fedex Boxes" module="Infomodus_Fedexlabel" sortOrder="40"
+             action="infomodus_fedexlabel/boxes/" parent="Infomodus_Fedexlabel::base"
+             resource="Infomodus_Fedexlabel::boxes_items"/>
+        <add id="Infomodus_Fedexlabel::address" title="Fedex Addresses" module="Infomodus_Fedexlabel" sortOrder="50"
+             action="infomodus_fedexlabel/address/" parent="Infomodus_Fedexlabel::base"
+             resource="Infomodus_Fedexlabel::address_items"/>
+    </menu>
+</config>

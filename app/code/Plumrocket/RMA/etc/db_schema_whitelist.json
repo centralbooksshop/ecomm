@@ -1,0 +1,214 @@
+{
+    "plumrocket_rma_text": {
+        "column": {
+            "value_id": true,
+            "entity_type_id": true,
+            "entity_id": true,
+            "store_id": true,
+            "value": true
+        },
+        "index": {
+            "PLUMROCKET_RMA_TEXT_ENTITY_TYPE_ID": true,
+            "PLUMROCKET_RMA_TEXT_STORE_ID": true
+        },
+        "constraint": {
+            "PLUMROCKET_RMA_TEXT_ENTITY_ID_ENTITY_TYPE_ID_STORE_ID": true,
+            "PLUMROCKET_RMA_TEXT_STORE_ID_STORE_STORE_ID": true,
+            "PRIMARY": true
+        }
+    },
+    "plumrocket_rma_store": {
+        "column": {
+            "entity_type_id": true,
+            "entity_id": true,
+            "store_id": true
+        },
+        "index": {
+            "PLUMROCKET_RMA_STORE_ENTITY_TYPE_ID": true,
+            "PLUMROCKET_RMA_STORE_STORE_ID": true
+        },
+        "constraint": {
+            "PLUMROCKET_RMA_STORE_ENTITY_ID_ENTITY_TYPE_ID_STORE_ID": true,
+            "PLUMROCKET_RMA_STORE_STORE_ID_STORE_STORE_ID": true
+        }
+    },
+    "plumrocket_rma_reason": {
+        "column": {
+            "id": true,
+            "title": true,
+            "status": true,
+            "payer": true,
+            "position": true
+        },
+        "index": {
+            "PLUMROCKET_RMA_REASON_PAYER": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "plumrocket_rma_condition": {
+        "column": {
+            "id": true,
+            "title": true,
+            "status": true,
+            "position": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "plumrocket_rma_resolution": {
+        "column": {
+            "id": true,
+            "title": true,
+            "status": true,
+            "position": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "plumrocket_rma_return_rule": {
+        "column": {
+            "id": true,
+            "title": true,
+            "status": true,
+            "website_id": true,
+            "customer_group_id": true,
+            "priority": true,
+            "resolution": true,
+            "conditions_serialized": true
+        },
+        "index": {
+            "PLUMROCKET_RMA_RETURN_RULE_PRIORITY": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "plumrocket_rma_response_template": {
+        "column": {
+            "id": true,
+            "title": true,
+            "status": true,
+            "message": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "plumrocket_rma_returns": {
+        "column": {
+            "entity_id": true,
+            "increment_id": true,
+            "order_id": true,
+            "manager_id": true,
+            "is_closed": true,
+            "status": true,
+            "shipping_label": true,
+            "note": true,
+            "code": true,
+            "created_at": true,
+            "updated_at": true,
+            "read_mark_at": true
+        },
+        "index": {
+            "PLUMROCKET_RMA_RETURNS_INCREMENT_ID_STATUS": true,
+            "PLUMROCKET_RMA_RETURNS_ORDER_ID": true,
+            "PLUMROCKET_RMA_RETURNS_MANAGER_ID": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "plumrocket_rma_returns_address": {
+        "column": {
+            "entity_id": true,
+            "parent_id": true,
+            "order_id": true,
+            "region_id": true,
+            "fax": true,
+            "region": true,
+            "postcode": true,
+            "lastname": true,
+            "street": true,
+            "city": true,
+            "telephone": true,
+            "country_id": true,
+            "firstname": true,
+            "prefix": true,
+            "middlename": true,
+            "suffix": true,
+            "company": true
+        },
+        "constraint": {
+            "PLUMROCKET_RMA_RETURNS_ADDRESS_PARENT_ID": true,
+            "FK_79272206E7532D3A4335E900034F10BC": true,
+            "PRIMARY": true
+        }
+    },
+    "plumrocket_rma_returns_item": {
+        "column": {
+            "entity_id": true,
+            "parent_id": true,
+            "order_item_id": true,
+            "reason_id": true,
+            "condition_id": true,
+            "resolution_id": true,
+            "qty_purchased": true,
+            "qty_requested": true,
+            "qty_authorized": true,
+            "qty_received": true,
+            "qty_approved": true,
+            "created_at": true,
+            "updated_at": true
+        },
+        "index": {
+            "PLUMROCKET_RMA_RETURNS_ITEM_PARENT_ID": true
+        },
+        "constraint": {
+            "FK_BD88A77BA3176C15F567D2157495F77B": true,
+            "PRIMARY": true
+        }
+    },
+    "plumrocket_rma_returns_track": {
+        "column": {
+            "entity_id": true,
+            "parent_id": true,
+            "type": true,
+            "carrier_code": true,
+            "track_number": true,
+            "created_at": true,
+            "updated_at": true
+        },
+        "index": {
+            "PLUMROCKET_RMA_RETURNS_TRACK_PARENT_ID": true
+        },
+        "constraint": {
+            "FK_64A128462888E979F5FCD64F6D22F3E2": true,
+            "PRIMARY": true
+        }
+    },
+    "plumrocket_rma_returns_message": {
+        "column": {
+            "entity_id": true,
+            "parent_id": true,
+            "from_id": true,
+            "type": true,
+            "name": true,
+            "text": true,
+            "files": true,
+            "is_system": true,
+            "is_internal": true,
+            "created_at": true,
+            "updated_at": true
+        },
+        "index": {
+            "PLUMROCKET_RMA_RETURNS_MESSAGE_PARENT_ID": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    }
+}

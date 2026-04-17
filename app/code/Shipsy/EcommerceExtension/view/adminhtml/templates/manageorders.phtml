@@ -1,0 +1,56 @@
+<?php
+    $organisation_id = $this->scopeConfig->getValue('configuration/services/organisation_id', \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
+    $baseUrl = $block->getBaseUrlFromHelper();
+    $shopUrl = $block->getBaseUrl();
+    $response = $block->getAwbNumber();
+if (array_key_exists('data', $response) && !empty($response['data'])) {
+    $orderDetails = $response['data'];
+    ?>
+<div class="table-responsive">
+    <table class="table table-hover"> 
+        <thead class="thead-dark">
+        <tr> 
+            <th scope="col">#</th> 
+            <th scope="col">AWB Number</th> 
+            <th scope="col">Type</th>
+            <th scope="col">Status</th>
+            <th scope="col">Pieces</th>
+            <th scope="col">Shipping Label</th>
+            <th scope="col">Cancel</th>
+        </tr> 
+        </thead>
+        <tbody>
+        <?php foreach ($orderDetails as $magentoOrderNumber => $singleOrderDetail): ?>
+                <?php foreach ($singleOrderDetail as $key => $data): ?>
+                <tr scope="row">
+                    <td><?php echo $magentoOrderNumber ?></td>
+                    <td><?php echo $data['reference_number'] ?></td>
+                    <td><?php echo $data['consignment_type'] ?></td>
+                    <td><?php echo $data['status'] ?></td>
+                    <td><?php echo $data['num_pieces'] ?></td>
+                    <?php if ($data['status'] !== 'cancelled') { ?>
+                     <td><input class="btn btn-primary" type="button" id="label<?php echo $data['reference_number'] ?>" value="GET" data-mage-init='{"Shipsy_EcommerceExtension/js/getLabel":{"referenceNumber":"<?php echo $data['reference_number'] ?>", "baseUrl":"<?php echo $baseUrl ?>", "shopUrl":"<?php echo $shopUrl ?>", "orgId":"<?php echo $organisation_id ?>"}}'/></td>
+                    <td><input class="btn btn-danger" type="button" id="cancel<?php echo $data['reference_number'] ?>" value="CANCEL" data-mage-init='{"Shipsy_EcommerceExtension/js/cancelConsignment":{"referenceNumber":"<?php echo $data['reference_number'] ?>", "baseUrl":"<?php echo $baseUrl ?>", "shopUrl":"<?php echo $shopUrl ?>", "orgId":"<?php echo $organisation_id ?>"}}'/></td>
+                    <?php } else { ?>
+                    <td></td>
+                    <td><input disabled class="btn btn-outline-danger" type="button" id="cancel<?php echo $data['reference_number'] ?>" value="CANCELLED"/></td>
+                    <?php } ?>
+                </tr>
+            <?php endforeach; ?>
+            <?php endforeach; ?>
+        </tbody>
+    </table> 
+</div>
+<div id="popup-modal" style="display:none;">
+    <h3> Are you sure you want to cancel the order ? </h3>
+</div>
+ 
+    <?php
+} elseif (array_key_exists('data', $response) && empty($response['data'])) { ?>
+        <div class="alert alert-danger" role="alert">No AWB Numbers found</div>
+    <?php
+} elseif (array_key_exists('error', $response)) { ?>
+        <div class="alert alert-danger" role="alert"><?php echo $response['error']['message']?></div>
+    <?php
+}
+?>

@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Cron:etc/crontab.xsd">
+    <group id="cbopayments">
+        <job name="cbo_orders_payment_sync"
+             instance="Centralbooks\OrderDashboards\Cron\OrdersPaymentSyncJob" method="execute">
+            <config_path>cbo/payments/orders_payment_sync_cron</config_path>
+        </job>
+		<job name="cbo_orders_payment_failed"
+             instance="Centralbooks\OrderDashboards\Cron\OrdersPaymentFailedJob" method="execute">
+            <config_path>cbo/payments/orders_payment_failed_cron</config_path>
+        </job>
+    </group>
+</config>

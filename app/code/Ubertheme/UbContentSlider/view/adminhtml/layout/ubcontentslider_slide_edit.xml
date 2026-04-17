@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2016 Ubertheme.com All rights reserved.
+
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="admin-2columns-left" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="content">
+            <block class="Ubertheme\UbContentSlider\Block\Adminhtml\Slide\Edit" name="ubcontentslider_slide_edit"/>
+        </referenceContainer>
+        <referenceContainer name="left">
+            <block class="Ubertheme\UbContentSlider\Block\Adminhtml\Slide\Edit\Tabs" name="ubcontentslider_slide_edit_tabs">
+                <block class="Ubertheme\UbContentSlider\Block\Adminhtml\Slide\Edit\Tab\Main" name="ubcontentslider_slide_edit_tab_main"/>
+                <action method="addTab">
+                    <argument name="name" xsi:type="string">main_section</argument>
+                    <argument name="block" xsi:type="string">ubcontentslider_slide_edit_tab_main</argument>
+                </action>
+            </block>
+        </referenceContainer>
+    </body>
+</page>

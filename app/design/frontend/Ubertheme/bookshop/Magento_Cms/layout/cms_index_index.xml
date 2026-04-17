@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="topsl1.container">
+          <container name="sections.panel.topsl1" label="" htmlTag="div" htmlClass="container">
+              <container name="sections.panel.topsl1.content" label="Ubertheme - Hero Container" as="sections.panel.topsl1.content" htmlTag="div" htmlClass="inner" />
+          </container>
+        </referenceContainer>
+        <referenceContainer name="topsl2.container">
+          <container name="sections.panel.topsl2" label="" htmlTag="div" htmlClass="container">
+              <container name="sections.panel.topsl2.content" label="Ubertheme - Featured Products Container" as="sections.panel.topsl2.content" htmlTag="div" htmlClass="inner" />
+          </container>
+        </referenceContainer>
+        <referenceContainer name="bots1.container">
+            <container name="sections.panel.bots1" label="" htmlTag="div" htmlClass="container">
+                <container name="sections.panel.bots1.content" label="Ubertheme - Brands Container" as="sections.panel.bots1.content" htmlTag="div" htmlClass="inner" />
+            </container>
+        </referenceContainer>
+    </body>
+</page>

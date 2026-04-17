@@ -1,0 +1,6 @@
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                 xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="sales_order" resource="default" engine="innodb" comment="sales order">
+        <column xsi:type="varchar" name="txnid" nullable="false" length="255" comment="Txn Id"/>
+    </table>
+</schema>

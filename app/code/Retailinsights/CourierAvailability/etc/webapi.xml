@@ -1,0 +1,33 @@
+<?xml version="1.0" ?>
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Webapi:etc/webapi.xsd">
+	<route url="/V1/retailinsights-courieravailability/courier" method="POST">
+		<service class="Retailinsights\CourierAvailability\Api\CourierRepositoryInterface" method="save"/>
+		<resources>
+			<resource ref="Retailinsights_CourierAvailability::Courier_save"/>
+		</resources>
+	</route>
+	<route url="/V1/retailinsights-courieravailability/courier/search" method="GET">
+		<service class="Retailinsights\CourierAvailability\Api\CourierRepositoryInterface" method="getList"/>
+		<resources>
+			<resource ref="Retailinsights_CourierAvailability::Courier_view"/>
+		</resources>
+	</route>
+	<route url="/V1/retailinsights-courieravailability/courier/:courierId" method="GET">
+		<service class="Retailinsights\CourierAvailability\Api\CourierRepositoryInterface" method="get"/>
+		<resources>
+			<resource ref="Retailinsights_CourierAvailability::Courier_view"/>
+		</resources>
+	</route>
+	<route url="/V1/retailinsights-courieravailability/courier/:courierId" method="PUT">
+		<service class="Retailinsights\CourierAvailability\Api\CourierRepositoryInterface" method="save"/>
+		<resources>
+			<resource ref="Retailinsights_CourierAvailability::Courier_update"/>
+		</resources>
+	</route>
+	<route url="/V1/retailinsights-courieravailability/courier/:courierId" method="DELETE">
+		<service class="Retailinsights\CourierAvailability\Api\CourierRepositoryInterface" method="deleteById"/>
+		<resources>
+			<resource ref="Retailinsights_CourierAvailability::Courier_delete"/>
+		</resources>
+	</route>
+</routes>

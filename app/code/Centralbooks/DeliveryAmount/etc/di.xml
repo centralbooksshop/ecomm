@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+	<!--	<type name="Magento\Theme\Model\View\Design"> 
+     		<arguments> 
+          		<argument name="themes" xsi:type="array"> 
+				<item name="adminhtml" xsi:type="string">Ubertheme/bookshop</item> 
+        	</argument> 
+     	</arguments> 
+	</type> -->
+
+			<!--<preference for="Webkul\DeliveryBoy\Block\Adminhtml\ProcessCBOShippingOrders" type="Centralbooks\DeliveryAmount\Block\Adminhtml\ProcessCBOShippingOrders" /> -->
+
+	    <preference for="Webkul\DeliveryBoy\Controller\Adminhtml\Orders\AssignDeliveryboy" type="Centralbooks\DeliveryAmount\Controller\Adminhtml\Orders\AssignDeliveryboy" />
+
+	    <type name="Magento\Sales\Controller\Adminhtml\Order\AddComment">
+    		<plugin name="centralbooks_deliveryamount_status_change" type="Centralbooks\DeliveryAmount\Plugin\ControllerOrderCommentPlugin"/>
+	    </type>
+    		
+	    
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="deliveryamount_delivery_listing_data_source" xsi:type="string">Centralbooks\DeliveryAmount\Model\ResourceModel\Amount\Grid\Collection</item>
+       		<item name="deliveryamount_transactions_listing_data_source" xsi:type="string">Centralbooks\DeliveryAmount\Model\ResourceModel\Transactions\Grid\Collection</item>	
+	    </argument>
+        </arguments>
+    </type>
+        <virtualType name="Centralbooks\DeliveryAmount\Model\ResourceModel\Amount\Grid\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">centralbooks_zones_amount</argument>
+            <argument name="resourceModel" xsi:type="string">Centralbooks\DeliveryAmount\Model\ResourceModel\Amount</argument>
+        </arguments>
+    </virtualType>
+
+    <virtualType name="Centralbooks\DeliveryAmount\Model\ResourceModel\Transactions\Grid\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">centralbooks_transactions</argument>
+            <argument name="resourceModel" xsi:type="string">Centralbooks\DeliveryAmount\Model\ResourceModel\Transactions</argument>
+        </arguments>
+    </virtualType> 
+</config>

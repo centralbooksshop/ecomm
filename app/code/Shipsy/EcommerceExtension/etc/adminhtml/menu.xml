@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+      <add id="Shipsy_EcommerceExtension::Menu" title="Dtdc Configuration" translate="title" module="Shipsy_EcommerceExtension" sortOrder="50" resource="Shipsy_EcommerceExtension::setup"/>
+      <add id="Shipsy_EcommerceExtension::setup" title="Setup" translate="title" module="Shipsy_EcommerceExtension" parent="Shipsy_EcommerceExtension::Menu" sortOrder="50" dependsOnModule="Shipsy_EcommerceExtension" action="softdatasync/setup" resource="Shipsy_EcommerceExtension::setup"/>
+      <add id="Shipsy_EcommerceExtension::series" title="Virtual Series" translate="title" module="Shipsy_EcommerceExtension" parent="Shipsy_EcommerceExtension::Menu" sortOrder="100" dependsOnModule="Shipsy_EcommerceExtension" action="softdatasync/virtualseries" resource="Shipsy_EcommerceExtension::series"/>
+
+	   <!-- <add id="Shipsy_EcommerceExtension::service" title="Service Master Import" translate="title" module="Shipsy_EcommerceExtension" parent="Shipsy_EcommerceExtension::Menu" sortOrder="101" dependsOnModule="Shipsy_EcommerceExtension" action="softdatasync/service/getservicetypes" resource="Shipsy_EcommerceExtension::service"/> -->
+
+	   <add id="Shipsy_EcommerceExtension::menu"
+             title="Service Master"
+             module="Shipsy_EcommerceExtension"
+             sortOrder="20"
+             parent="Shipsy_EcommerceExtension::Menu"
+             action="softdatasync/service/index" resource="Shipsy_EcommerceExtension::service"/>
+    </menu>
+</config>

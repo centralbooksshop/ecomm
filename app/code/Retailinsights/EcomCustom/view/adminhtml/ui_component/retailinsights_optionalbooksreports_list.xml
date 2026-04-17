@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+   <argument name="data" xsi:type="array">
+      <item name="js_config" xsi:type="array">
+         <item name="provider" xsi:type="string">retailinsights_optionalbooksreports_list.retailinsights_optionalbooksreports_list_data_source</item>
+         <item name="deps" xsi:type="string">retailinsights_optionalbooksreports_list.retailinsights_optionalbooksreports_list_data_source</item>
+      </item>
+      <item name="spinner" xsi:type="string">retailinsights_optionalbooksreports_columns</item>
+   </argument>
+
+    <dataSource name="retailinsights_optionalbooksreports_list_data_source">
+        <argument name="dataProvider" xsi:type="configurableObject">
+            <argument name="class" xsi:type="string">Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider</argument>
+            <argument name="name" xsi:type="string">retailinsights_optionalbooksreports_list_data_source</argument>
+            <argument name="primaryFieldName" xsi:type="string">entity_id</argument>
+            <argument name="requestFieldName" xsi:type="string">entity_id</argument>
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="update_url" xsi:type="url" path="mui/index/render"/>
+                    <item name="storageConfig" xsi:type="array">
+                        <item name="indexField" xsi:type="string">entity_id</item>
+                    </item>
+                </item>
+            </argument>
+        </argument>
+        <argument name="data" xsi:type="array">
+            <item name="js_config" xsi:type="array">
+                <item name="component" xsi:type="string">Magento_Ui/js/grid/provider</item>
+            </item>
+        </argument>
+    </dataSource>
+
+   <!-- extra page top items -->
+   <container name="listing_top">
+      <argument name="data" xsi:type="array">
+         <item name="config" xsi:type="array">
+            <item name="template" xsi:type="string">ui/grid/toolbar</item>
+            <item name="stickyTmpl" xsi:type="string">ui/grid/sticky/toolbar</item>
+         </item>
+      </argument>
+      <bookmark name="bookmarks">
+         <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+               <item name="storageConfig" xsi:type="array">
+                  <item name="namespace" xsi:type="string">retailinsights_optionalbooksreports_list</item>
+               </item>
+            </item>
+         </argument>
+      </bookmark>
+      <component name="columns_controls">
+         <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+               <item name="columnsData" xsi:type="array">
+                  <item name="provider" xsi:type="string">retailinsights_optionalbooksreports_list.retailinsights_optionalbooksreports_list.retailinsights_optionalbooksreports_columns</item>
+               </item>
+               <item name="component" xsi:type="string">Magento_Ui/js/grid/controls/columns</item>
+               <item name="displayArea" xsi:type="string">dataGridActions</item>
+            </item>
+         </argument>
+      </component>
+      <exportButton name="export_button">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="selectProvider" xsi:type="string">retailinsights_optionalbooksreports_list.retailinsights_optionalbooksreports_list.retailinsights_optionalbooksreports_columns.ids</item>
+                </item>
+            </argument>
+        </exportButton>
+      <filters name="listing_filters">
+         <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+               <item name="columnsProvider" xsi:type="string">retailinsights_optionalbooksreports_list.retailinsights_optionalbooksreports_list.retailinsights_optionalbooksreports_columns</item>
+               <item name="storageConfig" xsi:type="array">
+                  <item name="provider" xsi:type="string">retailinsights_optionalbooksreports_list.retailinsights_optionalbooksreports_list.listing_top.bookmarks</item>
+                  <item name="namespace" xsi:type="string">current.filters</item>
+               </item>
+               <item name="templates" xsi:type="array">
+                  <item name="filters" xsi:type="array">
+                     <item name="select" xsi:type="array">
+                        <item name="component" xsi:type="string">Magento_Ui/js/form/element/ui-select</item>
+                        <item name="template" xsi:type="string">ui/grid/filters/elements/ui-select</item>
+                     </item>
+                  </item>
+               </item>
+               <item name="childDefaults" xsi:type="array">
+                  <item name="provider" xsi:type="string">retailinsights_optionalbooksreports_list.retailinsights_optionalbooksreports_list.listing_top.listing_filters</item>
+                  <item name="imports" xsi:type="array">
+                     <item name="visible" xsi:type="string">retailinsights_optionalbooksreports_list.retailinsights_optionalbooksreports_list.retailinsights_optionalbooksreports_columns.${ $.index }:visible</item>
+                  </item>
+               </item>
+            </item>
+            <item name="observers" xsi:type="array">
+               <item name="column" xsi:type="string">column</item>
+            </item>
+         </argument>
+         <filterSelect name="store_id">
+            <argument name="optionsProvider" xsi:type="configurableObject">
+               <argument name="class" xsi:type="string">Magento\Cms\Ui\Component\Listing\Column\Cms\Options</argument>
+            </argument>
+            <argument name="data" xsi:type="array">
+               <item name="config" xsi:type="array">
+                  <item name="provider" xsi:type="string">${ $.parentName }</item>
+                  <item name="imports" xsi:type="array">
+                     <item name="visible" xsi:type="string">componentType = column, index = ${ $.index }:visible</item>
+                  </item>
+                  <item name="dataScope" xsi:type="string">store_id</item>
+                  <item name="label" xsi:type="string" translate="true">Store View</item>
+                  <item name="captionValue" xsi:type="string">0</item>
+               </item>
+            </argument>
+         </filterSelect>
+      </filters>
+      <paging name="listing_paging">
+         <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+               <item name="storageConfig" xsi:type="array">
+                  <item name="provider" xsi:type="string">retailinsights_optionalbooksreports_list.retailinsights_optionalbooksreports_list.listing_top.bookmarks</item>
+                  <item name="namespace" xsi:type="string">current.paging</item>
+               </item>
+               <item name="selectProvider" xsi:type="string">retailinsights_optionalbooksreports_list.retailinsights_optionalbooksreports_list.retailinsights_optionalbooksreports_columns.ids</item>
+            </item>
+         </argument>
+      </paging>
+   </container>
+
+   <columns name="retailinsights_optionalbooksreports_columns">
+
+	    <selectionsColumn name="ids">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="resizeEnabled" xsi:type="boolean">false</item>
+                    <item name="resizeDefaultWidth" xsi:type="string">55</item>
+                    <item name="indexField" xsi:type="string">entity_id</item>
+                </item>
+            </argument>
+        </selectionsColumn>
+
+	    <column name="increment_id">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Increment Id</item>
+                    <item name="sortOrder" xsi:type="number">0</item>
+                </item>
+              </argument>
+        </column>
+		<column name="student_name">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Student Name</item>
+                </item>
+            </argument>
+        </column>
+        <column name="roll_no">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Student Number</item>
+                </item>
+            </argument>
+        </column>
+
+		<column name="school_name">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">School Name</item>
+                </item>
+            </argument>
+        </column>
+        <column name="school_code">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">School Code</item>
+                </item>
+            </argument>
+        </column>
+		
+        <column name="customer_email">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Customer Email</item>
+                </item>
+            </argument>
+        </column>
+
+		<column name="customer_firstname">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Customer First Name</item>
+                </item>
+            </argument>
+        </column>
+
+		<column name="customer_lastname">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Customer Last Name</item>
+                </item>
+            </argument>
+        </column>
+
+		<column name="telephone">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Phone Number</item>
+                    <item name="sortOrder" xsi:type="number">2</item>
+                </item>
+            </argument>
+        </column>
+		<column name="created_at" class="Magento\Ui\Component\Listing\Columns\Date" component="Magento_Ui/js/grid/columns/date">
+		  <settings>
+			<filter>dateRange</filter>
+			<dataType>date</dataType>
+			<label translate="true">Order Date</label>
+			<sorting>desc</sorting>
+		  </settings>
+		</column>
+
+		<column name="entity_id">
+		            <argument name="data" xsi:type="array">
+		                <item name="config" xsi:type="array">
+		                    <item name="filter" xsi:type="string">text</item>
+		                    <item name="label" xsi:type="string" translate="true">Order Id</item>
+		                    <item name="sortOrder" xsi:type="number">0</item>
+		                </item>
+		            </argument>
+		        </column>
+
+		<column name="product_purchased">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="bodyTmpl" xsi:type="string">ui/grid/cells/html</item>
+                    <item name="filter" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Product Purchased</item>
+                </item>
+            </argument>
+        </column>
+
+	    <!-- <column name="name">
+		            <argument name="data" xsi:type="array">
+		                <item name="config" xsi:type="array">
+		                    <item name="bodyTmpl" xsi:type="string">ui/grid/cells/html</item>
+		                    <item name="filter" xsi:type="string">text</item>
+		                    <item name="label" xsi:type="string" translate="true">Optional Selected Books</item>
+		                </item>
+		            </argument>
+		        </column> -->
+
+		<column name="optional" class="Retailinsights\EcomCustom\Ui\Component\Listing\Columns\ViewAction">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <!-- <item name="filter" xsi:type="string">text</item> -->
+                    <item name="label" xsi:type="string" translate="true">Optional Selected Books</item>
+                </item>
+            </argument>
+        </column>
+
+		<column name="status">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+				    <item name="filter" xsi:type="string">select</item>
+                    <item name="label" xsi:type="string" translate="true">Status</item>
+                    <item name="dataType" xsi:type="string">select</item>
+                    <item name="component" xsi:type="string">Magento_Ui/js/grid/columns/select</item>
+                    <item name="bodyTmpl" xsi:type="string">ui/grid/cells/html</item>
+                </item>
+                <item name="options" xsi:type="object">Magento\Sales\Ui\Component\Listing\Column\Status\Options</item>
+            </argument>
+        </column>
+
+		<column name="parent_split_order">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Split Parent Order Id</item>
+                    <item name="sortOrder" xsi:type="number">3</item>
+                </item>
+            </argument>
+        </column>
+	</columns>
+</listing>

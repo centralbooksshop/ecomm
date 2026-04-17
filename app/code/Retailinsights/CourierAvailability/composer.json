@@ -1,0 +1,22 @@
+{
+    "name": "retailinsights/module-courieravailability",
+    "description": "Retailinsights",
+    "type": "magento2-module",
+    "license": "GPL-3.0",
+    "authors": [
+        {
+            "name": "ravi jaiswal",
+            "email": "ravikumar.jaiswal@centralbooks.in"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {},
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Retailinsights\\CourierAvailability\\": ""
+        }
+    }
+}

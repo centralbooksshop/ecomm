@@ -1,0 +1,22 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+?>
+<?php $_item = $block->getItem() ?>
+<?php
+ $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+ $helperData = $objectManager->get('\Retailinsights\Backorders\Helper\Data');
+ ?>
+<tr class="border">
+    <td class="col-product"><?= $block->getColumnHtml($_item, 'name') ?>
+    	<?php if($helperData->isBackordred($_item)): ?>
+            <div style="color: red;"><?php echo $this->helper('\Retailinsights\Backorders\Helper\Data')->getBackOrderMessage('admin_text'); ?></div> 
+            <?php endif; ?>
+    </td>
+    <td class="col-qty last"><?= /* @escapeNotVerified */ $_item->getQty()*1 ?></td>
+</tr>

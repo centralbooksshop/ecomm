@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../Magento/Backend/etc/menu.xsd">
+    <menu>
+        <add id="Centralbooks_ClickpostCustom::ProcessClickpostOrder" title="Process Clickpost Orders" module="Centralbooks_ClickpostCustom" sortOrder="80" parent="Centralbooks_ClickpostExtension::Menu" action="clickpostcustom/processclickpostorder" resource="Centralbooks_ClickpostCustom::ProcessClickpostOrder"/>
+        
+		<add id="Centralbooks_ClickpostCustom::ProcessedClickpostOrdersList" title="Processed Clickpost Orders List" module="Centralbooks_ClickpostCustom" sortOrder="90" parent="Centralbooks_ClickpostExtension::Menu" action="clickpostcustom/processedclickpostorderslist" resource="Centralbooks_ClickpostCustom::ProcessedClickpostOrdersList"/>
+        
+    </menu>
+</config>

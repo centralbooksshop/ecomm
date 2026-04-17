@@ -1,0 +1,94 @@
+<?php $_entity = $block->getEntity() ?>
+<?php $_order = $block->getOrder() ?>
+<?php
+
+$statusDropdown = $block->statusDropdown();
+$rmareasonDropdown = $block->getRmareasonOptions();
+$rmaResolutionDropdown = $block->getRmaResolutionOptions();
+$rmaConditionDropdown = $block->getRmaConditionOptions();
+
+$entity_id = $_entity->getEntityId();
+$reason_id = $_entity->getReasonId();
+$condition_id = $_entity->getConditionId();
+$resolution_id = $_entity->getResolutionId();
+
+//echo '<pre>';print_r($rmareasonDropdown);
+?>
+
+<div class="admin__page-section-item-title">
+    <span class="title">
+        <?php echo __('Items To Return Info') ?>
+    </span>
+</div>
+<div class="admin__page-section-item-content">
+    <table class="admin__table-secondary order-information-table">	
+        <tr>
+            <th><?php /* @escapeNotVerified */ echo __('Return Reason') ?></th>
+			<td>
+			<select id="reason_id" name="reason_id">
+			<?php if(!empty($reason_id)) { ?>
+			<?php foreach($rmareasonDropdown as $key => $value){ ?>
+				<option <?php if($_entity->getReasonId() == $value['value']){echo 'selected=selected';}?> value="<?php echo $value['value'];?>"><?php echo $value['label'];?></option> 
+			<?php }
+			} else { ?>
+				<option value=""><?= $block->escapeHtml(__('Please Select')) ?></option>
+				<?php foreach($rmareasonDropdown as $key => $value){ ?>
+				<option value="<?php echo $value['value'];?>"><?php echo $value['label'];?></option> 
+			<?php }
+			} ?>
+			
+			</select>
+            </td>
+        </tr>
+
+		<tr>
+            <th><?php /* @escapeNotVerified */ echo __('Item Condition') ?></th>
+			<td>
+			<select id="condition_id" name="condition_id">
+			<?php if(!empty($condition_id)) { ?>
+			<?php foreach($rmaConditionDropdown as $key => $value){ ?>
+				<option <?php if($_entity->getConditionId() == $value['value']){echo 'selected=selected';}?> value="<?php echo $value['value'];?>"><?php echo $value['label'];?></option> 
+			<?php }
+			} else { ?>
+				<option value=""><?= $block->escapeHtml(__('Please Select')) ?></option>
+				<?php foreach($rmaConditionDropdown as $key => $value){ ?>
+				<option value="<?php echo $value['value'];?>"><?php echo $value['label'];?></option> 
+			<?php }
+			} ?>
+			
+			</select>
+            </td>
+        </tr>
+
+		<tr>
+            <th><?php /* @escapeNotVerified */ echo __('Resolution') ?></th>
+			<td>
+			<select id="resolution_id" name="resolution_id">
+			<?php if(!empty($resolution_id)) { ?>
+			<?php foreach($rmaResolutionDropdown as $key => $value){ ?>
+				<option <?php if($_entity->getResolutionId() == $value['value']){echo 'selected=selected';}?> value="<?php echo $value['value'];?>"><?php echo $value['label'];?></option> 
+			<?php }
+			} else { ?>
+				<option value=""><?= $block->escapeHtml(__('Please Select')) ?></option>
+				<?php foreach($rmaResolutionDropdown as $key => $value){ ?>
+				<option value="<?php echo $value['value'];?>"><?php echo $value['label'];?></option> 
+			<?php }
+			} ?>
+			
+			</select>
+            </td>
+
+			<!--<td>
+			<select id="resolution_id" name="resolution_id">
+			<option value=""><?= $block->escapeHtml(__('Please Select')) ?></option>
+			<?php foreach ($rmaResolutionDropdown as $option): ?>
+				<option value="<?= $block->escapeHtmlAttr($option['value']) ?>">
+					<?= $block->escapeHtml($option['label']) ?>
+				</option>
+			<?php endforeach; ?>
+			</select>
+            </td>-->
+        </tr>
+
+    </table>
+</div>

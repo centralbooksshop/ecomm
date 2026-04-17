@@ -1,0 +1,336 @@
+<?php 
+$filterData = $block->getCurrentStatus();
+$status = isset($filterData["status"]) && !empty($filterData["status"]) ? $filterData["status"] : null;
+$time = isset($filterData["time"]) && !empty($filterData["time"]) ? $filterData["time"] : null;
+$baseUrl =  $block->getBaseUrl();
+//$exportUrl =   $baseUrl."schoolzone_search/index/SchoolExport?status=".$status."&time=".$time;
+$exportUrl =   $baseUrl."schoolzone_search/index/SchoolExport?status=".$status;
+$mediaUrl =  $block->getMediaUrl();
+$order_collection =  $block->getSchoolOrderCollection();
+$schoolType = $block->getSchoolType();
+$classes = $block->getClasses();
+$school_name = $this->getSchoolNameSessionValue();
+$schoolscoll = $block->getSchools();
+$user_name = preg_replace("/[^a-zA-Z\s.]/", "", $_SESSION["user_name"]);
+$user_name = str_replace('.', ' ', $user_name);
+$user_name = ucwords(strtolower($user_name));
+//echo "<pre>"; print_r($_SESSION['school_name']); echo "</pre>";
+//session_start(); 
+//echo $_SESSION['school_name'];
+
+?>
+<div class="links_page">
+   <?php 
+	$style = '';
+   	 //if($schoolType == 1){
+	 //$style = 'style="display:none"'; }
+   ?>
+  <a href="<?= $baseUrl ?>schoolzone_customer/index/Display" class="customer-index-btn">Sales Orders</a>
+  <a class="customer-index-btn" href="<?= $baseUrl ?>schoolzone_customer/index/StudentInfo" <?= $style; ?>>Student List</a>
+   <a class="customer-index-btn" href="<?= $baseUrl ?>schoolzone_customer/hodashboard/index">Manage School Dashboard</a>
+   <p class="customer-index-btn">Total Orders Page: <?php echo count($order_collection); ?></p>
+   <p class="customer-index-btn user-name"> <?php echo "Welcome, ".$user_name; ?>  </p>
+  <a class="customer-index-btn logout-btn" href="<?= $baseUrl ?>schoolzone_customer/index/Login">Log out</a>
+  <!-- <span class="log_out">Logout</span> -->
+</div>
+<div class="searchInputs">
+	<a class="export-btn" href="<?= $exportUrl ?>">Export</a>
+</div>
+
+<!-- <div class="display_table">
+	<table class="search_result sales-list">
+		
+	</table>
+</div> -->
+
+<div class="display_table">
+    <table style="width:100%" class="sales-list">
+	<tr>
+	    <th>ID</th>
+	    <th>Purchase Point</th>
+	    <th>Purchase Date</th>
+		<th>Courier Name</th>
+	    <th>Tracking Number</th>
+		<th>Dispatched Date</th>
+	    <th>Bill-to-Name</th>
+	    <th>Ship-to-name</th>
+	    <th>Grand-total (Base) Rs</th>
+	    <th>Grand-total (Purchased) Rs</th>
+	    <th>Student Name</th>
+		<th>Roll Number</th>
+	    <th>School Name</th>
+	    <th>Status</th>
+	    <th>E-mail</th>
+	    <th>mobile</th>
+	    <th>Product</th>
+  	</tr>
+            <?php foreach ($order_collection as $value) {
+                ?>
+                	<tr>
+					<td class="sales-id"><?php echo $value['increment_id']; ?></td>
+					<td class="str-name"><?php echo $block->getStoreName($value['entity_id']); //$value['store_name']; ?></td>
+					<td><?php echo $value['created_at']; ?></td>
+
+			<?php
+			$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+            $resource = $objectManager->get('Magento\Framework\App\ResourceConnection');
+            $connection = $resource->getConnection();
+            $cbotableName = $resource->getTableName('cbo_assign_shippment');
+			$cbodrivertableName = $resource->getTableName('cboshipping_autodrivers');
+			$deliveryboytableName = $resource->getTableName('deliveryboy_deliveryboy'); 
+
+            $orderid = $value['entity_id'];
+            $cbosql = "Select * FROM ". $cbotableName." WHERE order_id = $orderid ";
+			$result = $connection->fetchRow($cbosql);
+			if(!empty($result)){
+            //echo '<pre>';print_r($result);die;
+				if(isset($result['tracking_title'])){
+				$tracking_title = $result['tracking_title'];
+				$tracking_number = $result['tracking_number'];
+				$created_at = $result['created_at'];
+				} else {
+					$driver_id = $result['driver_id'];
+					$deliveryboy_id = $result['deliveryboy_id'];
+					if(!empty($driver_id)){
+                        $cbodriversql = "Select * FROM ". $cbodrivertableName." WHERE id = $driver_id ";
+			            $cbodriverresult = $connection->fetchRow($cbodriversql);
+                        if(!empty($cbodriverresult['driver_name'])){
+                           $drivername = 'Driver Name: '.$cbodriverresult['driver_name'];
+						} else {
+                           $drivername = '';
+						}
+					     $tracking_title = 'CBO Shipment ';
+				         $tracking_number = $drivername;
+				         $created_at = $result['created_at'];
+					 }
+                     if(!empty($deliveryboy_id)){
+						 $deliveryboyname ='';
+                        $deliveryboysql = "Select id,name FROM ". $deliveryboytableName." WHERE id = $deliveryboy_id ";
+			            $deliveryboyresult = $connection->fetchRow($deliveryboysql);
+                        if(!empty($deliveryboyresult['name'])) {
+                           $deliveryboyname = 'Deliveryboy Name: '.$deliveryboyresult['name'];
+						}
+                       $tracking_title = 'CBO Shipment ';
+				       $tracking_number = $deliveryboyname;
+				       $created_at = $result['created_at'];
+					}
+				}
+			} else {
+			$tracking_title = '';
+            $tracking_number = '';
+			$created_at = '';
+			 }
+			?>
+					<td><?php echo $tracking_title;?></td>
+                    <td><?php echo $tracking_number;?></td>
+					<td><?php echo $created_at;?></td>
+					<td><?php echo $block->getBillingName($value['entity_id']); //$value['customer_firstname'].' '.$value['customer_lastname']; ?></td>
+					<td><?php echo $block->getShippingName($value['entity_id']); //$value['customer_firstname'].' '.$value['customer_lastname']; ?></td>
+					<td><?php echo $value['subtotal']; ?></td>
+					<td><?php echo $value['grand_total']; ?></td>
+
+					<td><?php echo $value['student_name']; ?></td>
+					<td class="sales-roll"><?php echo $value['roll_no']; ?></td>
+                    <td class="school_name"><?php echo $value['school_name']; ?></td>
+					<td><?php echo $value['status']; ?></td>
+					<td class="sales-email"><?php echo $value['customer_email']; ?></td>
+					<td class="sales-mb"><?php 
+				if($value['entity_id'] != NULL){
+					$shippingPhoneNumber =  $block->getShippingPhoneNumber($value['entity_id']);
+                                                   if($shippingPhoneNumber){
+                                                        echo $shippingPhoneNumber;
+                                                   }else{
+                                                        echo "--";
+                                                   }
+						//	echo $block->getCustomerDetails($value['customer_id']); 
+						}else{
+							echo "--";
+						}
+
+					?></td>
+					<td><?php
+
+					 $products = $block->getProduct($value['entity_id']); 
+					 foreach ($products as $value) {
+					 	echo $value;
+					 }
+					 ?></td>
+				</tr>
+            <?php } ?>
+      </table>
+  </div>
+<?php if ($block->getPagerHtml()): ?>
+        <div class="order-products-toolbar toolbar bottom"><?php //echo $block->getPagerHtml(); ?></div>
+    <?php endif ?>
+<style>
+.display_table{overflow: auto;}
+.searchInputs input, .searchInputs select {border: 1px solid #555;}
+.search_order_btn{
+	height: 35px;
+    font-weight: 500;
+	padding: 5px 10px;
+    color: #FFF !important;
+    background-color: #F0141E !important;
+    border: 1px solid #F0141E !important;
+}
+.schoolzone_customer-index-display .page-main{
+	max-width: calc(100% - 5rem);
+}
+.schoolzone_customer-index-display .page-title-wrapper{font-size: 21px}
+.customer-index-btn{
+	width: auto;
+	font-size: 14px;
+    padding: 5px 10px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    opacity: 1 !important;
+    display: inline-block;
+    color: #FFF !important;
+    background-image: none;
+    text-decoration: none !important;
+    background-color: #F0141E !important;
+}
+.sales-list{
+	margin-top: 2rem;
+	border: 1px solid #F2F2F2;
+}
+.sales-list th {
+    color: #FFF;
+	font-size: 13px;
+    padding: 5px 7px;
+    border: 1px solid #C7C7C7;
+    background-color: #144889;
+}
+.sales-list td {
+    font-size: 14px;
+    padding: 5px 7px;
+    min-width: 150px;
+    border: 1px solid #C7C7C7;
+}
+.sales-list .sales-mb, .sales-list .sales-roll,
+.sales-list .sales-id{min-width: 120px}
+.sales-email{
+	max-width: 200px;
+	word-break: break-all;
+}
+.searchInputs td{font-size: 14px;}
+.schoolzone_customer-index-display .order-products-toolbar{
+    border: 0;
+	margin-top: 2rem;
+    background-color: #FFF;
+}
+.schoolzone_customer-index-display .order-products-toolbar .pages{padding: 0;}
+.sales-list tr:nth-child(odd) {background-color: #F2F2F2;}
+.sales-list tr:nth-child(even) {background-color: #FFF;}
+.search-back{display: flex;}
+.search-back .back_btn,
+.search-back .search_order_btn{flex: 1;}
+.search_order_btn + .back_btn {margin-left: 1rem;}
+*{outline: 0 !important}
+.customer-index-btn.logout-btn{
+	top: 50px;
+}
+ .panel.header { display:none; }
+.customer-index-btn.user-name {
+    top: 0;
+    right: 0;
+    position: absolute;
+    color: #144889 !important;
+    background-color: #fff !important;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    border-radius: 5px;
+    padding: 5px 10px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+#loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+.spinner {
+    border: 4px solid rgba(255, 255, 255, 0.3);
+    border-top: 4px solid #fff;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+#search_order_btn {
+    width: auto;
+    font-size: 14px;
+    padding: 5px 10px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    opacity: 1 !important;
+    display: inline-block;
+    color: #FFF !important;
+    background-image: none;
+    text-decoration: none !important;
+    background-color: #F0141E !important;
+}
+
+.searchInputs {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 15px;
+}
+
+.export-btn {
+    display: inline-block;
+    padding: 8px 18px;
+    background-color: #1979c3; /* Magento primary blue */
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+    border: 1px solid #1979c3;
+}
+
+.export-btn:hover,
+.export-btn:focus {
+    background-color: #145fa3;
+    border-color: #145fa3;
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.export-btn:active {
+    background-color: #0f4c82;
+    border-color: #0f4c82;
+}
+
+.export-btn::before {
+    content: "";
+    display: inline-block;
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 6px solid #fff;
+    margin-right: 6px;
+    vertical-align: middle;
+}
+
+
+
+</style>

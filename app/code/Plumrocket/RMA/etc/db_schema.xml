@@ -1,0 +1,256 @@
+<?xml version="1.0"?>
+<!--
+ * @package     Plumrocket_RMA
+ * @copyright   Copyright (c) 2022 Plumrocket Inc. (https://plumrocket.com)
+ * @license     https://plumrocket.com/license   End-user License Agreement
+-->
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="plumrocket_rma_text" resource="default" engine="innodb" comment="Plumrocket RMA Texts">
+        <column xsi:type="int" name="value_id" unsigned="true" nullable="false" identity="true" comment="ID"/>
+        <column xsi:type="int" name="entity_type_id" nullable="false" comment="Entity Type Id"/>
+        <column xsi:type="int" name="entity_id" nullable="false" comment="Entity Id"/>
+        <column xsi:type="smallint" name="store_id" unsigned="true" nullable="false" comment="Store Id"/>
+        <column xsi:type="text" name="value" comment="Label"/>
+        <index referenceId="PLUMROCKET_RMA_TEXT_ENTITY_TYPE_ID" indexType="btree">
+            <column name="entity_type_id"/>
+        </index>
+        <index referenceId="PLUMROCKET_RMA_TEXT_STORE_ID" indexType="btree">
+            <column name="store_id"/>
+        </index>
+        <constraint xsi:type="unique" referenceId="PLUMROCKET_RMA_TEXT_ENTITY_ID_ENTITY_TYPE_ID_STORE_ID">
+            <column name="entity_id"/>
+            <column name="entity_type_id"/>
+            <column name="store_id"/>
+        </constraint>
+        <constraint xsi:type="foreign" referenceId="PLUMROCKET_RMA_TEXT_STORE_ID_STORE_STORE_ID"
+                    table="plumrocket_rma_text" column="store_id"
+                    referenceTable="store" referenceColumn="store_id" onDelete="CASCADE"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="value_id"/>
+        </constraint>
+    </table>
+
+    <table name="plumrocket_rma_store" resource="default" engine="innodb" comment="Plumrocket RMA Store">
+        <column xsi:type="int" name="entity_type_id" nullable="false" comment="Entity Type Id"/>
+        <column xsi:type="int" name="entity_id" nullable="false" comment="Entity Id"/>
+        <column xsi:type="smallint" name="store_id" unsigned="true" nullable="false" comment="Store Id"/>
+        <index referenceId="PLUMROCKET_RMA_STORE_ENTITY_TYPE_ID" indexType="btree">
+            <column name="entity_type_id"/>
+        </index>
+        <index referenceId="PLUMROCKET_RMA_STORE_STORE_ID" indexType="btree">
+            <column name="store_id"/>
+        </index>
+        <constraint xsi:type="unique" referenceId="PLUMROCKET_RMA_STORE_ENTITY_ID_ENTITY_TYPE_ID_STORE_ID">
+            <column name="entity_id"/>
+            <column name="entity_type_id"/>
+            <column name="store_id"/>
+        </constraint>
+        <constraint xsi:type="foreign" referenceId="PLUMROCKET_RMA_STORE_STORE_ID_STORE_STORE_ID"
+                    table="plumrocket_rma_store" column="store_id"
+                    referenceTable="store" referenceColumn="store_id" onDelete="CASCADE"/>
+    </table>
+
+    <table name="plumrocket_rma_reason" resource="default" engine="innodb" comment="Plumrocket RMA Reason">
+        <column xsi:type="int" name="id" unsigned="true" nullable="false" identity="true" comment="ID"/>
+        <column xsi:type="varchar" name="title" length="255" comment="Title"/>
+        <column xsi:type="boolean" name="status" nullable="false" comment="Status"/>
+        <column xsi:type="smallint" name="payer" nullable="false" unsigned="true" comment="Payer id"/>
+        <column xsi:type="smallint" name="position" nullable="false" unsigned="true" comment="Position"/>
+        <index referenceId="PLUMROCKET_RMA_REASON_PAYER" indexType="btree">
+            <column name="payer"/>
+        </index>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="id"/>
+        </constraint>
+    </table>
+
+    <table name="plumrocket_rma_condition" resource="default" engine="innodb" comment="Plumrocket RMA Condition">
+        <column xsi:type="int" name="id" unsigned="true" nullable="false" identity="true" comment="ID"/>
+        <column xsi:type="varchar" name="title" length="255" comment="Title"/>
+        <column xsi:type="boolean" name="status" nullable="false" comment="Status"/>
+        <column xsi:type="smallint" name="position" nullable="false" unsigned="true" comment="Position"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="id"/>
+        </constraint>
+    </table>
+
+    <table name="plumrocket_rma_resolution" resource="default" engine="innodb" comment="Plumrocket RMA Resolution">
+        <column xsi:type="int" name="id" unsigned="true" nullable="false" identity="true" comment="ID"/>
+        <column xsi:type="varchar" name="title" length="255" comment="Title"/>
+        <column xsi:type="boolean" name="status" nullable="false" comment="Status"/>
+        <column xsi:type="smallint" name="position" nullable="false" unsigned="true" comment="Position"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="id"/>
+        </constraint>
+    </table>
+
+    <table name="plumrocket_rma_return_rule" resource="default" engine="innodb" comment="Plumrocket RMA Return Rules">
+        <column xsi:type="int" name="id" unsigned="true" nullable="false" identity="true" comment="ID"/>
+        <column xsi:type="varchar" name="title" length="255" comment="Title"/>
+        <column xsi:type="boolean" name="status" nullable="false" comment="Status"/>
+        <column xsi:type="varchar" name="website_id" length="50" nullable="false" comment="Website Id"/>
+        <column xsi:type="varchar" name="customer_group_id" length="50" nullable="false" comment="Customer Group"/>
+        <column xsi:type="smallint" name="priority" nullable="false" unsigned="true" comment="Position"/>
+        <column xsi:type="text" name="resolution" nullable="false" comment="Resolutions in json"/>
+        <column xsi:type="text" name="conditions_serialized" nullable="false" comment="Conditions Serialized"/>
+        <index referenceId="PLUMROCKET_RMA_RETURN_RULE_PRIORITY" indexType="btree">
+            <column name="priority"/>
+        </index>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="id"/>
+        </constraint>
+    </table>
+
+    <table name="plumrocket_rma_response_template" resource="default" engine="innodb" comment="Plumrocket RMA Quick Response Template">
+        <column xsi:type="int" name="id" unsigned="true" nullable="false" identity="true" comment="ID"/>
+        <column xsi:type="varchar" name="title" length="255" comment="Title"/>
+        <column xsi:type="boolean" name="status" nullable="false" comment="Status"/>
+        <column xsi:type="text" name="message" comment="Message"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="id"/>
+        </constraint>
+    </table>
+
+    <table name="plumrocket_rma_returns" resource="default" engine="innodb" comment="Plumrocket RMA Returns">
+        <column xsi:type="int" name="entity_id" unsigned="true" nullable="false" identity="true" comment="Entity Id"/>
+        <column xsi:type="varchar" name="increment_id" length="32" comment="Increment Id"/>
+        <column xsi:type="int" name="order_id" unsigned="true" comment="Order Id"/>
+        <column xsi:type="int" name="manager_id" unsigned="true" comment="Manager Id"/>
+        <column xsi:type="boolean" name="is_closed" nullable="false" comment="System Post"/>
+        <column xsi:type="varchar" name="status" length="20" nullable="false" comment="Status"/>
+        <column xsi:type="varchar" name="shipping_label" length="200" comment="RMA Shipping Label"/>
+        <column xsi:type="text" name="note" comment="RMA Note"/>
+        <column xsi:type="varchar" name="code" length="50" comment="RMA Code"/>
+        <column xsi:type="timestamp" name="created_at" nullable="false" default="CURRENT_TIMESTAMP" on_update="false" comment="Date of creation"/>
+        <column xsi:type="timestamp" name="updated_at" nullable="false" default="CURRENT_TIMESTAMP" on_update="true" comment="Date of modification"/>
+        <column xsi:type="timestamp" name="read_mark_at" nullable="true" comment="Read Mark Time"/>
+		<column xsi:type="int" name="reason_id" unsigned="true" nullable="false" comment="Return Reason"/>
+        <column xsi:type="int" name="condition_id" unsigned="true" nullable="false" comment="Item Condition"/>
+        <column xsi:type="int" name="resolution_id" unsigned="true" nullable="false" comment="Resolution"/>
+        <index referenceId="PLUMROCKET_RMA_RETURNS_INCREMENT_ID_STATUS" indexType="fulltext">
+            <column name="increment_id"/>
+            <column name="status"/>
+        </index>
+        <index referenceId="PLUMROCKET_RMA_RETURNS_ORDER_ID" indexType="btree">
+            <column name="order_id"/>
+        </index>
+        <index referenceId="PLUMROCKET_RMA_RETURNS_MANAGER_ID" indexType="btree">
+            <column name="manager_id"/>
+        </index>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+    </table>
+
+    <table name="plumrocket_rma_returns_address" resource="default" engine="innodb" comment="Plumrocket RMA Returns Address">
+        <column xsi:type="int" name="entity_id" unsigned="true" nullable="false" identity="true" comment="Entity Id"/>
+        <column xsi:type="int" name="parent_id" unsigned="true" comment="Parent Id"/>
+        <column xsi:type="int" name="order_id" unsigned="true" comment="Order Id"/>
+        <column xsi:type="int" name="region_id" comment="Region Id"/>
+        <column xsi:type="varchar" name="fax" length="255" comment="Fax"/>
+        <column xsi:type="varchar" name="region" length="255" comment="Region"/>
+        <column xsi:type="varchar" name="postcode" length="255" comment="Postcode"/>
+        <column xsi:type="varchar" name="lastname" length="255" comment="Lastname"/>
+        <column xsi:type="varchar" name="street" length="255" comment="Street"/>
+        <column xsi:type="varchar" name="city" length="255" comment="City"/>
+        <column xsi:type="varchar" name="telephone" length="255" comment="Phone Number"/>
+        <column xsi:type="varchar" name="country_id" length="2" comment="Country Id"/>
+        <column xsi:type="varchar" name="firstname" length="255" comment="Firstname"/>
+        <column xsi:type="varchar" name="prefix" length="255" comment="Prefix"/>
+        <column xsi:type="varchar" name="middlename" length="255" comment="Middlename"/>
+        <column xsi:type="varchar" name="suffix" length="255" comment="Suffix"/>
+        <column xsi:type="varchar" name="company" length="255" comment="Company"/>
+        <constraint xsi:type="unique" referenceId="PLUMROCKET_RMA_RETURNS_ADDRESS_PARENT_ID">
+            <column name="parent_id"/>
+        </constraint>
+        <constraint xsi:type="foreign" referenceId="PLUMROCKET_RMA_RETURNS_ADDRESS_PARENT_ID_PLUMROCKET_RMA_RETURNS_ENTITY_ID"
+                    table="plumrocket_rma_returns_address" column="parent_id"
+                    referenceTable="plumrocket_rma_returns" referenceColumn="entity_id" onDelete="CASCADE"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+    </table>
+
+    <table name="plumrocket_rma_returns_item" resource="default" engine="innodb" comment="Plumrocket RMA Returns Item">
+        <column xsi:type="int" name="entity_id" unsigned="true" nullable="false" identity="true" comment="Entity Id"/>
+        <column xsi:type="int" name="parent_id" unsigned="true" nullable="false" comment="Parent Id"/>
+        <column xsi:type="int" name="order_item_id" unsigned="true" nullable="false" comment="Order Item Id"/>
+        <column xsi:type="int" name="reason_id" unsigned="true" nullable="false" comment="Return Reason"/>
+        <column xsi:type="int" name="condition_id" unsigned="true" nullable="false" comment="Item Condition"/>
+        <column xsi:type="int" name="resolution_id" unsigned="true" nullable="false" comment="Resolution"/>
+        <column xsi:type="smallint" name="qty_purchased" unsigned="true" nullable="true" comment="Qty Purchased"/>
+        <column xsi:type="smallint" name="qty_requested" unsigned="true" nullable="true" comment="Qty Requested"/>
+        <column xsi:type="smallint" name="qty_authorized" unsigned="true" nullable="true" comment="Qty Authorized"/>
+        <column xsi:type="smallint" name="qty_received" unsigned="true" nullable="true" comment="Qty Received"/>
+        <column xsi:type="smallint" name="qty_approved" unsigned="true" nullable="true" comment="Qty Approved"/>
+        <column xsi:type="timestamp" name="created_at" nullable="false" default="CURRENT_TIMESTAMP" on_update="false" comment="Created At"/>
+        <column xsi:type="timestamp" name="updated_at" nullable="false" default="CURRENT_TIMESTAMP" on_update="true" comment="Updated At"/>
+        <index referenceId="PLUMROCKET_RMA_RETURNS_ITEM_PARENT_ID" indexType="btree">
+            <column name="parent_id"/>
+        </index>
+        <constraint xsi:type="foreign" referenceId="PLUMROCKET_RMA_RETURNS_ITEM_PARENT_ID_PLUMROCKET_RMA_RETURNS_ENTITY_ID"
+                    table="plumrocket_rma_returns_item" column="parent_id"
+                    referenceTable="plumrocket_rma_returns" referenceColumn="entity_id" onDelete="CASCADE"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+    </table>
+
+    <table name="plumrocket_rma_returns_track" resource="default" engine="innodb" comment="Plumrocket RMA Returns Track">
+        <column xsi:type="int" name="entity_id" unsigned="true" nullable="false" identity="true" comment="Entity Id"/>
+        <column xsi:type="int" name="parent_id" unsigned="true" nullable="false" comment="Parent Id"/>
+        <column xsi:type="varchar" name="type" length="30" comment="Type"/>
+        <column xsi:type="varchar" name="carrier_code" length="32" comment="Carrier Code"/>
+        <column xsi:type="varchar" name="track_number" length="250" comment="Number"/>
+        <column xsi:type="timestamp" name="created_at" nullable="false" default="CURRENT_TIMESTAMP" on_update="false" comment="Created At"/>
+        <column xsi:type="timestamp" name="updated_at" nullable="false" default="CURRENT_TIMESTAMP" on_update="true" comment="Updated At"/>
+        <index referenceId="PLUMROCKET_RMA_RETURNS_TRACK_PARENT_ID" indexType="btree">
+            <column name="parent_id"/>
+        </index>
+        <constraint xsi:type="foreign" referenceId="PLUMROCKET_RMA_RETURNS_TRACK_PARENT_ID_PLUMROCKET_RMA_RETURNS_ENTITY_ID"
+                    table="plumrocket_rma_returns_track" column="parent_id"
+                    referenceTable="plumrocket_rma_returns" referenceColumn="entity_id" onDelete="CASCADE"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+    </table>
+
+    <table name="plumrocket_rma_returns_message" resource="default" engine="innodb" comment="Plumrocket RMA Returns Track">
+        <column xsi:type="int" name="entity_id" unsigned="true" nullable="false" identity="true" comment="Entity Id"/>
+        <column xsi:type="int" name="parent_id" unsigned="true" nullable="false" comment="Parent Id"/>
+        <column xsi:type="int" name="from_id" unsigned="true" nullable="true" comment="From Id"/>
+        <column xsi:type="varchar" name="type" length="30" comment="Type"/>
+        <column xsi:type="varchar" name="name" length="100" comment="Name"/>
+        <column xsi:type="text" name="text" comment="Text"/>
+        <column xsi:type="text" name="files" comment="File"/>
+        <column xsi:type="boolean" name="is_system" nullable="false" comment="System Post"/>
+        <column xsi:type="boolean" name="is_internal" nullable="false" comment="Internal Post"/>
+        <column xsi:type="timestamp" name="created_at" nullable="false" default="CURRENT_TIMESTAMP" on_update="false" comment="Date of creation"/>
+        <column xsi:type="timestamp" name="updated_at" nullable="false" default="CURRENT_TIMESTAMP" on_update="true" comment="Date of modification"/>
+        <index referenceId="PLUMROCKET_RMA_RETURNS_MESSAGE_PARENT_ID" indexType="btree">
+            <column name="parent_id"/>
+        </index>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+    </table>
+
+	 <table name="plumrocket_rma_returns_note" resource="default" engine="innodb" comment="Plumrocket RMA Returns Note">
+    <column xsi:type="int" name="entity_id" padding="10" unsigned="true" nullable="false" identity="true" comment="Entity Id"/>
+    <column xsi:type="int" name="parent_id" padding="10" unsigned="true" nullable="false" identity="false" default="0" comment="Parent Id"/>
+    <column xsi:type="int" name="order_id"
+      padding="10" unsigned="true" nullable="false" identity="false" default="0" comment="order_id"/>
+   <column xsi:type="int" name="manager_id"
+      padding="10" unsigned="true" nullable="false" identity="false" default="0" comment="manager_id"/>
+   
+   <column xsi:type="text" name="note" nullable="true" comment=""/>
+    
+	<column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP" comment="Creation Time"/>
+    <column xsi:type="timestamp" name="updated_at" on_update="true" nullable="false" default="CURRENT_TIMESTAMP" comment="Updation Time"/>
+    
+    <constraint xsi:type="primary" referenceId="PRIMARY">
+      <column name="entity_id"/>
+    </constraint>
+  </table>
+</schema>

@@ -1,0 +1,15 @@
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../lib/internal/Magento/Framework/ObjectManager/etc/config.xsd">
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="retailinsights_cboorderslisting_processedcboorderslist_listing_data_source" xsi:type="string">Retailinsights\ProcessCBOOrders\Model\ResourceModel\ProcessCBOOrders\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+    <virtualType name="Retailinsights\ProcessCBOOrders\Model\ResourceModel\ProcessCBOOrders\Grid\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">retailinsights_processcboorders_processedcboshippingorders</argument>
+            <argument name="resourceModel" xsi:type="string">Retaiinsights\ProcessCBOOrders\Model\ResourceModel\ProcessCBOOrders</argument>
+        </arguments>
+    </virtualType>
+</config>

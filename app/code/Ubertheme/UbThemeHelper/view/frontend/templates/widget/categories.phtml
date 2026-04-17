@@ -1,0 +1,40 @@
+
+<?php
+	/** @var  \Ubertheme\UbThemeHelper\Block\Widget\Categories $block */
+	$categories = $block->getCategories();
+	$canShowImg = $block->canShowImage();
+	$canShowProductCounter = $block->canShowProductCounter();
+	$title = $block->getTitle() ? __($block->getTitle()) : __('UB Categories Widget');
+?>
+
+<?php if ($title):?>
+	<div class="block-title">
+		<strong><?php echo $block->escapeHtml($title) ?></strong>
+	</div>
+<?php endif ?>
+
+<div class="block-content catalog-category">
+	<?php if ($categories): ?>
+		<ul class="ub-categories">
+			<?php foreach($categories as $category):?>
+				<?php
+					$categoryImageUrl = $block->getImageUrl($category);
+				?>
+				<li class="category">
+					<a href="<?php echo $block->escapeUrl($category->getUrl()) ?>">
+						<span class="category-title"><?php echo $block->escapeHtml($category->getName()) ?></span>
+						<?php if($canShowImg && $categoryImageUrl):?>
+							<img class="category-thumb" src="<?= $block->escapeUrl($categoryImageUrl) ?>"
+								 alt="<?= $block->escapeHtml($category->getName()) ?>"
+								 width="<?= $block->getImageWidth() ?>"
+								 height="<?= $block->getImageHeight() ?>" />
+						<?php endif;?>
+						<?php if ($canShowProductCounter) :?>
+							<span class="category-product-counter"> <?php echo $block->escapeHtml($block->getProductCount($category)) ?> </span>
+						<?php endif;?>
+					</a>
+				</li>
+			<?php endforeach; ?>
+		</ul>
+	<?php endif; ?>
+</div>

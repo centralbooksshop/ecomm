@@ -1,0 +1,121 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+/** @var \Magento\Newsletter\Block\Subscribe $block */
+
+?>
+<div class="block newsletter">
+    <div class="title"><strong><?= $block->escapeHtml(__('Newsletter')) ?></strong></div>
+    <div class="content">
+        <form class="form subscribe"
+            novalidate
+            action="<?= $block->escapeUrl($block->getFormActionUrl()) ?>"
+            method="post"
+            data-mage-init='{"validation": {"errorClass": "mage-error"}}'
+            id="newsletter-validate-detail">
+            <div class="field newsletter">
+                <label class="label" for="newsletter"><span><?= $block->escapeHtml(__('Sign Up for Our Newsletter:')) ?></span></label>
+                <div class="control">
+                    <input name="email" type="email" id="newsletter"
+                           placeholder="<?= $block->escapeHtml(__('Enter your email address')) ?>"
+                           data-mage-init='{"mage/trim-input":{}}'
+                           data-validate="{required:true, 'validate-email':true}"/>
+                </div>
+            </div>
+            <div class="actions">
+                <button class="action subscribe primary" title="<?= $block->escapeHtmlAttr(__('Subscribe')) ?>" type="submit">
+                    <span><?= $block->escapeHtml(__('Subscribe')) ?></span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="sitemap container">
+      <div class="row">
+         <div class="col-md-3">
+            <h4 class="support-heading">POLICY</h4>
+             <ul class="support-list">
+               <li class="product-item"><a href="#" class="footer-link">Terms and Conditions</a></li>
+               <li class="product-item"><a href="#" class="footer-link">Cancellation & Return Policy</a></li>
+               <li class="product-item"><a href="#" class="footer-link">Shipping Policy</a></li>
+               <li class="product-item"><a href="#" class="footer-link">Privacy Policy</a></li>
+               <li class="product-item"><a href="#" class="footer-link">Disclaimer</a></li>
+               <li class="product-item"><a href="#" class="footer-link">FAQs</a></li>
+            </ul>
+         </div>
+         <div class="col-md-3">
+            <h3 class="support-heading">HELP & SUPPORT</h3>
+            <ul class="support-list">
+               <li class="support-item"><a href="#" class="footer-link">Contact Us</a></li>
+               <li class="support-item"><a href="#" class="footer-link">About Us</a></li>
+               <li class="support-item"><a href="#" class="footer-link">Our Blog</a></li>
+               <li class="support-item"><a href="#" class="footer-link">Sitemap</a></li>
+               <li class="support-item"><a href="#" class="footer-link">Bulk Orders</a></li>
+               <li class="support-item"><a href="#" class="footer-link">Technical Issues</a></li>
+               <li class="support-item"><a href="#" class="footer-link">Other Queries</a></li>
+            </ul>
+         </div>
+         <div class="col-md-3">
+            <h3 class="support-heading">Orders</h3>
+            <ul class="support-list">
+               <li class="support-item"><a href="#" class="footer-link">Contact Us</a></li>
+               <li class="support-item"><a href="#" class="footer-link">About Us</a></li>
+               <li class="support-item"><a href="#" class="footer-link">Our Blog</a></li>
+               <li class="support-item"><a href="#" class="footer-link">Sitemap</a></li>
+               <li class="support-item"><a href="#" class="footer-link">Bulk Orders</a></li>
+               <li class="support-item"><a href="#" class="footer-link">Technical Issues</a></li>
+               <li class="support-item"><a href="#" class="footer-link">Other Queries</a></li>
+            </ul>
+         </div>
+         <div class="col-md-3">
+            <h3 class="support-heading">Contact us</h3>
+            <ul class="support-list">
+               <li class="support-item"><a href="#" class="footer-link">Contact Us</a></li>
+               <li class="support-item"><a href="#" class="footer-link">About Us</a></li>
+               <li class="support-item"><a href="#" class="footer-link">Our Blog</a></li>
+               <li class="support-item"><a href="#" class="footer-link">Sitemap</a></li>
+               <li class="support-item"><a href="#" class="footer-link">Bulk Orders</a></li>
+               <li class="support-item"><a href="#" class="footer-link">Technical Issues</a></li>
+               <li class="support-item"><a href="#" class="footer-link">Other Queries</a></li>
+            </ul>
+         </div>
+      </div>
+  <!--  <div class="col-md-6 help-center">
+     <img src="<?php // echo $this->getViewFileUrl('images/footer/supportletus.png'); ?>" alt="support_img" itemprop="image">
+     <div class="row">
+        <div class="col-md-4">
+           <ul class="support-list">
+              <li class="support-item"><a href="#" class="footer-link">Return Request</a></li>
+              <li class="support-item"><a href="#" class="footer-link">Order Cancellation</a></li>
+              <li class="support-item"><a href="#" class="footer-link">International Shipping</a></li>
+              <li class="support-item"><a href="#" class="footer-link">Order Related Queries</a></li>
+              <li class="support-item"><a href="#" class="footer-link">Payment/Billing</a></li>
+              <li class="support-item"><a href="#" class="footer-link">Technical issues</a></li>
+              <li class="support-item"><a href="#" class="footer-link">Other queries</a></li>
+           </ul>
+        </div>
+        <div class="col-md-8 flex-center">
+           <img src="<?php // echo $this->getViewFileUrl('images/footer/gethelpbtn.png'); ?>" alt="support_img" itemprop="image">
+           <img src="<?php  // echo $this->getViewFileUrl('images/footer/callmebtn.png'); ?>" alt="support_img" itemprop="image">
+        </div>
+     </div>
+  </div> -->
+</div>
+<div class="row container newsletter">
+   <div class="col-md-3 flex-center">
+      <ul class="social-icon list-inline">
+         <li class="social-item list-inline-item"><strong>FOLLOW US:</strong></li>
+         <li class="social-item list-inline-item"><a href="#" target="_blank"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+         <li class="social-item list-inline-item"><a href="#" target="_blank"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+         <li class="social-item list-inline-item"><a href="#" target="_blank"><i class="fa fa-google-plus-square" aria-hidden="true"></i></a></li>
+         <li class="social-item list-inline-item"><a href="#" target="_blank"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
+         <li class="social-item list-inline-item"><a href="#" target="_blank"><i class="fa fa-pinterest" aria-hidden="true"></i></a></li>
+      </ul>
+   </div>
+</div>

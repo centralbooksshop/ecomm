@@ -1,0 +1,383 @@
+<?php
+    $params = $this->getRequest()->getParams();
+	$orderIds = json_decode($params['id']);
+    $orderDetails = $block->getOrderStatus($orderIds[0]);
+    $shippingAddress = $orderDetails->getShippingAddress()->getData();
+    $shippingAddressCountry = $block->getCountryName($shippingAddress['country_id']);
+    $billingAddress = $orderDetails->getbillingAddress()->getData();
+    $payment = $orderDetails->getPayment();
+    $orderItems = $orderDetails->getAllItems();
+    $RecommendationApi = $block->getRecommendationApi();
+    $validRecommendationApi = $RecommendationApi['meta']['message'];
+	//echo '<pre>';print_r($RecommendationApi);
+    $forwardAddress = $block->getAddresses();
+   //echo '<pre>';print_r($forwardAddress);die;
+   $reverseAddress = '';
+   $restrict_num_pieces_modification = $this->helper('Centralbooks\ClickpostExtension\Helper\Data')->getConfig('store','shipsy_optional_settings/optional_settings/shipsy_restrict_num_pieces_input_modification') ? true : false;
+
+if(!empty($validRecommendationApi) && $validRecommendationApi == 'SUCCESS') {
+	$resultRecommendationApi = $RecommendationApi['result']['0']['preference_array'];
+	//echo '<pre>';print_r($resultRecommendationApi);
+?>
+<form action="<?php echo $block->getUrl('clickpost/softdatashipsy/formdata'); ?>" method="post">
+<input type="hidden" name="form_key" value="<?php echo $block->getFormKey() ?>" />
+    <div class="form-group" id="order-details" style = "padding : 15px">
+       
+	     <div class  ="header-style" style = "width : 90% !important">
+            <span class = "header-font">Courier Details</span>
+        </div>
+		<div class="container" style = "margin-left : 0px">
+            <div class="row courierpartner">
+              
+	    <?php 
+			 //$i = 0;
+			 foreach ($resultRecommendationApi as $resulval){  ?>
+		
+		    <div class="courierpartnerinner"> 
+			  <span class="courierinput">
+			    <input type="radio" name="account_code" value="<?php echo $resulval['cp_id'] ;?>,<?php echo $resulval['account_code'] ;?>"/>
+				<!-- <input type="hidden" name="courier_cp_id" value="<?php echo $resulval['cp_id'] ;?>"/> -->
+			  </span>
+              <span class="courierlabel">
+				 <label for="textInput" class= "label-font"><?php echo $resulval['cp_name'] ;?></label>
+			  </span>
+			 </div>
+		 
+		       <?php 
+				 //$i++;
+			   }
+			   ?>
+				 
+		    </div>
+        </div>
+        <div class  ="header-style" style = "width : 90% !important">
+            <span class = "header-font">Order Details</span>
+        </div>
+        <div class="container" style = "margin-left : 0px">
+            <div class="row">
+                <div class="col-sm-4">
+                <label for="textInput" class= "label-font">Order Number <span class = "required-text">*</span></label>
+                 <input type="text" id="customer-reference-number" name="customer-reference-number" class="form-control form-control-lg "
+                 style = "border-radius : 0px" value="<?php echo $orderDetails->getIncrementId() ?>">
+                 <input type="hidden" name="order-id" value="<?php echo $orderIds[0] ?>"/>
+                 <div class="orderText" style = "color : red ; font-size : 10px;display:none"> Order Number is required</div>
+                </div>
+                <div class="col-sm-4" >
+                <label for="textInput" class = "label-font">AWB Number</label>
+                <input type="text" name="awb-number" id="awb-number" class="form-control form-control-lg " style = "border-radius : 0px"  placeholder="Text input">
+                </div>
+                <div class="col-sm-4" style="display:none;">
+                    <label for="select" class= "label-font">Service Type <span class = "required-text">*</span></label>
+                    <select class="custom-select" name="service-type" id="select-service-type" style = "border-radius : 0px; height : 33px; font-size:12px"  >
+                    <?php //foreach ($validServiceTypes as $serviceType) { ?>  
+                        <option value="" selected = ""><?php //echo $serviceType['name'] ?></option>
+                    <?php //} ?>
+                    </select>  
+                </div>
+             </div>
+             <div class="row mt-4">
+                <div class="col-sm-4" >
+                    <label for="select" class = "label-font">Courier Type <span class = "required-text">*</span></label>
+                    <select class="custom-select " name="courier-type" id="select-courier-type"
+                    style = "border-radius : 0px; height : 33px; font-size:12px">
+                        <option value="NON-DOCUMENT" selected>NON-DOCUMENT</option>
+                        <option value="DOCUMENT">DOCUMENT</option>
+                    </select>
+                </div>
+                <div class="col-sm-4" >      
+                    <label for="select" class = "label-font">Consignment Type <span class = "required-text">*</span></label>
+                    <select class=" custom-select" name="consignment-type" id="select-consignment-type"
+                    style = "border-radius : 0px; height : 33px; font-size:12px">
+                        <option value="forward" selected>FORWARD</option>
+                        <option value="reverse">REVERSE</option>
+                    </select>
+                </div>
+                <div class="col-sm-4">
+                     <label for="num-pieces" class = "label-font">Number of Pieces <span class = "required-text">*</span></label>
+                        <input type="text" id="num-pieces"  style = "border-radius : 0px" name="num-pieces" class="form-control form-control-lg " value="<?php echo count($orderItems) ?>" <?php echo ($restrict_num_pieces_modification) ? 'readonly' : ''; ?> >
+                        <div class="numpiecesError" style = "color : red ; font-size : 10px;display:none"> Value should be greater than 0</div>
+                        <div class= "form-check" style = " margin-top:8px">
+                        <input class="form-check-input"  style = "border-radius : 0px" type="checkbox" name="multiPieceCheck" value="true" id="multiPieceCheck">
+                        <label class="form-check-label label-font" for="multiPieceCheck" style = "margin-left:10px;font-size:12px !important">All pieces same</label>
+                        </div>
+                </div>
+             </div>
+        </div>
+    </div>
+
+    <div class="form-group" id="origin-details" style = "padding:15px">
+        <div class  ="header-style" style = "width : 90% !important" >
+            <span class = "header-font">Origin Details</span>
+        </div>
+        <div class="container" style = "margin-left : 0px">
+            <div class="row">
+                    <div class="col-sm-4" >
+                        <label for="origin-name" class= "label-font">Name <span class = "required-text">*</span></label>
+                         <input type="text" id="origin-name" style = "border-radius : 0px"  name="origin-name" class="form-control form-control-lg  " value="<?php echo $forwardAddress['forward_name']; ?>">
+                         <div class="nameErrorText" style = "color : red ; font-size : 10px;display:none"> Origin Name is required</div>
+                      </div>
+
+					  <div class="col-sm-4" >
+                        <label for="origin-email" class= "label-font">Email <span class = "required-text">*</span></label>
+                         <input type="text" id="origin-email" style = "border-radius : 0px"  name="origin-email" class="form-control form-control-lg  " value="<?php echo $forwardAddress['forward_email']; ?>">
+                         <div class="emailErrorText" style = "color : red ; font-size : 10px;display:none"> Origin Email is required</div>
+                      </div>
+
+                    <div class="col-sm-4" >      
+                            <label for="origin-number" class = "label-font">Phone Number <span class = "required-text">*</span></label>
+                            <input type="number" id="origin-number" oninput="this.value=this.value.slice(0,this.maxLength)" maxlength="10" style = "border-radius : 0px"  name="origin-number" class="form-control form-control-lg " value="<?php echo $forwardAddress['forward_phone'] ?>">
+                            <div class="phoneErrorText" style = "color : red ; font-size : 10px;display:none"> Phone number is required</div>
+                        </div>
+                    <div class="col-sm-4">               
+                          <label for="origin-alt-number" class= "label-font">Alternate Phone Number</label>
+                          <input type="number" id="origin-alt-number" oninput="this.value=this.value.slice(0,this.maxLength)" maxlength="10" style = "border-radius : 0px"  name="origin-alt-number" class="form-control form-control-lg " value="<?php echo $forwardAddress['forward_alt_phone'] ?>">
+                    </div>
+					<div class="col-sm-4" >      
+                            <label for="origin-tin" class = "label-font">Tin Number <span class = "required-text">*</span></label>
+                            <input type="text" id="origin-number" style = "border-radius : 0px"  name="origin-tin" class="form-control form-control-lg " value="<?php echo $forwardAddress['forward_tin'] ?>">
+                            <div class="tinErrorText" style = "color : red ; font-size : 10px;display:none"> Tin number is required</div>
+                   </div>
+             </div>
+             <div class = "row mt-4">
+                    <div class="col-sm-6" >
+                        <label for="origin-line-1" class= "label-font">Address Line 1 <span class = "required-text">*</span></label>
+                        <input type="text" id="origin-line-1" style = "border-radius : 0px"  name="origin-line-1" class="form-control form-control-lg " value="<?php echo $forwardAddress['forward_line_1'] ?>">
+                        <div class="addressErrorText" style = "color : red ; font-size : 10px;display:none"> Origin Address is required</div>
+
+                    </div>
+                    <div class="col-sm-6">               
+                          <label for="origin-line-2" class = "label-font">Address Line 2</label>
+                            <input type="text" id="origin-line-2" style = "border-radius : 0px"  name="origin-line-2" class="form-control form-control-lg " value="<?php echo $forwardAddress['forward_line_2'] ?>">
+                    </div>
+            </div>
+            <div class  = "row mt-4"> 
+                    <div class="col-sm-3" >
+                         <label for="origin-city" class= "label-font"> City <span class = "required-text">*</span></label>
+                        <input type="text" id="origin-city" name="origin-city" style = "border-radius : 0px"  class="form-control form-control-lg " value="<?php echo $forwardAddress['forward_city'] ?>">
+                        <div class="cityErrorText" style = "color : red ; font-size : 10px;display:none">Origin City is required</div>
+                    </div>
+                     <div class="col-sm-3" >
+                         <label for="origin-state" class = "label-font">State <span class = "required-text">*</span></label>
+                         <input type="text" id="origin-state" name="origin-state" style = "border-radius : 0px"  class="form-control form-control-lg " value="<?php echo $forwardAddress['forward_state'] ?>">
+                         <div class="stateErrorText" style = "color : red ; font-size : 10px;display:none">Origin State is required</div>
+                        </div>
+                     <div class="col-sm-3" >
+                        <label for="origin-country" class = "label-font">Country <span class = "required-text">*</span></label>
+                        <input type="text" id="origin-country" style = "border-radius : 0px" name="origin-country" class="form-control form-control-lg " value="<?php echo $forwardAddress['forward_country'] ?>">
+                        <div class="countryErrorText" style = "color : red ; font-size : 10px;display:none">Origin Country is required</div>
+
+                    </div>
+                     <div class="col-sm-3" >
+                        <label for="origin-pincode">Pincode</label>
+                        <input type="text" id="origin-pincode" oninput="this.value=this.value.slice(0,this.maxLength)" maxlength="6" style = "border-radius : 0px"  name="origin-pincode" class="form-control form-control-lg " value="<?php echo trim($forwardAddress['forward_pincode']) ?>">
+                        <div class="pincodeErrorText" style = "color : red ; font-size : 10px;display:none">Origin Pincode is required</div>
+                    </div>
+            </div>  
+        </div>
+    </div>
+    <div class="form-group" id="destination-details"  style = "padding:15px">
+        <div class  ="header-style" style = "width : 90% !important">
+            <span class = "header-font">Destination Details</span>
+        </div>
+        <div class="container" style = "margin-left : 0px">
+            <div class="row">
+                    <div class="col-sm-4" >
+                         <label for="destination-name" class = "label-font">Name <span class = "required-text">*</span></label>
+                         <input type="text" id="destination-name" name="destination-name"style = "border-radius : 0px"  class="form-control form-control-lg" value="<?php echo ($shippingAddress['firstname'] . ' ' .$shippingAddress['lastname']); ?>">
+                         <div class="dNameErrorText" style = "color : red ; font-size : 10px;display:none">Destination Name is required</div> 
+                     </div>
+
+					 <div class="col-sm-4" >
+                         <label for="destination-email" class = "label-font">Email <span class = "required-text">*</span></label>
+                         <input type="text" id="destination-email" name="destination-email"style = "border-radius : 0px"  class="form-control form-control-lg" value="<?php echo ($shippingAddress['email']); ?>">
+                         <div class="dEmailErrorText" style = "color : red ; font-size : 10px;display:none">Destination Email is required</div> 
+                     </div>
+
+                    <div class="col-sm-4">  
+                        <label for="destination-number" class = "label-font">Phone Number <span class = "required-text">*</span></label>
+                        <input type="number" id="destination-number" oninput="this.value=this.value.slice(0,this.maxLength)" maxlength="10" name="destination-number" style = "border-radius : 0px" class="form-control form-control-lg" value="<?php echo $shippingAddress['telephone'] ?>">    
+                        <div class="dPhoneErrorText" style = "color : red ; font-size : 10px;display:none">Phone number is required</div> 
+
+                    </div>
+                    <div class="col-sm-4"> 
+                        <label for="destination-alt-number" class = "label-font">Alternate Phone Number </label>
+                        <input type="number" id="destination-alt-number" oninput="this.value=this.value.slice(0,this.maxLength)" maxlength="10" style = "border-radius : 0px" name="destination-alt-number" class="form-control form-control-lg" value="">
+                    </div>
+             </div>
+             <div class = "row mt-4">
+                    <div class="col-sm-6" >
+                        <label for="destination-line-1" class= "label-font">Address Line 1 <span class = "required-text">*</span></label>
+                        <input type="text" id="destination-line-1" name="destination-line-1" style = "border-radius : 0px" class="form-control form-control-lg" value="<?php echo $shippingAddress['street'] ?>">
+                        <div class="dAddressErrorText" style = "color : red ; font-size : 10px;display:none">Destination Address is required</div> 
+
+                    </div>
+                    <div class="col-sm-6">   
+                        <label for="destination-line-2" class = "label-font">Address Line 2</label>
+                        <input type="text" id="destination-line-2"  name="destination-line-2"  style = "border-radius : 0px" class="form-control form-control-lg" value="">
+                    </div>
+            </div>
+            <div class = "row mt-4"> 
+                    <div class="col-sm-3" >
+                            <label for="destination-city" class = "label-font">City <span class = "required-text">*</span></label>
+                             <input type="text" id="destination-city" name="destination-city" style = "border-radius : 0px" class="form-control form-control-lg" value="<?php echo $shippingAddress['city'] ?>">
+                             <div class="dCityErrorText" style = "color : red ; font-size : 10px;display:none">Destination City is required</div> 
+                     </div>
+                     <div class="col-sm-3" >
+                        <label for="destination-state"class = "label-font">State <span class = "required-text">*</span></label>
+                        <input type="text" id="destination-state" name="destination-state" style = "border-radius : 0px" class="form-control form-control-lg" value="<?php echo $shippingAddress['region'] ?>">
+                        <div class="dStateErrorText" style = "color : red ; font-size : 10px;display:none">Destination State is required</div> 
+
+                     </div>
+                     <div class="col-sm-3" >
+                            <label for="destination-country" class = "label-font">Country <span class = "required-text">*</span></label>
+                            <input type="text" id="destination-country" name="destination-country" style = "border-radius : 0px"class="form-control form-control-lg" value="<?php echo $block->getCountryname($shippingAddress['country_id']); ?>">
+                            <div class="dCountryErrorText" style = "color : red ; font-size : 10px;display:none">Destination Country is required</div> 
+                     </div>
+                     <div class="col-sm-3" >
+                             <label for="destination-pincode" class = "label-font">Pincode</label>
+                             <input type="number" id="destination-pincode" oninput="this.value=this.value.slice(0,this.maxLength)" maxlength="6" name="destination-pincode" style = "border-radius : 0px" class="form-control form-control-lg" value="<?php echo $shippingAddress['postcode'] ?>">
+                             <div class="dPincodeErrorText" style = "color : red ; font-size : 10px;display:none">Destination Pincode is required</div>
+                     </div>
+            </div> 
+        </div>
+
+    </div>
+    <div class="form-group" id="payment-details"  style = "padding:15px;display:none;">
+        <div class  ="header-style" style = "width : 90% !important">
+            <span class = "header-font">COD Details</span>
+        </div>
+        <div class="container" style = "margin-left : 0px">
+                <div class = "row">
+                    <div class="col-sm-6" >  
+                    <label for="select" class = "label-font">COD Collection Mode <span class = "required-text">*</span></label>
+                            <select class="custom-select " name="cod-collection-mode" id="select-cod-collection-mode"
+                            style = "border-radius : 0px; height : 33px; font-size:12px">
+                                <option value="cash" selected>Cash</option>
+                            </select>
+                    </div>
+                    <div class="col-sm-6"> 
+                            <label for="cod-amount" class = "label-font">COD Amount <span class = "required-text">*</span></label>
+                            <input type="number" id="cod-amount" name="cod-amount" oninput="this.value = Math.abs(this.value)" style = "border-radius : 0px"  class="form-control form-control-lg" value="<?php echo ($payment->getMethod() === 'cashondelivery') ? $orderDetails['total_due'] : '0' ?>">
+                    </div>
+                </div>   
+        </div>
+    </div>
+    <div class="form-group" id="piece-details" style = "padding  : 15px">
+        <div class  ="header-style" style = "width : 90% !important">
+            <span class = "header-font">Piece Details</span>
+        </div>
+        <div class="container piece-details-div" id = "piece-det" style = "margin-left : 0px">
+        <?php
+        $description = [];
+        $declaredValue = 0;
+        foreach ($orderItems as $key => $item) {
+    ?>
+            <div class = "row mb-4" id="piece-detail-<?php echo ($key + 1) ?>">
+                <div class="col-sm-3"> 
+                    <label for="textInput" class = "label-font">Description <span class = "required-text">*</span></label>
+                    <input type="text" name="description[]"  id="description<?php echo ($key + 1) ?>" style = "border-radius : 0px"  class="form-control form-control-lg description-tag" value="<?php echo $item['name']; ?>">
+                    <div class="descText" style = "color : red ; font-size : 10px;display:none">Description is required</div>
+                </div>
+
+				<div class="col-sm-3"> 
+                    <label for="textInput" class = "label-font">Sku <span class = "required-text">*</span></label>
+                    <input type="text" name="sku[]"  id="sku<?php echo ($key + 1) ?>" style = "border-radius : 0px"  class="form-control form-control-lg sku-tag" value="<?php echo $item['sku']; ?>">
+                    <div class="skuText" style = "color : red ; font-size : 10px;display:none">Sku is required</div>
+                </div>
+
+                <div class="col-sm-1"> 
+                    <label for="textInput" class = "label-font">Quantity <span class = "required-text">*</span></label>
+                    <input type="number" name="quantity[]"  oninput="this.value = Math.abs(this.value)"style = "border-radius : 0px" class="form-control form-control-lg" value="<?php echo (int)$item['qty_ordered'] ?? 1 ?>">
+                </div>
+                <div class="col-sm-2"> 
+                    <label for="textInput" class = "label-font">Weight (in Kg) <span class = "required-text">*</span></label>
+                    <input type="number" name="weight[]" oninput="this.value = Math.abs(this.value)"  style = "border-radius : 0px"class="form-control form-control-lg" value="<?php echo $item['weight'] ?? 1 ?>">
+                </div>
+                <div class="col-sm-1"> 
+                    <label for="textInput" class = "label-font">Length <span class = "required-text">*</span></label>
+                    <input type="number" name="length[]"  oninput="this.value = Math.abs(this.value)" style = "border-radius : 0px" class="form-control form-control-lg" value="1">
+                </div>
+                <div class="col-sm-1"> 
+                    <label for="textInput" class = "label-font">Breadth <span class = "required-text">*</span></label>
+                    <input type="number" name="width[]"  oninput="this.value = Math.abs(this.value)"style = "border-radius : 0px" class="form-control form-control-lg" value="1">
+                </div>
+                <div class="col-sm-1"> 
+                    <label for="textInput" class = "label-font">Height <span class = "required-text">*</span></label>
+                    <input type="number" name="height[]" oninput="this.value = Math.abs(this.value)" style = "border-radius : 0px" class="form-control form-control-lg" value="1">
+                </div>
+                <div class="col-sm-3" style="display:none;"> 
+                    <label for="textInput" class = "label-font">Declared Value <span class = "required-text">*</span></label>
+                    <input type="number" name="declared-value[]"  oninput="this.value = Math.abs(this.value)" id="declared-value<?php echo $orderIds[0]; ?>" style = "border-radius : 0px" class="form-control form-control-lg" value="<?php echo $item['row_total_incl_tax'] ?>">
+                    <div class="declaredText" style = "color : red ; font-size : 10px;display:none">Declared value required</div>
+                </div>
+            </div>
+     <?php } ?>
+       
+        </div>
+    </div>
+<script type="text/x-magento-init">
+{
+    "#select-consignment-type": {
+        "Centralbooks_ClickpostExtension/js/softdatasync": {
+            "shippingAddress":<?= /* @escapeNotVerified */ json_encode($shippingAddress) ?>,
+            "forwardAddress":<?= /* @escapeNotVerified */ json_encode($forwardAddress) ?>,
+            "reverseAddress":<?= /* @escapeNotVerified */ json_encode($reverseAddress) ?>,
+            "shippingAddressCountry":<?= /* @escapeNotVerified */ json_encode($shippingAddressCountry)?>
+        } 
+    } 
+} 
+</script>
+
+<hr>
+<?php } else { ?>
+        <div class="alert alert-danger" role="alert"><?php //echo $allAddresses['error'] ?? $validServiceTypes['error'] ?></div>
+    <?php
+}
+?>
+     <div style = "padding : 15px"> 
+        <div class = "container" style = "width : 83%" >
+                <button type="submit" name="Submit"  id = "softdataSubmitButton"
+                style = " font-size: 1.6rem;letter-spacing:0.025em;
+                padding-top: 0.6875em;padding-bottom: 0.6875em;background-color: #eb5202;
+                border-color: #eb5202;color :#ffffff;text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.25);float: right;">
+                    Submit Details
+                 </button>
+        </div>
+    </div>
+</form>
+
+<style>
+  input[type="radio"] {
+  background-color: #fff;
+  margin: 0;
+  font: inherit;
+  color: currentColor;
+  width: 1.15em;
+  height: 1.15em;
+  border: 0.15em solid currentColor;
+  border-radius: 50%;
+}
+
+input[type="radio"] {
+place-content: center;
+}
+
+input[type="radio"]::before {
+  content: "";
+  width: 0.65em;
+  height: 0.65em;
+  border-radius: 50%;
+  transform: scale(0);
+  transition: 120ms transform ease-in-out;
+  box-shadow: inset 1em 1em var(--form-control-color);
+}
+
+input[type="radio"]:checked::before {
+  transform: scale(1);
+}
+.courierpartnerinner {
+    width: auto;
+    line-height: 20px;
+    padding: 4px;
+}
+</style>

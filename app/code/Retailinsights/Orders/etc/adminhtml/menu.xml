@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../Magento/Backend/etc/menu.xsd">
+    <menu>
+  <add id="Retailinsights_Orders::SalesOrderGrid" title="Orders Duplicate " module="Retailinsights_Orders" sortOrder="20" parent="Magento_Sales::sales_operation" action="retailinsights_admin/salesordergrid/index" resource="Retailinsights_Orders::SalesOrderGrid"/>
+  <add id="Retailinsights_Orders::SalesOrderFailed" title="Split Failed Orders List " module="Retailinsights_Orders" sortOrder="21" parent="Magento_Sales::sales_operation" action="retailinsights_admin/salesorderfailed/index" resource="Retailinsights_Orders::SalesOrderFailed"/>
+  <add id="Retailinsights_Orders::Willbegiven" title="Will be given Dashboard" module="Retailinsights_Orders" sortOrder="22" parent="Magento_Sales::sales_operation" action="retailinsights_admin/willbegiven/index" resource="Retailinsights_Orders::Willbegiven"/>
+    </menu>
+</config>

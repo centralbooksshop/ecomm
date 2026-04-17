@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2016 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+  <body>
+    <move element="product.info.media" destination="content" before="-" />
+    <move element="page.main.title" destination="product.info.main" before="-"/>
+    <move element="product.info.review" destination="product.info.main" after="page.main.title" />
+    <move element="product.info.stock.sku.add" destination="product.info.main" after="page.main.title"/>
+    <move element="product.info.mailto" destination="product.info.main" after="-" />
+    <move element="product.info.addto" destination="product.info.main" after="-" />
+    
+    <referenceBlock name="product.info.overview" remove="true"/>
+    
+    <referenceBlock name="product.info.details" remove="true"/>
+
+    <referenceContainer name="main" >
+      <container name="product.info.attributes.container">
+        <block class="Magento\Catalog\Block\Product\View\Attributes" name="product.info.attributes" template="product/view/product_features.phtml">
+          <arguments>
+            <argument translate="true" name="title" xsi:type="string">Additional</argument>
+          </arguments>
+        </block>
+      
+      <block class="Magento\Review\Block\Product\Review" name="reviews" as="reviews" template="Magento_Review::review.phtml" after="-">
+        <block class="Magento\Review\Block\Form" name="product.review.form" as="review_form">
+                <container name="product.review.form.fields.before" as="form_fields_before" label="Review Form Fields Before"/>
+        </block>
+      </block>
+      </container>
+    </referenceContainer>
+  </body>
+</page>
+

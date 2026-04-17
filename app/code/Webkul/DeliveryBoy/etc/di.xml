@@ -1,0 +1,171 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Webkul Software.
+ * 
+ *
+ * @category  Webkul
+ * @package   Webkul_DeliveryBoy
+ * @author    Webkul <support@webkul.com>
+ * @copyright Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html ASL Licence
+ * @link      https://store.webkul.com/license.html
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Webkul\DeliveryBoy\Api\Data\DeliveryboyInterface" type="Webkul\DeliveryBoy\Model\Deliveryboy"/>
+    <preference for="Magento\Framework\Controller\Result\Json" type="Webkul\DeliveryBoy\Controller\Framework\Result\Json"/>
+    <preference for="Webkul\DeliveryBoy\Api\DeliveryboyRepositoryInterface" type="Webkul\DeliveryBoy\Model\DeliveryboyRepository"/>
+
+    <preference for="Magento\InventoryShipping\Observer\SourceDeductionProcessor" type="Webkul\DeliveryBoy\Observer\SourceDeductionProcessor"/>
+
+    <preference for="Webkul\DeliveryBoy\Api\Data\RatingInterface" type="Webkul\DeliveryBoy\Model\Rating"/>
+    <preference for="Webkul\DeliveryBoy\Api\Data\OrderTransactionInterface" type="Webkul\DeliveryBoy\Model\OrderTransaction"/>
+    <preference for="Webkul\DeliveryBoy\Api\Data\OrderTransactionSearchResultInterface"
+        type="Webkul\DeliveryBoy\Model\ResourceModel\OrderTransaction\Collection"/>
+    <preference for="Webkul\DeliveryBoy\Api\OrderTransactionRepositoryInterface" type="Webkul\DeliveryBoy\Model\OrderTransactionRepository"/>
+
+    <preference for="Webkul\DeliveryBoy\Api\Data\VehicleTypeInterface" type="Webkul\DeliveryBoy\Model\VehicleType"/>
+    <preference for="Webkul\DeliveryBoy\Api\Data\VehicleTypeSearchResultInterface"
+        type="Webkul\DeliveryBoy\Model\ResourceModel\VehicleType\Grid\Collection"/>
+    <preference for="Webkul\DeliveryBoy\Api\VehicleTypeRepositoryInterface" type="Webkul\DeliveryBoy\Model\VehicleTypeRepository"/>
+
+    <preference for="Webkul\DeliveryBoy\Api\RatingRepositoryInterface" type="Webkul\DeliveryBoy\Model\RatingRepository"/>
+    <preference for="Magento\Framework\Filesystem\DriverInterface" type="Magento\Framework\Filesystem\Driver\File"/>
+    <preference for="Webkul\DeliveryBoy\Encryption\EncryptorInterface" type="Webkul\DeliveryBoy\Encryption\Encryptor"/>
+
+    <type name="Magento\Framework\Api\DataObjectHelper">
+        <plugin name="cart_issue_fix" type="Webkul\DeliveryBoy\Plugin\Framework\Api\DataObjectHelper" sortOrder="100" disabled="false"/>
+    </type>
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="expressdelivery_deliveryboy_list_data_source" xsi:type="string">Webkul\DeliveryBoy\Model\ResourceModel\Deliveryboy\Grid\Collection</item>
+                <item name="expressdelivery_rating_list_data_source" xsi:type="string">Webkul\DeliveryBoy\Model\ResourceModel\Rating\Grid\Collection</item>
+                <item name="expressdelivery_order_list_data_source" xsi:type="string">Webkul\DeliveryBoy\Model\ResourceModel\Order\Grid\Collection</item>
+                <item name="expressdelivery_vehicletype_list_data_source" xsi:type="string">Webkul\DeliveryBoy\Model\ResourceModel\VehicleType\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Webkul\DeliveryBoy\Block\Order\Info\Buttons">
+        <arguments>
+            <argument name="session" xsi:type="object">Magento\Customer\Model\Session</argument>
+        </arguments>
+    </type>
+    <type name="Webkul\DeliveryBoy\Model\ResourceModel\Deliveryboy\Grid\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">deliveryboy_deliveryboy</argument>
+            <argument name="eventPrefix" xsi:type="string">expressdelivery_deliveryboy_grid_collection</argument>
+            <argument name="eventObject" xsi:type="string">deliveryboy_grid_collection</argument>
+            <argument name="resourceModel" xsi:type="string">Webkul\DeliveryBoy\Model\ResourceModel\Deliveryboy</argument>
+        </arguments>
+    </type>
+    <type name="Webkul\DeliveryBoy\Model\ResourceModel\Order\Grid\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">deliveryboy_orders</argument>
+            <argument name="eventPrefix" xsi:type="string">expressdelivery_order_grid_collection</argument>
+            <argument name="eventObject" xsi:type="string">order_grid_collection</argument>
+            <argument name="resourceModel" xsi:type="string">Webkul\DeliveryBoy\Model\ResourceModel\Order</argument>
+        </arguments>
+    </type>
+    <type name="Webkul\DeliveryBoy\Model\ResourceModel\Rating\Grid\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">deliveryboy_rating</argument>
+            <argument name="eventPrefix" xsi:type="string">expressdelivery_rating_grid_collection</argument>
+            <argument name="eventObject" xsi:type="string">rating_grid_collection</argument>
+            <argument name="resourceModel" xsi:type="string">Webkul\DeliveryBoy\Model\ResourceModel\Rating</argument>
+        </arguments>
+    </type>
+    <type name="Webkul\DeliveryBoy\Model\ResourceModel\VehicleType\Grid\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">deliveryboy_vehicle_type</argument>
+            <argument name="eventPrefix" xsi:type="string">expressdelivery_vehicletype_grid_collection</argument>
+            <argument name="eventObject" xsi:type="string">vehicletype_grid_collection</argument>
+            <argument name="resourceModel" xsi:type="string">Webkul\DeliveryBoy\Model\ResourceModel\VehicleType</argument>
+        </arguments>
+    </type>
+
+    <virtualType name="DeliveryboyGirdFilterPool" type="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider">
+        <arguments>
+            <argument name="collection" xsi:type="object" shared="false">Webkul\DeliveryBoy\Model\ResourceModel\Deliveryboy\Collection</argument>
+            <argument name="filterPool" xsi:type="object" shared="false">DeliveryBoyGirdFilterPool</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="VehicleTypeGirdFilterPool" type="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider">
+        <arguments>
+            <argument name="collection" xsi:type="object" shared="false">Webkul\DeliveryBoy\Model\ResourceModel\VehicleType\Collection</argument>
+            <argument name="filterPool" xsi:type="object" shared="false">VehicleTypeGirdFilterPool</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="DeliveryboyGirdFilterPool" type="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider">
+        <arguments>
+            <argument name="collection" xsi:type="object" shared="false">Webkul\DeliveryBoy\Model\ResourceModel\Order\Collection</argument>
+            <argument name="filterPool" xsi:type="object" shared="false">DeliveryBoyGirdFilterPool</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="RatingGirdFilterPool" type="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider">
+        <arguments>
+            <argument name="collection" xsi:type="object" shared="false">Webkul\DeliveryBoy\Model\ResourceModel\Rating\Collection</argument>
+            <argument name="filterPool" xsi:type="object" shared="false">RatingGirdFilterPool</argument>
+        </arguments>
+    </virtualType>
+
+    <type name="Webkul\DeliveryBoy\Model\Deliveryboy\Validator\CompositeValidator">
+        <arguments>
+            <argument name="validators" xsi:type="array">
+                <item name="notAdminValidator" xsi:type="object">Webkul\DeliveryBoy\Model\Deliveryboy\Validator\NotAdminValidator</item>
+                <item name="uniqueEmailValidator" xsi:type="object">Webkul\DeliveryBoy\Model\Deliveryboy\Validator\UniqueEmailValidator</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Webkul\DeliveryBoy\Plugin\VerifyDeliveryBoy">
+        <arguments>
+            <argument name="singleParamSupportedApis" xsi:type="array">
+                <item name="expressdelivery_api_admin_approvedeliveryboy" xsi:type="string">deliveryBoyId</item>
+                <item name="expressdelivery_api_admin_assignorder" xsi:type="string">deliveryboyId</item>
+                <item name="expressdelivery_api_admin_deletedeliveryboy" xsi:type="string">deliveryboyId</item>
+                <item name="expressdelivery_api_admin_savedeliveryboy" xsi:type="string">deliveryboyId</item>
+                <item name="expressdelivery_api_customer_addreview" xsi:type="string">deliveryboyId</item>
+                <item name="expressdelivery_api_deliveryboy_acceptorder" xsi:type="string">deliveryboyId</item>
+                <item name="expressdelivery_api_deliveryboy_assignedorderlist" xsi:type="string">deliveryboyId</item>
+                <item name="expressdelivery_api_deliveryboy_changedeliveryboystatus" xsi:type="string">deliveryboyId</item>
+                <item name="expressdelivery_api_deliveryboy_setstatusorderpickedup" xsi:type="string">deliveryboyId</item>
+                <item name="expressdelivery_api_deliveryboy_deliver" xsi:type="string">deliveryboyId</item>
+                <item name="expressdelivery_api_deliveryboy_forgotpassword" xsi:type="string">email</item>
+                <item name="expressdelivery_api_deliveryboy_resetpassword" xsi:type="string">email</item>
+                <item name="expressdelivery_api_deliveryboy_setlocation" xsi:type="string">deliveryboyId</item>
+                <item name="expressdelivery_api_addcomment" xsi:type="string">deliveryboyId</item>
+                <item name="expressdelivery_api_deliveryboydetails" xsi:type="string">deliveryboyId</item>
+                <item name="expressdelivery_api_getdeliveryboyreviewlist" xsi:type="string">deliveryboyId</item>
+                <item name="expressdelivery_api_getlocation" xsi:type="string">deliveryboyId</item>
+                <item name="expressdelivery_api_orderlist" xsi:type="string">deliveryboyId</item>
+            </argument>
+            <argument name="multipleParamsSupportedApis" xsi:type="array">
+                <item name="expressdelivery_api_addcomment" xsi:type="array">
+                    <item name="check" xsi:type="string">isDeliveryboy</item>
+                    <item name="id" xsi:type="string">senderId</item>
+                </item>
+                <item name="expressdelivery_api_dashboard" xsi:type="array">
+                    <item name="check" xsi:type="string">isDeliveryboy</item>
+                    <item name="id" xsi:type="string">userId</item>
+                </item>
+                <item name="expressdelivery_api_orderdetails" xsi:type="array">
+                    <item name="check" xsi:type="string">isDeliveryboy</item>
+                    <item name="id" xsi:type="string">userId</item>
+                </item>
+                <item name="expressdelivery_api_orderlist" xsi:type="array">
+                    <item name="check" xsi:type="string">isDeliveryboy</item>
+                    <item name="id" xsi:type="string">userId</item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Webkul\MobikulApi\Controller\Customer\OrderDetails">
+        <plugin name="AttachDeliveryboyDetailsDeliveryBoy"
+            type="Webkul\DeliveryBoy\Plugin\Customer\OrderDetails" sortOrder="40" />
+    </type>
+    <type name="Webkul\DeliveryBoy\Controller\Api\ApiController">
+        <plugin name="verifyDeliveryboyExistence"
+            type="Webkul\DeliveryBoy\Plugin\VerifyDeliveryBoy" sortOrder="40" />
+    </type>
+</config>

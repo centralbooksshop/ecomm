@@ -1,0 +1,118 @@
+/**********************************************/
+/* Start your custom style declarations here */
+/**********************************************/
+
+/*
+.ub-content-slider-title {
+    margin: inherit;
+}*/
+/*You can add your custom CSS code here*/
+.product-info-main{
+	display: inline-grid;
+}
+.ZipCodeCODCheck{
+    margin-top: 20px;
+    padding: 5px;
+    width: 340px;
+}
+
+input#zipcode{
+	width: 100px;
+    border: 1px solid black;
+    height: 27px;
+}
+.ZipCodeCODCheck label{
+    color: black;
+}
+
+#btnZipCheck{
+    background-color: #f0141e;
+    color: white;
+}
+
+.towishlist{
+    width: 100%;
+}
+
+
+/*tr:nth-child(even) {
+    background-color: #f2f2f2;
+}*/
+
+.ui-datepicker .ui-datepicker-calendar .ui-state-disabled {
+    background: #dbd9d9 !important;
+}
+
+.columns .column .product-info-main{
+    float: none;
+}
+.columns .column .product-details-info{
+    border: 1px solid #e5e5e5;
+    margin: 40px 0px;
+    padding: 10px 20px;
+}
+.product-features h3, .product-description h3{
+    font-weight: 400;    
+    font-size: 26px;
+    color: black;
+    padding: 10px 5px;
+}
+.product-details-info .product-features table tbody>tr>:nth-child(1) {
+    font-weight: bold;
+}
+
+.product-details-info .product-description{
+    border-top: 1px solid #e5e5e5;
+    margin-top: 10px;
+}
+
+.columns .block .block-title {
+    display: block;
+    color: black;
+    font-size: 26px;
+    font-weight: 400;
+    border-bottom: none;
+    padding: 10px 0px;
+    margin-bottom: 0;
+}
+.columns .block.review-add .review-form .actions-toolbar{
+    margin-left: 0;
+}
+.columns .block .block-content .field .label{
+    text-align: left;
+}
+.columns .review-form .action.submit.primary{
+    background-color: #f0141e;
+    color: white;
+}
+.columns .block .block-content .field .control{
+    border: 1px solid #B6B6B6;
+}
+
+.columns .review-fieldset .field{
+    display: inline-grid;
+    width: 70%;
+    text-align: left;
+    margin: 0px;
+}
+
+@media screen and (min-width: 768px) {
+/* @media (min-width: 768px), print{ */
+    .block-content .review-form .fieldset>.field:not(.choice)>.label{
+    /* .columns .block .block-content .field .label{ */
+        width: 100%;
+    }
+
+    .product-info-main .product-addto-links a.action.towishlist, .product-options-bottom .product-addto-links a.action.towishlist,
+    .product-info-main .product-mailto-links a.action.mailto.friend{
+            background: none;
+    border: none;
+    color: #777;
+    text-align: center;
+    width: 50%;
+    font-size: 14px;
+    }
+    .product-info-main .product-mailto-links a .fa-envelope{
+        line-height: 27px;
+    }
+}

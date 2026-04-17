@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <css src="Magecomp_Cancelorder::css/fancybox/jquery.fancybox.css"/>
+    </head>
+    <referenceBlock name="customer_account_dashboard_top">
+        <action method="setTemplate" ifconfig="cancelordersection/cancelordergroup/active">
+            <argument name="template" xsi:type="string">Magecomp_Cancelorder::order/recent.phtml</argument>
+        </action>
+    </referenceBlock>
+</page>

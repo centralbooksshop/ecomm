@@ -1,0 +1,88 @@
+<?xml version="1.0"?>
+
+<!--
+/**
+ * Copyright © 2016 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+
+    <body>
+        <referenceContainer name="head.additional">
+            <block class="Magento\Framework\View\Element\Template" name="ub-head" template="Magento_Theme::html/ub_head.phtml" />
+
+            <block class="Magento\Framework\View\Element\Template" name="ub-head-icon" template="Magento_Theme::html/header_logo.phtml" />
+
+        </referenceContainer>
+
+        <block class="Magento\Framework\View\Element\Html\Links" name="top.zones" template="Magento_Theme::html/zones.phtml" before="-" />
+        <block class="Magento\Framework\View\Element\Html\Links" name="top.login" template="Magento_Theme::html/quicklogin.phtml" />
+        <block class="Magento\Framework\View\Element\Html\Links" name="top.regi" template="Magento_Theme::html/quickregister.phtml" />
+        <block class="Magento\Framework\View\Element\Html\Links" name="top.links" template="Magento_Theme::html/quickaccess.phtml" />
+        <block class="Magento\Framework\View\Element\Template" name="top.settings" template="Magento_Theme::html/quicksettings.phtml" cacheable="false" />
+
+        <move element="minicart" destination="header.panel" after="top.regi" />
+        <move element="top.zones" destination="header.panel" before="-" />
+        <move element="top.login" destination="header.panel" after="top.zones" />
+        <move element="top.regi" destination="header.panel" after="top.login" />
+        <move element="top.links" destination="header.panel" after="top.regi" />
+        <move element="top.settings" destination="header.panel" after="top.links" />
+
+        <move element="top.search" destination="header.panel" after="-"/>
+        <move element="store_language" destination="top.settings" before="-"/>
+        <move element="currency" destination="top.settings" after="-"/>
+
+        <move element="page.top" destination="header-wrapper" after="logo"/>
+
+        <move element="breadcrumbs" destination="main.content" before="-" />
+
+        <referenceBlock name="top.settings" remove="true" />
+        <referenceBlock name="store.settings" remove="true" />
+        <referenceBlock name="store.links" remove="true" />
+        <referenceBlock name="form.subscribe" remove="true" />             
+
+        <referenceContainer name="bots2.container">
+            <container name="sections.panel.bots2" label="" htmlTag="div" htmlClass="container">
+                <container name="sections.panel.bots2.content" label="Ubertheme - Footer Container" as="sections.panel.bots2.content" htmlTag="div" htmlClass="inner" />
+            </container>
+        </referenceContainer>
+
+        <move element="copyright" destination="footer-container" after="custom_block"/>
+
+        <referenceContainer name="footer">
+            <referenceBlock name="footer_links" remove="true" />
+            <referenceBlock name="report.bugs" remove="true"/>
+            <referenceBlock name="store_switcher" remove="true"/>
+            <container name="footer-inner" as="footer-inner" label="Page Footer Inner" htmlTag="div" htmlClass="inner" after="custom_block">
+                <container name="footer-inner2" as="footer-inner2" label="Page Footer Inner 2" htmlTag="div" htmlClass="inner2" />
+            </container>
+        </referenceContainer>
+
+        <!-- <referenceContainer name="footer-container">
+            <block class="Magento\Theme\Block\Html\Footer" name="custom_block" as="custom_block" template="Magento_Theme::html/footer.phtml" after="form.subscribe" />
+        </referenceContainer> -->
+        <move element="form.subscribe" destination="footer-container" before="-"/>
+
+        <!-- Remove Product Review -->
+        <referenceBlock name="reviews.tab" remove="true" />
+       <referenceBlock name="product.review.form" remove="true" />
+       <referenceBlock name="product.info.review" remove="true" />
+    <referenceBlock name="customer-account-navigation-product-reviews-link" remove="true" />
+    <referenceBlock name="review_view" remove="true" />
+        
+        <!-- remove compare products -->
+        <referenceBlock name="catalog.compare.link" remove="true" />
+        <referenceBlock name="catalog.compare.sidebar" remove="true"/>
+        <referenceBlock name="catalogsearch.product.addto.compare" remove="true"/>
+        <referenceBlock name="category.product.addto.compare" remove="true"/>
+        <referenceBlock name="crosssell.product.addto.compare" remove="true" />
+        <referenceBlock name="related.product.addto.compare" remove="true" />
+        <referenceBlock name="upsell.product.addto.compare" remove="true" />
+        <referenceBlock name="view.addto.compare" remove="true" />
+    </body>
+
+
+
+</page>

@@ -1,0 +1,75 @@
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../lib/internal/Magento/Framework/ObjectManager/etc/config.xsd">
+    <virtualType name="RHUiExampleBlogFilterPool" type="Magento\Framework\View\Element\UiComponent\DataProvider\FilterPool">
+        <arguments>
+            <argument name="appliers" xsi:type="array">
+                <item name="regular" xsi:type="object">Magento\Framework\View\Element\UiComponent\DataProvider\RegularFilter</item>
+                <item name="fulltext" xsi:type="object">Magento\Framework\View\Element\UiComponent\DataProvider\FulltextFilter</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    
+    	<virtualType name="RHUiExampleBlogFilterPool" type="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider">
+        <arguments>
+            <argument name="collection" xsi:type="object" shared="false">Retailinsights\EcomCustom\Model\ResourceModel\ProcessEcomOrders\Collection</argument>
+            <argument name="filterPool" xsi:type="object" shared="false">RHUiExampleBlogFilterPool</argument>
+        </arguments>
+    </virtualType>
+    
+    <type name="Retailinsights\EcomCustom\Model\ResourceModel\ProcessEcomOrders\Grid\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">cbo_assign_shippment</argument>
+            <argument name="eventPrefix" xsi:type="string">retailinsights_processedecomorders_processedecomorderslist_grid_collection</argument>
+            <argument name="eventObject" xsi:type="string">processedecomorderslist_grid_collection</argument>
+            <argument name="resourceModel" xsi:type="string">Retailinsights\EcomCustom\Model\ResourceModel\ProcessEcomOrders</argument>
+        </arguments>
+    </type>
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="retailinsights_processedecomorders_processedecomorderslist_listing_data_source" xsi:type="string">Retailinsights\EcomCustom\Model\ResourceModel\ProcessEcomOrders\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <!-- Pending Ecom labels -->
+   
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="retailinsights_pendingecomorders_pendingecomorderslist_listing_data_source" xsi:type="string">Retailinsights\EcomCustom\Model\ResourceModel\PendingEcomOrders\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Retailinsights\EcomCustom\Model\ResourceModel\PendingEcomOrders\Grid\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">sales_order</argument>
+            <argument name="eventPrefix" xsi:type="string">retailinsights_pendingecomorders_pendingecomorderslist_grid_collection</argument>
+            <argument name="eventObject" xsi:type="string">pendingecomorderslist_grid_collection</argument>
+            <argument name="resourceModel" xsi:type="string">Retailinsights\EcomCustom\Model\ResourceModel\PendingEcomOrders</argument>
+        </arguments>
+    </type>
+
+
+	<!-- optional books reports -->
+   
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="retailinsights_optionalbooksreports_list_data_source" xsi:type="string">Retailinsights\EcomCustom\Model\ResourceModel\OptionalBooksReports\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Retailinsights\EcomCustom\Model\ResourceModel\OptionalBooksReports\Grid\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">sales_order</argument>
+            <argument name="eventPrefix" xsi:type="string">retailinsights_optionalbooksreports_grid_collection</argument>
+            <argument name="eventObject" xsi:type="string">optionalbooksreports_grid_collection</argument>
+            <argument name="resourceModel" xsi:type="string">Retailinsights\EcomCustom\Model\ResourceModel\OptionalBooksReports</argument>
+        </arguments>
+    </type>
+
+
+</config>
+

@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../Magento/Backend/etc/menu.xsd">
+    <menu>
+        <!-- <add id="SchoolZone_Registration::parent" title="Registration" module="SchoolZone_Registration" sortOrder="100" resource="SchoolZone_Registration::parent"/>
+        <add id="SchoolZone_Registration::index" title="Registration Index" module="SchoolZone_Registration" sortOrder="10" action="registration/index" resource="SchoolZone_Registration::index" parent="SchoolZone_Registration::parent"/>
+		<add id="SchoolZone_Registration::similarproductsattributes" title="Registration" module="SchoolZone_Registration" sortOrder="20" parent="SchoolZone_Registration::parent" action="registration/similarproductsattributes" resource="SchoolZone_Registration::similarproductsattributes"/> -->
+
+    </menu>
+</config>

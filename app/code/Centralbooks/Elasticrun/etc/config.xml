@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/config.xsd">
+
+    <default>
+        <elasticrun_configuration>
+            <general>
+                <api_url>https://beta-logi-libera.elasticrun.in/api/method/libera_integration.libera.api</api_url>
+                <api_token></api_token>
+                <org_id>CB</org_id>
+                <user_id>CB</user_id>
+
+                <consignor_name>CBS HUB PRIVATE LIMITED</consignor_name>
+                <consignor_contact>9121152060</consignor_contact>
+                <consignor_email>no.reply@nomail.com</consignor_email>
+				<pickup_address>
+				[
+					{
+						"name": "CBS HUB PRIVATE LIMITED",
+						"address_type": "Consignor Address",
+						"address": "Plot No A 28/1/B, Road No 15,I.D.A",
+						"city": "Nacharam",
+						"state": "Telangana",
+						"country": "IN",
+						"postal": "500040",
+						"lat_long": "",
+						"landmark": ""
+					}
+				]
+				</pickup_address>
+				<shipper_address>
+				[
+					{
+						"name": "CBS HUB PRIVATE LIMITED",
+						"address_type": "Shipper Address",
+						"address": "Plot No A 28/1/B, Road No 15,I.D.A",
+						"city": "Nacharam",
+						"state": "Telangana",
+						"country": "IN",
+						"postal": "500040",
+						"lat_long": "",
+						"landmark": ""
+					}
+				]
+				</shipper_address>
+				
+                <origin_city>Telangana</origin_city>
+            </general>
+        </elasticrun_configuration>
+    </default>
+
+</config>

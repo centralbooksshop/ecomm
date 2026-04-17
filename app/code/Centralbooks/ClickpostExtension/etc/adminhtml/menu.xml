@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+      <add id="Centralbooks_ClickpostExtension::Menu" title="Clickpost" translate="title" module="Centralbooks_ClickpostExtension" sortOrder="51" resource="Centralbooks_ClickpostExtension::setup"/>
+
+      <add id="Centralbooks_ClickpostExtension::setup" title="Clickpost Setup Telangana" translate="title" module="Centralbooks_ClickpostExtension" parent="Centralbooks_ClickpostExtension::Menu" sortOrder="60" dependsOnModule="Centralbooks_ClickpostExtension" action="clickpost/setup" resource="Centralbooks_ClickpostExtension::setup"/>
+
+	  <add id="Centralbooks_ClickpostExtension::maharashtra" title="Clickpost Setup Maharashtra" translate="title" module="Centralbooks_ClickpostExtension" parent="Centralbooks_ClickpostExtension::Menu" sortOrder="70" dependsOnModule="Centralbooks_ClickpostExtension" action="clickpost/setup/maharashtra" resource="Centralbooks_ClickpostExtension::maharashtra"/>
+ 
+	   <add id="Centralbooks_ClickpostExtension::awb" title="Manage Clickpost AWBs" translate="title" module="Centralbooks_ClickpostExtension" parent="Centralbooks_ClickpostExtension::Menu" sortOrder="80" dependsOnModule="Centralbooks_ClickpostExtension" action="clickpost/awb" resource="Centralbooks_ClickpostExtension::awb"/>
+    </menu>
+</config>

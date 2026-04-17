@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2015 Infomodus. All rights reserved.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../lib/internal/Magento/Framework/Module/etc/module.xsd">
+    <module name="Infomodus_Fedexlabel" setup_version="1.0.8">
+        <sequence>
+            <module name="Magento_Sales"/>
+            <module name="Magento_Backend"/>
+        </sequence>
+    </module>
+</config>

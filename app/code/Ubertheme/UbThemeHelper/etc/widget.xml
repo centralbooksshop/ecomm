@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<widgets xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Widget:etc/widget.xsd">
+	<widget
+			id="uberthemehelper_categories_widget"
+			class="Ubertheme\UbThemeHelper\Block\Widget\Categories"
+			is_email_compatible="false"
+			placeholder_image="Ubertheme_UbThemeHelper::css/images/categories_placeholder.gif">
+		<label translate="true">UB Categories List Widget</label>
+		<description>Categories List Widget</description>
+		<parameters>
+			<parameter name="enable_thumbnail" xsi:type="select" visible="true" sort_order="1">
+				<label translate="true">Enable Thumbnail Image</label>
+				<options>
+					<option name="yes" value="yes" selected="true"> <label translate="true">Yes</label> </option>
+					<option name="no" value="no"> <label translate="true">No</label> </option>
+				</options>
+            </parameter>
+			<parameter name="enable_product_counter" xsi:type="select" visible="true" sort_order="2">
+				<label translate="true">Enable Product Counter</label>
+				<options>
+					<option name="yes" value="yes" selected="true"> <label translate="true">Yes</label> </option>
+					<option name="no" value="no"> <label translate="true">No</label> </option>
+				</options>
+			</parameter>
+			<parameter name="image_width" xsi:type="text"  visible="true" sort_order="3">
+				<label translate="true">Image Width</label>
+				<description translate="true">Category Thumbnail's width Eg. 250</description>
+				<depends>
+					<parameter name="enable_thumbnail" value="yes" />
+				</depends>
+				<value>250</value>
+			</parameter>
+			<parameter name="image_height" xsi:type="text"  visible="true" sort_order="4">
+				<label translate="true">Image Height</label>
+				<description translate="true">Category Thumbnail's height Eg. 250</description>
+				<depends>
+					<parameter name="enable_thumbnail" value="yes" />
+				</depends>
+				<value>250</value>
+			</parameter>
+			<parameter name="category_ids" xsi:type="multiselect" visible="true" source_model="Ubertheme\UbThemeHelper\Model\Config\Source\Categories" sort_order="5">
+				<label translate="true">Categories</label>
+				<description translate="true"> Select specific categories to show, or leave blank to show all children categories of the Root Category of current Store</description>
+			</parameter>
+		</parameters>
+	</widget>
+	<!-- Added more custom templates option-->
+	<widget id="products_list" class="Magento\CatalogWidget\Block\Product\ProductsList" is_email_compatible="true"
+			placeholder_image="Magento_CatalogWidget::images/products_list.png" ttl="86400">
+		<parameters>
+			<parameter name="template" xsi:type="select" required="true" visible="true">
+				<label translate="true">Template</label>
+				<options>
+					<option name="ub_grid_deals" value="Ubertheme_UbThemeHelper::product/widget/content/deals_grid.phtml">
+						<label translate="true">UB Products Grid Deals</label>
+					</option>
+					<option name="ub_grid_popular" value="Ubertheme_UbThemeHelper::product/widget/content/popular_grid.phtml">
+						<label translate="true">UB Products Grid Popular</label>
+					</option>
+					<option name="ub_grid_default" value="Ubertheme_UbThemeHelper::product/widget/content/default_grid.phtml">
+						<label translate="true">UB Products Grid Default</label>
+					</option>
+				</options>
+			</parameter>
+		</parameters>
+	</widget>
+</widgets>

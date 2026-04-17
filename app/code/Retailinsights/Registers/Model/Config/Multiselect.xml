@@ -1,0 +1,14 @@
+<config>
+    <default>
+        <inchoo>
+            <multiselect>
+                <first_entry>
+                    <label>India</label>
+                </first_entry>
+                <second_entry>
+                    <label>Japan</label>
+                </second_entry>
+            </multiselect>
+        </inchoo>
+    </default>
+</config>

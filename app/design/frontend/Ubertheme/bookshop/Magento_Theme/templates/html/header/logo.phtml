@@ -1,0 +1,56 @@
+<?php
+/**
+ * Copyright © 2016 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+/**
+ * @var \Magento\Theme\Block\Html\Header\Logo $block
+ */
+
+/** @var \Magento\Framework\App\ObjectManager $om */
+$om = \Magento\Framework\App\ObjectManager::getInstance();
+/** @var \Magento\Framework\Module\Manager $moduleManager */
+$moduleManager = $om->get('Magento\Framework\Module\Manager');
+if ($moduleManager->isOutputEnabled("Ubertheme_UbThemeHelper")):
+  //UbThemeHelper
+  $ubHelper = $this->helper('Ubertheme\UbThemeHelper\Helper\Data');
+  //Define call logo from UbThemeHelper
+  $logo       = $ubHelper->getParam('element/header/logo/src');
+  $logoAlt    = $ubHelper->getParam('element/header/logo/alt');
+  $logoWidth  = $ubHelper->getParam('element/header/logo/width');
+  $logoHeight = $ubHelper->getParam('element/header/logo/height');
+else:
+  $logo       = 'logo.png';
+  $logoAlt    = "Responsive Magento Bookstore Theme";
+  $logoWidth  = 152;
+  $logoHeight = 26;
+endif;
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$storeManager = $objectManager->get('Magento\Store\Model\StoreManagerInterface'); 
+$currentStore = $storeManager->getStore();
+$mediaUrl = $currentStore->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_MEDIA);
+?>
+<?php $storeName = $block->getThemeName() ? $block->getThemeName() : $block->getLogoAlt();?>
+<span data-action="toggle-nav" class="action nav-toggle"><span><?= /* @escapeNotVerified */ __('Toggle Nav') ?></span></span>
+<?php if ($block->isHomePage()):?>
+    <strong class="logo">
+<?php else: ?>
+    <a class="logo" href="<?php echo $block->getUrl(''); ?>" title="<?php /* @escapeNotVerified */ echo $logoAlt ?>">
+<?php endif ?>
+	<?php if($logo != ""): ?>
+  <img src="<?php echo $mediaUrl.'ubertheme/ubthemehelper/element/header/logo/src/'.$logo ?>" style="max-height: <?php echo $logoHeight; ?>px; max-width: <?php echo $logoWidth; ?>px; width: 100%; height: 100%;"  alt="<?php echo $logoAlt; ?>" />
+  <?php else: ?>
+  <img src="<?php /* @escapeNotVerified */ echo $block->getLogoSrc() ?>"
+       alt="<?php /* @escapeNotVerified */ echo $block->getLogoAlt() ?>"
+       <?php echo $block->getLogoWidth() ? 'width="' . $block->getLogoWidth() . '"' : '' ?>
+       <?php echo $block->getLogoHeight() ? 'height="' . $block->getLogoHeight() . '"' : '' ?>
+  />
+	<?php endif?>  
+<?php if ($block->isHomePage()):?>
+    </strong>
+<?php else:?>
+    </a>
+<?php endif?>

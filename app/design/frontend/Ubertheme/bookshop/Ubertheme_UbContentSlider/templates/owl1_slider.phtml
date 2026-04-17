@@ -1,0 +1,94 @@
+<?php
+    $imageHelper = $this->helper('Ubertheme\UbContentSlider\Helper\Image');
+?>
+
+<?php if ($config->show_title): ?>
+    <div class="block-title ub-content-slider-title">
+        <strong> <?php echo $block->escapeHtml($config->title); ?> </strong>
+    </div>
+<?php endif; ?>
+
+<?php if (sizeof($items)): ?>
+    <div class="ub-content-slider-items <?php echo $config->addition_class;?> owl-carousel" data-mage-init='{"ubOwlCarousel1": <?php echo $block->getOwl1JsonConfigs()?>}'>
+        <?php foreach($items as $key => $item): ?>
+            <?php 
+                $itemWidth = ($config->item_width) ? $config->item_width .'px' : 'auto';
+                $itemHeight = ($config->item_height) ? $config->item_height .'px' : 'auto';
+            ?>
+            <div class="item">
+                <div class="slide-content">
+                    <?php if ($item['content_type'] == 'youtube_video'): ?>
+                        <iframe class="youtube" width="<?php echo $itemWidth ?>" height="<?php echo $itemHeight ?>" 
+                                src="https://www.youtube.com/embed/<?php echo $item['video_id']; ?>?autoplay=0&loop=1&html5=1&wmode=transparent"
+                                frameborder="0" allowfullscreen></iframe>
+                    <?php elseif ($item['content_type'] == 'vimeo_video'): ?>
+                        <iframe id ="video-player-<?php echo $key; ?>" class="vimeo" width="<?php echo $itemWidth ?>" height="<?php echo $itemHeight ?>" 
+                                src="https://player.vimeo.com/video/<?php echo $item['video_id']; ?>?autoplay=0&loop=1&wmode=transparent&player_id=video-player-<?php echo $key; ?>"
+                                frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+                    <?php else: ?>
+                        <a href="<?php echo $item['link']; ?>" title="<?php echo $item['title']; ?>" target="<?php echo $item['target']; ?>">
+                            <?php 
+                                if ($config->item_width){ //has resize
+                                    $imageUrl = $imageHelper->resize($item['image'], $config->item_width, $config->item_height); 
+                                } else {
+                                    $imageUrl = $block->getSliderImageUrl($item['image']);
+                                }
+                            ?>
+                            <img class="slide-image" src="<?php echo $imageUrl; ?>" alt="<?php echo $item['title']; ?>" />
+                        </a>
+                    <?php endif; ?>
+                </div>
+                <div class="slide-content-desc">
+                    <?php if ($config->show_item_title): ?>
+                        <div class="slide-title"><a href="<?php echo $item['link']; ?>" title="<?php echo $item['title']; ?>" target="<?php echo $item['target']; ?>"><?php echo $item['title']; ?></a></div>
+                    <?php endif; ?>
+                    <?php if ($config->show_item_desc): ?>
+                        <?php if ($item['description']!= "") : ?>
+                            <div class="slide-desc">
+                                <?php echo $item['description']; ?>
+                                <a class="slide-readmore" href="<?php echo $item['link']; ?>" title="<?php echo $item['title']; ?>" target="<?php echo $item['target']; ?>">View More</a>
+                            </div>
+                        <?php endif; ?>
+                    <?php endif; ?>
+                </div>
+            </div>
+        <?php endforeach; ?>
+    </div>
+    <!-- Thumbnail items-->
+    <?php if ($config->single_item AND $config->show_thumbnail): ?>
+    <div class="owl-carousel thumb-items">
+        <?php foreach($items as $key => $item): ?>
+            <?php 
+                $thumbWidth = ($config->thumb_width) ? $config->thumb_width .'px' : 'auto';
+                $thumbHeight = ($config->thumb_height) ? $config->thumb_height .'px' : 'auto';
+            ?>
+            <div class="item">
+                <?php if ($item['content_type'] == 'youtube_video'): ?>
+                    <iframe class="youtube" width="<?php echo $thumbWidth ?>" height="<?php echo $thumbHeight ?>" 
+                            src="https://www.youtube.com/embed/<?php echo $item['video_id']; ?>?autoplay=0&loop=1&html5=1&wmode=transparent"
+                            frameborder="0" allowfullscreen></iframe>
+                <?php elseif ($item['content_type'] == 'vimeo_video'): ?>
+                    <iframe id ="video-player-thumb-<?php echo $key; ?>" class="vimeo" width="<?php echo $thumbWidth ?>" height="<?php echo $thumbHeight ?>" 
+                            src="https://player.vimeo.com/video/<?php echo $item['video_id']; ?>?autoplay=0&loop=1&wmode=transparent&player_id=video-player-thumb-<?php echo $key; ?>"
+                            frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+                <?php else: ?>
+                    <?php 
+                        if ($config->thumb_width){ //has resize
+                            $thumbUrl = $imageHelper->resize($item['image'], $config->thumb_width, $config->thumb_height); 
+                        } else {
+                            $thumbUrl = $block->getSliderImageUrl($item['image']);
+                        }
+                    ?>
+                    <img class="slide-image-thumb" src="<?php echo $thumbUrl; ?>" alt="<?php echo $item['title']; ?>" />
+                <?php endif; ?>
+            </div>
+        <?php endforeach; ?>
+    </div>
+    <?php endif; ?>
+    <!--// Thumbnail items-->
+<?php else : ?>
+    <div class="ub-content-slider no-items"><?php echo __("There aren't items yet."); ?></div>
+<?php endif; ?>
+
+
+

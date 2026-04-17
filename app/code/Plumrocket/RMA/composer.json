@@ -1,0 +1,16 @@
+{
+    "name": "plumrocket/module-rma",
+    "description": "Plumrocket Returns and Exchanges (RMA) Extension for Magento 2",
+    "require": {
+        "php": ">=7.1",
+        "plumrocket/module-plumbase": ">=2.10.1"
+    },
+    "type": "magento2-module",
+    "version": "2.4.15",
+    "autoload": {
+        "files": [ "registration.php" ],
+        "psr-4": {
+            "Plumrocket\\RMA\\": ""
+        }
+    }
+}

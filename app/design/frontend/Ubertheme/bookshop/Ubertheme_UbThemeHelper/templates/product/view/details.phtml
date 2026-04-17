@@ -1,0 +1,108 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+    // @codingStandardsIgnoreFile
+    /** @var \Ubertheme\UbThemeHelper\Helper\CustomTabs $helperTab */
+    $helperTab = $this->helper('Ubertheme\UbThemeHelper\Helper\CustomTabs');
+    $product = $block->getProduct();
+    $customTabs = $helperTab->getEnabledTabs($product);
+    $detailedInfoGroup = $block->getGroupChildNames('detailed_info', 'getChildHtml');
+?>
+<?php if ($customTabs):?>
+    <div class="product info detailed">
+        <?php $layout = $block->getLayout(); ?>
+        <div class="product data items">
+            <?php foreach ($customTabs as $tab):?>
+                <?php
+                $tabTitleClasses = "title";
+                if ($customTabs == $detailedInfoGroup) {
+                    $html = $layout->renderElement($tab);
+                    if (!trim($html)) {
+                        continue;
+                    }
+                    $alias = $layout->getElementAlias($tab);
+                    $label = $block->getChildData($alias, 'title');
+                } else {
+                    $typeTab = $tab['type'];
+                    $tabTitleClasses = "title";
+                    if (in_array($typeTab, $detailedInfoGroup)) {
+                        $html = $layout->renderElement($typeTab);
+                        if (!trim($html)) {
+                            continue;
+                        }
+                        $alias = $layout->getElementAlias($typeTab);
+                        $label = $tab['title'];
+                        if ($typeTab == 'reviews.tab') {
+                            $label = str_replace("Reviews" , $label, $block->getChildData($alias, 'title'));
+                        }
+                    } else {
+                        $html = $tab['html'];
+                        $alias = $tab['alias'];
+                        $label = $tab['title'];
+                    }
+                }
+                if (preg_match('/(<span class="counter">)/i', $label)) {
+                    $tabTitleClasses .= " has-counter";
+                }
+                ?>
+                <div class="data item <?= $tabTitleClasses; ?>"
+                     aria-labeledby="tab-label-<?= /* @escapeNotVerified */ $alias ?>-title"
+                     data-role="collapsible" id="tab-label-<?= /* @escapeNotVerified */ $alias ?>">
+                    <a class="data switch"
+                       tabindex="-1"
+                       data-toggle="switch"
+                       href="#<?= /* @escapeNotVerified */ $alias ?>"
+                       id="tab-label-<?= /* @escapeNotVerified */ $alias ?>-title">
+                        <?= /* @escapeNotVerified */ $label ?>
+                    </a>
+                </div>
+
+                <div class="data item content" id="<?= /* @escapeNotVerified */ $alias ?>" data-role="content">
+                    <?= /* @escapeNotVerified */ $html ?>
+                </div>
+            <?php endforeach;?>
+        </div>
+    </div>
+    <script>
+        require([
+            'jquery',
+            'domReady!',
+            'tabs'
+        ], function ($) {
+            $_tabItems = $(".product.data.items");
+            function isMobile() { 
+                if( navigator.userAgent.match(/Android/i)
+                || navigator.userAgent.match(/webOS/i)
+                || navigator.userAgent.match(/iPhone/i)
+                || navigator.userAgent.match(/iPod/i)
+                || navigator.userAgent.match(/BlackBerry/i)
+                || navigator.userAgent.match(/Windows Phone/i)
+                ){
+                    return true;
+                }
+                else {
+                    return false;
+                }
+            }
+            if(isMobile() || $(window).width() < 767) {
+                $_tabItems.tabs({
+                "openedState":  "active",
+                "collapsible": true,
+                "animate": true,
+                "active": 0
+                });
+                $_tabItems.addClass("accordion");
+            } else {
+                $_tabItems.tabs({
+                    "openedState":  "active",
+                    "collapsible": false
+                });
+                $_tabItems.addClass("tab");
+            }
+        });
+    </script>
+<?php endif; ?>
+

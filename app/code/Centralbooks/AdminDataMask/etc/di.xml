@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+
+    <type name="Magento\Ui\Component\Listing\Columns\Column">
+        <plugin name="centralbooks_global_grid_mask"
+                type="Centralbooks\AdminDataMask\Plugin\GridMaskPlugin"/>
+    </type>
+
+</config>

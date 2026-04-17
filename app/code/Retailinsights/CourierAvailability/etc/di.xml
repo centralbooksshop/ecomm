@@ -1,0 +1,19 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+	<preference for="Retailinsights\CourierAvailability\Api\CourierRepositoryInterface" type="Retailinsights\CourierAvailability\Model\CourierRepository"/>
+	<preference for="Retailinsights\CourierAvailability\Api\Data\CourierInterface" type="Retailinsights\CourierAvailability\Model\Courier"/>
+	<preference for="Retailinsights\CourierAvailability\Api\Data\CourierSearchResultsInterface" type="Magento\Framework\Api\SearchResults"/>
+	<virtualType name="Retailinsights\CourierAvailability\Model\ResourceModel\Courier\Grid\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+		<arguments>
+			<argument name="mainTable" xsi:type="string">retailinsights_courieravailability_courier</argument>
+			<argument name="resourceModel" xsi:type="string">Retailinsights\CourierAvailability\Model\ResourceModel\Courier\Collection</argument>
+		</arguments>
+	</virtualType>
+	<type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+		<arguments>
+			<argument name="collections" xsi:type="array">
+				<item name="retailinsights_courieravailability_courier_listing_data_source" xsi:type="string">Retailinsights\CourierAvailability\Model\ResourceModel\Courier\Grid\Collection</item>
+			</argument>
+		</arguments>
+	</type>
+</config>

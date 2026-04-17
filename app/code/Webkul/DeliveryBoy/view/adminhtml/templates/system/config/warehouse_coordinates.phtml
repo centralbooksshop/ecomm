@@ -1,0 +1,56 @@
+<?php
+/**
+ * Webkul Software.
+ *
+ *
+ * @category  Webkul
+ * @package   Webkul_DeliveryBoy
+ * @author    Webkul <support@webkul.com>
+ * @copyright Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html ASL Licence
+ * @link      https://store.webkul.com/license.html
+ */
+$googleMapKey = $block->getGoogleMapKey();
+?>
+
+<?php if ($block->isDeliveyrboySection()): ?>
+    <script>
+        const warehouseTextrea = document.getElementById('deliveryboy_configuration_warehouse_address');
+        const warehouseLatitude = document.getElementById('deliveryboy_configuration_latitude');
+        const warehouseLongitude = document.getElementById('deliveryboy_configuration_longitude');
+        let autocompleteform;
+
+        warehouseTextrea.addEventListener('keydown', () => {
+            warehouseTextrea.style.border = "1px solid #c2c2c2";
+            warehouseLongitude.value = "";
+            warehouseLatitude.value = "";
+        });
+
+        function initMap() {
+            autocompleteform = new google.maps.places.Autocomplete(
+                warehouseTextrea,
+                {}
+            );
+            autocompleteform.addListener("place_changed", fillInAddress);
+        }
+
+        function fillInAddress() {
+            const place = autocompleteform.getPlace();
+            if (place != undefined) {
+                warehouseLongitude.value = place.geometry.location.lng();
+                warehouseLatitude.value = place.geometry.location.lat();
+            }
+            if (place.formatted_address != null) {
+                 
+            } else {
+                warehouseTextrea.value = "";
+            }
+        }
+    </script>
+
+    <script async
+        src="https://maps.googleapis.com/maps/api/js?key=<?=
+            $block->escapeHtmlAttr($googleMapKey);
+        ?>&libraries=places&callback=initMap">
+    </script>
+<?php endif; ?>

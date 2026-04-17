@@ -1,0 +1,54 @@
+<div class="fieldset">
+	<div data-bind="visible: selectedMethod() == 'cistorepickup_cistorepickup'"  class="storepickup-shipping-method" id="storepickup-shipping-method">
+		<select data-bind="attr: {
+			name: 'store_pickup',
+		},options: storepickConfig,
+							optionsCaption: 'Choose one...',
+							optionsText: 'label',
+							optionsValue: 'value',
+							valueAllowUnset: true" required>
+		</select>
+		<span id="store-selector-error" style="display:none; color: red; font-weight: 600;padding: 10px;">Please select the store before proceeding to payment.</span>
+		<div class="storepickup-shipping-data" id="storepickup-shipping-data">
+			<input type="hidden" value="0" class="storepickup_checked" name="storepickup_shipping_checked" id="storepickup_checked">
+			
+			<a class="action open-modal-form" href="javascript:void(0)" id="click-me"  title="Modal">View Stores</a>
+			
+			<div id="ci-storepickup-popup-modal" style="display:none;">
+					<div id="map"></div>
+			</div>
+			
+			<br/>
+			<div class="store_info">
+				<ul data-bind="foreach: storepickInfo">
+					<li data-bind="text: label,css:value" style="display:none"></li>
+				</ul>
+			</div>
+			<br/>
+		</div>
+			<!--Pickup person name  -->
+		<div>
+			<label>Pickup Person's Name</span></label>
+			<input type="text" id="pickup_person_name" data-validate="{'required-entry':true}" name="pickup_person_name"/>
+		</div>
+			<!-- Pickup person's Id -->
+		<div>
+			<label>Pickup Person Mobile</span></label>
+			<input type="text" id="pickup_person_id" data-bind="valueUpdate: 'afterkeydown', event: { keyup: mobileNumberValidation }" name="pickup_person_id"/>
+			<span id="store-selector-phone-error"  style="display:none; color: red; font-weight: 600;padding: 10px;">Please enter a valid mobile number</span> 
+		</div>	
+		<div data-bind="visible: websiteCode == 'schools'" style="padding-top: 10px;">
+		<input
+		  type="text"
+		  class="input-text required-entry"
+		  id="calendar_inputField"
+		  name="calendar_inputField"
+		  data-bind="datetimepicker: true"
+		  placeholder="Select Date And Time"
+		/>
+
+			<span data-bind="text: getPickupMessage()" style="padding: 4px; color: red;font-weight: 600;"></span>
+		</div>
+	</div> 
+</div>
+<div style="clear: both;"></div>

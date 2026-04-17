@@ -1,0 +1,40 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+	<preference for="Centralbooks\Zones\Api\ZonesRepositoryInterface" type="Centralbooks\Zones\Model\ZonesRepository"/>
+	<preference for="Centralbooks\Zones\Api\Data\ZonesInterface" type="Centralbooks\Zones\Model\Zones"/>
+	<preference for="Centralbooks\Zones\Api\Data\ZonesSearchResultsInterface" type="Magento\Framework\Api\SearchResults"/>
+
+	<preference for="Centralbooks\Zones\Api\AddzoneRepositoryInterface" type="Centralbooks\Zones\Model\AddzoneRepository"/>
+	<preference for="Centralbooks\Zones\Api\Data\AddzoneInterface" type="Centralbooks\Zones\Model\Addzone"/>
+	<preference for="Centralbooks\Zones\Api\Data\AddzoneSearchResultsInterface" type="Magento\Framework\Api\SearchResults"/>
+
+	
+	<virtualType name="Centralbooks\Zones\Model\ResourceModel\Zones\Grid\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+		<arguments>
+			<argument name="mainTable" xsi:type="string">centralbooks_zones</argument>
+			<argument name="resourceModel" xsi:type="string">Centralbooks\Zones\Model\ResourceModel\Zones\Collection</argument>
+		</arguments>
+	</virtualType>
+	<type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+		<arguments>
+			<argument name="collections" xsi:type="array">
+				<item name="centralbooks_zones_zones_listing_data_source" xsi:type="string">Centralbooks\Zones\Model\ResourceModel\Zones\Grid\Collection</item>
+			</argument>
+		</arguments>
+	</type>
+	
+	
+	<virtualType name="Centralbooks\Zones\Model\ResourceModel\Addzone\Grid\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+		<arguments>
+			<argument name="mainTable" xsi:type="string">centralbooks_zones_addzone</argument>
+			<argument name="resourceModel" xsi:type="string">Centralbooks\Zones\Model\ResourceModel\Addzone\Collection</argument>
+		</arguments>
+	</virtualType>
+	<type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+		<arguments>
+			<argument name="collections" xsi:type="array">
+				<item name="zones_addzone_listing_data_source" xsi:type="string">Centralbooks\Zones\Model\ResourceModel\Addzone\Grid\Collection</item>
+			</argument>
+		</arguments>
+	</type>
+</config>

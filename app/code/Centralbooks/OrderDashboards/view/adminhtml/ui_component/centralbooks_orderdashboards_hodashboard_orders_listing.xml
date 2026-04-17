@@ -1,0 +1,385 @@
+<?xml version="1.0" ?>
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+	<argument name="data" xsi:type="array">
+		<item name="js_config" xsi:type="array">
+			<item name="provider" xsi:type="string">centralbooks_orderdashboards_hodashboard_orders_listing.centralbooks_orderdashboards_hodashboard_orders_listing_data_source</item>
+		</item>
+	</argument>
+	<settings>
+		<spinner>centralbooks_orderdashboards_hodashboard_orders_columns</spinner>
+		<deps>
+			<dep>centralbooks_orderdashboards_hodashboard_orders_listing.centralbooks_orderdashboards_hodashboard_orders_listing_data_source</dep>
+		</deps>
+	</settings>
+	<!-- <dataSource name="centralbooks_orderdashboards_hodashboard_orders_listing_data_source" component="Magento_Ui/js/grid/provider">
+		<settings>
+			<storageConfig>
+				<param name="indexField" xsi:type="string">entity_id</param>
+			</storageConfig>
+			<updateUrl path="mui/index/render"/>
+		</settings>
+		<aclResource>Centralbooks_OrderDashboards::HODashboard</aclResource>
+		<dataProvider name="centralbooks_orderdashboards_hodashboard_orders_listing_data_source" class="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider">
+			<settings>
+				<requestFieldName>entity_id</requestFieldName>
+				<primaryFieldName>entity_id</primaryFieldName>
+			</settings>
+		</dataProvider>
+	</dataSource> -->
+	<!-- <dataSource name="centralbooks_orderdashboards_hodashboard_orders_listing_data_source">
+	        <argument name="dataProvider" xsi:type="configurableObject">
+	            <argument name="class" xsi:type="string">Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider</argument>
+	            <argument name="name" xsi:type="string">centralbooks_orderdashboards_hodashboard_orders_listing_data_source</argument>
+	            <argument name="primaryFieldName" xsi:type="string">entity_id</argument>
+	            <argument name="requestFieldName" xsi:type="string">entity_id</argument>
+			<argument name="data" xsi:type="array">
+				<item name="config" xsi:type="array">
+				<item name="component" xsi:type="string">Magento_Ui/js/grid/provider</item>
+				<item name="update_url" xsi:type="url" path="mui/index/render"/>
+				<item name="storageConfig" xsi:type="array">
+				<item name="indexField" xsi:type="string">entity_id</item>
+				<item name="dataScope" xsi:type="string">entity_id</item>
+				</item>
+				<item name="filter_url_params" xsi:type="array">
+				<item name="store" xsi:type="string">*</item> 
+				</item>
+				</item>
+			</argument>
+	        </argument>
+	    </dataSource>  -->
+
+	<dataSource name="centralbooks_orderdashboards_hodashboard_orders_listing_data_source">
+        <argument name="dataProvider" xsi:type="configurableObject">
+            <argument name="class" xsi:type="string">Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider</argument>
+            <argument name="name" xsi:type="string">centralbooks_orderdashboards_hodashboard_orders_listing_data_source</argument>
+            <argument name="primaryFieldName" xsi:type="string">entity_id</argument>
+            <argument name="requestFieldName" xsi:type="string">id</argument>
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="update_url" xsi:type="url" path="mui/index/render"/>
+					<item name="filter_url_params" xsi:type="array">
+						<item name="status" xsi:type="string">*</item>
+						<item name="method" xsi:type="string">*</item>
+						<item name="created_at" xsi:type="string">*</item>
+					</item>
+                    <item name="storageConfig" xsi:type="array">
+   						<item name="indexField" xsi:type="string">entity_id</item>
+   					</item>
+                </item>
+            </argument>
+        </argument>
+        <argument name="data" xsi:type="array">
+            <item name="js_config" xsi:type="array">
+                <item name="component" xsi:type="string">Magento_Ui/js/grid/provider</item>
+            </item>
+        </argument>
+    </dataSource>
+	<listingToolbar name="listing_top">
+		<settings>
+			<sticky>true</sticky>
+		</settings>
+		<bookmark name="bookmarks"/>
+		<columnsControls name="columns_controls"/>
+		<filters name="listing_filters"/>
+		<paging name="listing_paging"/>
+	</listingToolbar>
+	<columns name="centralbooks_orderdashboards_hodashboard_orders_columns">
+		<selectionsColumn name="ids">
+			<settings>
+				<indexField>entity_id</indexField>
+			</settings>
+		</selectionsColumn>
+
+		 <column name="increment_id">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Increment Id</label>
+            </settings>
+        </column>
+
+        <column name="store_id" class="Magento\Store\Ui\Component\Listing\Column\Store">
+            <settings>
+                <label translate="true">Purchase Point</label>
+                <bodyTmpl>ui/grid/cells/html</bodyTmpl>
+                <sortable>false</sortable>
+            </settings>
+        </column>
+        <column name="created_at" class="Magento\Ui\Component\Listing\Columns\Date"
+                component="Magento_Ui/js/grid/columns/date">
+            <settings>
+                <filter>dateRange</filter>
+                <dataType>date</dataType>
+                <label translate="true">Purchase Date</label>
+                <sorting>desc</sorting>
+            </settings>
+        </column>
+
+		<column name="updated_at" class="Magento\Ui\Component\Listing\Columns\Date"
+                component="Magento_Ui/js/grid/columns/date">
+            <settings>
+                <filter>dateRange</filter>
+                <dataType>date</dataType>
+                <label translate="true">Delivered Date</label>
+                <sorting>desc</sorting>
+            </settings>
+        </column>
+
+        <column name="billing_name">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Bill-to Name</label>
+            </settings>
+        </column>
+        <column name="shipping_name">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Ship-to Name</label>
+            </settings>
+        </column>
+        <column name="base_grand_total" class="Magento\Sales\Ui\Component\Listing\Column\Price">
+            <settings>
+                <filter>textRange</filter>
+                <label translate="true">Grand Total (Base)</label>
+            </settings>
+        </column>
+        <column name="grand_total" class="Magento\Sales\Ui\Component\Listing\Column\PurchasedPrice">
+            <settings>
+                <filter>textRange</filter>
+                <label translate="true">Grand Total (Purchased)</label>
+            </settings>
+        </column>
+        <column name="status" component="Magento_Ui/js/grid/columns/select">
+            <settings>
+                <filter>select</filter>
+                <options class="Magento\Sales\Ui\Component\Listing\Column\Status\Options"/>
+                <dataType>select</dataType>
+                <label translate="true">Status</label>
+            </settings>
+        </column>
+        <column name="billing_address" class="Magento\Sales\Ui\Component\Listing\Column\Address">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Billing Address</label>
+                <bodyTmpl>ui/grid/cells/html</bodyTmpl>
+                <visible>false</visible>
+            </settings>
+        </column>
+        <column name="shipping_address" class="Magento\Sales\Ui\Component\Listing\Column\Address">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Shipping Address</label>
+                <bodyTmpl>ui/grid/cells/html</bodyTmpl>
+                <visible>false</visible>
+            </settings>
+        </column>
+        <column name="shipping_information">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Shipping Information</label>
+                <visible>false</visible>
+            </settings>
+        </column>
+        <column name="customer_email">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Customer Email</label>
+                <visible>false</visible>
+            </settings>
+        </column>
+        <column name="customer_group" component="Magento_Ui/js/grid/columns/select">
+            <settings>
+                <filter>select</filter>
+                <options class="Magento\Customer\Ui\Component\Listing\Column\Group\Options"/>
+                <dataType>select</dataType>
+                <label translate="true">Customer Group</label>
+                <visible>false</visible>
+            </settings>
+        </column>
+        <column name="subtotal" class="Magento\Sales\Ui\Component\Listing\Column\Price">
+            <settings>
+                <filter>textRange</filter>
+                <label translate="true">Subtotal</label>
+                <visible>false</visible>
+            </settings>
+        </column>
+        <column name="shipping_and_handling" class="Magento\Sales\Ui\Component\Listing\Column\Price">
+            <settings>
+                <filter>textRange</filter>
+                <label translate="true">Shipping and Handling</label>
+                <visible>false</visible>
+            </settings>
+        </column>
+        <column name="customer_name">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Customer Name</label>
+                <visible>false</visible>
+            </settings>
+        </column>
+        <column name="payment_method" component="Magento_Ui/js/grid/columns/select">
+            <settings>
+                <filter>select</filter>
+                <options class="Magento\Payment\Ui\Component\Listing\Column\Method\Options"/>
+                <dataType>select</dataType>
+                <label translate="true">Payment Method</label>
+                <visible>false</visible>
+            </settings>
+        </column>
+        <column name="total_refunded" class="Magento\Sales\Ui\Component\Listing\Column\PurchasedPrice">
+            <settings>
+                <filter>textRange</filter>
+                <label translate="true">Total Refunded</label>
+                <visible>false</visible>
+            </settings>
+        </column>
+        <actionsColumn name="actions" class="Magento\Sales\Ui\Component\Listing\Column\ViewAction">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="viewUrlPath" xsi:type="string">sales/order/view</item>
+                    <item name="urlEntityParamName" xsi:type="string">order_id</item>
+                </item>
+            </argument>
+            <settings>
+                <indexField>entity_id</indexField>
+            </settings>
+        </actionsColumn>
+        
+	    <column name="dispatched_on" class="Magento\Ui\Component\Listing\Columns\Date" component="Magento_Ui/js/grid/columns/date">
+		  <settings>
+			<filter>dateRange</filter>
+			<dataType>date</dataType>
+			<label translate="true">Dispatched Date</label>
+			<sorting>desc</sorting>
+		  </settings>
+		</column>
+
+		<column name="student_name">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Student Name</item>
+                </item>
+            </argument>
+        </column>
+        <column name="roll_no">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Roll Number</item>
+                </item>
+            </argument>
+        </column>
+        <column name="telephone">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Phone Number</item>
+                    <item name="sortOrder" xsi:type="number">2</item>
+                </item>
+            </argument>
+        </column>
+        <column name="entity_id">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Order Id</item>
+					<item name="resizeEnabled" xsi:type="boolean">false</item>
+                    <item name="resizeDefaultWidth" xsi:type="string">70</item>
+                    <item name="sortOrder" xsi:type="number">1</item>
+                </item>
+            </argument>
+        </column>
+
+		<column name="parent_split_order">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Split Parent Order Id</item>
+                    <item name="sortOrder" xsi:type="number">3</item>
+                </item>
+            </argument>
+        </column>
+        <column name="school_name">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">School Name</item>
+                </item>
+            </argument>
+        </column>
+        <column name="school_code">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">School Code</item>
+                </item>
+            </argument>
+        </column>
+
+		<column name="location_code">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Location Code</item>
+                </item>
+            </argument>
+        </column>
+
+		<column name="schoolhub_name">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">School Hub</item>
+                </item>
+            </argument>
+        </column>
+
+		
+        <column name="product_purchased">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="bodyTmpl" xsi:type="string">ui/grid/cells/html</item>
+                    <item name="filter" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Product Purchased</item>
+                </item>
+            </argument>
+        </column>
+        <column name="trackingColumn">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="bodyTmpl" xsi:type="string">ui/grid/cells/html</item>
+                    <item name="label" xsi:type="string" translate="true">Tracking Numbers</item>
+                </item>
+            </argument>
+        </column>
+        <column name="is_backeordered_items">
+				<argument name="data" xsi:type="array">
+						<item name="config" xsi:type="array">
+							<item name="filter" xsi:type="string">text</item>
+							<item name="sorting" xsi:type="string">asc</item>
+							<item name="label" xsi:type="string" translate="true">Back Order Status</item>
+						</item>
+					</argument>
+			</column>
+
+		<column name="postcode">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Postcode</item>
+					 <item name="sortOrder" xsi:type="number">29</item>
+                </item>
+            </argument>
+        </column>
+       <!--  <actionsColumn  name="export_status" class="Retailinsights\Orders\Ui\Component\Listing\Column\OrderDetails">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="bodyTmpl" xsi:type="string">ui/grid/cells/html</item>                  
+                    <item name="label" xsi:type="string" translate="true">Shipment Details</item>
+                    <item name="sortOrder" xsi:type="number">30</item>
+        
+                </item>
+            </argument>
+        </actionsColumn> -->
+	</columns>
+</listing>

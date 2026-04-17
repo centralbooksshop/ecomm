@@ -1,0 +1,100 @@
+<?xml version="1.0"?>
+<csp_whitelist xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Csp:etc/csp_whitelist.xsd">
+    <policies>
+        <policy id="script-src">
+            <values>
+			    <value id="freshchat" type="host">*.newaccount1600757127399.freshchat.com</value>
+				<value id="freshchat-base" type="host">*.freshchat.com</value>
+                <value id="devdocs-base" type="host">*.developer.adobe.com</value>
+                <value id="magento" type="host">*.magento.com</value>
+				<value id="paypal" type="host">*.sandbox.paypal.com</value>
+				<value id="paypalobjects" type="host">*.paypalobjects.com</value>
+				<value id="google-analytics" type="host">*.google-analytics.com</value>
+				<value id="centralbooks-scrsrc" type="host">*.centralbooksonline.com</value>
+				<value id="googletagmanager" type="host">*.googletagmanager.com</value>
+				<value id="googleadservices" type="host">*.googleadservices.com</value>
+				<value id="braintreegateway" type="host">*.braintreegateway.com</value>
+				 <value id="google-srptsrc" type="host">*.google.com</value>
+				<value id="google-co" type="host">www.google.co.in</value>
+				<value id="newrelic" type="host">*.newrelic.com</value>
+				<value id="geostag" type="host">*.geostag.cardinalcommerce.com</value> 
+				<value id="vimeo" type="host">*.vimeo.com</value>
+				<value id="googleapis" type="host">*.googleapis.com</value>
+                <value id="gstatic" type="host">www.gstatic.com</value>
+				<value id="cloudflare-scrptsrc" type="host">*.cloudflare.com</value>
+				<value id="payu-scrptsrc" type="host">*.payu.in</value>
+            </values>
+        </policy>
+        <policy id="connect-src">
+            <values>
+                <value id="freshchat" type="host">*.newaccount1600757127399.freshchat.com</value>
+				<value id="freshchat-base" type="host">*.freshchat.com</value>
+                <value id="devdocs-base" type="host">*.developer.adobe.com</value>
+                <value id="magento" type="host">*.magento.com</value>
+				<value id="paypal" type="host">*.sandbox.paypal.com</value>
+				<value id="paypalobjects" type="host">*.paypalobjects.com</value>
+				<value id="google-analytics" type="host">*.google-analytics.com</value>
+				<value id="centralbooks-cntsrc" type="host">*.centralbooksonline.com</value>
+				<value id="googletagmanager" type="host">*.googletagmanager.com</value>
+				<value id="googleadservices" type="host">*.googleadservices.com</value>
+				<value id="braintreegateway" type="host">*.braintreegateway.com</value>
+				<value id="google-cntsrc" type="host">*.google.com</value>
+				<value id="google-co" type="host">www.google.co.in</value>
+				<value id="newrelic" type="host">*.newrelic.com</value>
+				<value id="geostag" type="host">*.geostag.cardinalcommerce.com</value> 
+				<value id="vimeo" type="host">*.vimeo.com</value>
+				<value id="googleapis" type="host">*.googleapis.com</value>
+                <value id="gstatic" type="host">www.gstatic.com</value>
+				<value id="cloudflare-cntsrc" type="host">*.cloudflare.com</value>
+				<value id="payu-cntsrc" type="host">*.payu.in</value>
+            </values>
+        </policy>
+		<policy id="frame-src">
+            <values>
+                <value id="freshchat" type="host">*.newaccount1600757127399.freshchat.com</value>
+				<value id="freshchat-base" type="host">*.freshchat.com</value>
+                <value id="devdocs-base" type="host">*.developer.adobe.com</value>
+                <value id="magento" type="host">*.magento.com</value>
+				<value id="paypal" type="host">*.sandbox.paypal.com</value>
+				<value id="paypalobjects" type="host">*.paypalobjects.com</value>
+				<value id="google-analytics" type="host">*.google-analytics.com</value>
+				<value id="centralbooks-frmsrc" type="host">*.centralbooksonline.com</value>
+				<value id="googletagmanager" type="host">*.googletagmanager.com</value>
+				<value id="googleadservices" type="host">*.googleadservices.com</value>
+				<value id="braintreegateway" type="host">*.braintreegateway.com</value>
+				 <value id="google-frmsrc" type="host">*.google.com</value>
+				<value id="google-co" type="host">www.google.co.in</value>
+				<value id="newrelic" type="host">*.newrelic.com</value>
+				<value id="geostag" type="host">*.geostag.cardinalcommerce.com</value> 
+				<value id="vimeo" type="host">*.vimeo.com</value>
+				<value id="googleapis" type="host">*.googleapis.com</value>
+                <value id="gstatic" type="host">www.gstatic.com</value>
+				<value id="cloudflare-frmsrc" type="host">*.cloudflare.com</value>
+				<value id="payu-frmsrc" type="host">*.payu.in</value>
+            </values>
+        </policy>
+		<policy id="style-src">
+            <values>
+                <value id="freshchat" type="host">*.freshchat.com</value>
+				<value id="freshchat-base" type="host">*.newaccount1600757127399.freshchat.com</value>
+            </values>
+        </policy>
+		<policy id="img-src">
+            <values>
+            	<value id="centralbooks-imgsrc" type="host">*.centralbooksonline.com</value>
+				<value id="cloudflare-imgsrc" type="host">*.cloudflare.com</value>
+				<value id="payu-imgsrc" type="host">*.payu.in</value>
+            </values>
+        </policy>
+		<policy id="font-src">
+            <values>
+                <value id="centralbooks-fntsrc" type="host">*.centralbooksonline.com</value>
+				<value id="cloudflare-fntsrc" type="host">*.cloudflare.com</value>
+				<value id="payu-fntsrc" type="host">*.payu.in</value>
+				<value id="google-services" type="host">www.googleservices.com</value>
+                <value id="google-fntsrc" type="host">*.google.com</value>
+            </values>
+        </policy>
+    </policies>
+</csp_whitelist>
+

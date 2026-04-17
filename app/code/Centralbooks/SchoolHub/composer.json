@@ -1,0 +1,22 @@
+{
+    "name": "centralbooks/module-schoolhub",
+    "description": "SchoolHub",
+    "type": "magento2-module",
+    "license": "proprietary",
+    "authors": [
+        {
+            "name": "Centralbooks",
+            "email": "ravikumar.jaiswal@centralbooks.in"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {},
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Centralbooks\\SchoolHub\\": ""
+        }
+    }
+}

@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+
+    <type name="Magento\Ui\Controller\Adminhtml\Export\GridToCsv">
+        <plugin name="centralbooks_secure_export_csv"
+        type="Centralbooks\DataSecurity\Plugin\SecureCustomerData"/>
+    </type>
+
+    <type name="Magento\Ui\Controller\Adminhtml\Export\GridToXml">
+        <plugin name="centralbooks_secure_export_xml"
+        type="Centralbooks\DataSecurity\Plugin\SecureCustomerData"/>
+    </type>
+
+</config>

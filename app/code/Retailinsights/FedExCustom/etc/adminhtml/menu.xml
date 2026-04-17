@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../Magento/Backend/etc/menu.xsd">
+    <menu>
+        <add id="Retailinsights_FedExCustom::ProcessFedExOrder" title="Process FedEx Orders" module="Retailinsights_FedExCustom" sortOrder="30" parent="Magento_Sales::sales" action="fedexcustom/processfedexorder" resource="Retailinsights_FedExCustom::ProcessFedExOrder"/>
+        <add id="Retailinsights_FedExCustom::ProcessedFedexOrdersList" title="Processed FedEx Orders List" module="Retailinsights_FedExCustom" sortOrder="40" parent="Magento_Sales::sales" action="fedexcustom/processedfedexorderslist" resource="Retailinsights_FedExCustom::ProcessedFedexOrdersList"/>
+        <add id="Retailinsights_FedExCustom::PendingFedexOrders" title="Pending FedEx Orders List" module="Retailinsights_FedExCustom" sortOrder="50" parent="Magento_Sales::sales" action="fedexcustom/pendingfedexorders" resource="Retailinsights_FedExCustom::PendingFedexOrders"/>
+    </menu>
+</config>

@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+ <schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <!--  ERP API GST -->
+    <table name="erp_gst" resource="default" engine="innodb" comment="ERP GST">
+        <column xsi:type="int" name="gst_id" unsigned="true" identity="true" nullable="false" comment="Gst Id"/>
+		<column xsi:type="varchar" name="apiid" length="255" nullable="true" comment="apiid Id"/>
+        <column xsi:type="varchar" name="code" length="255" nullable="true" comment="Code"/>
+        <column xsi:type="varchar" length="255" name="display_name" nullable="true" comment="display Name"/>
+        <column xsi:type="varchar" name="gst_group_type" nullable="true" comment="Gst Group Type"/>
+        <column xsi:type="timestamp" name="last_modified_datetime" nullable="false"  comment="Last Modified Date Time"/>
+       <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="gst_id"/>
+       </constraint>
+    </table>
+
+	<table name="sales_order" resource="sales">
+        <column xsi:type="varchar"
+                name="web_invoice_number"
+                nullable="true"
+                length="255"
+                comment="ERP Web Invoice Number"/>
+        <index referenceId="SALES_ORDER_WEB_INVOICE_NUMBER"
+               indexType="btree">
+            <column name="web_invoice_number"/>
+        </index>
+    </table>
+</schema>

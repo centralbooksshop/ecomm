@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2015 Magento. All rights reserved.
+
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="admin-2columns-left" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <!-- <css src="jquery/fileUploader/css/jquery.fileupload-ui.css"/> -->
+        <css src="Ubertheme_UbContentSlider/css/_edit.css"/>
+        <css src="Ubertheme_UbContentSlider/css/_hotspot.css"/>
+    </head>
+    <!--<update handle="editor"/>-->
+    <body>
+        <referenceContainer name="content">
+            <block class="Ubertheme\UbContentSlider\Block\Adminhtml\Item\Edit" name="ubcontentslider_item_edit"/>
+        </referenceContainer>
+        <referenceContainer name="left">
+            <block class="Ubertheme\UbContentSlider\Block\Adminhtml\Item\Edit\Tabs" name="ubcontentslider_item_edit_tabs">
+                <block class="Ubertheme\UbContentSlider\Block\Adminhtml\Item\Edit\Tab\Main" name="ubcontentslider_item_edit_tab_main"/>
+                <action method="addTab">
+                    <argument name="name" xsi:type="string">main_section</argument>
+                    <argument name="block" xsi:type="string">ubcontentslider_item_edit_tab_main</argument>
+                </action>
+            </block>
+        </referenceContainer>
+        <referenceContainer name="js">
+            <block class="Magento\Framework\View\Element\Template" template="Ubertheme_UbContentSlider::item/edit_js.phtml"/>
+        </referenceContainer>
+    </body>
+</page>

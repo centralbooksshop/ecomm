@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <configuration>
+            <services> 
+                <shipsy_url>https://demodashboardapi.shipsy.in</shipsy_url>
+                <dtdc_projectx_url>https://demodashboardapi.shipsy.in</dtdc_projectx_url>
+            </services>
+        </configuration>
+    </default>
+</config>

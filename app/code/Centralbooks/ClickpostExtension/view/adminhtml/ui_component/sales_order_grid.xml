@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <listingToolbar name="listing_top">
+            <massaction name="listing_massaction">
+                <action name="clickpost">
+                    <settings>
+                        <url path="clickpost/order/softdata"/>
+                        <type>sofdata_sync_clickpost</type>
+                        <label translate="true">Ship with Clickpost</label>
+                    </settings>
+                </action>
+				<action name="clickpost_bulkship">
+                    <settings>
+                        <url path="clickpost/clickpost/bulkship"/>
+                        <type>clickpost_bulkship</type>
+                        <label translate="true">BulkShip with Clickpost</label>
+                    </settings>
+                </action>
+            </massaction>
+    </listingToolbar>
+</listing>

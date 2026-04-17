@@ -1,0 +1,35 @@
+			<?php 
+            $userId = $this->getRequest()->getParams();
+			if(isset($userId['user_id'])){
+				$school = $block->getCurrentSchool($userId['user_id']);
+			?>
+			<div class="fieldset-wrapper order-information">
+				<div class="fieldset-wrapper-title">
+					<span class="title"><?php /* @escapeNotVerified */
+						echo __('Schools Wise List') ?></span>
+				</div>
+					<?php echo $block->getChildHtml(); ?>
+					<select id="multiselect" class="school_permission" name="schoolwise">
+						 <?php $schools = $block->getSchool(); 
+						foreach ($schools as $schoolvalue) { ?>
+							  <option <?php if($schoolvalue['value'] == $school['value']){echo "selected='selected'"; } ?> value="<?php echo $schoolvalue['value']; ?>"><?php echo $schoolvalue['label']; ?></option>
+						<?php } ?>
+					</select>
+			</div>
+			<?php } else { ?>
+            <div class="fieldset-wrapper order-information">
+				<div class="fieldset-wrapper-title">
+					<span class="title"><?php /* @escapeNotVerified */
+						echo __('Schools Wise List') ?></span>
+				</div>
+					<?php echo $block->getChildHtml(); ?>
+					<select class="school_permission" name="schoolwise" multiple size="10" style="height:100%;">
+						 <?php
+							$schools = $block->getSchool(); 
+							foreach ($schools as $schoolvalue) { ?>
+							  <option value="<?php echo $schoolvalue['value']; ?>"><?php echo $schoolvalue['label']; ?></option>
+						<?php } ?>
+					</select>
+			</div>  
+
+			<?php } ?>

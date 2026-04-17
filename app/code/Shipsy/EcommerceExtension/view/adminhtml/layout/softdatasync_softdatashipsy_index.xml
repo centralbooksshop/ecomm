@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <link rel="stylesheet" type="text/css" src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" src_type="url"/>
+        <css src="Shipsy_EcommerceExtension::css/custom.css"/>
+        <css src="Shipsy_EcommerceExtension::css/softdata.css"/>
+    </head>
+    <referenceBlock name="page.title">
+        <action method="setPageTitle">
+            <argument name="title" xsi:type="string">Kindly check details before proceeding further</argument>
+        </action>
+    </referenceBlock>
+    <body>
+        <referenceContainer name="content">
+            <block class="Shipsy\EcommerceExtension\Block\Post" name="softdatasync.softdatashipsy.index.example" template="Shipsy_EcommerceExtension::form.phtml" />
+        </referenceContainer>
+    </body>
+</page>

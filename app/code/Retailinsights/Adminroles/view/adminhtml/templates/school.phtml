@@ -1,0 +1,37 @@
+<?php 
+
+    $userId = $this->getRequest()->getParams();
+    if(isset($userId['user_id'])){
+        $school = $block->school($userId['user_id']);
+
+?>
+<div class="fieldset-wrapper order-information">
+    <div class="fieldset-wrapper-title">
+        <span class="title"><?php /* @escapeNotVerified */
+            echo __('Schools List') ?></span>
+    </div>
+        <?php echo $block->getChildHtml(); ?>
+        <select class="school_permission" name="school">
+             <?php $schools = $block->getSchool(); 
+            foreach ($schools as $value) { ?>
+                 <option <?php if($value['value'] == $school['value']){echo "selected='selected'"; } ?> value="<?php echo $value['value']; ?>"><?php echo $value['label']; ?></option>
+            <?php } ?>
+        </select>
+</div>
+<?php }else{ ?>
+
+ <div class="fieldset-wrapper order-information">
+    <div class="fieldset-wrapper-title">
+        <span class="title"><?php /* @escapeNotVerified */
+            echo __('Schools List') ?></span>
+    </div>
+        <?php echo $block->getChildHtml(); ?>
+        <select class="school_permission" name="school">
+             <?php $schools = $block->getSchool(); 
+            foreach ($schools as $value) { ?>
+                 <option value="<?php echo $value['value']; ?>"><?php echo $value['label']; ?></option>
+            <?php } ?>
+        </select>
+</div>  
+
+<?php } ?>

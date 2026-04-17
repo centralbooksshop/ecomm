@@ -1,0 +1,13 @@
+<?php
+/**
+ * Copyright © 2016 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+  $ubHelper = $this->helper('Ubertheme\UbThemeHelper\Helper\Data');
+  $_product = $block->getProduct();
+  $ubAuthor = $ubHelper->getProductOptionTextByAttribute($_product, 'ub_author');
+?>
+<div class="ub-author"><?= $ubAuthor ; ?></div>
+<?= $block->getReviewsSummaryHtml($block->getProduct(), false, true); ?>

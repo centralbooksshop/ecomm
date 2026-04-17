@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+  <listingToolbar name="listing_top">
+    <massaction name="listing_massaction">
+    		<action name="track_order">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="type" xsi:type="string">track_order</item>
+                        <item name="label" xsi:type="string" translate="true">Track order</item>
+                        <item name="url" xsi:type="url" path="ecomexpress/ecomexpress/track_masstrackshipment"/>
+                    </item>
+                </argument>
+            </action>
+    		<action name="cancel_order">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="type" xsi:type="string">cancel_order</item>
+                        <item name="label" xsi:type="string" translate="true">Cancel order</item>
+                        <item name="url" xsi:type="url" path="ecomexpress/ecomexpress/cancel_masscancelshipment"/>
+                    </item>
+                </argument>
+            </action>
+            <action name="print_ecom_shipment">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="type" xsi:type="string">print_ecom_shipment</item>
+                        <item name="label" xsi:type="string" translate="true">Print Ecom Shipping Labels</item>
+                        <item name="url" xsi:type="url" path="ecomexpress/ecomexpress/masslabel_shipping"/>
+                    </item>
+                </argument>
+            </action>
+    </massaction>
+ </listingToolbar>
+</listing>

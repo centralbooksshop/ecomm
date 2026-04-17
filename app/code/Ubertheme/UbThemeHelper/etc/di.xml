@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Ubertheme\UbThemeHelper\App\Config\ScopePool">
+        <arguments>
+            <argument name="readerPool" xsi:type="object">Ubertheme\UbThemeHelper\Model\Config\Reader\ReaderPool\Proxy</argument>
+            <argument name="cache" xsi:type="object">Magento\Framework\App\Cache\Type\Config</argument>
+        </arguments>
+    </type>
+    <type name="Ubertheme\UbThemeHelper\Model\Config\Reader\ReaderPool">
+        <arguments>
+            <argument name="readers" xsi:type="array">
+                <item name="default" xsi:type="object">Ubertheme\UbThemeHelper\Model\Config\Reader\DefaultReader</item>
+            </argument>
+        </arguments>
+    </type>
+    <preference for="Ubertheme\UbThemeHelper\App\Config\Scope\ReaderPoolInterface" type="Ubertheme\UbThemeHelper\Model\Config\Reader\ReaderPool"/>
+    <!-- Overwrite for Crossell block -->
+    <preference for="Magento\Checkout\Block\Cart\Crosssell" type="Ubertheme\UbThemeHelper\Block\Cart\Crosssell" />
+    <type name="Magento\Framework\Config\View">
+        <plugin name="ub_category_view_custom_config_view" type="Ubertheme\UbThemeHelper\Plugin\Config\View" />
+    </type>
+</config>

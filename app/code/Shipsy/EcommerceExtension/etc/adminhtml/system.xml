@@ -1,0 +1,121 @@
+<?xml version="1.0" ?>
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="shipsy_creds" translate="label" sortOrder="10">
+            <label>Shipsy Settings</label>
+        </tab>
+        <section id="configuration" translate="label" sortOrder="130" showInDefault="1" showInWebsite="1" showInStore="1">
+            <class>separator-top</class>
+            <label>Configuration</label>
+            <tab>shipsy_creds</tab>
+            <resource>Shipsy_EcommerceExtension::configuration_config</resource>
+            <!-- Begin of services group  -->
+            <group id="services" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Configuration</label>
+                <attribute type="expanded">1</attribute>
+
+                <!-- Begin of Shipsy Tracking API group  -->
+                
+                <field id="shipsy_username" translate="label" type="text" sortOrder="5" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Shipsy Username</label>
+                </field>
+                
+                <field id="shipsy_password" translate="label" type="obscure" sortOrder="6" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Shipsy Password</label>
+                    <backend_model>Magento\Config\Model\Config\Backend\Encrypted</backend_model>
+                </field>
+
+                
+                <field id="shipsy_url" type="text" sortOrder="6" showInDefault="1" showInWebsite="0" showInStore="0">
+					<label>Shipsy Url</label>
+                </field>
+                <field id="dtdc_projectx_url" type="text" sortOrder="6" showInDefault="1" showInWebsite="0" showInStore="0">
+					<label>Shipsy Projectx Url</label>
+                </field>
+
+                <field id="organisation_id" translate="label" type="text" sortOrder="6" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Organisation Id</label>
+                </field>
+
+                <field id="pincode_api_url" translate="label" type="text" sortOrder="11" showInDefault="1">
+					<label>Pincode API URL</label>
+				</field>
+				
+				<field id="customer_code" translate="label" type="text" sortOrder="10" showInDefault="1">
+					<label>Customer Code</label>
+				</field>
+				<field id="auth_token" translate="label" type="text" sortOrder="11" showInDefault="1">
+					<label>API Auth Token</label>
+				</field>
+
+				<!-- Default Weight -->
+                <field id="default_weight" translate="label comment" type="text" sortOrder="80"
+                       showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Default Weight (KG)</label>
+                    <comment>
+                        Used when product weight is missing or zero. Value must be in kilograms.
+                        Example: 0.5
+                    </comment>
+                    <validate>validate-number validate-greater-than-zero</validate>
+                </field>
+
+				 <field id="ship_from_json" translate="label" type="textarea" sortOrder="60" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Ship From (JSON)</label>
+                </field>
+
+				<field id="ship_from_mumbai_json" translate="label" type="textarea" sortOrder="60" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Ship From Mumbai (JSON)</label>
+                </field>
+                
+                <!-- End Shipsy Tracking API -->
+
+            </group>
+            <!-- End services -->
+        </section>
+        <section id="shipsy_optional_settings" translate="label" sortOrder="131" showInDefault="1" showInWebsite="1" showInStore="1">
+            <class>separator-top</class>
+            <label>Optional Settings</label>
+            <tab>shipsy_creds</tab>
+            <resource>Shipsy_EcommerceExtension::shipsy_opt_settings</resource>
+            <!-- Begin of services group  -->
+            <group id="optional_settings" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Optional Settings</label>
+                <attribute type="expanded">1</attribute>
+
+                <!-- Begin of Shipsy Tracking API group  -->
+                
+                <field id="shipsy_show_awb_number_tracking" translate="label" type="select" sortOrder="5" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Show AWB Number for Tracking</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                
+                <field id="shipsy_restrict_num_pieces_input_modification" translate="label" type="select" sortOrder="5" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Restrict Number of Pieces Input Field Modification</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="shipsy_enable_auto_sync" translate="label" type="select" sortOrder="5" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Enable Auto Sync</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+
+                <field id="shipsy_select_service_type" translate="label" type="select" sortOrder="5" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Select Sync Service Type</label>
+                    <source_model>Shipsy\EcommerceExtension\Model\Config\Source\ServiceTypeOption</source_model>
+                </field>
+
+                <field id="shipsy_select_status_to_sync" translate="label" type="select" sortOrder="5" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Select Status To Sync</label>
+                    <source_model>Shipsy\EcommerceExtension\Model\Config\Source\StatusToSyncOption</source_model>
+                </field>
+
+                <field id="shipsy_sync_order_limit" translate="label" type="select" sortOrder="5" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Select Sync Order Limit</label>
+                    <source_model>Shipsy\EcommerceExtension\Model\Config\Source\SyncOrderLimitOption</source_model>
+                </field>
+                <!-- End Shipsy Tracking API -->
+            </group>
+            <!-- End services -->
+        </section>
+    </system>
+</config>

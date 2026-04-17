@@ -1,0 +1,376 @@
+<?php
+/**
+ * Dynamic Courier Barcode Scanning Section
+ * File: dynamic-courier-barcode-scanning.php
+ * Place this in an appropriate admin template block in Magento 2.
+ *
+ * Features:
+ * - Courier dropdown (populated from PHP config/DB)
+ * - Scanning input and Add button
+ * - CSV import (endpoint receives selected courier)
+ * - Dynamic labels, AJAX endpoints and UI updates based on courier
+ * - Cleaned & modular JS using requirejs + jQuery
+ */
+
+$om = \Magento\Framework\App\ObjectManager::getInstance();
+$persistor = $om->get('Magento\Framework\App\Request\DataPersistorInterface');
+$colorOption = $persistor->get('coloroptionDtdc');
+$baseUrl = $block->getBaseUrl();
+
+// --- Replace this with a DB/config-driven list in real use ---
+$couriers = [
+    'dtdc' => 'DTDC',
+    'delhivery' => 'Delhivery',
+    'elasticrun' => 'Elasticrun',
+    'amazon' => 'Amazon'
+];
+
+// endpoints: keep controller routes generic and accept a courier param
+$csvUploadEndpoint = $baseUrl . 'cbsadmin/dtdccustom/processorder/uploadCsv';
+$checkShipmentEndpoint = $baseUrl . 'cbsadmin/dtdccustom/processorder/checkShipment';
+$assignCourierEndpoint = $baseUrl . 'cbsadmin/dtdccustom/processorder/assignCourier';
+?>
+
+<div class="process-courier">
+    <div class="courierBarcodeScanning">
+        <div class="panel panel-default">
+            <div class="panel-heading">Courier Barcode Scanning</div>
+            <div class="panel-body">
+                <table class="courier-ui-table">
+					<tr>
+						<td class="ui-box">
+							<label for="selectCourier">Courier</label><br>
+							<select id="selectCourier" class="ui-input">
+								<option value="" selected disabled>Please select courier</option>
+								<?php foreach ($couriers as $key => $label): ?>
+									<option value="<?= $key ?>"><?= $label ?></option>
+								<?php endforeach; ?>
+							</select>
+
+						</td>
+
+						<td class="ui-box">
+							<label id="courierLabel">Order Number</label><br>
+							<input type="text" id="txtOrderId" class="ui-input" placeholder="Scan or type order id" />
+						</td>
+
+						<td class="ui-box">
+							<label>&nbsp;</label><br>
+							<input type="button" id="btnAddOrderId" class="ui-btn" value="Add" />
+						</td>
+
+						<td class="ui-box">
+							<div class="import-shipping">
+								<div class="header">
+									<h4>CSV File:</h4>
+								</div>
+								<form id="csvImportForm" action="<?= $csvUploadEndpoint ?>" method="POST" enctype="multipart/form-data">
+									<?= $block->getBlockHtml('formkey'); ?>
+									<input type="hidden" name="courier" id="csvCourier" value="<?= key($couriers) ?>" />
+									<input type="file" required class="ui-input" name="csv" />
+									<button type="submit" class="ui-btn">Import</button>
+								</form>
+							</div>
+						</td>
+
+						<td class="ui-box">
+							<label>&nbsp;</label><br>
+							<a href="<?= $baseUrl . 'media/ubertheme/csvSamples/cboOrderSamples.csv' ?>" class="sample_csv_cbo">
+								Download Sample CSV
+							</a>
+						</td>
+					</tr>
+				</table>
+
+
+                <div id="messages">
+                    <span id="duplicate"></span>
+                    <span id="readyToSubmit"></span>
+                </div>
+
+                <div id="scannedListWrapper">
+                    <label id="scannedList"></label><br />
+                    <span id="tdBtnSubmit"></span>
+                </div>
+
+                <p id="order_count_box">Total orders ready to assign: <span id="order_count">0</span></p>
+                <p id="order_count_box_success">Successfully assigned orders: <span id="order_count_success">0</span></p>
+
+                <div id="orderListStatus"></div>
+
+                <div id="divAssignBtn"><button class="assignCourierBtn">Submit</button></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<?php
+$uploadMessages = $persistor->get('multi_courier_upload');
+$persistor->clear('multi_courier_upload'); // clear after showing
+?>
+
+<?php if (!empty($uploadMessages)): ?>
+    <div class="import-result">
+        <h3>CSV Import Result</h3>
+        <?php foreach ($uploadMessages as $msg): ?>
+            <div class="import-line"><?= $msg ?></div>
+        <?php endforeach; ?>
+    </div>
+<?php endif; ?>
+
+<style>
+.process-courier .panel-default{ border:1px solid #ccc; margin-bottom:20px; }
+.process-courier .panel-heading{ background:#37474f; color:#fff; padding:6px 10px; font-weight:700; }
+.process-courier .panel-body{ padding:12px; }
+#divAssignBtn{ display:none; margin-top:10px; }
+#order_count_box, #order_count_box_success{ display:none; }
+</style>
+
+<script>
+require(['jquery'], function($){
+    'use strict';
+
+    var csvUploadEndpoint = '<?= $csvUploadEndpoint ?>';
+    var checkShipmentEndpoint = '<?= $checkShipmentEndpoint ?>';
+    var assignCourierEndpoint = '<?= $assignCourierEndpoint ?>';
+
+    function toArray(str){
+        if(!str) return [];
+        return $.map(str.split(','), function(s){ return $.trim(s); }).filter(function(s){ return s.length; });
+    }
+
+    function resetUI(){
+        scannedSet = {};
+        $('#scannedList').text('');
+        $('#orderListStatus').empty();
+        $('#readyToSubmit').empty();
+        $('#duplicate').empty();
+        $('#order_count').text('0');
+        $('#order_count_success').text('0');
+
+        $('#divAssignBtn').hide();
+        $('#order_count_box').hide();
+        $('#order_count_box_success').hide();
+    }
+
+    function updateCourierInForms(courier){
+        $('#csvCourier').val(courier || '');
+    }
+
+    var scannedSet = {};
+    var currentCourier = '';  // default = no courier
+
+    /** ---------------------------------------------
+     * Courier Change - Reset UI Completely
+     * --------------------------------------------- */
+    $('#selectCourier').on('change', function(){
+
+        currentCourier = $(this).val() || '';
+
+        if(!currentCourier){
+            $('#courierLabel').text('Order Number');
+        } else {
+            $('#courierLabel').text($('#selectCourier option:selected').text() + ' Order Number');
+        }
+
+        // update form
+        updateCourierInForms(currentCourier);
+
+        // full reset
+        resetUI();
+    });
+
+
+    /** ---------------------------------------------------
+     * Add Order Button
+     * --------------------------------------------------- */
+    $('#btnAddOrderId').on('click', function(){
+
+        if(!currentCourier){
+            alert('Please select courier first');
+            return;
+        }
+
+        var raw = $('#txtOrderId').val();
+        if(!raw){
+            alert('Please provide a valid order id');
+            return;
+        }
+
+        var toAdd = toArray(raw);
+        var uniqueNew = [];
+        $.each(toAdd, function(i, id){
+            if(!scannedSet[id]){
+                scannedSet[id] = true;
+                uniqueNew.push(id);
+            }
+        });
+
+        if(uniqueNew.length === 0){
+            alert('Order ID already scanned');
+            $('#txtOrderId').val('');
+            return;
+        }
+
+        var existing = $('#scannedList').text();
+        $('#scannedList').text((existing ? existing + ',' : '') + uniqueNew.join(','));
+
+        checkShipment(uniqueNew, currentCourier, function(resultObj){
+
+            var assignable = 0;
+
+            $.each(resultObj, function(orderId, status){
+                if(status === 'yes'){
+                    assignable++;
+                    $('#orderListStatus').append(
+                        '<label><input type="checkbox" class="group" value="'+orderId+'">'+orderId+' : Assign Courier</label><br/>'
+                    );
+                } else {
+                    $('#readyToSubmit').append('<div class="info">'+orderId+' : '+status+'</div>');
+                }
+            });
+
+            if(assignable > 0){
+                $('#divAssignBtn').show();
+                $('#order_count_box').show();
+                $('#order_count').text($('#orderListStatus input.group').length);
+            }
+        });
+
+        $('#txtOrderId').val('');
+    });
+
+
+    /** ---------------------------------------------------
+     * AJAX: Check Shipment
+     * --------------------------------------------------- */
+    function checkShipment(orderArray, courier, cb){
+        $.ajax({
+            url: checkShipmentEndpoint,
+            type: 'POST',
+            data: { orderIds: orderArray, courier: courier },
+            dataType: 'json',
+            complete: function(response){
+                var obj = response.responseJSON || {};
+                if(typeof cb === 'function') cb(obj);
+            },
+            error: function(){
+                alert('Error checking shipment status');
+            }
+        });
+    }
+
+
+    /** ---------------------------------------------------
+     * Assign Courier Button
+     * --------------------------------------------------- */
+    $('.assignCourierBtn').on('click', function(){
+
+        if(!currentCourier){
+            alert('Please select courier before submitting');
+            return;
+        }
+
+        var selected = [];
+        $('#orderListStatus input.group:checked').each(function(){
+            selected.push($(this).val());
+        });
+
+        if(selected.length === 0){
+            alert('Please select orders to assign');
+            return;
+        }
+
+        var successCount = 0;
+
+        $.ajax({
+            url: assignCourierEndpoint,
+            type: 'POST',
+            data: {
+                orderIds: selected,
+                courier: currentCourier
+            },
+            dataType: 'json',
+            complete: function(resp){
+                var result = resp.responseJSON;
+
+                $.each(result, function(orderId, res){
+                    if(res.status === 'success'){
+                        successCount++;
+                        $('#orderListStatus').append('<div>'+orderId+' : Success</div>');
+                    } else {
+                        $('#orderListStatus').append('<div>'+orderId+' : Failed</div>');
+                    }
+                });
+
+                $('#order_count_box_success').show();
+                $('#order_count_success').text(successCount);
+            }
+        });
+
+        $('#divAssignBtn').hide();
+    });
+
+
+    /** ---------------------------------------------------
+     * CSV Upload Validation
+     * --------------------------------------------------- */
+    $('#csvImportForm').on('submit', function(e){
+
+        var courier = $('#selectCourier').val();
+
+        if(!courier){
+            alert('Please select courier before importing CSV');
+            e.preventDefault();
+            return false;
+        }
+
+        $('#csvCourier').val(courier);
+    });
+
+});
+</script>
+
+<style>
+	.courier-ui-table td.ui-box {
+    padding: 12px 18px;
+    border: 1px solid #d5d5d5;
+    background: #f9f9f9;
+    border-radius: 6px;
+    vertical-align: top;
+    margin-right: 10px;
+}
+
+.courier-ui-table {
+    border-spacing: 12px;
+    width: 100%;
+}
+
+.ui-input {
+    width: 100%;
+    padding: 8px 10px;
+    margin-top: 4px;
+    border: 1px solid #bfbfbf;
+    border-radius: 4px;
+}
+
+.ui-btn {
+    background: #1976d2;
+    color: #fff;
+    border: none;
+    margin-top: 5px;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.ui-btn:hover {
+    background: #115293;
+}
+
+.sample_csv_cbo {
+    color: #0066cc;
+    font-weight: 600;
+    text-decoration: underline;
+}
+</style>

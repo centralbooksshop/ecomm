@@ -1,0 +1,7 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+	<menu>
+		<add id="Centralbooks::top_hub" title="CBO Hub" module="Centralbooks_SchoolHub" sortOrder="9999" resource="Magento_Backend::content"/>
+		<add id="Centralbooks_SchoolHub::centralbooks_schoolhub_schoolhub" title="Manage School Hub" module="Centralbooks_SchoolHub" sortOrder="9999" resource="Magento_Backend::content" parent="Centralbooks::top_hub" action="centralbooks_schoolhub/schoolhub/index"/>
+	</menu>
+</config>

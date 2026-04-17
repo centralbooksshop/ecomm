@@ -1,0 +1,574 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<widgets xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Widget:etc/widget.xsd">
+    <widget
+        id="ub_product_slider_widget"
+        class="Ubertheme\UbContentSlider\Block\Widget\ProductWidget"
+        is_email_compatible="false"
+        placeholder_image="Ubertheme_UbContentSlider::css/images/placeholder.gif">
+        <label translate="true">UB Content Slider (products slider)</label>
+        <description translate="true">Slider with products.</description>
+        <parameters>
+            <parameter name="content_type" xsi:type="select" required="true" visible="true" source_model="Ubertheme\UbContentSlider\Model\Config\Source\ProductTypes">
+                <label translate="true">Content Type</label>
+                <description translate="true">Select one content type.</description>
+            </parameter>
+            <parameter name="show_title" xsi:type="select" visible="true">
+                <label>Show Block Title</label>
+                <description translate="true">Show/Hide the title of block slider.</description>
+                <options>
+                    <option name="yes" value="1" selected="true"> <label translate="true">Yes</label> </option>
+                    <option name="no" value="0"> <label translate="true">No</label> </option>
+                </options>
+            </parameter>
+            <parameter name="title" xsi:type="text" required="true" visible="true">
+                <label translate="true">Block Title</label>
+                <description translate="true">The title of block slider.</description>
+                <depends>
+                    <parameter name="show_title" value="1" />
+                </depends>
+            </parameter>
+            <parameter name="category_ids" xsi:type="multiselect" visible="true" source_model="Ubertheme\UbContentSlider\Model\Config\Source\Categories">
+                <label translate="true">Categories</label>
+                <description translate="true">Select categories to filter. This is applied for all Slider content types, except for Best Seller Product.</description>
+            </parameter>
+            <parameter name="sort_by" xsi:type="select" visible="true" source_model="Ubertheme\UbContentSlider\Model\Config\Source\SortFields">
+                <label translate="true">Products Sort By</label>
+                <description translate="true">Select field to sort. This is applied for all Slider content types, except for Best Seller Product.</description>
+            </parameter>
+            <parameter name="sort_dir" xsi:type="select" visible="true" source_model="Ubertheme\UbContentSlider\Model\Config\Source\SortDirection">
+                <label translate="true">Products Sort By</label>
+                <description translate="true">Select sort direction. This is applied for all Slider content types, except for Best Seller Product.</description>
+            </parameter>
+            <parameter name="from_date" xsi:type="text" visible="true">
+                <label translate="true">From Date</label>
+                <description translate="true">If not set. System will get today date time (Y-m-d 0:0:0).</description>
+                <depends>
+                    <parameter name="content_type" value="new_products" />
+                </depends>
+            </parameter>
+            <parameter name="to_date" xsi:type="text" visible="true">
+                <label translate="true">To Date</label>
+                <description translate="true">If not set. System will get today date time (Y-m-d 23:59:59).</description>
+                <depends>
+                    <parameter name="content_type" value="new_products" />
+                </depends>
+            </parameter>
+            <parameter name="qty" xsi:type="text" visible="true">
+                <label translate="true">Max Qty</label>
+                <description translate="true">Set limit of max quantity to show. Default is 10, Max should be 20 for good performance.</description>
+                <value>10</value>
+            </parameter>
+            <parameter name="show_name" xsi:type="select" visible="true">
+                <label>Show Product Name</label>
+                <options>
+                    <option name="yes" value="1" selected="true"> <label translate="true">Yes</label> </option>
+                    <option name="no" value="0"> <label translate="true">No</label> </option>
+                </options>
+            </parameter>
+            <parameter name="show_price" xsi:type="select" visible="true">
+                <label>Show Product Price</label>
+                <options>
+                    <option name="yes" value="1" selected="true"> <label translate="true">Yes</label> </option>
+                    <option name="no" value="0"> <label translate="true">No</label> </option>
+                </options>
+            </parameter>
+            <parameter name="show_desc" xsi:type="select" visible="true">
+                <label>Show Product Description</label>
+                <options>
+                    <option name="yes" value="1" selected="true"> <label translate="true">Yes</label> </option>
+                    <option name="no" value="0"> <label translate="true">No</label> </option>
+                </options>
+            </parameter>
+            <parameter name="desc_length" xsi:type="text" visible="true">
+                <label translate="true">Length of Description</label>
+                <description translate="true">Set max length of product's description. Maximum is 500 chars.</description>
+                <depends>
+                    <parameter name="show_desc" value="1" />
+                </depends>
+                <value>100</value>
+            </parameter>
+            <parameter name="show_readmore" xsi:type="select" visible="true">
+                <label>Show Read More Link</label>
+                <options>
+                    <option name="yes" value="1" selected="true"> <label translate="true">Yes</label> </option>
+                    <option name="no" value="0"> <label translate="true">No</label> </option>
+                </options>
+            </parameter>
+            <parameter name="show_review" xsi:type="select" visible="true">
+                <label>Show Product Rating</label>
+                <options>
+                    <option name="yes" value="1" selected="true"> <label translate="true">Yes</label> </option>
+                    <option name="no" value="0"> <label translate="true">No</label> </option>
+                </options>
+            </parameter>
+            <parameter name="show_wishlist" xsi:type="select" visible="true">
+                <label>Show Wish List Button</label>
+                <options>
+                    <option name="yes" value="1" selected="true"> <label translate="true">Yes</label> </option>
+                    <option name="no" value="0"> <label translate="true">No</label> </option>
+                </options>
+            </parameter>
+            <parameter name="show_compare" xsi:type="select" visible="true">
+                <label>Show Compare Button</label>
+                <options>
+                    <option name="yes" value="1" selected="true"> <label translate="true">Yes</label> </option>
+                    <option name="no" value="0"> <label translate="true">No</label> </option>
+                </options>
+            </parameter>
+            <parameter name="show_add_cart" xsi:type="select" visible="true">
+                <label>Show Add Cart Button</label>
+                <options>
+                    <option name="yes" value="1" selected="true"> <label translate="true">Yes</label> </option>
+                    <option name="no" value="0"> <label translate="true">No</label> </option>
+                </options>
+            </parameter>
+            <parameter name="single_item" xsi:type="select" visible="true">
+                <label>Slider With Single Item</label>
+                <options>
+                    <option name="yes" value="1"> <label translate="true">Yes</label> </option>
+                    <option name="no" value="0" selected="true"> <label translate="true">No</label> </option>
+                </options>
+            </parameter>
+            <parameter name="number_items" xsi:type="text" visible="true">
+                <label translate="true">Number Items Per Page (on large screen)</label>
+                <description translate="true">Active only if 'Single Item' is 'No'.Put blank to use system configuration</description>
+                <depends>
+                    <parameter name="single_item" value="0" />
+                </depends>
+                <value>5</value>
+            </parameter>
+            <parameter name="number_items_desktop" xsi:type="text" visible="true">
+                <label translate="true">Number Items Per Page (on desktop)</label>
+                <description translate="true">Active only if 'Single Item' is 'No'. Put blank to use system configuration</description>
+                <depends>
+                    <parameter name="single_item" value="0" />
+                </depends>
+                <value>5</value>
+            </parameter>
+            <parameter name="number_items_desktop_small" xsi:type="text" visible="true">
+                <label translate="true">Number Items Per Page (on desktop small)</label>
+                <description translate="true">Active only if 'Single Item' is 'No'. Put blank to use system configuration</description>
+                <depends>
+                    <parameter name="single_item" value="0" />
+                </depends>
+                <value>4</value>
+            </parameter>
+            <parameter name="number_items_tablet" xsi:type="text" visible="true">
+                <label translate="true">Number Items Per Page (on tablet)</label>
+                <description translate="true">Active only if 'Single Item' is 'No'. Put blank to use system configuration</description>
+                <depends>
+                    <parameter name="single_item" value="0" />
+                </depends>
+                <value>3</value>
+            </parameter>
+            <parameter name="number_items_tablet_small" xsi:type="text" visible="true">
+                <label translate="true">Number Items Per Page (on tablet mini)</label>
+                <description translate="true">Active only if 'Single Item' is 'No'. Put blank to use system configuration</description>
+                <depends>
+                    <parameter name="single_item" value="0" />
+                </depends>
+                <value>2</value>
+            </parameter>
+            <parameter name="number_items_mobile" xsi:type="text" visible="true">
+                <label translate="true">Number Items Per Page (on mobile)</label>
+                <description translate="true">Active only if 'Single Item' is 'No'. Put blank to use system configuration</description>
+                <depends>
+                    <parameter name="single_item" value="0" />
+                </depends>
+                <value>1</value>
+            </parameter>
+            <parameter name="show_navigation" xsi:type="select" visible="true">
+                <label>Slider Navigation</label>
+                <description translate="true">Select 'Yes' to show the slider navigation.</description>
+                <options>
+                    <option name="yes" value="1" selected="true"> <label translate="true">Yes</label> </option>
+                    <option name="no" value="0"> <label translate="true">No</label> </option>
+                </options>
+            </parameter>
+            <parameter name="show_paging" xsi:type="select" visible="true">
+                <label>Slider Paging</label>
+                <description translate="true">Select 'Yes' to show the slider paging.</description>
+                <options>
+                    <option name="yes" value="1" selected="true"> <label translate="true">Yes</label> </option>
+                    <option name="no" value="0"> <label translate="true">No</label> </option>
+                </options>
+            </parameter>
+            <parameter name="paging_numbers" xsi:type="select" visible="true">
+                <label>Paging Numbers</label>
+                <description translate="true">Select 'Yes' to show the slider paging with numbers.</description>
+                <depends>
+                    <parameter name="show_paging" value="1" />
+                </depends>
+                <options>
+                    <option name="yes" value="1" selected="true"> <label translate="true">Yes</label> </option>
+                    <option name="no" value="0"> <label translate="true">No</label> </option>
+                </options>
+            </parameter>
+            <parameter name="show_thumbnail" xsi:type="select" visible="true">
+                <label>Slider Thumbnail</label>
+                <description translate="true">Select 'Yes' to show slider with thumbnail images.</description>
+                <depends>
+                    <parameter name="single_item" value="1" />
+                </depends>
+                <options>
+                    <option name="yes" value="1" selected="true"> <label translate="true">Yes</label> </option>
+                    <option name="no" value="0"> <label translate="true">No</label> </option>
+                </options>
+            </parameter>
+            <parameter name="auto_run" xsi:type="select" visible="true">
+                <label>Auto run</label>
+                <options>
+                    <option name="yes" value="1" selected="true"> <label translate="true">Yes</label> </option>
+                    <option name="no" value="0"> <label translate="true">No</label> </option>
+                </options>
+            </parameter>
+            <parameter name="show_processbar" xsi:type="select" visible="true">
+                <label>Enable Process Bar</label>
+                <description translate="true">Select 'Yes' to show slider process bar.</description>
+                <depends>
+                    <parameter name="single_item" value="1" />
+                </depends>
+                <options>
+                    <option name="yes" value="1" selected="true"> <label translate="true">Yes</label> </option>
+                    <option name="no" value="0"> <label translate="true">No</label> </option>
+                </options>
+            </parameter>
+            <parameter name="auto_height" xsi:type="select" visible="true">
+                <label>Auto Height</label>
+                <options>
+                    <option name="yes" value="1" selected="true"> <label translate="true">Yes</label> </option>
+                    <option name="no" value="0"> <label translate="true">No</label> </option>
+                </options>
+            </parameter>
+            <parameter name="slide_speed" xsi:type="text" visible="true">
+                <label translate="true">Slider Speed</label>
+                <description translate="true">Set speed of slider (milisecon)</description>
+                <value>200</value>
+            </parameter>
+            <parameter name="stop_on_hover" xsi:type="select" visible="true">
+                <label>Stop On Hover</label>
+                <description translate="true">If you select 'Yes', the slider will stop when mouse hover.</description>
+                <options>
+                    <option name="yes" value="1" selected="true"> <label translate="true">Yes</label> </option>
+                    <option name="no" value="0"> <label translate="true">No</label> </option>
+                </options>
+            </parameter>
+            <parameter name="enable_lazyload" xsi:type="select" visible="true">
+                <label>Enable Lazy Load</label>
+                <description translate="true">Select 'Yes' to apply lazy load to images.</description>
+                <options>
+                    <option name="yes" value="1" selected="true"> <label translate="true">Yes</label> </option>
+                    <option name="no" value="0"> <label translate="true">No</label> </option>
+                </options>
+            </parameter>
+            <parameter name="slide_transition" xsi:type="select" required="true" visible="true" source_model="Ubertheme\UbContentSlider\Model\Config\Source\Owl1Transitions">
+                <label translate="true">Slider Transition</label>
+                <description translate="true">Active only if 'Single Item' is set to 'Yes' and works only in modern browsers that support CSS3 translate3d methods</description>
+                <depends>
+                    <parameter name="single_item" value="1" />
+                </depends>
+            </parameter>
+            <parameter name="addition_class" xsi:type="text" visible="true">
+                <label translate="true">Additional Class</label>
+                <description translate="true">CSS class addition. Examples: outside</description>
+            </parameter>
+        </parameters>
+    </widget>
+    <widget
+        id="ub_media_slider_widget"
+        class="Ubertheme\UbContentSlider\Block\Widget\MediaWidget"
+        is_email_compatible="false"
+        placeholder_image="Ubertheme_UbContentSlider::css/images/placeholder.gif">
+        <label translate="true">UB Content Slider (images/videos uploaded)</label>
+        <description translate="true">Slider with images/videos uploaded.</description>
+        <parameters>
+            <parameter name="content_type" xsi:type="text" visible="false">
+                <label translate="true">Content Type</label>
+                <value>slider</value>
+            </parameter>
+            <parameter name="slider_id" xsi:type="block" visible="true" required="true">
+                <label translate="true">Slider</label>
+                <block class="Ubertheme\UbContentSlider\Block\Adminhtml\Slide\Widget\Chooser">
+                    <data>
+                        <item name="button" xsi:type="array">
+                            <item name="open" xsi:type="string" translate="true">Select a Slider...</item>
+                        </item>
+                    </data>
+                </block>
+            </parameter>
+            <parameter name="show_title" xsi:type="select" visible="true">
+                <label>Show Block Title</label>
+                <description translate="true">Show/Hide the title of block slider.</description>
+                <options>
+                    <option name="yes" value="1" selected="true"> <label translate="true">Yes</label> </option>
+                    <option name="no" value="0"> <label translate="true">No</label> </option>
+                </options>
+            </parameter>
+            <parameter name="title" xsi:type="text" required="true" visible="true">
+                <label translate="true">Block Title</label>
+                <description translate="true">The title of block slider.</description>
+                <depends>
+                    <parameter name="show_title" value="1" />
+                </depends>
+            </parameter>
+            <parameter name="item_width" xsi:type="text" visible="true">
+                <label translate="true">Width of Item</label>
+                <description translate="true">Set width (px) of slide item (image/video). Type '0' for auto width.</description>
+                <value>0</value>
+            </parameter>
+            <parameter name="item_height" xsi:type="text" visible="true">
+                <label translate="true">Height of Item</label>
+                <description translate="true">Set height (px) of slide item (image/video). Type '0' for auto height.</description>
+                <value>0</value>
+            </parameter>
+            <parameter name="show_item_title" xsi:type="select" visible="true">
+                <label>Show Title of Item</label>
+                <description translate="true">Show/Hide slide item's title.</description>
+                <options>
+                    <option name="yes" value="1" selected="true"> <label translate="true">Yes</label> </option>
+                    <option name="no" value="0"> <label translate="true">No</label> </option>
+                </options>
+            </parameter>
+            <parameter name="show_item_desc" xsi:type="select" visible="true">
+                <label>Show Description of Item</label>
+                <description translate="true">Show/Hide slide item's description.</description>
+                <options>
+                    <option name="yes" value="1" selected="true"> <label translate="true">Yes</label> </option>
+                    <option name="no" value="0"> <label translate="true">No</label> </option>
+                </options>
+            </parameter>
+            <parameter name="single_item" xsi:type="select" visible="true">
+                <label>Slider With Single Item</label>
+                <options>
+                    <option name="yes" value="1"> <label translate="true">Yes</label> </option>
+                    <option name="no" value="0" selected="true"> <label translate="true">No</label> </option>
+                </options>
+            </parameter>
+            <parameter name="number_items" xsi:type="text" visible="true">
+                <label translate="true">Number Items Per Page (on large screen)</label>
+                <description translate="true">Default is 5. Active only if 'Single Item' is 'No'.</description>
+                <depends>
+                    <parameter name="single_item" value="0" />
+                </depends>
+                <value>5</value>
+            </parameter>
+            <parameter name="number_items_desktop" xsi:type="text" visible="true">
+                <label translate="true">Number Items Per Page (on desktop)</label>
+                <description translate="true">Default is 5. Active only if 'Single Item' is 'No'.</description>
+                <depends>
+                    <parameter name="single_item" value="0" />
+                </depends>
+                <value>5</value>
+            </parameter>
+            <parameter name="number_items_desktop_small" xsi:type="text" visible="true">
+                <label translate="true">Number Items Per Page (on desktop small)</label>
+                <description translate="true">Default is 4. Active only if 'Single Item' is 'No'.</description>
+                <depends>
+                    <parameter name="single_item" value="0" />
+                </depends>
+                <value>4</value>
+            </parameter>
+            <parameter name="number_items_tablet" xsi:type="text" visible="true">
+                <label translate="true">Number Items Per Page (on tablet)</label>
+                <description translate="true">Default is 3. Active only if 'Single Item' is 'No'.</description>
+                <depends>
+                    <parameter name="single_item" value="0" />
+                </depends>
+                <value>3</value>
+            </parameter>
+            <parameter name="number_items_tablet_small" xsi:type="text" visible="true">
+                <label translate="true">Number Items Per Page (on tablet mini)</label>
+                <description translate="true">Default is 3. Active only if 'Single Item' is 'No'.</description>
+                <depends>
+                    <parameter name="single_item" value="0" />
+                </depends>
+                <value>2</value>
+            </parameter>
+            <parameter name="number_items_mobile" xsi:type="text" visible="true">
+                <label translate="true">Number Items Per Page (on mobile)</label>
+                <description translate="true">Default is 1. Active only if 'Single Item' is 'No'.</description>
+                <depends>
+                    <parameter name="single_item" value="0" />
+                </depends>
+                <value>1</value>
+            </parameter>
+            <parameter name="show_thumbnail" xsi:type="select" visible="true">
+                <label>Slider Thumbnail</label>
+                <description translate="true">Select 'Yes' to show slider with thumbnail images.</description>
+                <depends>
+                    <parameter name="single_item" value="1" />
+                </depends>
+                <options>
+                    <option name="yes" value="1"> <label translate="true">Yes</label> </option>
+                    <option name="no" value="0" selected="true"> <label translate="true">No</label> </option>
+                </options>
+            </parameter>
+            <parameter name="thumb_width" xsi:type="text" visible="true">
+                <label translate="true">Width of Thumbnail</label>
+                <description translate="true">Set width (px) of thumbnail of slide item (image/video). Type '0' for auto width.</description>
+                <depends>
+                    <parameter name="show_thumbnail" value="1" />
+                </depends>
+                <value>0</value>
+            </parameter>
+            <parameter name="thumb_height" xsi:type="text" visible="true">
+                <label translate="true">Height of Thumbnail</label>
+                <description translate="true">Set height (px) of thumbnail of slide item (image/video). Type '0' for auto height.</description>
+                <depends>
+                    <parameter name="show_thumbnail" value="1" />
+                </depends>
+                <value>0</value>
+            </parameter>
+            <parameter name="show_navigation" xsi:type="select" visible="true">
+                <label>Slider Navigation</label>
+                <description translate="true">Select 'Yes' to show the slider navigation.</description>
+                <options>
+                    <option name="yes" value="1" selected="true"> <label translate="true">Yes</label> </option>
+                    <option name="no" value="0"> <label translate="true">No</label> </option>
+                </options>
+            </parameter>
+            <parameter name="show_paging" xsi:type="select" visible="true">
+                <label>Slider Paging</label>
+                <description translate="true">Select 'Yes' to show the slider paging.</description>
+                <options>
+                    <option name="yes" value="1" selected="true"> <label translate="true">Yes</label> </option>
+                    <option name="no" value="0"> <label translate="true">No</label> </option>
+                </options>
+            </parameter>
+            <parameter name="paging_numbers" xsi:type="select" visible="true">
+                <label>Paging Numbers</label>
+                <description translate="true">Select 'Yes' to show the slider paging with numbers.</description>
+                <depends>
+                    <parameter name="show_paging" value="1" />
+                </depends>
+                <options>
+                    <option name="yes" value="1" selected="true"> <label translate="true">Yes</label> </option>
+                    <option name="no" value="0"> <label translate="true">No</label> </option>
+                </options>
+            </parameter>
+            <parameter name="auto_run" xsi:type="select" visible="true">
+                <label>Auto run</label>
+                <options>
+                    <option name="yes" value="1" selected="true"> <label translate="true">Yes</label> </option>
+                    <option name="no" value="0"> <label translate="true">No</label> </option>
+                </options>
+            </parameter>
+            <parameter name="show_processbar" xsi:type="select" visible="true">
+                <label>Enable Process Bar</label>
+                <description translate="true">Select 'Yes' to show slider process bar.</description>
+                <depends>
+                    <parameter name="single_item" value="1" />
+                </depends>
+                <options>
+                    <option name="yes" value="1" selected="true"> <label translate="true">Yes</label> </option>
+                    <option name="no" value="0"> <label translate="true">No</label> </option>
+                </options>
+            </parameter>
+            <parameter name="auto_height" xsi:type="select" visible="true">
+                <label>Auto Height</label>
+                <options>
+                    <option name="yes" value="1" selected="true"> <label translate="true">Yes</label> </option>
+                    <option name="no" value="0"> <label translate="true">No</label> </option>
+                </options>
+            </parameter>
+            <parameter name="slide_speed" xsi:type="text" visible="true">
+                <label translate="true">Slider Speed</label>
+                <description translate="true">Set speed of slider (milisecon)</description>
+                <value>200</value>
+            </parameter>
+            <parameter name="stop_on_hover" xsi:type="select" visible="true">
+                <label>Stop On Hover</label>
+                <description translate="true">If you select 'Yes', the slider will stop when mouse hover.</description>
+                <options>
+                    <option name="yes" value="1" selected="true"> <label translate="true">Yes</label> </option>
+                    <option name="no" value="0"> <label translate="true">No</label> </option>
+                </options>
+            </parameter>
+            <parameter name="enable_lazyload" xsi:type="select" visible="true">
+                <label>Enable Lazy Load</label>
+                <description translate="true">Select 'Yes' to apply lazy load to images.</description>
+                <options>
+                    <option name="yes" value="1" selected="true"> <label translate="true">Yes</label> </option>
+                    <option name="no" value="0"> <label translate="true">No</label> </option>
+                </options>
+            </parameter>
+            <parameter name="slide_transition" xsi:type="select" required="true" visible="true" source_model="Ubertheme\UbContentSlider\Model\Config\Source\Owl1Transitions">
+                <label translate="true">Slider Transition</label>
+                <description translate="true">Active only if 'Single Item' is set to 'Yes' and works only in modern browsers that support CSS3 translate3d methods</description>
+                <depends>
+                    <parameter name="single_item" value="1" />
+                </depends>
+            </parameter>
+            <parameter name="addition_class" xsi:type="text" visible="true">
+                <label translate="true">Additional Class</label>
+                <description translate="true">CSS class addition. Examples: outside</description>
+            </parameter>
+        </parameters>
+    </widget>
+    <widget
+        id="ub_lookbook_widget"
+        class="Ubertheme\UbContentSlider\Block\Widget\LookbookWidget"
+        is_email_compatible="false"
+        placeholder_image="Ubertheme_UbContentSlider::css/images/placeholder.gif">
+        <label translate="true">UB Content Lookbook (images uploaded)</label>
+        <description translate="true">Lookbook view on images uploaded.</description>
+        <parameters>
+            <parameter name="content_type" xsi:type="text" visible="false">
+                <label translate="true">Content Type</label>
+                <value>slider</value>
+            </parameter>
+            <parameter name="slider_id" xsi:type="block" visible="true" required="true">
+                <label translate="true">Slider</label>
+                <block class="Ubertheme\UbContentSlider\Block\Adminhtml\Slide\Widget\Chooser">
+                    <data>
+                        <item name="button" xsi:type="array">
+                            <item name="open" xsi:type="string" translate="true">Select Content...</item>
+                        </item>
+                    </data>
+                </block>
+            </parameter>
+            <parameter name="show_title" xsi:type="select" visible="true">
+                <label>Show Block Title</label>
+                <description translate="true">Show/Hide the title of block.</description>
+                <options>
+                    <option name="yes" value="1" selected="true"> <label translate="true">Yes</label> </option>
+                    <option name="no" value="0"> <label translate="true">No</label> </option>
+                </options>
+            </parameter>
+            <parameter name="title" xsi:type="text" required="true" visible="true">
+                <label translate="true">Block Title</label>
+                <description translate="true">The title of block.</description>
+                <depends>
+                    <parameter name="show_title" value="1" />
+                </depends>
+            </parameter>
+            <parameter name="item_width" xsi:type="text" visible="true">
+                <label translate="true">Width of Item</label>
+                <description translate="true">Set width (px) of item (image/video). Type '0' for auto width.</description>
+                <value>0</value>
+            </parameter>
+            <parameter name="item_height" xsi:type="text" visible="true">
+                <label translate="true">Height of Item</label>
+                <description translate="true">Set height (px) of item (image/video). Type '0' for auto height.</description>
+                <value>0</value>
+            </parameter>
+            <parameter name="template" xsi:type="select" required="false" visible="true">
+                <label translate="true">Template</label>
+                <options>
+                    <option name="ubcsl-tpl-1" value="Ubertheme_UbContentSlider::lookbook/default.phtml">
+                        <label translate="true">Default</label>
+                    </option>
+                    <option name="ubcsl-tpl-2" value="Ubertheme_UbContentSlider::lookbook/masthead.phtml">
+                        <label translate="true">Masthead</label>
+                    </option>
+                </options>
+            </parameter>
+            <parameter name="addition_class" xsi:type="text" visible="true">
+                <label translate="true">Additional Class</label>
+                <description translate="true">
+                    Switch to other predefined CSS classes for different column options: grid-2-per-row, grid-3-per-row, grid-4-per-row. Default is fullwidth one column.
+                </description>
+            </parameter>
+        </parameters>
+    </widget>
+</widgets>

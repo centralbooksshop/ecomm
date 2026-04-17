@@ -1,0 +1,245 @@
+<?php
+/**
+ * Copyright © 2015 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$storeManager = $objectManager->get('\Magento\Store\Model\StoreManagerInterface');
+$customerSession = $objectManager->create('Magento\Customer\Model\Session');
+
+/** @var $block \Magento\Framework\View\Element\Template */
+$blockObj= $block->getLayout()->createBlock('Retailinsights\Registers\Block\Index\Header');
+?>
+
+<div class="has-toggle quick-access register" data-ui-id="quick-access">
+
+  <div class="register_modal link_container
+          <?php if($customerSession->isLoggedIn()){
+              echo "register_modal_hide";
+            }else{ 
+              
+              echo "register_modal";
+            } 
+          ?>">
+    <!-- <img class="link_image" src="<?php // echo $blockObj->getCustUrl(); ?>pub/media/ubertheme/home/top2.JPG"> -->
+    <span class="fa fa-user-plus"></span>
+    <span class="register_modal"></span>
+  </div>
+</div>
+
+<div id="modal-mobile" class="auth-modal-popup login-register">
+    <div class="loginformtext">
+      <ul class="listAuthModal">
+        <li class="mngorder">
+          <i style="background-position: 4px 116px;" class="userAuthIcons"></i>
+          <h4>MANAGE YOUR ORDERS</h4>
+          <p>Track orders, manage cancellations &amp; returns.</p>
+        </li>
+        <li class="shortlistitm">
+          <i style="    background-position: -59px 116px;"
+            class="userAuthIcons"></i>
+          <h4>SHORTLIST ITEMS YOU LOVE</h4>
+          <p>Keep items you love on a watchlist.</p>
+        </li>
+        <li class="offrupdate">
+          <i style="background-position: -130px 116px;"
+            class="userAuthIcons"></i>
+          <h4>AWESOME OFFERS UPDATES FOR YOU</h4>
+          <p>Be first to know about great offers and save.</p>
+        </li>
+      </ul>
+    </div>
+    
+    <!-- <div class="main-auth-form" id="newUserRegister" style="display:none;">
+      <p id="invalied_mobile" class="login-error">Please enter valid mobile number</p>
+      <p id="registered" class="login-error">Mobile number already exists.</p>
+      <h2>Register</h2>
+      <label>Mobile Number<span class="required">*</span></label>
+      <input type="number" placeholder="Please Enter Mobile Number" id="mobile_number" name="mobile_number">
+      <button class="mobile_check">SEND OTP</button>
+      <p class="auth-link">Existing User ? Click Here to <span class="login">Login</span></p>
+    </div> -->
+
+
+    <div id="modal-otp" class="main-auth-form">
+      <p id="otp_sent_regi" class="login-error">OTP resent successfully</p>
+      <p id="otp_error" class="login-error">Incorrect OTP, Please verify again.</p>
+      <div class="modal-inner-content">
+      <span id="schoolRegBack">Back</span>
+        <h2>OTP Verification</h2>
+        <label>One Time Secure Password </label>
+        <input type="number" id="mobile_otp" >
+
+        <button class="otp_check">Verify OTP</button>
+        <p>If you didn't receive OTP please <span id="resend_otp_regi">Resend OTP</span></p>
+        <!-- <p>If you not received OTP please<span>resend Otp</span></p>  -->
+          </div>
+    </div>
+
+    <div id="popup-modal-regi" class="main-auth-form">
+      <div class="modal-inner-content">
+        <div class="messages">
+          <span id="fname_required" class="login-error">First Name is required.</span>
+          <p id="lname_required" class="login-error">Last Name is required.</p>
+          <p id="email_required" class="login-error">Email Id is required.</p>
+          <p id="not_valied_email" class="login-error">Enter valid email.</p>
+		  <p id="mobile_required" class="login-error">Mobile Number is required.</p>
+        </div>
+          <h2>Register</h2>
+            <label>First Name</label>
+            <input type="text" id="first_name">
+            <label>Last Name</label>
+            <input type="text" id="last_name">
+			<div class="mobileget">
+				<div class="otp-content">
+                	 <span class="field required">
+                     <label for="mobileget" class="label required  ">
+                     	<span><?php echo __('Mobile Number') ?></span>
+                     </label>
+                     </span>
+                	<input type="text" value="" id="mobile-mobileget" class="mobnumber" name="mobile-mobileget" maxlength="12"/>
+                    <input type="hidden" value="" id="regi-mobilenumber" name="mobilenumber" />
+                    <div class="mobileotpsenderror error1 error">
+                      <span><?php echo __("Please Enter Valid Mobile.");?></span>
+                    </div>
+                    <div class="mobileExist error1 error">
+                        <span><?php echo __("Mobile Number Already Exist.");?></span>
+                    </div>
+                    <div class="blankerror error1 error" id="blankpage_customer_register">
+                            <span><?php echo __("Required fields cannot be empty");?></span>
+                    </div>
+                    <div class="mobileNotValid error1 error" id="mobileNotValid">
+                            <span><?php echo __("Please Enter Valid Mobile Number");?></span>
+                    </div> 
+                 </div>
+                 <div class="model-bottom"> 
+                    <div class="submitbtnajax" id="submitbtnajax">
+                        <input type="button" class="regi-sendotp button primary action" value="<?php echo __("Send Otp");?>" />
+                    </div>
+                     <div class="progress-indicator">
+                             <span class="please-wait" id="reg-sms-please-wait">
+                                <img src="<?php echo 
+							$block->getViewFileUrl('Retailinsights_Registers::images/ajax-loader.gif');?>" class="v-middle" alt=""/>
+                            </span>
+                        </div>
+                </div>
+            </div>
+
+			<div class="otpverify" id="otpverify">
+				<div class="otp-content">
+                	<span class="field required">
+                    <label for="mobile-otp" class="label">
+                     	<span><?php echo __('Enter OTP') ?></span>
+                     </label>
+                    </span>
+                    <span class="create-account-resend-otp">
+                        <label for="resend-mobile-otp" class="label">
+                            <span class='resend'><?php echo __("Resend OTP");?></span>
+                            <span class='sending' id="sending"><?php echo __("Sending OTP...");?></span>
+                         </label>
+                    </span>
+                	<input type="password" value="" id="mobile-otp" maxlength="<?php echo $block->getOtpStringlenght() ?>"/>
+                    <div class="checkotperror error1 error">
+                	<span><?php echo __("Incorrect OTP, Please Verify Again.");?></span>
+                    </div>
+                    <div class="blankerror blankotperror error1 error">
+                        <span><?php echo __("Required fields cannot be empty.");?></span>
+                    </div>
+               <div class="model-bottom">
+                    <div class="submitbtnajax" id="submitbtnajax1">
+                        <input type="button" class="mobileverifyotp button primary action" value="<?php echo __('Verify OTP') ?>" />
+                    </div>
+               </div>
+               <div class="progress-indicator">
+                   <span class="please-wait" id="reg-otp-verify-please-wait">
+                     <img src="<?php echo 
+                  $block->getViewFileUrl('Retailinsights_Registers::images/ajax-loader.gif');?>" class="v-middle" alt="Please Wait"/>
+                  </span>
+               </div>
+            </div>
+           </div>
+
+            <label>Email ID </label>
+            <input type="text" id="email">
+            
+          <button type="button" class="form_submit" title="<?php /* @escapeNotVerified */ echo __('Register') ?>" disabled>
+            <span><?php /* @escapeNotVerified */ echo __('Register') ?></span>
+          </button>
+		 <!-- <p id="register_success" class="login-error"> Thank you for registering! Kindly complete your registration by clicking the verification link sent to your email ID.</p> -->
+          <p id="register_error" class="login-error">Can't save this User Email Already Exist</p>
+        <!-- </form> -->
+      </div>
+    </div>
+</div>
+<style>
+.error {
+span {
+    font-size: 12px;
+    margin-left: 11px;
+}
+}
+.sendotp {
+    float: right;
+}
+.error {
+    color: #903;
+}
+.verifyotp {
+    max-width: 192px !important;
+}
+#emptyotp {
+    display: none;
+}
+.error {
+    display: none;
+}
+
+#progress_indecator {
+    float: right;
+}
+#blankpage_customer_register {
+    display: none;
+}
+#otpverify {
+    display: none;
+}
+#reg-otp-verify-please-wait {
+    display: none;
+}
+#customer-progress-indicator {
+    display: none;
+}
+#sending {
+    display: none;
+    cursor: pointer;
+}
+
+.progress-indicator {
+    float: left;
+    position: absolute;
+}
+.create-account-resend-otp {
+    float: right;
+    cursor: pointer;
+}
+.progress-indicator.forgot-mobile-progress-indicator {
+    float: right !important;
+    margin-right: 60px;
+    margin-top: 18px;
+}
+.submitbtnajax {
+    text-align: center;
+    margin: 0 auto;
+    width: 97px;
+}
+.progress-indicator {
+    text-align: center;
+	display:none;
+}
+span.resend {
+    cursor: pointer;
+    text-decoration: underline;
+    color: blue;
+}
+</style>

@@ -1,0 +1,69 @@
+<?php
+/**
+ * Webkul Software.
+ *
+ *
+ * @category  Webkul
+ * @package   Webkul_DeliveryBoy
+ * @author    Webkul <support@webkul.com>
+ * @copyright Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html ASL Licence
+ * @link      https://store.webkul.com/license.html
+ */
+$deliveryboyList = $block->getDeliveryBoyList();
+$selectedId = $block->getAssignedDeliveryBoy();
+?>
+<div class="fieldset-wrapper-title">
+    <span class="title"><?= $block->escapeHtml(__('Assign Order to Deliveryboy')) ?></span>
+</div>
+<?php $orderstatus = $block->getOrderStatus(); ?>
+<div class="order-history-block">
+    <div class="admin__field">
+        <label for="history_comment" class="admin__field-label">
+            <?= $block->escapeHtml(__('Choose Deliveryboy:')) ?>
+        </label>
+        <div class="admin__field-control">
+            <select name="deliveryboy" id="deliveryboy" class="admin__control-select" style="width:200px" <?php if ($orderstatus =='complete') { } else {echo 'disabled';} ?>>
+                <option value=""><?= $block->escapeHtml(__("Select Deliveryboy")) ?></option>
+                <?php if (!empty($deliveryboyList)) { ?>
+                    <?php foreach ($deliveryboyList as $deliveryboy) { ?>
+                        <option value="<?= /* @noEscape */ $deliveryboy["id"] ?>" 
+                            <?= /* @noEscape */ $deliveryboy["id"] == $selectedId ? ' selected ' : '' ?>> 
+                            <?= $block->escapeHtml($deliveryboy["name"]) ?>
+                        </option>
+                    <?php }  ?>
+                <?php } ?>
+            <select>
+            <input type="hidden" id="orderIncrementId"
+                value="<?= $block->escapeHtmlAttr($block->getOrderIncrementId()) ?>">
+        </div>
+    </div>
+	<?php if ($orderstatus =='complete') { ?>
+    <div class="admin__field">
+        <div class="order-history-comments-actions">
+            <button id="assign" title="Save" type="button" class="action-default scalable action-save action-secondary">
+                <span><?= $block->escapeHtml(__("Assign to Deliveryboy")) ?></span>
+            </button><br/>
+            <div class="success_msg"></div> 
+        </div>
+    </div>
+	<?php } ?>
+</div>
+<?php
+$configData = $block->jsonEncode([
+    "url" => $block->getUrl('expressdelivery/orders/assignDeliveryboymain', ['_secure' => true]),
+    "successMessage" => '<span style="color:green">' . __("Successfully assigned to deliveryboy") . '</span>',
+    "failureMessage" => "<span style='color:red'>" . __('Some error occurred') . "</span>",
+    "emptyMessage" => "<span style='color:red'>" . __('Please select deliveryboy.') . "</span>",
+	"limitMessage" => "<span style='color:red'>" . __('Deliveryboy Order limit exceeded.') . "</span>",
+    "disableMessage" => "<span style='color:red'>" .
+        __("Order can't be assigned as delivery boy is not online.") . "</span>"
+]);
+?>
+<script type="text/x-magento-init">
+{
+    "*": {
+        "Webkul_DeliveryBoy/js/assigndeliveryboy": <?= /* @noEscape */ $configData ?>
+    }
+}
+</script>

@@ -1,0 +1,408 @@
+//----
+// @category	:	Ubertheme
+// @package 	:	Ubertheme_UbContentSlider
+// @author		:	Ubertheme.com
+// @copyright 	:	Copyright 2009-2019 Ubertheme
+//---------------------------
+
+// -----------------------------
+// Common
+// -----------------------------
+
+
+
+// Variables
+    // 1 Library
+    //@color-gray80: @color-gray80;
+    //@color-red9: #ff0101;
+    
+    // 2. Customized
+    @color_black24: #242424;
+    @color_black22: #222;
+
+
+
+& when (@media-common = true) {
+    .ub-hotspots {
+        height: 100%;
+        left: 0;
+        position: absolute;
+        top: 0;
+        width: 100%;
+        z-index: 99;
+        .hot-spot {
+            background: rgba(34,25,36,.2);
+            border: 0;
+            position: absolute;
+            border-radius: 50%;
+            opacity: 1;
+            transition: .4s;
+            &:after, 
+            &:before {
+                border: solid transparent;
+                content: " ";
+                display: none;
+                height: 0;
+                position: absolute;
+                width: 0;
+                z-index: 99;
+                pointer-events: none;
+            }
+            &:after {
+                border-color: rgba(255, 255, 255, 0);
+                border-width: 10px;
+                
+            }
+            &:before {
+                border-color: rgba(204, 204, 204, 0);
+                border-width: 10px;
+                
+            }
+            &:active,
+            &:focus,
+            &:hover {
+                background: @color-red9;
+                z-index: 99; 
+                opacity: 1;
+                &:after, 
+                &:before,
+                .hs-content {
+                    display: none; 
+                }
+            }
+            
+            .hs-ico-tag {
+                display: block;
+                height: 100%;
+                position: relative;
+                text-align: center;
+                width: 100%;
+                &:before {
+                    bottom: 0;
+                    color: @color-white;
+                    content: "";
+                    display: inline-block;
+                    font-family: 'FontAwesome';
+                    font-size: 1.8rem;
+                    height: 100%;
+                    left: 0;
+                    line-height: 100%;
+                    margin-top: -50%;
+                    position: absolute;
+                    text-align: center;
+                    top: 0;
+                    vertical-align: middle;
+                    width: 100%;
+                    text-rendering: auto;
+                    -webkit-font-smoothing: antialiased;
+                    -moz-osx-font-smoothing: grayscale;
+                    transform: translateY(50%);
+                    background: url('../Ubertheme_UbContentSlider/images/white-shop-tag.svg') 50% 50% no-repeat;
+                    background-size: 50%;
+                }
+            }
+            // Arrow Left
+            &.hs-left {
+                &:after, 
+                &:before {
+                    margin-top: -10px;
+                    right: -1.2rem;
+                    top: 50%;
+                }
+                &:after {
+                    border-right-color: @color-white;
+                } 
+                &:before {
+                    border-right-color: @color-gray80;
+                }
+            }
+            // Arrow Right
+            &.hs-right {
+                &:after, 
+                &:before {
+                    left: -1.2rem;
+                    margin-top: -10px;
+                    top: 50%;
+                }
+                &:after {
+                    border-left-color: @color-white;
+                    
+                }
+                &:before {
+                    border-left-color: @color-gray80;
+                    
+                }
+            }
+            // Arrow top
+            &.hs-top {
+                &:after, 
+                &:before {
+                    bottom: -1.2rem;
+                    left: 50%;
+                    margin-left: -10px;
+                }
+                &:after {
+                    border-bottom-color: @color-white;
+                    
+                }
+                &:before {
+                    border-bottom-color: @color-gray80;
+                    
+                }
+            }
+            // Arrow Bottom
+            &.hs-bottom {
+                &:after, 
+                &:before {
+                    left: 50%;
+                    margin-left: -10px;
+                    top: -1.2rem;
+                }
+                &:after {
+                    border-top-color: @color-white;
+                    
+                }
+                &:before {
+                    border-top-color: @color-gray80;
+                    
+                }
+            }
+        }
+        .hs-content {
+            background: @color-white;
+            color: @color_black22;
+            display: none;
+            height: 8.8rem;
+            padding: 2rem;
+            position: absolute;
+            width: 22rem;
+            z-index: 99;
+            border-radius: 4px;
+            //box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 3px 1px -2px rgba(0,0,0,0.12), 0 1px 5px 0 rgba(0,0,0,0.2);
+            box-shadow: 0 0 2px rgba(0, 0, 0, 0.2);
+            transition: .4s;
+            &.loading {
+                min-height: 8.8rem;
+                text-align: center;
+                &:before {
+                    background: url(../Ubertheme_UbContentSlider/images/loader.gif) no-repeat 50% 50%;
+                    content: "";
+                    display: inline-block;
+                    height: 2.4rem;
+                    line-height: 7rem;
+                    margin: 0;
+                    position: static;
+                    text-align: center;
+                    width: 2.4rem;
+                    transform: translateY(1rem);
+                    background-size: 100%;
+                }
+                .hs-actions {
+                    bottom: 1.1rem;
+                    max-width: 20rem;
+                    position: absolute;
+                }
+            }
+            .content-loaded { 
+                float: left;
+                min-height: 8.8rem;
+                width: 100%;
+            }
+            &:before{ 
+                content: "";
+                height: 13rem;
+                left: -2rem;
+                position: absolute;
+                top: 0;
+                width: 2rem;
+            }
+            &:after{ 
+                border: solid transparent;
+                border-color: rgba(255, 255, 255, 0);
+                border-width: 1rem;
+                content: "";
+                position: absolute;
+                top: 4.4rem;
+            }
+        }
+
+        // Arrow Top
+        .hs-top {
+            .hs-content {
+                &:before{ 
+                    height: 2rem;
+                    left: 0;
+                    top: -2rem;
+                    width: 100%;
+                }
+                &.loading {
+                    &:before{
+                        height: 2.4rem; 
+                        position: static;
+                        width: 2.4rem;
+                    }
+                }
+            }
+        }
+
+        // Arrow Bottom
+        .hs-bottom {
+            .hs-content {
+                &:before{
+                    bottom: -2rem; 
+                    height: 2rem;
+                    left: 0;
+                    top: auto;
+                    width: 100%;
+                }
+                &.loading {
+                    &:before{
+                        height: 2.4rem; 
+                        position: static;
+                        width: 2.4rem;
+                    }
+                }
+            }
+        }
+
+
+        // Arrow Right
+        .hs-right {
+            .hs-content{
+                &:before{ 
+                    content: "";
+                    height: 13rem;
+                    left: auto;
+                    position: absolute;
+                    right: -2rem;
+                    top: 0;
+                    width: 2rem;
+                }
+                &.loading {
+                    &:before{
+                        height: 2.4rem; 
+                        position: static;
+                        width: 2.4rem;
+                    }
+                }
+            }
+        }
+
+        // Product
+        .product-info {
+            min-height: 8.8rem;
+            padding-left: 8rem;
+            text-align: left;
+            .thumbnail{ 
+                float: left;
+                left: 2rem;
+                margin: 0;
+                max-width: 7rem;
+                padding-right: 1rem;
+                position: absolute;
+                .ub-quick-view-button {
+                    background: none !important;
+                    height: 100%;
+                    left: 0;
+                    max-width: 7rem;
+                    position: absolute;
+                    top: 0;
+                    width: 100%;
+                    z-index: 2;
+                    span {
+                        display: none;
+                    }
+                }
+            }
+
+            .product-image-wrapper {
+                height: 100% !important;
+                overflow: visible; 
+                padding: 0 !important;
+                .product-image-photo {
+                    position: static;
+                }
+            }
+
+            .product-name {
+                font-size: 1.4rem;
+                font-weight: 400;
+                a {
+                    border-bottom: 0.1rem solid transparent; 
+                    color: @color_black22;
+                }
+            }
+
+            .price-box {
+                font-weight: 600;
+                margin-top: 1rem;
+                .price-final_price {
+                    color: @color_black22;
+                }
+                .price-label{
+                    color: @color-gray68;
+                    display: none;
+                    font-size: 1.2rem;
+                    font-weight: 500;
+                }
+                .price-from {
+                    margin-bottom: 0;
+                    .price-label{ 
+                        display: inline;
+                        padding-right: 0.5rem;
+                    }
+                    .old-price {
+                        clear: both;
+                        display: none;
+                    }
+                }
+                .price-to {
+                    margin-bottom: 0;
+                    .price-label{ 
+                        display: inline;
+                        padding-right: 0.5rem;
+                    }
+                }
+                .special-price {
+                    display: block;
+                    width: 100%;
+                    .price {
+                        color: @color-red9;
+                        font-size: 1.8rem;
+                    }
+                }
+                .old-price {
+                    display: block;
+                    width: 100%;
+                    .price {
+                        color: @color-gray-light3;
+                        text-decoration: line-through;
+                    }
+                }
+            }
+        }
+    }
+
+    .no-touch {
+        .ub-hotspots {
+            .hs-content {
+                display: none;
+            }
+            .hot-spot {
+                &:after, 
+                &:before {
+                    display: none;
+                }
+                &:active,
+                &:focus,
+                &:hover { 
+                    &:after, 
+                    &:before,
+                    .hs-content {
+                        display: block; 
+                    }
+                }
+            }
+        }    
+    }
+}

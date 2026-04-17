@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+   <table name="cbo_assign_shippment" resource="default" engine="innodb" comment="cbo_assign_shippment">
+      <column xsi:type="timestamp" name="dispatched_on" nullable="false" comment="Dispatched On" />
+	  <column xsi:type="int" name="deliveryboy_id" nullable="true" comment="Deliveryboy Id" />
+   </table>
+
+   <table name="cbo_notdelivered_reason" resource="default" engine="innodb" comment="Driver Reasons Table">
+    <column xsi:type="int" name="id" padding="10" unsigned="true" nullable="false" identity="true" comment="Id"/>
+    <column xsi:type="int" name="driver_id" padding="10" unsigned="true" nullable="false" identity="false" default="0" comment="Driver Id"/>
+    <column xsi:type="varchar" name="order_increment_id" nullable="true" length="255" comment="Order Increment Id"/>
+    <column xsi:type="text" name="reason" nullable="false" comment="Reason"/>
+    <column xsi:type="varchar" name="commented_by" nullable="true" length="255" comment="Comment By"/>
+    <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP" comment="Creation Date Time"/>
+    <constraint xsi:type="primary" referenceId="PRIMARY">
+      <column name="id"/>
+    </constraint>
+  </table>
+
+</schema>

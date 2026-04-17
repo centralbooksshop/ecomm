@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2016 Ubertheme.com All rights reserved.
+
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Ubertheme_UbContentSlider::ubcontentslider_content"
+             title="Content Slider"
+             module="Ubertheme_UbContentSlider" sortOrder="50"
+             parent="Ubertheme_Base::menu"
+             resource="Ubertheme_UbContentSlider::ubcontentslider_content" />
+
+        <add id="Ubertheme_UbContentSlider::slide"
+             title="Manage Sliders"
+             module="Ubertheme_UbContentSlider"
+             sortOrder="0"
+             parent="Ubertheme_UbContentSlider::ubcontentslider_content"
+             action="ubcontentslider/slide" resource="Ubertheme_UbContentSlider::slide"/>
+
+        <add id="Ubertheme_UbContentSlider::settings"
+             title="Settings"
+             module="Ubertheme_UbContentSlider"
+             sortOrder="1"
+             parent="Ubertheme_UbContentSlider::ubcontentslider_content"
+             action="adminhtml/system_config/edit/section/ubcontentslider" resource="Ubertheme_UbContentSlider::settings"/>
+    </menu>
+</config>

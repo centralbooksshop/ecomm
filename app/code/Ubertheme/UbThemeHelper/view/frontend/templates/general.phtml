@@ -1,0 +1,94 @@
+<?php
+/** @var \Ubertheme\UbThemeHelper\Helper\Data $ubHelper */
+$ubHelper = $this->helper('Ubertheme\UbThemeHelper\Helper\Data');
+$enablePreLoader = $ubHelper->getParam('element/main/preloader/enable');
+$enableBackToTop = $ubHelper->getParam('element/main/back_to_top/enable');
+?>
+<?php if ($enablePreLoader): ?>
+    <div class="loader-wrapper" id="loading">
+        <div id="loading-center">
+            <div id="loading-center-absolute">
+                <div class="object" id="object_one"></div>
+                <div class="object" id="object_two"></div>
+                <div class="object" id="object_three"></div>
+            </div>
+        </div>
+    </div>
+    <script>
+        require(['jquery'], function ($) {
+
+            //set timeout to hide the message
+            clearInterval(timeOutMsg);
+            var timeOutMsg = setTimeout(function () {
+                if ($(".page.messages").find('.messages').length) {
+                    $(".page.messages").find('.messages').slideUp();
+                }
+            }, 5000);
+
+            $(document).ready(function() {
+                $('.loader-wrapper').hide();
+            });
+
+        });
+    </script>
+<?php endif; ?>
+
+<?php if ($enableBackToTop): ?>
+    <div class="back_top">
+        <a href="#" id="back-to-top" title="Back to top">&uarr;</a>
+    </div>
+    <script>
+        require(['jquery'], function ($) {
+            if ($('#back-to-top').length) {
+                var scrollTrigger = $("#page-header").outerHeight(), // px
+                    backToTop = function () {
+                        var scrollTop = $(window).scrollTop();
+                        if (scrollTop > scrollTrigger) {
+                            $('#back-to-top').addClass('show');
+                        } else {
+                            $('#back-to-top').removeClass('show');
+                        }
+                    };
+                backToTop();
+                $(window).on('scroll', function () {
+                    backToTop();
+                });
+                $('#back-to-top').on('click', function (e) {
+                    e.preventDefault();
+                    $('html,body').animate({
+                        scrollTop: 0
+                    }, 700);
+                });
+            }
+        });
+    </script>
+    <style>
+        #back-to-top {
+            position: fixed;
+            bottom: 40px;
+            right: 40px;
+            z-index: 12;
+            width: 32px;
+            height: 32px;
+            text-align: center;
+            line-height: 30px;
+            background: #f5f5f5;
+            color: #444;
+            cursor: pointer;
+            border: 0;
+            border-radius: 2px;
+            text-decoration: none;
+            transition: opacity 0.2s ease-out;
+            opacity: 0;
+        }
+        #back-to-top:hover {
+            background: #e9ebec;
+        }
+        #back-to-top.show {
+            opacity: 1;
+        }
+        #content {
+            height: 2000px;
+        }
+    </style>
+<?php endif; ?>

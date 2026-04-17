@@ -1,0 +1,156 @@
+<?php
+/**
+ * Plumrocket Inc.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the End-user License Agreement
+ * that is available through the world-wide-web at this URL:
+ * http://wiki.plumrocket.net/wiki/EULA
+ * If you are unable to obtain it through the world-wide-web, please
+ * send an email to support@plumrocket.com so we can send you a copy immediately.
+ *
+ * @package     Plumrocket RMA v2.x.x
+ * @copyright   Copyright (c) 2017 Plumrocket Inc. (http://www.plumrocket.com)
+ * @license     http://wiki.plumrocket.net/wiki/EULA  End-user License Agreement
+ */
+?>
+<?php $helperCancelOrder = $this->helper('Magecomp\Cancelorder\Helper\Data'); ?>
+<?php $_orders = $block->getOrders(); ?>
+<?php $show_reference_number_link = $this->helper('Shipsy\EcommerceExtension\Helper\Data')->getConfig('store','shipsy_optional_settings/optional_settings/shipsy_show_awb_number_tracking') ? true : false;?>
+<?php echo $block->getChildHtml('info');?>
+
+<?php if ($_orders && count($_orders)): ?>
+    <div class="table-wrapper orders-history">
+        <table class="data table table-order-items history" id="my-orders-table">
+            <caption class="table-caption"><?php /* @escapeNotVerified */ echo __('Orders') ?></caption>
+            <thead>
+                <tr>
+                    <th scope="col" class="col id"><?php /* @escapeNotVerified */ echo __('Order #') ?></th>
+                    <th scope="col" class="col date"><?php /* @escapeNotVerified */ echo __('Date') ?></th>
+                    <?php /* @noEscape */ echo $block->getChildHtml('extra.column.header');?>
+                    <th scope="col" class="col total"><?php /* @escapeNotVerified */ echo __('Order Total') ?></th>
+                    <th scope="col" class="col status"><?php /* @escapeNotVerified */ echo __('Status') ?></th>
+                    <th scope="col" class="col actions"><?php /* @escapeNotVerified */ echo __('Action') ?></th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($_orders as $_order): ?>
+                    <tr>
+                        <td data-th="<?php echo $block->escapeHtml(__('Order #')) ?>" class="col id"><?php /* @escapeNotVerified */ echo $_order->getRealOrderId() ?></td>
+                        <td data-th="<?php echo $block->escapeHtml(__('Date')) ?>" class="col date"><?php /* @escapeNotVerified */ echo $block->formatDate($_order->getCreatedAt()) ?></td>
+                        <?php $extra = $block->getChildBlock('extra.container'); ?>
+                        <?php if ($extra): ?>
+                            <?php $extra->setOrder($_order); ?>
+                            <?php /* @noEscape */ echo $extra->getChildHtml() ?>
+                        <?php endif; ?>
+                        <td data-th="<?php echo $block->escapeHtml(__('Order Total')) ?>" class="col total"><?php /* @escapeNotVerified */ echo $_order->formatPrice($_order->getGrandTotal()) ?></td>
+                        <td data-th="<?php echo $block->escapeHtml(__('Status')) ?>" class="col status"><?php /* @escapeNotVerified */ echo $_order->getStatusLabel() ?></td>
+                        <td data-th="<?php echo $block->escapeHtml(__('Actions')) ?>" class="col actions">
+                            <a href="<?php /* @escapeNotVerified */ echo $block->getViewUrl($_order) ?>" class="action view">
+                                <span><?php /* @escapeNotVerified */ echo __('View Order') ?></span>
+                            </a>
+                            <?php if ($this->helper('Magento\Sales\Helper\Reorder')->canReorder($_order->getEntityId())) : ?>
+                                <a href="#" data-post='<?php /* @escapeNotVerified */ echo
+                                $this->helper(\Magento\Framework\Data\Helper\PostHelper::class)
+                                    ->getPostData($block->getReorderUrl($_order))
+                                ?>' class="action order">
+                                    <span><?php /* @escapeNotVerified */ echo __('Re-order') ?></span>
+                                </a>
+                            <?php endif ?>
+
+                            <?php $helper = $this->helper('Plumrocket\RMA\Helper\Returns') ?>
+                            <?php if ($helper->canReturnCustomer($_order)): ?>
+                                <a href="<?php /* @escapeNotVerified */ echo $helper->getCreateUrl($_order) ?>" class="action returns">
+                                    <span><?php /* @escapeNotVerified */ echo __('Return') ?></span>
+                                </a>
+
+								<a href="<?php /* @escapeNotVerified */ echo $helper->getCreaterefundUrl($_order) ?>" class="action returns">
+                                    <span><?php /* @escapeNotVerified */ echo __('Cancel/Refund') ?></span>
+                                </a>
+                            <?php endif ?>
+                            <!-- Cancle order extn -->
+							 <?php if ($_order['shipsy_tracking_url']): ?>
+                                <a href="<?= $_order['shipsy_tracking_url'] ?>" target="_blank"
+                                   class="action order">
+                                   <?php if ($show_reference_number_link): ?>
+                                    <span><?= /* @escapeNotVerified */ __($_order['shipsy_reference_numbers']) ?></span>
+                                   <?php else: ?>
+                                    <span><?= /* @escapeNotVerified */ __('Track your order') ?></span>
+                                    <?php endif ?>
+                                </a>
+                            <?php endif ?>
+                            <?php if ($helperCancelOrder->isCancelOrderAllowed()): ?>
+                                <?php if($helperCancelOrder->OrderStatusCheck($_order->getStatus())) :?>
+                                    <?php if ($helperCancelOrder->isCommentEnabled()): ?>
+                                        <a href="#content-div-cancelorder-<?php echo $_order->getId(); ?>" class="action view border-none fancybox">
+                                            <span><?php echo __($helperCancelOrder->getCancelOrderButtonText()); ?></span>
+                                        </a>
+                                        <div style="display: none">
+                                            <div id="content-div-cancelorder-<?php echo $_order->getId(); ?>" class="cancel-order-modal">
+                                            <div id="info-testy-create" style="padding: 4px;">
+                                                    <form class="form contact"
+                                                          action="<?php echo $helperCancelOrder->getCancelOrderUrl($_order); ?>"
+                                                          id="commentForm-<?php echo $_order->getId(); ?>"
+                                                          method="post"
+                                                          data-hasrequired="<?php echo __('* Required Fields') ?>"
+                                                          data-mage-init='{"validation":{}}'>
+                                                          <fieldset class="fieldset">
+                                                            <legend class="legend"><span style="font-weight: 400;"><?php echo __($helperCancelOrder->getPopupFormHeaderText()); ?></span></legend><br />
+                                                            <?php if (!empty($helperCancelOrder->getCancelReasons())): ?>
+                                                                <div class="field name required" style="margin-bottom: 10px;">
+                                                                    <label class="label" for="comment-<?php echo $_order->getId(); ?>"><span><?php echo __('Cancel Reasons') ?></span></label>
+                                                                    <div class="control">
+                                                                        <select name="cancel_reasons">
+                                                                            <?php echo $helperCancelOrder->getCancelReasons();?>
+                                                                            <option><?php echo __("Others")?></option>
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+                                                            <?php endif; ?>
+                                                            <div class="field name required" style="margin-bottom: 10px;">
+                                                                <label class="label" for="comment-<?php echo $_order->getId(); ?>"><span><?php echo __('Comment') ?></span></label>
+                                                                <div class="control">
+                                                                    <textarea name="comment-<?php echo $_order->getId(); ?>" id="comment-<?php echo $_order->getId(); ?>" title="<?php echo __('Comment') ?>" class="input-text" cols="45" rows="6" data-validate="{required:true}"></textarea>
+                                                                </div>
+                                                            </div>
+                                                            <p><?php echo $helperCancelOrder->getPopupFormNote(); ?></p>
+                                                            <div class="actions-toolbar">
+                                                                <div class="primary">
+                                                                    <button type="submit" title="<?php echo __('Submit') ?>" class="action submit primary">
+                                                                            <span><?php echo __('Submit') ?></span>
+                                                                        </button>
+                                                                    <button type="reset" class="button" value="<?php echo __('Reset') ?>"><span><span><?php echo __('Reset') ?></span></span></button>
+                                                                </div>
+                                                            </div>
+                                                          </fieldset>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    <?php else: ?>
+                                        <a href="<?php echo $helperCancelOrder->getCancelOrderUrl($_order) ?>" class="action view">
+                                            <span><?php echo __($helperCancelOrder->getCancelOrderButtonText()); ?></span>
+                                        </a>
+                                    <?php endif; ?>
+                                <?php endif; ?>
+                            <?php endif; ?>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+    <?php if ($block->getPagerHtml()): ?>
+        <div class="order-products-toolbar toolbar bottom"><?php echo $block->getPagerHtml(); ?></div>
+    <?php endif ?>
+<?php else: ?>
+    <div class="message info empty"><span><?php /* @escapeNotVerified */ echo __('You have placed no orders.'); ?></span></div>
+<?php endif ?>
+<script type="text/javascript">
+    require(['jquery', 'cpfancybox'], function () {
+        jQuery(document).ready(function () {
+            jQuery(".fancybox").fancybox();
+        });
+    });
+</script>

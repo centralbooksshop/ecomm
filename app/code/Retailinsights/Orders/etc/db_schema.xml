@@ -1,0 +1,104 @@
+<?xml version="1.0"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+        <table name="sales_order">
+			<column xsi:type="varchar" name="product_purchased" nullable="true" length="255" comment="Product Purchased"/>
+            <column xsi:type="varchar" name="location_code" nullable="true" length="100" comment="Location Code"/>
+			<column xsi:type="int" name="order_creation_type" nullable="true" comment="Order Creation Type" />
+			<column xsi:type="varchar" name="order_multiple_status" nullable="true" comment="order multiple status" />
+
+			 <column xsi:type="varchar" name="courier_available" nullable="true" length="255" comment="Courier Available (Comma Separated)"/>
+
+             <index referenceId="SALES_ORDER_COURIER_AVAILABLE"
+               indexType="btree">
+                <column name="courier_available"/>
+             </index>
+
+			<!-- Indexes -->
+			<index referenceId="SALES_ORDER_PRODUCT_PURCHASED" indexType="btree">
+				<column name="product_purchased"/>
+			</index>
+			<index referenceId="SALES_ORDER_LOCATION_CODE" indexType="btree">
+				<column name="location_code"/>
+			</index>
+			<index referenceId="SALES_ORDER_CREATION_TYPE" indexType="btree">
+				<column name="order_creation_type"/>
+			</index>
+			<index referenceId="SALES_ORDER_MULTIPLE_STATUS" indexType="btree">
+				<column name="order_multiple_status"/>
+			</index>
+		</table>
+
+		<table name="sales_order_address">
+			<index referenceId="IDX_SA_POSTCODE" indexType="btree">
+				<column name="postcode"/>
+			</index>
+		</table>
+
+        <table name="quote">
+                <column xsi:type="text" name="product_purchased" nullable="true" comment="Product Purchased" />
+                <column xsi:type="text" name="location_code" nullable="true" comment="Location Code" />
+        </table>
+
+        <table name="sales_order_item">
+			<column xsi:type="longtext" name="optional_selected_items" nullable="true" comment="Optional Selected Items" />
+			<column xsi:type="int" name="given_options" nullable="true" comment="Given Options Type" />
+			<column xsi:type="text" name="given_options_msg" nullable="true" comment="Given Options Message" />
+			<column xsi:type="timestamp" name="given_option_updated_at" on_update="true" nullable="true" comment="Given Option Update Time"/>
+
+			<column xsi:type="int" name="dispatch_total_qty" nullable="true" comment="Dispatch Total Qty"/>
+
+			<column xsi:type="datetime" name="dispatch_date" nullable="true" comment="Dispatch Date"/>
+			<column xsi:type="text" name="dispatch_status" nullable="true" comment="Dispatch Status"/>
+
+			<column xsi:type="datetime" name="delivery_date" nullable="true" comment="Delivery Date"/>
+			<column xsi:type="text" name="delivery_status" nullable="true" comment="Delivery Status"/>
+			<column xsi:type="datetime" name="partial_delivery_date" nullable="true" comment="Partial Delivery Date"/>
+
+			<column xsi:type="varchar" name="acknowledgement_upload" nullable="true" length="255" comment="Acknowledgement Upload"/>
+
+
+			<index referenceId="SALES_ORDER_ITEM_GIVEN_OPTIONS" indexType="btree">
+				<column name="given_options"/>
+			</index>
+
+			<index referenceId="SALES_ORDER_ITEM_GIVEN_OPTION_UPDATED_AT" indexType="btree">
+				<column name="given_option_updated_at"/>
+			</index>
+
+			<index referenceId="SALES_ORDER_ITEM_PARENT_ITEM_ID" indexType="btree">
+				<column name="parent_item_id"/>
+			</index>
+			<index referenceId="SALES_ORDER_ITEM_QUOTE_ITEM_ID" indexType="btree">
+				<column name="quote_item_id"/>
+			</index>
+			
+			
+
+			<index referenceId="SALES_ORDER_ITEM_UPDATED_AT" indexType="btree">
+				<column name="updated_at"/>
+			</index>
+			<index referenceId="SALES_ORDER_ITEM_CREATED_AT" indexType="btree">
+				<column name="created_at"/>
+			</index>
+        </table>
+
+        <table name="quote_item">
+			<column xsi:type="longtext" name="optional_selected_items" nullable="true" comment="Optional Selected Items" />
+			<column xsi:type="text" name="given_options" nullable="true" comment="Given Options Type" />
+			<column xsi:type="text" name="given_options_msg" nullable="true" comment="Given Options Message" />
+			<column xsi:type="timestamp" name="given_option_updated_at" on_update="true" nullable="true" comment="Given Option Update Time"/>
+			<column xsi:type="varchar" name="student_name" nullable="true" comment="Student Name" />
+			<column xsi:type="varchar" name="roll_no" nullable="true" comment="Roll Number" />
+			<column xsi:type="int" name="split_parent_item_id" nullable="true" unsigned="true" comment="Split Parent Item Id"/>
+			<column name="bundle_option_id" xsi:type="int" nullable="true" comment="Bundle Option ID"/>
+			<index referenceId="IDX_QUOTE_ITEM_SPLIT_PARENT_ITEM_ID">
+				<column name="split_parent_item_id"/>
+			</index>
+
+			<index referenceId="QUOTE_ITEM_BUNDLE_OPTION_IDX">
+				<column name="bundle_option_id"/>
+			</index>
+
+        </table>
+</schema>
+

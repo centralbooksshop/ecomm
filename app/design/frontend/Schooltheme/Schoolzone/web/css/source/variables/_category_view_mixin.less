@@ -1,0 +1,146 @@
+/*
+	This file process the categories in the theme.
+	#Variable listed and default value from UberTheme.
+	1.  @desktop_one_column_var: 6;
+	2.  @desktop_two_column_var: 5;
+	4.  @tablet_one_column_var: 5;
+	5.  @tablet_two_column_var: 4;
+	7.  @tablet_sm_one_column_var: 4;
+	8.  @tablet_sm_two_column_var: 3;
+	10. @mobile_one_column_var: 2;
+	11. @mobile_two_column_var: 2;
+	13. @mobile_sm_one_column_var: 2;
+	14. @mobile_sm_two_column_var: 2;
+	15. @mobile_sm_three_column_var: 2;
+*/
+
+//
+//  Mobile Horizontal max-width: 479px;
+//  _____________________________________________
+
+.media-width(@extremum, @break) when (@extremum = 'max') and (@break = @screen__xs) {
+
+	body.page-layout-1column {
+		.page-wrapper {
+			.products-grid {
+				.product-item { 
+					width: 100%/@mobile_sm_column_var; 
+				}		
+			}	
+		}
+	}
+	
+	body.page-layout-2columns-left,
+	body.page-layout-2columns-right {
+		.page-wrapper {
+			.products-grid {
+				.product-item { 
+					width: 100%/@mobile_sm_column_var; 
+				}	
+			}
+		}
+	}
+
+
+}
+
+//
+//  Tablet Mini max-width: 767px;
+//  _____________________________________________
+
+.media-width(@extremum, @break) when (@extremum = 'max') and (@break = @screen__m) {
+	
+	.page-layout-1column {
+		.products-grid {
+			.product-item { 
+				width: 100%/@mobile_column_var; 
+			}
+		}
+	}
+	
+	.page-layout-2columns-left,
+  	.page-layout-2columns-right {
+		.products-grid {
+			.product-item {
+				width: 100%/@mobile_column_var;
+			}
+		}
+  	}
+
+
+}
+
+//
+//  Tablet Vertical min-width: 768px;
+//  _____________________________________________
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+	
+	.page-layout-1column {
+		.products-grid {
+			.product-item { 
+				width: 100%/@tablet_sm_one_column_var; 
+			}
+		}
+	}
+
+  	.page-layout-2columns-left,
+	.page-layout-2columns-right{
+		.products-grid {
+			.product-item {
+				width: 100%/@tablet_sm_two_column_var; 
+			}
+		}
+  	}
+}
+
+
+
+//
+//  Tablet Horizontal - min-width: 1024px;
+//  _____________________________________________
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__l) { 
+  
+  	.page-layout-1column {
+		.products-grid {
+			.product-item { 
+				width: 100%/@tablet_one_column_var; 
+			}
+		}
+	}
+
+  	.page-layout-2columns-left,
+	.page-layout-2columns-right{
+		.products-grid {
+			.product-item {
+				width: 100%/@tablet_two_column_var; 
+			}
+		}
+  	}
+
+
+}
+
+//
+//  Desktop min-width: 1440px
+//  _____________________________________________
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__xl) {
+
+  	.page-layout-1column {
+		.products-grid {
+			.product-item { 
+				width: 100%/@desktop_one_column_var; 
+			}
+		}
+	}
+  	.page-layout-2columns-left,
+	.page-layout-2columns-right{
+  	.products-grid {
+  		.product-item {
+  		 	width: 100%/@desktop_two_column_var; 
+  		}
+  	}
+  }
+}

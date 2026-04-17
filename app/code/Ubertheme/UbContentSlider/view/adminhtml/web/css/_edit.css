@@ -1,0 +1,18 @@
+/*//----
+// @category	:	Ubertheme
+// @package 	:	Ubertheme_UbContentSlider
+// @author		:	Ubertheme.com
+// @copyright   :	Copyright 2009-2020 Ubertheme
+//---------------------------
+*/
+
+#item_image_image, 
+#item_mobile_image_image {
+    width: 100%;
+    height: auto;
+}
+
+#item_image, 
+#item_mobile_image {
+    padding-left: 0;
+}

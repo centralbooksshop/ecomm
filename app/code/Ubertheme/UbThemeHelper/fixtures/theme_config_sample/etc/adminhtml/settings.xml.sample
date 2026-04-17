@@ -1,0 +1,392 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2016 Ubertheme. All rights reserved.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <!-- General Tab Settings-->
+        <tab id="general" translate="label" sortOrder="1">
+            <label>General Settings</label>
+        </tab>
+        <section id="overview" translate="label" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+            <class>separator-top</class>
+            <label>Theme Overview</label>
+            <tab>general</tab>
+            <resource>Ubertheme_UbThemeHelper::settings</resource>
+            <group id="theme_info" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Theme Information</label>
+                <fieldset_css>custom-css-class</fieldset_css>
+                <field id="theme_info" translate="label comment" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <frontend_model>Ubertheme\UbThemeHelper\Block\Adminhtml\Config\Form\Field\ThemeInfo</frontend_model>
+                </field>
+            </group>
+        </section>
+        <section id="general" translate="label" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+            <class>separator-top</class>
+            <label>Theme Settings</label>
+            <tab>general</tab>
+            <resource>Ubertheme_UbThemeHelper::settings</resource>
+            <group id="layout" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Layout</label>
+                <field id="theme_color_var" translate="label comment" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Theme Color</label>
+                    <frontend_model>Ubertheme\UbThemeHelper\Block\Adminhtml\Config\Form\Field\ColorPicker</frontend_model>
+                    <comment><![CDATA[Syntax: #number or rgba(...)<br/>Default: #ffffff <span class="color-pattern" style="background-color:#ffffff"/>]]></comment>
+                </field>
+                <field id="logo" translate="label" type="image" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Logo Image</label>
+                    <comment>Allowed file types: png, gif, ipg, jpeg, svg.</comment>
+                    <backend_model>Ubertheme\UbThemeHelper\Model\Config\Backend\Image</backend_model>
+                    <upload_dir config="system/filesystem/media">ubertheme/ubthemehelper/general/layout/logo</upload_dir>
+                    <base_url type="media">ubertheme/ubthemehelper/general/layout/logo</base_url>
+                </field>
+            </group>
+            <group id="general_blocks" translate="label" type="text" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>General Blocks</label>
+                <field id="popup_block_type" translate="label comment" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Popup Content Type</label>
+                    <comment><![CDATA[Select a type of block will be show when your site is loaded]]></comment>
+                    <source_model>Ubertheme\UbThemeHelper\Model\Config\Source\PopupOptions</source_model>
+                </field>
+                <field id="popup_block_identifier" translate="label comment" type="select" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Select Static Block</label>
+                    <comment><![CDATA[Select a static block you wish to show in popup window]]></comment>
+                    <source_model>Ubertheme\UbThemeHelper\Model\Config\Source\StaticBlocks</source_model>
+                    <depends>
+                        <field id="popup_block_type">3</field>
+                    </depends>
+                </field>
+            </group>
+        </section>
+        <section id="typography" translate="label" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="1">
+            <class>separator-top</class>
+            <label>Typography Settings</label>
+            <tab>general</tab>
+            <resource>Ubertheme_UbThemeHelper::settings</resource>
+            <group id="note" translate="label" type="text" sortOrder="1" showInDefault="1">
+                <field id="note_info" translate="label comment" type="text" sortOrder="1" showInDefault="1">
+                    <frontend_model>Ubertheme\UbThemeHelper\Block\Adminhtml\Config\Form\Field\CustomNotes</frontend_model>
+                    <comment>
+                        <![CDATA[
+                        <strong>IMPORTANT</strong><br/>
+                        After changing Typography's settings, you have to re-deploy the static content and clean Magento cache to see your changes applied.
+                        ]]>
+                    </comment>
+                </field>
+            </group>
+            <group id="colors" translate="label" type="text" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Colors</label>
+                <field id="link1_color" translate="label comment" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Link 1 Color</label>
+                    <frontend_model>Ubertheme\UbThemeHelper\Block\Adminhtml\Config\Form\Field\ColorPicker</frontend_model>
+                    <comment><![CDATA[Syntax: #number or rgba(...)<br/>Default: #000000 <span class="color-pattern" style="background-color:#000000"/>]]></comment>
+                </field>
+                <field id="link1_hover_color" translate="label comment" type="text" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Link 1 Hover Color</label>
+                    <frontend_model>Ubertheme\UbThemeHelper\Block\Adminhtml\Config\Form\Field\ColorPicker</frontend_model>
+                    <comment><![CDATA[Syntax: #number or rgba(...)<br/>Default: #00ff00 <span class="color-pattern" style="background-color:#00ff00"/>]]></comment>
+                </field>
+            </group>
+        </section>
+
+        <!-- Category View Tab Settings-->
+        <tab id="category" translate="label" sortOrder="2">
+            <label>Category View</label>
+        </tab>
+        <section id="product_grid" translate="label" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+            <class>separator-top</class>
+            <label>Product Grid Settings</label>
+            <tab>category</tab>
+            <resource>Ubertheme_UbThemeHelper::settings</resource>
+            <group id="grid_desktop" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Product Columns On Desktop</label>
+                <field id="grid_desktop_onecolumn" translate="label comment" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Product Columns - One column Layout</label>
+                    <source_model>Ubertheme\UbThemeHelper\Model\Config\Source\ColumnOptions</source_model>
+                </field>
+                <field id="grid_desktop_twocolumns" translate="label comment" type="select" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Product Columns - Two columns Layout</label>
+                    <source_model>Ubertheme\UbThemeHelper\Model\Config\Source\ColumnOptions</source_model>
+                </field>
+                <field id="grid_desktop_threecolumns" translate="label comment" type="select" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Product Columns - Three columns Layout</label>
+                    <source_model>Ubertheme\UbThemeHelper\Model\Config\Source\ColumnOptions</source_model>
+                </field>
+            </group>
+            <group id="grid_desktop_small" translate="label" type="text" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Product Columns On Desktop Small</label>
+                <field id="grid_desktop_small_onecolumn" translate="label comment" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Product Columns - One column Layout</label>
+                    <source_model>Ubertheme\UbThemeHelper\Model\Config\Source\ColumnOptions</source_model>
+                </field>
+                <field id="grid_desktop_small_twocolumns" translate="label comment" type="select" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Product Columns - Two columns Layout</label>
+                    <source_model>Ubertheme\UbThemeHelper\Model\Config\Source\ColumnOptions</source_model>
+                </field>
+                <field id="grid_desktop_small_threecolumns" translate="label comment" type="select" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Product Columns - Three columns Layout</label>
+                    <source_model>Ubertheme\UbThemeHelper\Model\Config\Source\ColumnOptions</source_model>
+                </field>
+            </group>
+            <group id="grid_tablet" translate="label" type="text" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Product Columns On Tablet</label>
+                <field id="grid_tablet_onecolumn" translate="label comment" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Product Columns - One column Layout</label>
+                    <source_model>Ubertheme\UbThemeHelper\Model\Config\Source\ColumnOptionsTablet</source_model>
+                </field>
+                <field id="grid_tablet_twocolumns" translate="label comment" type="select" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Product Columns - Two columns Layout</label>
+                    <source_model>Ubertheme\UbThemeHelper\Model\Config\Source\ColumnOptionsTablet</source_model>
+                </field>
+                <field id="grid_tablet_threecolumns" translate="label comment" type="select" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Product Columns - Three columns Layout</label>
+                    <source_model>Ubertheme\UbThemeHelper\Model\Config\Source\ColumnOptionsTablet</source_model>
+                </field>
+            </group>
+            <group id="grid_mobile" translate="label" type="text" sortOrder="4" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Product Columns On Mobile</label>
+                <field id="grid_mobile_onecolumn" translate="label comment" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Product Columns - One column Layout</label>
+                    <source_model>Ubertheme\UbThemeHelper\Model\Config\Source\ColumnOptionsMobile</source_model>
+                </field>
+                <field id="grid_mobile_twocolumns" translate="label comment" type="select" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Product Columns - Two columns Layout</label>
+                    <source_model>Ubertheme\UbThemeHelper\Model\Config\Source\ColumnOptionsMobile</source_model>
+                </field>
+                <field id="grid_mobile_threecolumns" translate="label comment" type="select" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Product Columns - Three columns Layout</label>
+                    <source_model>Ubertheme\UbThemeHelper\Model\Config\Source\ColumnOptionsMobile</source_model>
+                </field>
+            </group>
+            <group id="show_hide" translate="label" type="text" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Show/Hide Options</label>
+                <field id="show_rating" translate="label comment" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Show Rating</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="show_price" translate="label comment" type="select" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Show Product Price</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+            </group>
+            <group id="other_options" translate="label" type="text" sortOrder="6" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Other Options</label>
+                <field id="image_width" translate="label comment" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Image Width</label>
+                    <frontend_class>validate-number</frontend_class>
+                    <comment><![CDATA[Value in pixels]]></comment>
+                </field>
+                <field id="image_height" translate="label comment" type="text" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Image Height</label>
+                    <frontend_class>validate-number</frontend_class>
+                    <comment><![CDATA[Value in pixels]]></comment>
+                </field>
+            </group>
+        </section>
+        <section id="product_list" translate="label" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+            <class>separator-top</class>
+            <label>Product List Settings</label>
+            <tab>category</tab>
+            <resource>Ubertheme_UbThemeHelper::settings</resource>
+            <group id="list" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Product List</label>
+                <field id="show_desc" translate="label comment" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Show Product Description</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="desc_limit" translate="label comment" type="text" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Max Length Of Description</label>
+                    <frontend_class>validate-number</frontend_class>
+                    <depends>
+                        <field id="show_desc">1</field>
+                    </depends>
+                </field>
+            </group>
+        </section>
+
+        <!-- Product View Tab Settings-->
+        <tab id="product" translate="label" sortOrder="3">
+            <label>Product View</label>
+        </tab>
+        <section id="product_view" translate="label" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+            <class>separator-top</class>
+            <label>Product View Settings</label>
+            <tab>product</tab>
+            <resource>Ubertheme_UbThemeHelper::settings</resource>
+            <group id="images" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Images</label>
+                <field id="main_image_width" translate="label comment" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Main Image Width</label>
+                    <frontend_class>validate-number</frontend_class>
+                    <comment><![CDATA[Value in pixels]]></comment>
+                </field>
+                <field id="main_image_height" translate="label comment" type="text" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Main Image Height</label>
+                    <frontend_class>validate-number</frontend_class>
+                    <comment><![CDATA[Value in pixels]]></comment>
+                </field>
+                <field id="thumb_image_width" translate="label comment" type="text" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Thumb Image Width</label>
+                    <frontend_class>validate-number</frontend_class>
+                    <comment><![CDATA[Value in pixels]]></comment>
+                </field>
+                <field id="thumb_image_height" translate="label comment" type="text" sortOrder="4" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Thumb Image Height</label>
+                    <frontend_class>validate-number</frontend_class>
+                    <comment><![CDATA[Value in pixels]]></comment>
+                </field>
+            </group>
+            <group id="related" translate="label" type="text" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Related Block</label>
+                <field id="image_width" translate="label comment" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Image Width</label>
+                    <frontend_class>validate-number</frontend_class>
+                    <comment><![CDATA[Value in pixels]]></comment>
+                </field>
+                <field id="image_height" translate="label comment" type="text" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Image Height</label>
+                    <frontend_class>validate-number</frontend_class>
+                    <comment><![CDATA[Value in pixels]]></comment>
+                </field>
+                <field id="product_limit" translate="label comment" type="text" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Product Limit</label>
+                    <frontend_class>validate-number</frontend_class>
+                    <comment><![CDATA[Limit products number to show]]></comment>
+                </field>
+            </group>
+            <group id="upsell" translate="label" type="text" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Up-sell Block</label>
+                <field id="image_width" translate="label comment" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Image Width</label>
+                    <frontend_class>validate-number</frontend_class>
+                    <comment><![CDATA[Value in pixels]]></comment>
+                </field>
+                <field id="image_height" translate="label comment" type="text" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Image Height</label>
+                    <frontend_class>validate-number</frontend_class>
+                    <comment><![CDATA[Value in pixels]]></comment>
+                </field>
+                <field id="product_limit" translate="label comment" type="text" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Product Limit</label>
+                    <frontend_class>validate-number</frontend_class>
+                    <comment><![CDATA[Limit products number to show]]></comment>
+                </field>
+            </group>
+            <group id="ub_custom_tab" translate="label" type="text" sortOrder="1" showInDefault="1" canRestore="1">
+                <label>Custom Tabs</label>
+                <group id="tab_content" translate="label" sortOrder="1" showInDefault="1">
+                    <label>Tab Content</label>
+                    <field id="items" translate="label" sortOrder="1" showInDefault="1" canRestore="1">
+                        <label></label>
+                        <frontend_model>Ubertheme\UbThemeHelper\Block\Adminhtml\Config\Form\Field\Tab\Items</frontend_model>
+                        <backend_model>Ubertheme\UbThemeHelper\Model\Config\Backend\TabBackendModel</backend_model>
+                    </field>
+                </group>
+                <group id="tab_style" translate="label" sortOrder="1" showInDefault="1">
+                    <label>Tab Style</label>
+                    <field id="template" translate="label" type="select" sortOrder="1" showInDefault="1" canRestore="1">
+                        <label>Template</label>
+                        <source_model>Ubertheme\UbThemeHelper\Model\Config\Source\TabTemplates</source_model>
+                    </field>
+                </group>
+            </group>
+        </section>
+
+        <!-- CMS Tab Settings-->
+        <tab id="cms" translate="label" sortOrder="4">
+            <label>CMS, Static Content Settings</label>
+        </tab>
+        <section id="contact_info" translate="label" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+            <class>separator-top</class>
+            <label>Contact Information</label>
+            <tab>cms</tab>
+            <resource>Ubertheme_UbThemeHelper::settings</resource>
+            <group id="contact_info" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                <field id="address" translate="label comment" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Address</label>
+                    <comment><![CDATA[]]></comment>
+                </field>
+                <field id="email" translate="label comment" type="text" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Email</label>
+                    <comment><![CDATA[]]></comment>
+                </field>
+                <field id="phone" translate="label comment" type="text" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Phone</label>
+                    <comment><![CDATA[]]></comment>
+                </field>
+                <field id="fax" translate="label comment" type="text" sortOrder="4" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Fax</label>
+                    <comment><![CDATA[]]></comment>
+                </field>
+                <field id="show_google_map" translate="label comment" type="select" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Show Google Map</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="api_key" translate="label comment" type="text" sortOrder="6" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>API Key</label>
+                    <comment><![CDATA[]]></comment>
+                    <depends>
+                        <field id="show_google_map">1</field>
+                    </depends>
+                </field>
+                <field id="google_map_la" translate="label comment" type="text" sortOrder="7" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Latitudes</label>
+                    <frontend_class>validate-number</frontend_class>
+                    <comment><![CDATA[]]></comment>
+                    <depends>
+                        <field id="show_google_map">1</field>
+                    </depends>
+                </field>
+                <field id="google_map_lo" translate="label comment" type="text" sortOrder="8" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Longitudes</label>
+                    <frontend_class>validate-number</frontend_class>
+                    <comment><![CDATA[]]></comment>
+                    <depends>
+                        <field id="show_google_map">1</field>
+                    </depends>
+                </field>
+                <field id="google_map_zoom" translate="label comment" type="text" sortOrder="9" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Zoom Level</label>
+                    <frontend_class>validate-number</frontend_class>
+                    <comment><![CDATA[]]></comment>
+                    <depends>
+                        <field id="show_google_map">1</field>
+                    </depends>
+                </field>
+            </group>
+        </section>
+
+        <!-- Customized Tab Settings-->
+        <tab id="custom" translate="label" sortOrder="5">
+            <label>Customized Settings</label>
+        </tab>
+        <section id="custom_css" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+            <class>separator-top</class>
+            <label>Custom CSS</label>
+            <tab>custom</tab>
+            <resource>Ubertheme_UbThemeHelper::settings</resource>
+            <group id="custom_css" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Custom CSS</label>
+                <field id="css_code" translate="label comment" type="textarea" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Your Custom CSS</label>
+                    <comment>
+                        <![CDATA[
+                        E.g: .header{background-color:red}<br/><br/>
+                        If you have coding knowledge and want to customize your site beyond the styling options in the default theme settings, you can add custom CSS code to here. <br/>If you do decide to apply custom CSS to your site, it should be used sparingly. Customer Care doesn't offer assistance or troubleshooting for CSS modifications. We also can't provide you with code or support for any third-party code modification. <br/>Here are a few popular and credible websites we like to recommend for CSS tutorials, troubleshooting, and reference guides:<br/>
+                            <ul>
+                                <li><a target="_blank" href="http://www.w3schools.com/">W3Schools</a></li>
+                                <li><a target="_blank" href="http://www.codecademy.com/">CodeAcademy</a></li>
+                                <li><a target="_blank" href="http://stackoverflow.com/">Stack Overflow</a></li>
+                                <li><a target="_blank" href="http://learn.shayhowe.com/html-css/">Shay Howe</a></li>
+                                <li><a target="_blank" href="http://www.sitepoint.com/css/">SitePoint</a></li>
+                            </ul>
+                        ]]>
+                    </comment>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>
+

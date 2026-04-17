@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    
+	<referenceBlock name="menu">
+		<action method="setActive">
+			<argument name="itemId" xsi:type="string">Webkul_DeliveryBoy::processdeliveryboyshippingorders</argument>
+		</action>
+     </referenceBlock>
+	<referenceBlock name="page.title">
+        <action method="setPageTitle">
+            <argument name="title" xsi:type="string">Processing Delivery Boy Orders</argument>
+        </action>
+    </referenceBlock>
+    <body>
+        <referenceContainer name="content">
+            <block class="Webkul\DeliveryBoy\Block\Adminhtml\ProcessCBOShippingOrders" template="Webkul_DeliveryBoy::ProcessCBOShippingOrders.phtml"/>
+        </referenceContainer>
+    </body>
+</page>

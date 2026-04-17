@@ -1,0 +1,106 @@
+<?php
+
+/**
+
+ * Copyright © 2015 Magento. All rights reserved.
+
+ * See COPYING.txt for license details.
+
+ */
+
+/** @var $block \Magento\Framework\View\Element\Template */
+
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$storeManager = $objectManager->get('\Magento\Store\Model\StoreManagerInterface');
+  $customerSession = $objectManager->create('Magento\Customer\Model\Session');
+
+?>
+<style type="text/css">
+    
+</style>
+<div class="has-toggle quick-access login" data-ui-id="quick-access" id="quick-access">
+
+  <div class="
+          <?php if($customerSession->isLoggedIn()){
+              echo "login_modal_hide";
+            }else{ 
+              
+              echo "login_modal";
+            } 
+          ?>">
+
+    <!-- <img class="link_image" src="<?php // echo $storeManager->getStore()->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_WEB); ?>pub/media/ubertheme/home/top3.JPG"> -->
+    <span class="fa fa-user"></span>
+    <span class="login_modal" id="modal-btn"></span>
+
+  </div>
+
+</div>
+  
+    <div id="popup-modal" class="auth-modal-popup login-register">
+      <div class="loginformtext">
+        <ul class="listAuthModal">
+          <li class="mngorder">
+            <i style="background-position: 4px 116px;" class="userAuthIcons"></i>
+            <h4>MANAGE YOUR ORDERS</h4>
+            <p>Track orders, manage cancellations &amp; returns.</p>
+          </li>
+          <li class="shortlistitm">
+            <i style="    background-position: -59px 116px;"
+              class="userAuthIcons"></i>
+            <h4>SHORTLIST ITEMS YOU LOVE</h4>
+            <p>Keep items you love on a watchlist.</p>
+          </li>
+          <li class="offrupdate">
+            <i style="background-position: -130px 116px;"
+              class="userAuthIcons"></i>
+            <h4>AWESOME OFFERS UPDATES FOR YOU</h4>
+            <p>Be first to know about great offers and save.</p>
+          </li>
+        </ul>
+      </div>
+      <div id="userLoginDiv" class="main-auth-form">
+
+        <p id="mob_validation" class="login-error">Please enter valid mobile </p>  
+
+        <p id="not_registered" class="login-error">Mobile number doesn't exist. Please register to create a new account</p>
+
+        <div class="modal-inner-content">
+
+          <h2>Login using mobile / email</h2>
+          <span class="label">Mobile number / email <em>*</em></span>
+          <input type="text" id="mobile" placeholder="Please enter mobile number / email">
+
+          <button class="btnlogin">SEND OTP</button>
+
+          <!-- <p class="register-link auth-link" >New User ? Click Here to <span class="register">Register</span></p> -->
+
+        </div>
+
+      </div>
+
+      <div id="popup-otp" class="main-auth-form">
+
+        <p id="otp_sent" class="login-error">OTP resent successfully</p>
+
+        <p id="wrong_otp" class="login-error">Wrong OTP</p>
+		<p id="notconfirmed_error" class="login-error">Please confirm your account email.</p>
+
+        <div class="modal-inner-content">
+        <span id="loginBackSchool">Back</span>
+
+          <h2>OTP Verification</h2>
+
+          <input type="number" id="otp" placeholder="Please enter your OTP">
+
+          <button class="btnotp">LOGIN</button>
+
+          <p>If you didn't receive OTP please <span id="resend_otp">Resend OTP</span></p>
+
+        </div>
+
+      </div> 
+    </div>
+
+
+

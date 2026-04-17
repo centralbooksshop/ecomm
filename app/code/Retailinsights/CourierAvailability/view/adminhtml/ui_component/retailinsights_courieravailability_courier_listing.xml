@@ -1,0 +1,206 @@
+<?xml version="1.0" ?>
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+	<argument name="data" xsi:type="array">
+		<item name="js_config" xsi:type="array">
+			<item name="provider" xsi:type="string">retailinsights_courieravailability_courier_listing.retailinsights_courieravailability_courier_listing_data_source</item>
+		</item>
+	</argument>
+	<settings>
+		<spinner>retailinsights_courieravailability_courier_columns</spinner>
+		<deps>
+			<dep>retailinsights_courieravailability_courier_listing.retailinsights_courieravailability_courier_listing_data_source</dep>
+		</deps>
+		<buttons>
+
+		    <button name="download_elasticrun_pincode">
+				<url path="elasticdatasync/order/elasticrunpincode"/>
+				<class>primary</class>
+				<label translate="true">Download Elasticrun Pincode</label>
+			</button>
+			
+			<button name="download_dtdc_pincode">
+				<url path="softdatasync/order/dtdcpincode"/>
+				<class>primary</class>
+				<label translate="true">Download DTDC Pincode</label>
+			</button>
+
+		    <button name="download_delhivery_pincode">
+				<url path="*/*/delhiverypincode"/>
+				<class>primary</class>
+				<label translate="true">Download Delhivery Pincode</label>
+            </button>
+
+			<button name="add">
+				<url path="*/*/new"/>
+				<class>primary</class>
+				<label translate="true">Add new Courier</label>
+			</button>
+		</buttons>
+	</settings>
+	<dataSource name="retailinsights_courieravailability_courier_listing_data_source" component="Magento_Ui/js/grid/provider">
+		<settings>
+			<storageConfig>
+				<param name="indexField" xsi:type="string">courier_id</param>
+			</storageConfig>
+			<updateUrl path="mui/index/render"/>
+		</settings>
+		<aclResource>Retailinsights_CourierAvailability::Courier</aclResource>
+		<dataProvider name="retailinsights_courieravailability_courier_listing_data_source" class="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider">
+			<settings>
+				<requestFieldName>id</requestFieldName>
+				<primaryFieldName>courier_id</primaryFieldName>
+			</settings>
+		</dataProvider>
+	</dataSource>
+	<listingToolbar name="listing_top">
+		<settings>
+			<sticky>true</sticky>
+		</settings>
+		<bookmark name="bookmarks"/>
+		<columnsControls name="columns_controls"/>
+		<exportButton name="export_button">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="selectProvider" xsi:type="string">retailinsights_courieravailability_courier_listing.retailinsights_courieravailability_courier_listing.retailinsights_courieravailability_courier_columns.ids</item>
+                </item>
+            </argument>
+        </exportButton>
+		<filters name="listing_filters"/>
+		<paging name="listing_paging"/>
+	</listingToolbar>
+	<columns name="retailinsights_courieravailability_courier_columns">
+		<settings>
+			<editorConfig>
+				<param name="selectProvider" xsi:type="string">retailinsights_courieravailability_courier_listing.retailinsights_courieravailability_courier_listing.retailinsights_courieravailability_courier_columns.ids</param>
+				<param name="enabled" xsi:type="boolean">true</param>
+				<param name="indexField" xsi:type="string">courier_id</param>
+				<param name="clientConfig" xsi:type="array">
+					<item name="saveUrl" xsi:type="url" path="retailinsights_courieravailability/Courier/inlineEdit"/>
+					<item name="validateBeforeSave" xsi:type="boolean">false</item>
+				</param>
+			</editorConfig>
+			<childDefaults>
+				<param name="fieldAction" xsi:type="array">
+					<item name="provider" xsi:type="string">retailinsights_courieravailability_courier_listing.retailinsights_courieravailability_courier_listing.retailinsights_courieravailability_courier_columns_editor</item>
+					<item name="target" xsi:type="string">startEdit</item>
+					<item name="params" xsi:type="array">
+						<item name="0" xsi:type="string">${ $.$data.rowIndex }</item>
+						<item name="1" xsi:type="boolean">true</item>
+					</item>
+				</param>
+			</childDefaults>
+		</settings>
+		<selectionsColumn name="ids">
+			<settings>
+				<indexField>courier_id</indexField>
+			</settings>
+		</selectionsColumn>
+		<column name="courier_id">
+			<settings>
+				<filter>text</filter>
+				<sorting>asc</sorting>
+				<label translate="true">ID</label>
+			</settings>
+		</column>
+		<!-- <column name="courier_name">
+			<settings>
+				<filter>text</filter>
+				<label translate="true">Courier Name</label>
+				<editor>
+					<editorType>text</editorType>
+					<validation>
+						<rule name="required-entry" xsi:type="boolean">false</rule>
+					</validation>
+				</editor>
+			</settings>
+		</column> -->
+
+		<column name="courier_name" component="Magento_Ui/js/grid/columns/select">
+			<settings>
+				<filter>select</filter>
+				<label translate="true">Courier Name</label>
+				<dataType>select</dataType>
+				<dataScope>courier_name</dataScope>
+
+				<options>
+					<option name="1" xsi:type="array">
+						<item name="value" xsi:type="string">DTDC</item>
+						<item name="label" xsi:type="string">DTDC</item>
+					</option>
+					<option name="2" xsi:type="array">
+						<item name="value" xsi:type="string">Delhivery</item>
+						<item name="label" xsi:type="string">Delhivery</item>
+					</option>
+					<option name="3" xsi:type="array">
+						<item name="value" xsi:type="string">Elasticrun</item>
+						<item name="label" xsi:type="string">Elasticrun</item>
+					</option>
+
+					<option name="4" xsi:type="array">
+						<item name="value" xsi:type="string">Amazon</item>
+						<item name="label" xsi:type="string">Amazon</item>
+					</option>
+					<option name="5" xsi:type="array">
+						<item name="value" xsi:type="string">SMCS</item>
+						<item name="label" xsi:type="string">SMCS</item>
+					</option>
+				</options>
+			</settings>
+		</column>
+
+		<!-- Pincode -->
+        <column name="pincode">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Pincode</label>
+            </settings>
+        </column>
+
+		<column name="is_available">
+			<settings>
+				<dataType>select</dataType>
+				<filter>select</filter>
+				<label translate="true">Available</label>
+				<options class="Magento\Config\Model\Config\Source\Yesno"/>
+			</settings>
+		</column>
+
+	<!-- 	<column name="is_available">
+			<argument name="data" xsi:type="array">
+				<item name="config" xsi:type="array">
+					<item name="filter" xsi:type="string">select</item>
+					<item name="component" xsi:type="string">Magento_Ui/js/grid/columns/select</item>
+					<item name="dataType" xsi:type="string">select</item>
+					<item name="label" xsi:type="string" translate="true">Available</item>
+					<item name="options" xsi:type="object">Retailinsights\CourierAvailability\Model\Config\Source\AvailabilityOptions</item>
+				</item>
+			</argument>
+		</column> -->
+
+
+        <!-- Created At -->
+        <column name="created_at">
+            <settings>
+                <filter>dateRange</filter>
+                <dataType>date</dataType>
+                <label translate="true">Created At</label>
+            </settings>
+        </column>
+
+        <!-- Updated At -->
+        <column name="updated_at">
+            <settings>
+                <filter>dateRange</filter>
+                <dataType>date</dataType>
+                <label translate="true">Updated At</label>
+            </settings>
+        </column>
+		<actionsColumn name="actions" class="Retailinsights\CourierAvailability\Ui\Component\Listing\Column\CourierActions">
+			<settings>
+				<indexField>courier_id</indexField>
+				<resizeEnabled>false</resizeEnabled>
+				<resizeDefaultWidth>107</resizeDefaultWidth>
+			</settings>
+		</actionsColumn>
+	</columns>
+</listing>

@@ -1,0 +1,36 @@
+<?php
+/** @var \Ubertheme\UbContentSlider\Block\Ajax\HotspotContent $block */
+
+/** @var Ubertheme\UbContentSlider\Helper\Data $blockHelper */
+$blockHelper = $this->helper('Ubertheme\UbContentSlider\Helper\Data');
+?>
+
+<div class="product-info">
+    <p class="thumbnail">
+        <a href="javascript:void(0);" class="product-image">
+            <?= $block->getImage($product, 'related_products_list')->toHtml() ?>
+        </a>
+    </p>
+    <strong class="product-name">
+        <?php
+            $productName = $block->escapeHtml($product->getName());
+            $maxLength = 27;
+        ?>
+        <a title="<?= $productName ?>" href="javascript:void(0);">
+            <?php
+            if (strlen($productName) > $maxLength) {
+                echo $blockHelper->subStrWords($productName, $maxLength);
+            } else {
+                echo $productName;
+            }
+            ?>
+        </a>
+    </strong>
+    <?php
+    echo $block->getProductPriceHtml(
+        $product,
+        \Magento\Catalog\Pricing\Price\FinalPrice::PRICE_CODE,
+        \Magento\Framework\Pricing\Render::ZONE_ITEM_LIST
+    );
+    ?>
+</div>

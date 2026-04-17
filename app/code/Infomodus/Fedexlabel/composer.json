@@ -1,0 +1,27 @@
+{
+  "name": "infomodus/fedexlabel",
+  "description": "infomodus fedexlabel",
+  "require": {
+    "php": "^7.1",
+    "magento/framework": "~100.1|~101.0|~102.0|~103.0",
+    "dvdoug/boxpacker": "^3.6.0"
+  },
+  "type": "magento2-module",
+  "version": "1.3.1",
+  "license": [
+    "proprietary"
+  ],
+  "autoload": {
+    "files": [ "registration.php" ],
+    "psr-4": {
+      "Infomodus\\Fedexlabel\\": "",
+      "Dvdoug\\BoxPacker\\": ""
+    }
+  },
+  "repositories": [
+    {
+      "type": "composer",
+      "url":  "https://packagist.org"
+    }
+  ]
+}

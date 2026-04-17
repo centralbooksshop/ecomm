@@ -1,0 +1,51 @@
+<?php
+/**
+ * Copyright © 2016 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+?>
+<?php 
+    /** @var \Magento\Framework\App\ObjectManager $om */
+    $om = \Magento\Framework\App\ObjectManager::getInstance();
+    /** @var \Magento\Framework\Module\Manager $moduleManager */
+    $moduleManager = $om->get('Magento\Framework\Module\Manager');
+    if ($moduleManager->isOutputEnabled("Ubertheme_UbThemeHelper")):
+        //UbThemeHelper
+			  $ubHelper 				= $this->helper('Ubertheme\UbThemeHelper\Helper\Data');
+			  $contactIntro					=	$ubHelper->getParam('contact_us/settings/intro');				
+			  $contactAddress      	= $ubHelper->getParam('contact_us/settings/address');
+			  $contactPhone      		= $ubHelper->getParam('contact_us/settings/phone');
+			  $contactEmail					= $ubHelper->getParam('contact_us/settings/email');
+			  $contactFax						= $ubHelper->getParam('contact_us/settings/fax');
+			  $contactEnable				= $ubHelper->getParam('contact_us/settings/enable_map');
+			  $contactMap						= $ubHelper->getParam('contact_us/settings/google_map_embed');
+		else: 
+        $contactIntro					=	'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.';				
+			  $contactAddress      	= '123 Main st. Los Angeles, CA, 90012, U.S.A';
+			  $contactPhone      		= '(315) 457-0000';
+			  $contactEmail					= 'admin@email.com';
+			  $contactFax						= '(315) 457-1324';
+			  $contactEnable				= '1';
+			  $contactMap						= '<iframe src="https://maps.google.com/maps?f=q&amp;source=s_q&amp;hl=en&amp;geocode=&amp;q=123+Main+st.+Los+Angeles,+CA,+90012,+U.S.A+&amp;sll=37.0625,-95.677068&amp;sspn=34.176059,86.572266&amp;ie=UTF8&amp;hq=&amp;hnear=123+S+Main+St,+Los+Angeles,+California+90012&amp;t=m&amp;ll=34.051877,-118.243704&amp;spn=0.027023,0.072012&amp;z=14&amp;iwloc=A&amp;output=embed" width="100%" height="295"></iframe>';  
+     endif; 
+?>
+<div class="contact-info">
+	<div class="inner">
+		<?php 
+			if ($contactEnable == 1): 
+				echo $contactMap;
+			endif;	
+		?>
+		<div class="info-inner">
+		<p><?php echo $contactIntro;?></p>
+		<div class="info-inner2">
+			<ul class="list-info">
+				<li class="address"><em class="fa fa-home">&nbsp;</em><span><?php echo __('Address:');?></span> <?php echo $contactAddress; ?></li>
+				<li class="phone"><em class="fa fa-phone">&nbsp;</em><span><?php echo __('Phone:');?></span> <?php echo $contactPhone; ?></li>
+				<li class="fax"><em class="fa fa-print">&nbsp;</em><span><?php echo __('Fax:');?></span> <?php echo $contactFax; ?></li>
+				<li class="email"><em class="fa fa-envelope-o">&nbsp;</em><span><?php echo __('Email:');?></span> <?php echo $contactEmail; ?></li>
+			</ul>
+		</div>
+		</div>
+	</div>
+</div>

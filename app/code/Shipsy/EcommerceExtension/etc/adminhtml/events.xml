@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="backend_auth_user_login_success">
+        <observer name="my_custom_login_success_observer" instance="Shipsy\EcommerceExtension\Observer\AdminLoginSucceeded" />
+    </event>
+    <event name="admin_system_config_changed_section_configuration">
+        <observer name="custom_admin_system_config_change_configuration" instance="Shipsy\EcommerceExtension\Observer\ConfigObserver"/>
+    </event>    
+</config>

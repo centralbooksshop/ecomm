@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Object/etc/fieldset.xsd">
+
+    <scope id="global">
+        <fieldset id="sales_convert_quote_item">
+            <field name="given_options">
+                <aspect name="to_order_item"/>
+            </field>
+            <field name="given_options_msg">
+                <aspect name="to_order_item"/>
+            </field>
+            <field name="given_option_updated_at">
+                <aspect name="to_order_item"/>
+            </field>
+            <field name="split_parent_item_id">
+                <aspect name="to_order_item"/>
+            </field>
+            <field name="bundle_option_id">
+                <aspect name="to_order_item"/>
+            </field>
+        </fieldset>
+    </scope>
+</config>

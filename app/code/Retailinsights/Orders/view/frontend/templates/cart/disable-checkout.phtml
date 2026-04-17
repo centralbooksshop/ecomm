@@ -1,0 +1,11 @@
+<?php if ($block->isBundleInvalid()): ?>
+<script>
+    window.bundleInvalid = true;
+
+    require([
+        'Retailinsights_Orders/js/cart-disable-checkout'
+    ]);
+</script>
+<?php endif; ?>
+
+

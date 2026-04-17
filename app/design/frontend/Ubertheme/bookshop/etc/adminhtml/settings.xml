@@ -1,0 +1,991 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2016 Ubertheme. All rights reserved.
+ */
+ //Refer in the file: app\code\Ubertheme\UbThemeHelper\fixtures\theme_config_sample\etc\adminhtml\settings.xml.sample
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <!-- General Tab Settings-->
+        <tab id="theme" translate="label" sortOrder="1">
+            <label>Theme</label>
+        </tab>
+        <section id="overview" translate="label" sortOrder="1" showInDefault="1">
+            <class>separator-top</class>
+            <label>Overview</label>
+            <tab>theme</tab>
+            <resource>Ubertheme_UbThemeHelper::settings</resource>
+            <group id="theme_info" translate="label" type="text" sortOrder="1" showInDefault="1">
+                <label>Theme Information</label>
+                <field id="theme_info" translate="label comment" type="text" sortOrder="1" showInDefault="1" canRestore="1">
+                    <frontend_model>Ubertheme\UbThemeHelper\Block\Adminhtml\Config\Form\Field\ThemeInfo</frontend_model>
+                </field>
+            </group>
+        </section>
+        <section id="typography" translate="label" sortOrder="2" showInDefault="1">
+            <class>ub_typo</class>
+            <label>Typography</label>
+            <tab>theme</tab>
+            <resource>Ubertheme_UbThemeHelper::settings</resource>
+            <group id="note" translate="label" type="text" sortOrder="-1" showInDefault="1">
+                <field id="note_info" translate="label comment" type="text" sortOrder="0" showInDefault="1">
+                    <frontend_model>Ubertheme\UbThemeHelper\Block\Adminhtml\Config\Form\Field\CustomNotes</frontend_model>
+                    <comment>
+                        <![CDATA[
+                        <strong>IMPORTANT</strong><br/>
+                        <span  class="inportant-note">After changing <strong>Typography's</strong> settings, you have to re-deploy the static content and clean Magento cache to see your changes applied.</span>
+                        ]]>
+                    </comment>
+                </field>
+            </group>
+            <group id="fonts" translate="label" type="text" sortOrder="1" showInDefault="1">
+                <label>Typography</label>
+                 <!-- Primary Font Library (primary_font_library_var)-->
+                <field id="primary_font_library_var" translate="label comment" type="select" sortOrder="0" showInDefault="1" canRestore="1">
+                    <label>Font Library</label>
+                    <source_model>Ubertheme\UbThemeHelper\Model\Config\Source\FontLibOptions</source_model>
+                    <comment><![CDATA[Default Google Font.]]></comment>
+                </field>     
+                <!-- Primary Font Family (primary_font_family_var)-->
+                <field id="primary_font_family_var" translate="label comment" type="select" sortOrder="5" showInDefault="1" canRestore="1">
+                    <label>Font Family</label>
+                    <source_model>Ubertheme\UbThemeHelper\Model\Config\Source\BaseFontFamily</source_model>
+                    <depends>
+                        <field id="primary_font_library_var">default</field>
+                    </depends>
+                    <comment><![CDATA[Determine the font family for regular text. If ‘Inherit’ selected, default font family will be used.]]></comment>
+                </field> 
+                <!-- Primary Font Family Other (primary_font_family_other_var)-->
+                <field id="primary_font_family_other_var" translate="label comment" type="text" sortOrder="10" showInDefault="1" canRestore="1">
+                    <label>Font Family Name</label>  
+                    <comment><![CDATA[The current font in use is 'Helvetica'. Follow our userguide to add a custom font.]]></comment>
+                    <depends>
+                        <field id="primary_font_library_var">default</field>
+                        <field id="primary_font_family_var">other</field>
+                    </depends>
+                </field> 
+                <!-- Primary Google Font (primary_google_font_var)-->
+                <field id="primary_google_font_var" translate="label comment" type="select" sortOrder="15" showInDefault="1"  canRestore="1">
+                    <label>Google Font</label>
+                    <comment><![CDATA[<span>Font preview:</span> this is the preview of the font selected]]></comment>
+                    <frontend_model>Ubertheme\UbThemeHelper\Block\Adminhtml\Config\Form\Field\GoogleFonts</frontend_model>
+                    <depends>
+                        <field id="primary_font_library_var">google</field>
+                    </depends>
+                </field>
+                <!-- Font Size Base (fsb_var)-->
+                <field id="fsb_var" translate="label comment" type="text" sortOrder="20" showInDefault="20" canRestore="1">
+                    <label>Base Font Size</label> 
+                    <comment><![CDATA[The font size of most of other elements (eg. heading elements ) will be automatically calculated relative to this value.]]></comment>
+                </field>
+                <!-- Primary Google Font Weight (primary_font_weight_var)-->
+                <field id="primary_font_weight_var" translate="label comment" type="select" sortOrder="25" showInDefault="1" canRestore="1">
+                    <label>Primary Font Weight</label> 
+                    <source_model>Ubertheme\UbThemeHelper\Model\Config\Source\FontWeight</source_model>
+                </field>
+                <field id="heading_sd_glf" translate="label comment" type="text" sortOrder="30" showInDefault="1">
+                    <frontend_model>Ubertheme\UbThemeHelper\Block\Adminhtml\Config\Form\Field\HeadingFull</frontend_model>
+                </field>
+                 <!-- Heading Font Library (heading_font_library_var)-->
+                <field id="heading_font_library_var" translate="label comment" type="select" sortOrder="30" showInDefault="1" canRestore="1">
+                    <label>Heading Font Library</label>
+                    <source_model>Ubertheme\UbThemeHelper\Model\Config\Source\FontLibOptions</source_model>
+                    <comment><![CDATA[Default Google Font.]]></comment>
+                </field>     
+                <!-- Heading Font Family (heading_font_family_var)-->
+                <field id="heading_font_family_var" translate="label comment" type="select" sortOrder="35" showInDefault="1" canRestore="1">
+                    <label>Heading Font Family</label>
+                    <source_model>Ubertheme\UbThemeHelper\Model\Config\Source\HeadingFontFamily</source_model>
+                    <depends>
+                        <field id="heading_font_library_var">default</field>
+                    </depends>
+                    <comment><![CDATA[Determine the font family for regular text. If ‘Inherit’ selected, default font family will be used.]]></comment>
+                </field> 
+                <!-- Heading Font Family Other (heading_font_family_other_var)-->
+                <field id="heading_font_family_other_var" translate="label comment" type="text" sortOrder="40" showInDefault="1" canRestore="1">
+                    <label>Heading Font Family Name</label>  
+                    <comment><![CDATA[The current font in use is 'Helvetica'. Follow our userguide to add a custom font.]]></comment>
+                    <depends>
+                        <field id="heading_font_library_var">default</field>
+                        <field id="heading_font_family_var">other</field>
+                    </depends>
+                </field> 
+                <!-- Heading Google Font (heading_google_font_var)-->
+                <field id="heading_google_font_var" translate="label comment" type="select" sortOrder="45" showInDefault="1"  canRestore="1">
+                    <label>Heading Google Font</label>
+                    <comment><![CDATA[<span>Font preview:</span> this is the preview of the font selected]]></comment>
+                    <frontend_model>Ubertheme\UbThemeHelper\Block\Adminhtml\Config\Form\Field\GoogleFonts</frontend_model>
+                    <depends>
+                        <field id="heading_font_library_var">google</field>
+                    </depends>
+                </field>
+                <!-- Heading Font Weight (heading_font_weight_var)--> 
+                <field id="heading_font_weight_var" translate="label comment" type="select" sortOrder="50" showInDefault="1" canRestore="1">
+                    <label>Heading Font Weight</label>  
+                    <source_model>Ubertheme\UbThemeHelper\Model\Config\Source\FontWeight</source_model>
+                    <!-- <depends>
+                        <field id="heading_font_library_var">google</field>
+                    </depends> -->
+                </field>         
+            </group>                
+        </section>
+        <section id="colors" translate="label" sortOrder="3" showInDefault="1">
+            <class>separator-top</class>
+            <label>Colors</label>
+            <tab>theme</tab>
+            <resource>Ubertheme_UbThemeHelper::settings</resource>
+            <group id="note" translate="label" type="text" sortOrder="1" showInDefault="1">
+                <field id="note_info" translate="label comment" type="text" sortOrder="0" showInDefault="1">
+                    <frontend_model>Ubertheme\UbThemeHelper\Block\Adminhtml\Config\Form\Field\CustomNotes</frontend_model>
+                    <comment>
+                        <![CDATA[
+                        <strong>IMPORTANT</strong><br/>
+                        <span  class="inportant-note">After changing <strong>Color's</strong> settings, you have to re-deploy the static content and clean Magento cache to see your changes applied.</span>
+                        ]]>
+                    </comment>
+                </field>
+            </group>
+             <group id="general" translate="label" type="text" sortOrder="1" showInDefault="1">
+                <label>Pages</label>
+                <field id="primary_color_var" translate="label comment" type="text" sortOrder="1" showInDefault="1" canRestore="1">
+                    <label>Primary Color</label>
+                    <frontend_model>Ubertheme\UbThemeHelper\Block\Adminhtml\Config\Form\Field\ColorPicker</frontend_model>
+                    <comment><![CDATA[Default color: #f0141e. If empty, default value will be used.]]></comment>
+                </field>
+                <field id="primary_text_color_var" translate="label comment" type="text" sortOrder="3" showInDefault="1" canRestore="1">
+                    <label>Primary Text Color</label>
+                    <frontend_model>Ubertheme\UbThemeHelper\Block\Adminhtml\Config\Form\Field\ColorPicker</frontend_model>
+                    <comment><![CDATA[Default color: #777. If empty, default value will be used.]]></comment>
+                </field>
+                <field id="secondary_text_color_var" translate="label comment" type="text" sortOrder="4" showInDefault="1" canRestore="1">
+                    <label>Secondary Text Color</label>
+                    <frontend_model>Ubertheme\UbThemeHelper\Block\Adminhtml\Config\Form\Field\ColorPicker</frontend_model>
+                    <comment><![CDATA[Default color: #999. If empty, default value will be used.]]></comment>
+                </field>
+                <field id="primary_link_color_var" translate="label comment" type="text" sortOrder="5" showInDefault="1" canRestore="1">
+                    <label>Primary Link Color</label>
+                    <frontend_model>Ubertheme\UbThemeHelper\Block\Adminhtml\Config\Form\Field\ColorPicker</frontend_model>
+                    <comment><![CDATA[Default color: #000. If empty, default value will be used.]]></comment>
+                </field>
+                <field id="primary_link_color_hover_var" translate="label comment" type="text" sortOrder="6" showInDefault="1" canRestore="1">
+                    <label>Primary Link Hover Color</label>
+                    <frontend_model>Ubertheme\UbThemeHelper\Block\Adminhtml\Config\Form\Field\ColorPicker</frontend_model>
+                    <comment><![CDATA[Default color: #f0141e. If empty, default value will be used.]]></comment>
+                </field>
+                <field id="primary_border_color_var" translate="label comment" type="text" sortOrder="7" showInDefault="1" canRestore="1">
+                    <label>Primary Border Color</label>
+                    <frontend_model>Ubertheme\UbThemeHelper\Block\Adminhtml\Config\Form\Field\ColorPicker</frontend_model>
+                    <comment><![CDATA[Default color: #eee. If empty, default value will be used.]]></comment>
+                </field>
+                <field id="secondary_border_color_var" translate="label comment" type="text" sortOrder="8" showInDefault="1" canRestore="1">
+                    <label>Secondary Border Color</label>
+                    <frontend_model>Ubertheme\UbThemeHelper\Block\Adminhtml\Config\Form\Field\ColorPicker</frontend_model>
+                    <comment><![CDATA[Default color: #000. If empty, default value will be used.]]></comment>
+                </field>
+                <!--Body Background  (body_background_var)-->
+                <!-- <field id="body_background_var" translate="label comment" type="select" sortOrder="9" showInDefault="1" canRestore="1">
+                    <label>Body background</label>
+                    <source_model>Ubertheme\UbThemeHelper\Model\Config\Source\BackgroundOptions</source_model>                    
+                </field> -->
+                <!--Body Background Color (pbbc_var)-->
+                <!-- <field id="body_background_color_var" translate="label comment" type="text" sortOrder="10" showInDefault="1" canRestore="1">
+                    <label>Body Background Color</label>
+                    <frontend_model>Ubertheme\UbThemeHelper\Block\Adminhtml\Config\Form\Field\ColorPicker</frontend_model>
+                    <depends>
+                        <field id="body_background_var" separator=",">1,3</field>
+                    </depends>
+                    <comment><![CDATA[Default color: #fff. If empty, default value will be used.]]></comment>
+                </field> -->
+                <!--Body Background Image (body_bg_image_var)-->
+                <!-- <field id="body_bg_image_var" translate="label" type="image" sortOrder="11" showInDefault="1" canRestore="1">
+                    <label>Body Background Image</label>
+                    <comment>Allowed file types: png, gif, jpg, jpeg, svg.</comment>
+                    <backend_model>Ubertheme\UbThemeHelper\Model\Config\Backend\Image</backend_model>
+                    <upload_dir config="system/filesystem/media">ubertheme/ubthemehelper/colors/general/body_bg_image_var</upload_dir>
+                    <base_url type="media">ubertheme/ubthemehelper/colors/general/body_bg_image_var</base_url>
+                    <depends>
+                        <field id="body_background_var" separator=",">2,3</field>
+                    </depends>
+                </field> -->
+                <!--Body Background Position (body_bg_position_var)-->
+                <!-- <field id="body_bg_position_var" translate="label comment" type="text" sortOrder="12" showInDefault="1" canRestore="1">
+                    <label>Body Background Position</label>                    
+                    <comment><![CDATA[Support three types of values: Length values (eg. 100px 5px); Percentages (e.g. 100% 5%); Keywords (e.g. top right, center bottom, inherit)]]></comment>
+                    <depends>
+                        <field id="body_background_var" separator=",">2,3</field>
+                    </depends>
+                </field>  -->
+                <!--Body Background Repeat (body_bg_repeat_var)-->
+                <!-- <field id="body_bg_repeat_var" translate="label comment" type="select" sortOrder="13" showInDefault="1" canRestore="1">
+                    <label>Body Background Repeat</label>
+                    <source_model>Ubertheme\UbThemeHelper\Model\Config\Source\BackgroundRepeat</source_model> 
+                    <comment><![CDATA[Set with values - repeat, repeat-x, repeat-y, no-repeat or inherit]]></comment>   
+                    <depends>
+                        <field id="body_background_var" separator=",">2,3</field>
+                    </depends>                
+                </field>  -->
+            </group>
+            <group id="header" translate="label" type="text" sortOrder="2" showInDefault="1">
+                <label>Header</label>
+                <!--Head Background  (head_background_var)-->
+                <field id="head_background_var" translate="label comment" type="select" sortOrder="0" showInDefault="1" canRestore="1">
+                    <label>Head background</label>
+                    <source_model>Ubertheme\UbThemeHelper\Model\Config\Source\BackgroundOptions</source_model>                    
+                </field>
+                <!--Head Background Color (head_background_color_var)-->
+                <field id="head_background_color_var" translate="label comment" type="text" sortOrder="1" showInDefault="1" canRestore="1">
+                    <label>Head Background Color</label>
+                    <frontend_model>Ubertheme\UbThemeHelper\Block\Adminhtml\Config\Form\Field\ColorPicker</frontend_model>
+                    <depends>
+                        <field id="head_background_var" separator=",">1,3</field>
+                    </depends>
+                    <comment><![CDATA[Default color: #181818. If empty, default value will be used.]]></comment>
+                </field>
+                <!--Head Background Image (head_bg_image_var)-->
+                <field id="head_bg_image_var" translate="label" type="image" sortOrder="2" showInDefault="1" canRestore="1">
+                    <label>Head Background Image</label>
+                    <comment>Allowed file types: png, gif, jpg, jpeg, svg.</comment>
+                    <backend_model>Ubertheme\UbThemeHelper\Model\Config\Backend\Image</backend_model>
+                    <upload_dir config="system/filesystem/media">ubertheme/ubthemehelper/colors/header/head_bg_image_var</upload_dir>
+                    <base_url type="media">ubertheme/ubthemehelper/colors/header/head_bg_image_var</base_url>
+                    <depends>
+                        <field id="head_background_var" separator=",">2,3</field>
+                    </depends>
+                </field>
+                <!--Head Background Position (head_bg_position_var)-->
+                <field id="head_bg_position_var" translate="label comment" type="text" sortOrder="3" showInDefault="1" canRestore="1">
+                    <label>Head Background Position</label>                    
+                    <comment><![CDATA[Support three types of values: Length values (eg. 100px 5px); Percentages (e.g. 100% 5%); Keywords (e.g. top right, center bottom, inherit)]]></comment>
+                    <depends>
+                        <field id="head_background_var" separator=",">2,3</field>
+                    </depends>
+                </field> 
+                <!--Head Background Repeat (head_bg_repeat_var)-->
+                <field id="head_bg_repeat_var" translate="label comment" type="select" sortOrder="4" showInDefault="1" canRestore="1">
+                    <label>Head Background Repeat</label>
+                    <source_model>Ubertheme\UbThemeHelper\Model\Config\Source\BackgroundRepeat</source_model> 
+                    <comment><![CDATA[Set with values - repeat, repeat-x, repeat-y, no-repeat or inherit]]></comment>   
+                    <depends>
+                        <field id="head_background_var" separator=",">2,3</field>
+                    </depends>                
+                </field>
+                <field id="head_text_color_var" translate="label comment" type="text" sortOrder="5" showInDefault="1" canRestore="1">
+                    <label>Head Text Color</label>
+                    <frontend_model>Ubertheme\UbThemeHelper\Block\Adminhtml\Config\Form\Field\ColorPicker</frontend_model>
+                    <comment><![CDATA[If empty, default value will be used.]]></comment>
+                </field>
+                <field id="head_link_color_var" translate="label comment" type="text" sortOrder="6" showInDefault="1" canRestore="1">
+                    <label>Head Link Color</label>
+                    <frontend_model>Ubertheme\UbThemeHelper\Block\Adminhtml\Config\Form\Field\ColorPicker</frontend_model>
+                    <comment><![CDATA[If empty, default value will be used.]]></comment>
+                </field>
+                <field id="head_link_color_hover_var" translate="label comment" type="text" sortOrder="7" showInDefault="1" canRestore="1">
+                    <label>Head Link Hover Color</label>
+                    <frontend_model>Ubertheme\UbThemeHelper\Block\Adminhtml\Config\Form\Field\ColorPicker</frontend_model>
+                    <comment><![CDATA[If empty, default value will be used.]]></comment>
+                </field>
+                <field id="heading_pm_glf" translate="label comment" type="text" sortOrder="8" showInDefault="1">
+                    <frontend_model>Ubertheme\UbThemeHelper\Block\Adminhtml\Config\Form\Field\HeadingFull</frontend_model>
+                </field>                
+                <!--Header Background  (header_background_var)-->
+                <field id="header_background_var" translate="label comment" type="select" sortOrder="9" showInDefault="1" canRestore="1">
+                    <label>Header background</label>
+                    <source_model>Ubertheme\UbThemeHelper\Model\Config\Source\BackgroundOptions</source_model>                    
+                </field>
+                <!--Header Background Color (header_background_color_var)-->
+                <field id="header_background_color_var" translate="label comment" type="text" sortOrder="10" showInDefault="1" canRestore="1">
+                    <label>Header Background Color</label>
+                    <frontend_model>Ubertheme\UbThemeHelper\Block\Adminhtml\Config\Form\Field\ColorPicker</frontend_model>
+                    <depends>
+                        <field id="header_background_var" separator=",">1,3</field>
+                    </depends>
+                    <comment><![CDATA[Default color: #f0141e. If empty, default value will be used.]]></comment>
+                </field>
+                <!--Header Background Image (header_bg_image_var)-->
+                <field id="header_bg_image_var" translate="label" type="image" sortOrder="11" showInDefault="1" canRestore="1">
+                    <label>Header Background Image</label>
+                    <comment>Allowed file types: png, gif, jpg, jpeg, svg.</comment>
+                    <backend_model>Ubertheme\UbThemeHelper\Model\Config\Backend\Image</backend_model>
+                    <upload_dir config="system/filesystem/media">ubertheme/ubthemehelper/colors/header/header_bg_image_var</upload_dir>
+                    <base_url type="media">ubertheme/ubthemehelper/colors/header/header_bg_image_var</base_url>
+                    <depends>
+                        <field id="header_background_var" separator=",">2,3</field>
+                    </depends>
+                </field>
+                <!--Header Background Position (header_bg_position_var)-->
+                <field id="header_bg_position_var" translate="label comment" type="text" sortOrder="12" showInDefault="1" canRestore="1">
+                    <label>Header Background Position</label>                    
+                    <comment><![CDATA[Support three types of values: Length values (eg. 100px 5px); Percentages (e.g. 100% 5%); Keywords (e.g. top right, center bottom, inherit)]]></comment>
+                    <depends>
+                        <field id="header_background_var" separator=",">2,3</field>
+                    </depends>
+                </field> 
+                <!--Header Background Repeat (header_bg_repeat_var)-->
+                <field id="header_bg_repeat_var" translate="label comment" type="select" sortOrder="13" showInDefault="1" canRestore="1">
+                    <label>Header Background Repeat</label>
+                    <source_model>Ubertheme\UbThemeHelper\Model\Config\Source\BackgroundRepeat</source_model> 
+                    <comment><![CDATA[Set with values - repeat, repeat-x, repeat-y, no-repeat or inherit]]></comment>   
+                    <depends>
+                        <field id="header_background_var" separator=",">2,3</field>
+                    </depends>                
+                </field> 
+            </group>
+            <group id="main" translate="label" type="text" sortOrder="3" showInDefault="1">
+                <label>Main Content</label>
+                <!--Main Background  (main_background_var)-->
+                <field id="main_background_var" translate="label comment" type="select" sortOrder="0" showInDefault="1" canRestore="1">
+                    <label>Main background</label>
+                    <source_model>Ubertheme\UbThemeHelper\Model\Config\Source\BackgroundOptions</source_model>                    
+                </field>
+                <!--Main Background Color (main_background_color_var)-->
+                <field id="main_background_color_var" translate="label comment" type="text" sortOrder="1" showInDefault="1" canRestore="1">
+                    <label>Main Background Color</label>
+                    <frontend_model>Ubertheme\UbThemeHelper\Block\Adminhtml\Config\Form\Field\ColorPicker</frontend_model>
+                    <depends>
+                        <field id="main_background_var" separator=",">1,3</field>
+                    </depends>
+                    <comment><![CDATA[If empty, default value will be used.]]></comment>
+                </field>
+                <!--Main Background Image (main_bg_image_var)-->
+                <field id="main_bg_image_var" translate="label" type="image" sortOrder="2" showInDefault="1" canRestore="1">
+                    <label>Main Background Image</label>
+                    <comment>Allowed file types: png, gif, jpg, jpeg, svg.</comment>
+                    <backend_model>Ubertheme\UbThemeHelper\Model\Config\Backend\Image</backend_model>
+                    <upload_dir config="system/filesystem/media">ubertheme/ubthemehelper/colors/main/main_bg_image_var</upload_dir>
+                    <base_url type="media">ubertheme/ubthemehelper/colors/main/main_bg_image_var</base_url>
+                    <depends>
+                        <field id="main_background_var" separator=",">2,3</field>
+                    </depends>
+                </field>
+                <!--Main Background Position (main_bg_position_var)-->
+                <field id="main_bg_position_var" translate="label comment" type="text" sortOrder="3" showInDefault="1" canRestore="1">
+                    <label>Main Background Position</label>                    
+                    <comment><![CDATA[Support three types of values: Length values (eg. 100px 5px); Percentages (e.g. 100% 5%); Keywords (e.g. top right, center bottom, inherit)]]></comment>
+                    <depends>
+                        <field id="main_background_var" separator=",">2,3</field>
+                    </depends>
+                </field> 
+                <!--Main Background Repeat (main_bg_repeat_var)-->
+                <field id="main_bg_repeat_var" translate="label comment" type="select" sortOrder="4" showInDefault="1" canRestore="1">
+                    <label>Main Background Repeat</label>
+                    <source_model>Ubertheme\UbThemeHelper\Model\Config\Source\BackgroundRepeat</source_model> 
+                    <comment><![CDATA[Set with values - repeat, repeat-x, repeat-y, no-repeat or inherit]]></comment>   
+                    <depends>
+                        <field id="main_background_var" separator=",">2,3</field>
+                    </depends>                
+                </field>
+            </group>
+            <group id="footer" translate="label" type="text" sortOrder="4" showInDefault="1">
+                <label>Footer</label>
+                <!--Footer Background  (footer_background_var)-->
+                <field id="footer_background_var" translate="label comment" type="select" sortOrder="0" showInDefault="1" canRestore="1">
+                    <label>Footer background</label>
+                    <source_model>Ubertheme\UbThemeHelper\Model\Config\Source\BackgroundOptions</source_model>                    
+                </field>
+                <!--Footer Background Color (footer_background_color_var)-->
+                <field id="footer_background_color_var" translate="label comment" type="text" sortOrder="1" showInDefault="1" canRestore="1">
+                    <label>Footer Background Color</label>
+                    <frontend_model>Ubertheme\UbThemeHelper\Block\Adminhtml\Config\Form\Field\ColorPicker</frontend_model>
+                    <depends>
+                        <field id="footer_background_var" separator=",">1,3</field>
+                    </depends>
+                    <comment><![CDATA[Default color: #181818. If empty, default value will be used.]]></comment>
+                </field>
+                <!--Footer Background Image (footer_bg_image_var)-->
+                <field id="footer_bg_image_var" translate="label" type="image" sortOrder="2" showInDefault="1" canRestore="1">
+                    <label>Footer Background Image</label>
+                    <comment>Allowed file types: png, gif, jpg, jpeg, svg.</comment>
+                    <backend_model>Ubertheme\UbThemeHelper\Model\Config\Backend\Image</backend_model>
+                    <upload_dir config="system/filesystem/media">ubertheme/ubthemehelper/colors/footer/footer_bg_image_var</upload_dir>
+                    <base_url type="media">ubertheme/ubthemehelper/colors/footer/footer_bg_image_var</base_url>
+                    <depends>
+                        <field id="footer_background_var" separator=",">2,3</field>
+                    </depends>
+                </field>
+                <!--Footer Background Position (footer_bg_position_var)-->
+                <field id="footer_bg_position_var" translate="label comment" type="text" sortOrder="3" showInDefault="1" canRestore="1">
+                    <label>Footer Background Position</label>                    
+                    <comment><![CDATA[Support three types of values: Length values (eg. 100px 5px); Percentages (e.g. 100% 5%); Keywords (e.g. top right, center bottom, inherit)]]></comment>
+                    <depends>
+                        <field id="footer_background_var" separator=",">2,3</field>
+                    </depends>
+                </field> 
+                <!--Footer Background Repeat (footer_bg_repeat_var)-->
+                <field id="footer_bg_repeat_var" translate="label comment" type="select" sortOrder="4" showInDefault="1" canRestore="1">
+                    <label>Footer Background Repeat</label>
+                    <source_model>Ubertheme\UbThemeHelper\Model\Config\Source\BackgroundRepeat</source_model> 
+                    <comment><![CDATA[Set with values - repeat, repeat-x, repeat-y, no-repeat or inherit]]></comment>   
+                    <depends>
+                        <field id="footer_background_var" separator=",">2,3</field>
+                    </depends>                
+                </field>
+                <field id="footer_text_color_var" translate="label comment" type="text" sortOrder="5" showInDefault="1" canRestore="1">
+                    <label>Footer Text Color</label>
+                    <frontend_model>Ubertheme\UbThemeHelper\Block\Adminhtml\Config\Form\Field\ColorPicker</frontend_model>
+                    <comment><![CDATA[Default color: #777. If empty, default value will be used.]]></comment>
+                </field>
+                <field id="footer_link_color_var" translate="label comment" type="text" sortOrder="6" showInDefault="1" canRestore="1">
+                    <label>Footer Link Color</label>
+                    <frontend_model>Ubertheme\UbThemeHelper\Block\Adminhtml\Config\Form\Field\ColorPicker</frontend_model>
+                    <comment><![CDATA[Default color: #777. If empty, default value will be used.]]></comment>
+                </field>
+                <field id="footer_link_color_hover_var" translate="label comment" type="text" sortOrder="7" showInDefault="1" canRestore="1">
+                    <label>Footer Link Hover Color</label>
+                    <frontend_model>Ubertheme\UbThemeHelper\Block\Adminhtml\Config\Form\Field\ColorPicker</frontend_model>
+                    <comment><![CDATA[Default color: #f0141e. If empty, default value will be used.]]></comment>
+                </field>
+            </group>
+        </section>   
+        <section id="element" translate="label" sortOrder="4" showInDefault="1">
+            <class>separator-top</class>
+            <label>Elements</label>
+            <tab>theme</tab>
+            <resource>Ubertheme_UbThemeHelper::settings</resource>
+            <!-- <group id="note" translate="label" type="text" sortOrder="-1" showInDefault="1">
+                <field id="note_info" translate="label comment" type="text" sortOrder="1" showInDefault="1">
+                    <frontend_model>Ubertheme\UbThemeHelper\Block\Adminhtml\Config\Form\Field\CustomNotes</frontend_model>
+                    <comment>
+                        <![CDATA[
+                        <strong>IMPORTANT</strong><br/>
+                        <span  class="inportant-note">After making any changes in the Element configuration, always refresh the cache to see the changes you have implemented. <br/><br/>NOTE: For the <strong>Enable Menu Sticky</strong> setting, you have to re-deploy the static view files first, before clearing Magento cache.</span>
+                        ]]>
+                    </comment>
+                </field>
+            </group> -->
+            <group id="header" translate="label" type="text" sortOrder="0" showInDefault="1">
+                <label>Header</label>
+                <group id="actions" translate="label" type="text" sortOrder="10" showInDefault="1">
+                    <label>General Elements Settings</label>
+                    <field id="enable_sticky" translate="label comment" type="select" sortOrder="0" showInDefault="1" canRestore="1">
+                        <label>Enable menu sticky</label>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                        <comment><![CDATA[If set 'Yes', sticky menu allows to make your store pages 'sticky' as soon as it hits the top of the page when your users scroll down.]]></comment>
+                    </field>
+                    <field id="enable_switch_colors" translate="label comment" type="select" sortOrder="5" showInDefault="1" canRestore="1">
+                        <label>Enable Switch Colors</label>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    </field>
+                </group>
+                <group id="logo" translate="label" type="text" sortOrder="1" showInDefault="1">
+                    <label>Logo</label>
+                    <field id="src" translate="label" type="image" sortOrder="0" showInDefault="1" canRestore="1">
+                        <label>Image</label>
+                        <backend_model>Ubertheme\UbThemeHelper\Model\Config\Backend\Image</backend_model>
+                        <upload_dir config="system/filesystem/media">ubertheme/ubthemehelper/element/header/logo/src</upload_dir>
+                        <base_url type="media">ubertheme/ubthemehelper/element/header/logo/src</base_url>
+                    </field>
+                    <field id="alt" translate="label comment" type="text" sortOrder="3" showInDefault="1" canRestore="1">
+                        <label>Alt</label>
+                    </field>
+                    <field id="width" translate="label comment" type="text" sortOrder="1" showInDefault="1" canRestore="1">
+                        <label>Width</label>
+                    </field>
+                    <field id="height" translate="label comment" type="text" sortOrder="2" showInDefault="1" canRestore="1">
+                        <label>Height</label>
+                    </field>
+                </group>
+            </group>            
+            <group id="main" translate="label" type="text" sortOrder="5" showInDefault="1">
+                <label>Main</label>
+                <group id="preloader" translate="label" type="text" sortOrder="0" showInDefault="1">
+                    <label>Preloader Manager</label>
+                    <field id="enable" translate="label comment" type="select" sortOrder="0" showInDefault="1" canRestore="1">
+                        <label>Enabling Preloader</label>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    </field>
+                </group>
+                <group id="back_to_top" translate="label" type="text" sortOrder="5" showInDefault="1">
+                    <label>Back to top</label>
+                    <field id="enable" translate="label comment" type="select" sortOrder="0" showInDefault="1" canRestore="1">
+                        <label>Enabling Back to top</label>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    </field>
+                </group>
+                <group id="infinite_scroll" translate="label" type="text" sortOrder="10" showInDefault="1">
+                    <label>Infinite Scrolling</label> 
+                    <group id="infinite_scroll_general" translate="label" type="text" sortOrder="0" showInDefault="1" canRestore="1">
+                        <label>General</label>
+                        <field id="enable" translate="label" sortOrder="1" type="select" showInDefault="1" canRestore="1">
+                            <label>Enable</label>
+                            <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                        </field>
+                        <field id="scope" translate="label" sortOrder="2" type="multiselect" showInDefault="1" canRestore="1">
+                            <label>Enable on Page</label>
+                            <validate>required-entry</validate>
+                            <source_model>Ubertheme\UbThemeHelper\Model\Config\Source\ScopeOptionsInfinite</source_model>
+                            <comment><![CDATA[ Catalog Products List widget applies only when the Display Page Control is enabled. ]]></comment>
+                        </field>
+                        <field id="categories_ids" translate="label comment" sortOrder="3" type="text" showInDefault="1" canRestore="1">
+                            <label>Enable in Categories</label>
+                            <depends>
+                                <field id="scope">category_page</field>
+                            </depends>
+                            <frontend_class>validate-cat-ids</frontend_class>
+                            <comment><![CDATA[ Specify the Category ID(s) (separated by comma) that you want to enable the infinite scrolling. ]]></comment>
+                        </field>
+                        <field id="method" translate="label comment" sortOrder="4" type="select" showInDefault="1" canRestore="1">
+                            <label>Loading Mode</label>
+                            <source_model>Ubertheme\UbThemeHelper\Model\Config\Source\InfiniteOptions</source_model>
+                            <comment><![CDATA[ If Infinite Loading is enabled for Widget, only "Load More Button" is available. ]]></comment>
+                        </field>
+                        <field id="number_page_limit" translate="label comment" sortOrder="4" type="text" showInDefault="1" canRestore="1">
+                            <label>Scrolling Page Limit</label>
+                            <depends>
+                                <field id="method">scroll_limit</field>
+                            </depends>
+                            <validate>validate-number</validate>
+                            <comment><![CDATA[ When this page number is reached, 'Load More' button will be shown
+                            instead of continue loading products automatically with the scroll. ]]></comment>
+                        </field>
+                        <field id="show_param" translate="label comment" sortOrder="4" type="select" showInDefault="1" canRestore="1">
+                            <label>Add Page Parameter to Urls</label>
+                            <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                            <comment><![CDATA[ Example : https://yourdomain.com/magento/men.html?p=2 ]]></comment>
+                        </field>
+                    </group>
+                    <group id="infinite_scroll_style" translate="label" type="text" sortOrder="5" showInDefault="1" canRestore="1">
+                        <label>Style</label>
+                        <field id="image" translate="label" type="image" sortOrder="1" showInDefault="1" canRestore="1">
+                            <label>Ajax Loading Icon</label>
+                            <comment><![CDATA[Allowed file types: png, gif, ipg, jpeg, svg.]]></comment>
+                            <backend_model>Ubertheme\UbThemeHelper\Model\Config\Backend\Image</backend_model>
+                            <upload_dir config="system/filesystem/media">ubertheme/ubthemehelper/infiniteScroll</upload_dir>
+                            <base_url type="media">ubertheme/ubthemehelper/infiniteScroll</base_url>
+                        </field>
+                        <field id="loading_text" translate="label" type="text" sortOrder="2" showInDefault="1" canRestore="1">
+                            <label>'Loading More' Text</label>
+                        </field>
+                        <field id="done_text" translate="label" type="text" sortOrder="2" showInDefault="1" canRestore="1">
+                            <label>'No more item' Text</label>
+                        </field>
+                        <field id="button" translate="label" type="text" sortOrder="2" showInDefault="1" canRestore="1">
+                            <label>'Load More' Button Text</label>
+                            <depends>
+                                <field id="element/element_general/infinite_scroll_general/method" separator=",">click,scroll_limit</field>
+                            </depends>
+                        </field>
+                        <field id="hide_toolbar" translate="label" type="select" sortOrder="2" showInDefault="1" canRestore="1">
+                            <label>Hide Toolbar</label>
+                            <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                        </field>
+                    </group>   
+                </group>
+            </group>
+        </section>
+        <tab id="pages" translate="label" sortOrder="2">
+            <label>Pages</label>
+        </tab>
+        <section id="category_view" translate="label" sortOrder="1" showInDefault="1">
+            <class>separator-top</class>
+            <label>Category view</label>
+            <tab>pages</tab>
+            <resource>Ubertheme_UbThemeHelper::settings</resource>
+            <group id="note" translate="label" type="text" sortOrder="-1" showInDefault="1">
+                <field id="note_info" translate="label comment" type="text" sortOrder="0" showInDefault="1">
+                    <frontend_model>Ubertheme\UbThemeHelper\Block\Adminhtml\Config\Form\Field\CustomNotes</frontend_model>
+                    <comment>
+                        <![CDATA[
+                        <strong>IMPORTANT</strong><br/>
+                        <span  class="inportant-note">After changing <strong>Category view</strong> settings, you have to clean Magento cache to see your changes applied.</span>
+                        ]]>
+                    </comment>
+                </field>
+            </group>
+            <group id="general" translate="label" type="text" sortOrder="1" showInDefault="1">
+                <label>General</label>
+                <field id="shop_by_toggle" translate="label comment" type="select" sortOrder="2" showInDefault="1" canRestore="1">
+                    <label>Shop by Toggle</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="add_to_cart" translate="label comment" type="select" sortOrder="3" showInDefault="1" canRestore="1">
+                    <label>Enable Add To Cart</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="add_to_compare" translate="label comment" type="select" sortOrder="4" showInDefault="1" canRestore="1">
+                    <label>Enable Add To Compare</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="add_to_wishlist" translate="label comment" type="select" sortOrder="5" showInDefault="1" canRestore="1">
+                    <label>Enable Add To Wishlist</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="rating" translate="label comment" type="select" sortOrder="6" showInDefault="1" canRestore="1">
+                    <label>Enable Rating</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="show_author" translate="label comment" type="select" sortOrder="3" showInDefault="1" canRestore="1">
+                    <label>Show author</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="price" translate="label comment" type="select" sortOrder="7" showInDefault="1" canRestore="1">
+                    <label>Enable Price</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="swatches" translate="label comment" type="select" sortOrder="8" showInDefault="1" canRestore="1">
+                    <label>Enable Swatches</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="enable_alternative_product" translate="label comment" type="select" sortOrder="9" showInDefault="1" canRestore="1">
+                    <label>Enable Alternative Product Image</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment><![CDATA[When mouse hover on a product (List/Grid), You can see a thumbnail image.]]></comment>
+                </field>
+            </group>
+            <group id="grid" translate="label" type="text" sortOrder="2" showInDefault="1">
+                <label>Grid Configuration</label>
+                <field id="base_category_image_heading_pm" translate="label comment" type="select" sortOrder="1" showInDefault="1">
+                    <label>Image Configuration</label>
+                    <frontend_model>Ubertheme\UbThemeHelper\Block\Adminhtml\Config\Form\Field\HeadingFull</frontend_model>
+                </field>
+                <field id="img_width" translate="label comment" type="text" sortOrder="2" showInDefault="1" canRestore="1">
+                    <label>Width</label>
+                    <frontend_class>validate-number</frontend_class>
+                </field> 
+                <field id="img_height" translate="label comment" type="text" sortOrder="3" showInDefault="1" canRestore="1">
+                    <label>Height</label>
+                    <frontend_class>validate-number</frontend_class>
+                </field>
+                <field id="base_category_columns_desktop_heading_pm" translate="label comment" type="select" sortOrder="4" showInDefault="1">
+                    <label>Items per Row (Desktop)</label>
+                    <comment><![CDATA[ Specify the number of product columns displayed if the browser viewport width (≥992px). Please input to textbox with requirement number only.]]></comment>
+                    <frontend_model>Ubertheme\UbThemeHelper\Block\Adminhtml\Config\Form\Field\HeadingFull</frontend_model>
+                </field>
+                <field id="desktop_one_column_var" translate="label comment" type="select" sortOrder="5" showInDefault="1" canRestore="1">
+                    <label>One column Layout</label>
+                    <source_model>Ubertheme\UbThemeHelper\Model\Config\Source\ColumnOptions</source_model>
+                </field>
+                <field id="desktop_two_column_var" translate="label comment" type="select" sortOrder="6" showInDefault="1" canRestore="1">
+                    <label>Two columns Layout</label>
+                    <source_model>Ubertheme\UbThemeHelper\Model\Config\Source\ColumnOptions</source_model>
+                </field>
+                <field id="base_category_columns_tablet_landscape_heading_pm" translate="label comment" type="select" sortOrder="7" showInDefault="1">
+                    <label>Items per Row Tablet (Landscape)</label>
+                    <comment><![CDATA[ Specify the number of product columns displayed if the browser viewport width (≥992px). Please input to textbox with requirement number only.]]></comment>
+                    <frontend_model>Ubertheme\UbThemeHelper\Block\Adminhtml\Config\Form\Field\HeadingFull</frontend_model>
+                </field>
+                <field id="tablet_one_column_var" translate="label comment" type="select" sortOrder="8" showInDefault="1" canRestore="1">
+                    <label>One column Layout</label>
+                    <source_model>Ubertheme\UbThemeHelper\Model\Config\Source\ColumnOptions</source_model>
+                </field>
+                <field id="tablet_two_column_var" translate="label comment" type="select" sortOrder="9" showInDefault="1" canRestore="1">
+                    <label>Two columns Layout</label>
+                    <source_model>Ubertheme\UbThemeHelper\Model\Config\Source\ColumnOptions</source_model>
+                </field>
+                <field id="base_category_columns_tablet_portrait_heading_pm" translate="label comment" type="select" sortOrder="20" showInDefault="1">
+                    <label>Items per Row Tablet (Portrait)</label>
+                    <comment><![CDATA[ Specify the number of product columns displayed if the browser viewport width (≥768px). Please input to textbox with requirement number only.]]></comment>
+                    <frontend_model>Ubertheme\UbThemeHelper\Block\Adminhtml\Config\Form\Field\HeadingFull</frontend_model>
+                </field>
+                <field id="tablet_sm_one_column_var" translate="label comment" type="select" sortOrder="21" showInDefault="1" canRestore="1">
+                    <label>One column Layout</label>
+                    <source_model>Ubertheme\UbThemeHelper\Model\Config\Source\ColumnOptionsTablet</source_model>
+                </field>
+                <field id="tablet_sm_two_column_var" translate="label comment" type="select" sortOrder="22" showInDefault="1" canRestore="1">
+                    <label>Two columns Layout</label>
+                    <source_model>Ubertheme\UbThemeHelper\Model\Config\Source\ColumnOptionsTablet</source_model>
+                </field>
+                <field id="base_category_columns_mobile_landscape_heading_pm" translate="label comment" type="select" sortOrder="23" showInDefault="1">
+                    <label>Items per Row Mobile (Landscape)</label>
+                    <comment><![CDATA[ Specify the number of product columns displayed if the browser viewport width (<768px). Please input to textbox with requirement number only.]]></comment>
+                    <frontend_model>Ubertheme\UbThemeHelper\Block\Adminhtml\Config\Form\Field\HeadingFull</frontend_model>
+                </field>
+                <field id="mobile_column_var" translate="label comment" type="select" sortOrder="24" showInDefault="1" canRestore="1">
+                    <label>Columns Layout</label>
+                    <source_model>Ubertheme\UbThemeHelper\Model\Config\Source\ColumnOptionsMobile</source_model>
+                </field>
+                <field id="base_category_columns_mobile_portrait_heading_pm" translate="label comment" type="select" sortOrder="25" showInDefault="1">
+                    <label>Items per Row Mobile (Portrait)</label>
+                    <comment><![CDATA[ Specify the number of product columns displayed if the browser viewport width (<480px). Please input to textbox with requirement number only.]]></comment>
+                    <frontend_model>Ubertheme\UbThemeHelper\Block\Adminhtml\Config\Form\Field\HeadingFull</frontend_model>
+                </field>
+                <field id="mobile_sm_column_var" translate="label comment" type="select" sortOrder="26" showInDefault="1" canRestore="1">
+                    <label>Columns Layout</label>
+                    <source_model>Ubertheme\UbThemeHelper\Model\Config\Source\ColumnOptionsMobile</source_model>
+                </field>
+            </group>
+            <group id="list" translate="label" type="text" sortOrder="3" showInDefault="1">
+                <label>List Configuration</label>
+                <field id="img_width" translate="label comment" type="text" sortOrder="0" showInDefault="1" canRestore="1">
+                    <label>Image Width</label>
+                    <frontend_class>validate-number</frontend_class>
+                </field>
+                <field id="img_height" translate="label comment" type="text" sortOrder="5" showInDefault="1" canRestore="1">
+                    <label>Image Height</label>
+                    <frontend_class>validate-number</frontend_class>
+                </field>
+                <field id="enable_description" translate="label comment" type="select" sortOrder="10" showInDefault="1" canRestore="1">
+                    <label>Enable Product Description</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="max_char" translate="label comment" type="text" sortOrder="15" showInDefault="1" canRestore="1">
+                    <label>Maximum Description Length</label>
+                    <depends>
+                        <field id="enable_description">1</field>
+                    </depends>
+                    <frontend_class>validate-number</frontend_class>
+                </field>
+            </group>
+        </section>
+        <section id="product_view" translate="label" sortOrder="3" showInDefault="1">
+            <class>separator-top</class>
+            <label>Product View</label>
+            <tab>pages</tab>
+            <resource>Ubertheme_UbThemeHelper::settings</resource>
+            <group id="gallery" translate="label" type="text" sortOrder="1" showInDefault="1">
+                <label>Gallery</label>
+                <group id="general" translate="label" type="text" sortOrder="5" showInDefault="1">
+                 <label>General</label>
+                <field id="image_medium_width" translate="label comment" type="text" sortOrder="5" showInDefault="1" canRestore="1">
+                    <label>Width</label>
+                    <frontend_class>validate-number</frontend_class>  
+                </field>
+                <field id="image_medium_height" translate="label comment" type="text" sortOrder="10" showInDefault="1" canRestore="1">
+                    <label>Height</label>
+                    <frontend_class>validate-number</frontend_class>  
+                </field>
+                <field id="image_small_width" translate="label comment" type="text" sortOrder="15" showInDefault="1" canRestore="1">
+                    <label>Thumbnail Width</label>
+                    <frontend_class>validate-number</frontend_class>  
+                </field>
+                <field id="image_small_height" translate="label comment" type="text" sortOrder="20" showInDefault="1" canRestore="1">
+                    <label>Thumbnail Height</label>
+                    <frontend_class>validate-number</frontend_class>  
+                </field>
+                <field id="loop" translate="label comment" type="select" sortOrder="25" showInDefault="1" canRestore="1">
+                    <label>Nav Loop</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>                       
+                <field id="caption" translate="label comment" type="select" sortOrder="30" showInDefault="1" canRestore="1">
+                    <label>Display caption on image</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="effect" translate="label comment" type="select" sortOrder="35" showInDefault="1" canRestore="1">
+                    <label>Transition Effect</label>
+                    <source_model>Ubertheme\UbThemeHelper\Model\Config\Source\GalleryEffect</source_model>
+                </field>
+                <field id="duration" translate="label comment" type="text" sortOrder="40" showInDefault="1" canRestore="1">
+                    <label>Duration</label>                    
+                    <frontend_class>validate-number</frontend_class>
+                    <comment><![CDATA[Sets transition duration in milliseconds.]]></comment>
+                    <hint>ms</hint>
+                </field>
+                <field id="zoom_enabled" translate="label comment" type="select" sortOrder="45" showInDefault="1" canRestore="1">
+                    <label>Enable Magnifier</label>
+                    <comment><![CDATA[If set to 'No', default Magento zoom feature will be used.]]></comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="zoom_mode" translate="label comment" type="select" sortOrder="50" showInDefault="1" canRestore="1">
+                    <label>Magnifier Mode</label>
+                    <source_model>Ubertheme\UbThemeHelper\Model\Config\Source\ZoomModes</source_model>
+                    <depends>
+                        <field id="zoom_enabled">1</field>
+                    </depends>
+                </field>
+                <field id="magnifier_width" translate="label comment" type="text" sortOrder="55" showInDefault="1" canRestore="1">
+                    <label>Magnifier Width</label>
+                    <comment><![CDATA[Width of the magnifier block in pixels.]]></comment>
+                    <frontend_class>validate-number</frontend_class>
+                    <depends>
+                        <field id="zoom_enabled">1</field>
+                        <field id="zoom_mode">outside</field>
+                    </depends>
+                </field>
+                <field id="magnifier_height" translate="label comment" type="text" sortOrder="60" showInDefault="1" canRestore="1">
+                    <label>Magnifier Height</label>
+                    <comment><![CDATA[Width of the magnifier block in pixels.]]></comment>
+                    <frontend_class>validate-number</frontend_class>
+                    <depends>
+                        <field id="zoom_enabled">1</field>
+                        <field id="zoom_mode">outside</field>
+                    </depends>
+                </field>
+                </group>
+                <group id="fullscreen" translate="label" type="text" sortOrder="10" showInDefault="1">  
+                    <label>Fullscreen</label>
+                    <field id="enable" translate="label comment" type="select" sortOrder="0" showInDefault="1" canRestore="1">
+                        <label>Enable</label>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    </field>
+                </group> 
+            </group>
+            <group id="related" translate="label" type="text" sortOrder="2" showInDefault="1">
+                <label>Related Products</label>
+                <field id="enable" translate="label comment" type="select" sortOrder="0" showInDefault="1" canRestore="1">
+                    <label>Enable</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="title" translate="label comment" type="text" sortOrder="5" showInDefault="1" canRestore="1">
+                    <label>Block Title</label>
+                    <depends>
+                        <field id="enable">1</field>
+                    </depends>
+                </field>
+                <field id="image_width" translate="label comment" type="text" sortOrder="10" showInDefault="1" canRestore="1">
+                    <label>Image Width</label>
+                    <depends>
+                        <field id="enable">1</field>
+                    </depends>
+                    <frontend_class>validate-number</frontend_class>
+                    <hint>px</hint>
+                </field>
+                <field id="image_height" translate="label comment" type="text" sortOrder="15" showInDefault="1" canRestore="1">
+                    <label>Image Height</label>
+                    <depends>
+                        <field id="enable">1</field>
+                    </depends>
+                    <frontend_class>validate-number</frontend_class>
+                    <hint>px</hint>
+                </field>                
+                <field id="limit" translate="label comment" type="text" sortOrder="20" showInDefault="1" canRestore="1">
+                    <label>Limit</label>
+                    <comment><![CDATA[Set a default limit on the number of related products displayed on the product page.]]></comment>
+                    <depends>
+                        <field id="enable">1</field>
+                    </depends>
+                    <frontend_class>validate-number</frontend_class>
+                </field>
+            </group>
+            <group id="upsell" translate="label" type="text" sortOrder="3" showInDefault="1">
+                <label>Up-Sell Products</label>
+                <field id="enable" translate="label comment" type="select" sortOrder="0" showInDefault="1" canRestore="1">
+                    <label>Enable</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="title" translate="label comment" type="text" sortOrder="5" showInDefault="1" canRestore="1">
+                    <label>Block Title</label>
+                    <depends>
+                        <field id="enable">1</field>
+                    </depends>
+                </field>
+                <field id="image_width" translate="label comment" type="text" sortOrder="10" showInDefault="1" canRestore="1">
+                    <label>Image Width</label>
+                    <depends>
+                        <field id="enable">1</field>
+                    </depends>
+                    <frontend_class>validate-number</frontend_class>
+                    <hint>px</hint>
+                </field>
+                <field id="image_height" translate="label comment" type="text" sortOrder="15" showInDefault="1" canRestore="1">
+                    <label>Image Height</label>
+                    <depends>
+                        <field id="enable">1</field>
+                    </depends>
+                    <frontend_class>validate-number</frontend_class>
+                    <hint>px</hint>
+                </field>
+                <field id="limit" translate="label comment" type="text" sortOrder="20" showInDefault="1" canRestore="1">
+                    <label>Limit</label>
+                    <comment><![CDATA[Set a default limit on the number of upsell products displayed on the product page.]]></comment>
+                    <depends>
+                        <field id="enable">1</field>
+                    </depends>
+                    <frontend_class>validate-number</frontend_class>
+                </field>
+            </group>
+            <group id="ub_custom_tab" translate="label" type="text" sortOrder="20" showInDefault="1" canRestore="1">
+                <label>Custom Tabs</label>
+                <group id="tab_content" translate="label" sortOrder="1" showInDefault="1">
+                    <label>Tab Content</label>
+                    <field id="items" translate="label" sortOrder="1" showInDefault="1" canRestore="1">
+                        <label></label>
+                        <frontend_model>Ubertheme\UbThemeHelper\Block\Adminhtml\Config\Form\Field\Tab\Items</frontend_model>
+                        <backend_model>Ubertheme\UbThemeHelper\Model\Config\Backend\TabBackendModel</backend_model>
+                    </field>
+                </group>
+                <!-- <group id="tab_style" translate="label" sortOrder="1" showInDefault="1">
+                    <label>Tab Style</label>
+                    <field id="template" translate="label" type="select" sortOrder="1" showInDefault="1" canRestore="1">
+                        <label>Template</label>
+                        <source_model>Ubertheme\UbThemeHelper\Model\Config\Source\TabTemplates</source_model>
+                    </field>
+                </group> -->
+            </group>
+        </section>
+        <section id="contact_us" translate="label" sortOrder="4" showInDefault="1">
+            <class>separator-top</class>
+            <label>Contact Us</label>
+            <tab>pages</tab>
+            <resource>Ubertheme_UbThemeHelper::settings</resource>
+            <group id="settings" translate="label" type="text" sortOrder="1" showInDefault="1">
+                <label>Contact Settings</label>
+                <field id="intro" translate="label comment" type="textarea" sortOrder="0" showInDefault="1" canRestore="1">
+                    <label>Contact intro:</label>
+                </field>
+                <field id="address" translate="label comment" type="text" sortOrder="1" showInDefault="1" canRestore="1">
+                    <label>Address</label>
+                </field>
+                <field id="email" translate="label comment" type="text" sortOrder="2" showInDefault="1" canRestore="1">
+                    <label>Email</label>
+                </field>
+                <field id="phone" translate="label comment" type="text" sortOrder="3" showInDefault="1" canRestore="1">
+                    <label>Phone</label>
+                </field>
+                <field id="fax" translate="label comment" type="text" sortOrder="4" showInDefault="1" canRestore="1">
+                    <label>Fax</label>
+                </field>
+                <field id="enable_map" translate="label comment" type="select" sortOrder="5" showInDefault="1" canRestore="1">
+                    <label>Show Google Map</label>
+                    <comment><![CDATA[Set to 'No' if you wish to hide Google Map on the contact page.]]></comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="google_map_embed" translate="label comment" type="textarea" sortOrder="6" showInDefault="1" canRestore="1">
+                    <label>Map:</label>
+                    <comment>
+                        <![CDATA[Supported Iframe.]]>
+                    </comment>
+                    <depends>
+                        <field id="enable_map">1</field>
+                    </depends>
+                </field>
+            </group>
+        </section>
+        <section id="cart" translate="label" sortOrder="5" showInDefault="1">
+            <class>separator-top</class>
+            <label>Shopping Cart</label>
+            <tab>pages</tab>
+            <resource>Ubertheme_UbThemeHelper::settings</resource>
+            <group id="crosssell" translate="label" type="text" sortOrder="2" showInDefault="1">
+                <label>Cross-Sell Products</label>
+                <field id="title" translate="label comment" type="text" sortOrder="0" showInDefault="1" canRestore="1">
+                    <label>Block Title</label>
+                </field>
+                <field id="image_width" translate="label comment" type="text" sortOrder="1" showInDefault="1" canRestore="1">
+                    <label>Image Width</label>
+                    <comment><![CDATA[Specify value in pixels.]]></comment>
+                    <frontend_class>validate-number</frontend_class>
+                </field>
+                <field id="image_height" translate="label comment" type="text" sortOrder="2" showInDefault="1" canRestore="1">
+                    <label>Image Height</label>
+                    <comment><![CDATA[Specify value in pixels.]]></comment>
+                    <frontend_class>validate-number</frontend_class>
+                </field>
+            </group>
+        </section>
+        <tab id="more" translate="label" sortOrder="3">
+            <label>More</label>
+        </tab>
+        <section id="custom_css" translate="label" sortOrder="1" showInDefault="1">
+            <class>separator-top</class>
+            <label>Custom CSS</label>
+            <tab>more</tab>
+            <resource>Ubertheme_UbThemeHelper::settings</resource>
+            <group id="custom_css" translate="label" type="text" sortOrder="1" showInDefault="1">
+                <label>Custom CSS</label>
+                <field id="file" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1"  canRestore="1">
+                    <label>Load Additional CSS Files</label>
+                    <comment><![CDATA[In order to add a custom CSS file, you should follow steps below:<br>
+                    1. Upload your custom CSS file to the server which you can override the default styling of the theme. The directory is as follows: app/design/frontend/Ubertheme/bookshop/default/web/css/custom <br>
+                    2. In the Additional CSS field, enter the CSS file name needed for custom style. Multiple files should be separated by a comma.]]></comment>
+                </field>
+                <field id="css_code" translate="label comment" type="textarea" sortOrder="2" showInDefault="1" canRestore="1">
+                    <label>Custom CSS</label>
+                    <comment>
+                        <![CDATA[You can add your own CSS styles directly here, which allows you to override the default styles of your Theme.]]>
+                    </comment>
+                </field>
+            </group>
+        </section>        
+    </system>
+</config>
+

@@ -1,0 +1,533 @@
+//----
+// @category	:	Ubertheme
+// @package 	:	Ubertheme_UbContentSlider
+// @author		:	Ubertheme.com
+// @copyright 	:	Copyright 2009-2019 Ubertheme
+//---------------------------
+
+// -----------------------------
+// Common
+// -----------------------------
+
+& when (@media-common = true) {
+    // CMS page Lookbook Demo
+    .lookbook-image {
+        width: 100%;
+    }
+    .cms-lookbook-page {
+        .page-title-wrapper {
+            display: none;
+        }
+        .page-main {
+            max-width: 100%;
+            padding: 0;
+        }
+        .lookbook-masthead {
+            .lookbook-items  {
+                margin: 0;
+                .item {
+                    width: 100%;
+                }
+                .lookbook-item-info {
+                    padding: 0;
+                }
+            }
+            .lookbook-details {
+                display: none;
+            }
+        }
+        .lookbook-page-title {
+            padding: @layout-indent__width * 2 0;
+            text-align: center;
+            .header-text {
+                color: @color_black22;
+                font-size: @font-size__l * 2;
+                font-weight: @font-weight__light;
+                margin-bottom: @indent__s; 
+                text-transform: uppercase;
+            }
+            .subheader-text {
+                color: @color_black22;
+                font-size: @font-size__l;
+            }
+        }
+        .lookbook-content {
+            .page-main();
+            .lookbook-title {
+                font-size: @font-size__l;
+                font-weight: @font-weight__bold;
+                line-height: @line-height__s;
+                margin-bottom: 2rem;
+                margin-top: 0;
+                padding-bottom: @indent__s;
+                text-transform: uppercase;
+            }
+        }
+        
+        .lookbook-items  {
+            font-size: 0;
+            margin: 0 -@indent__s;
+            .item {
+                display: inline-block;
+                vertical-align: top;
+                width: 100%;
+                .youtube {
+                    iframe {
+                        height: 100%;
+                        width: 100%;
+                    }
+                }
+                .youtube-video {
+                    background: @color-black;
+                    display: block;
+                    text-align: center;
+                    width: 100%;
+                    .slide-image {
+                        max-height: inherit;
+                    }
+                }
+
+            }
+            .lookbook-item-photo {
+                position: relative;
+                z-index: 0;
+            }
+            .lookbook-item-info {
+                padding: 0 @indent__s @indent__xl @indent__s;
+                &:hover {
+                    .lookbook-item-photo {
+                        z-index: 1; 
+                    }
+                }
+            }
+            .lookbook-details {
+                font-size: @font-size__base;
+                text-align: center;
+                .title {
+                    a {
+                        color: @color_black24;
+                        display: inline-block;
+                        font-weight: @font-weight__semibold;
+                        margin-top: @indent__base;
+                        text-align: left;
+                        width: 100%;
+                        &:hover {
+                            color: @color-blue1;
+                            text-decoration: none;
+                        }
+                    }
+                }
+                .description {
+                    display: none;
+                }
+            }
+            .click-to-play {
+                .lookbook-item-photo {
+                    &:after {
+                        background: rgba(0, 0, 0, .3) url('../Ubertheme_UbContentSlider/images/play.svg') no-repeat center center;
+                        content: "";
+                        cursor: pointer;
+                        height: 100%;
+                        left: 0;
+                        position: absolute;
+                        top: 0;
+                        width: 100%;
+                        z-index: 11;
+                        background-size: 72px;
+                        pointer-events: none;
+                        transition: background-size 235ms cubic-bezier(.4, 0, .2, 1), opacity 235ms cubic-bezier(.4, 0, .2, 1);
+                    }
+                }
+            }
+        }
+        .lookbook-content {
+            &.lookbook-fashion-layout {
+                .lookbook-details {
+                    .title {
+                        a {
+                            border: 0;
+                            color: @color_black24;
+                            cursor: inherit;
+                            font-size: @font-size__xl;
+                            font-weight: @font-weight__regular;
+                            text-align: center;
+                            text-transform: capitalize;
+                            width: 100%;
+                            &:hover {
+                                background: none;
+                                color: @color_black24;
+                            }
+                        }
+                    }
+                    .description {
+                        display: block;
+                        .readmore {
+                            display: none;
+                        }
+                        .dynamic-link {
+                            color: @color_black24;
+                            display: inline-block;
+                            font-size: @font-size__base - 2;
+                            font-weight: @font-weight__bold;
+                            margin-top: @indent__s;
+                            position: relative;
+                            text-transform: uppercase;
+                            &:after {
+                                background: @color-black;
+                                bottom: -.3em;
+                                content: "";
+                                display: block;
+                                height: 1px;
+                                left: 0;
+                                position: absolute;
+                                right: 0;
+                                transition: all .5s ease 0s;
+                            }
+                            &:hover {
+                                text-decoration: none;
+                                &::after {
+                                    left: 15px;
+                                    right: 15px;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            &.grid-2-per-row {
+                .item {
+                    width: 50%;
+                    &.col-lg {
+                        width: 50%;
+                    }
+                }
+            }
+            &.grid-3-per-row {
+                .item {
+                    width: 33.332%;
+                    &.col-lg {
+                        width: 66.664%;
+                    }
+                }
+            }
+            &.grid-4-per-row {
+                .item {
+                    width: 25%;
+                    &.col-lg {
+                        width: 50%;
+                    }
+                    &.col-xl {
+                        width: 75%;
+                    }
+                }
+            }
+        }
+    }
+}
+
+//
+// @Mobile
+// ----------------------------------------
+.media-width(@extremum, @break) when (@extremum = 'max') and (@break = @screen__xs) { 
+    // CMS page Lookbook Demo
+   .cms-lookbook-page {
+       div.lookbook-content {
+           .item {
+               width: 100%;
+           }
+           &.grid-2-per-row {
+               .item {
+                   width: 100%;
+                   &.col-lg {
+                       width: 100%;
+                   }
+               }
+           }
+           &.grid-3-per-row {
+               .item {
+                   width: 100%;
+                   &.col-lg {
+                       width: 100%;
+                   }
+               }
+           }
+           &.grid-4-per-row {
+               .item {
+                   width: 100%;
+                   &.col-lg {
+                       width: 100%;
+                   }
+                   &.col-xl {
+                       width: 100%;
+                   }
+               }
+           }
+       }
+   }   
+}
+
+//
+// @Mobile
+// ----------------------------------------
+.media-width(@extremum, @break) when (@extremum = 'max') and (@break = @screen__m) { 
+   // CMS page Lookbook Demo
+   .cms-lookbook-page {
+       .lookbook-page-title {
+           padding-left: @layout__width-xs-indent;
+           padding-right: @layout__width-xs-indent;
+       }
+       .lookbook-content {
+           padding-left: @layout__width-xs-indent;
+           padding-right: @layout__width-xs-indent;
+           &.grid-2-per-row {
+               .item {
+                   width: 50%;
+                   &.col-lg {
+                       width: 50%;
+                   }
+               }
+           }
+           &.grid-3-per-row {
+               .item {
+                   width: 50%;
+                   &.col-lg {
+                       width: 100%;
+                   }
+                   .youtube {
+                        iframe {
+                            min-height: 309px;
+                        }
+                    }
+                    .youtube-video {
+                        min-height: 309px;
+                    }
+               }
+           }
+           &.grid-4-per-row {
+               .item {
+                   width: 50%;
+                   .youtube {
+                       iframe {
+                           width: 100%;
+                       }
+                   }
+                   .youtube-video {
+                       .slide-image {
+                           max-height: 192px;
+                       }
+                   }
+                   &.col-lg {
+                       width: 100%;
+                   }
+                   &.col-xl {
+                       width: 100%;
+                   }
+               }
+           }
+       }
+   }
+}
+
+//
+// @Desktop
+// ----------------------------------------
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+   // CMS page Lookbook Demo
+   .cms-lookbook-page {
+       .lookbook-page-title {
+           margin-left: auto;
+           margin-right: auto;
+           max-width: @layout__max-width;
+           padding-left: @layout-indent__width;
+           padding-right: @layout-indent__width;
+           width: 100%; 
+           box-sizing: border-box;
+       }
+       .lookbook-content {
+           margin-left: auto;
+           margin-right: auto;
+           max-width: @layout__max-width;
+           padding-left: @layout-indent__width;
+           padding-right: @layout-indent__width;
+           width: 100%;
+           box-sizing: border-box;
+           &.grid-2-per-row {
+               .item {
+                   width: 50%;
+                   &.col-lg {
+                       width: 50%;
+                   }
+               }
+           }
+           &.grid-3-per-row {
+               .item {
+                   width: 33.332%;
+                   &.col-lg {
+                       width: 66.664%;
+                   }
+                   .youtube {
+                       iframe {
+                           min-height: 229px;
+                       }
+                   }
+                   .youtube-video {
+                       min-height: 229px;
+                       .slide-image {
+                           max-height: inherit;
+                       }
+                   }
+               }
+           }
+           &.grid-4-per-row {
+               .item {
+                   width: 33.332%;
+                   .youtube {
+                       iframe {
+                           max-height: 144px;
+                           min-height: 144px;
+                       }
+                   }
+                   .youtube-video {
+                       .slide-image {
+                           max-height: 144px;
+                       }
+                   }
+                   &.col-lg {
+                       width: 66.664%;
+                   }
+                   &.col-xl {
+                       width: 100%;
+                   }
+               }
+           }
+       }
+   }    
+}
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__l) { 
+   // CMS page Lookbook Demo
+   .cms-lookbook-page {
+       .lookbook-content  {
+           &.grid-2-per-row {
+               .item {
+                   width: 50%;
+                   &.col-lg {
+                       width: 50%;
+                   }
+               }
+           }
+           &.grid-3-per-row {
+               .item {
+                   width: 33.332%;
+                   &.col-lg {
+                       width: 66.664%;
+                   }
+                   .youtube {
+                       iframe {
+                           min-height: 315px;
+                       }
+                   }
+                   .youtube-video {
+                       min-height: 315px;
+                   }
+               }
+           }
+           &.grid-4-per-row {
+               .item {
+                   width: 25%;
+                   .youtube {
+                       iframe {
+                           max-height: 144px;
+                           min-height: 144px;
+                       }
+                   }
+                   .youtube-video {
+                       .slide-image {
+                           max-height: 144px;
+                       }
+                   }
+                   &.col-lg {
+                       width: 50%;                        
+                   }
+                   &.col-xl {
+                       width: 75%;
+                   }
+               }
+           }
+       }  
+   } 
+}
+
+@media screen and (min-width: 1200px) {
+    // CMS page Lookbook Demo
+    .cms-lookbook-page {
+        .lookbook-content  {
+            &.grid-3-per-row {
+                .item {
+                    .youtube {
+                        iframe {
+                            min-height: 400px;
+                        }
+                    }
+                    .youtube-video {
+                        min-height: 400px;
+                    }
+                }
+            }
+            &.grid-4-per-row {
+                .item {
+                    .youtube {
+                        iframe {
+                            max-height: 182px;
+                            min-height: 182px;
+                        }
+                    }
+                    .youtube-video {
+                        .slide-image {
+                            max-height: 182px;
+                        }
+                    }
+                }
+            }
+        }   
+    }
+}
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__xl) { 
+   // CMS page Lookbook Demo
+   .cms-lookbook-page {
+       .lookbook-content  {
+           &.grid-3-per-row {
+               .item {
+                   width: 33.332%;
+                   &.col-lg {
+                       width: 66.664%;
+                   }
+                   .youtube {
+                       iframe {
+                           min-height: 400px;
+                       }
+                   }
+                   .youtube-video {
+                       min-height: 400px;
+                   }
+               }
+           }
+           &.grid-4-per-row {
+                .item {
+                    .youtube {
+                        iframe {
+                            max-height: 184px;
+                            min-height: 184px;
+                        }
+                    }
+                    .youtube-video {
+                        .slide-image {
+                            max-height: 184px;
+                        }
+                    }
+                }
+            }
+       }   
+   }
+}

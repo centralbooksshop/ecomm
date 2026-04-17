@@ -1,0 +1,27 @@
+
+<?php
+/**
+ * Copyright © 2016 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+/**
+ * Product view template
+ *
+ * @see \Magento\Catalog\Block\Product\View\Description
+ */
+?>
+<?php 
+// $_zipCodeFlag = $block->isCODAvailable();
+?>
+
+<div class="ZipCodeCODCheck">
+	<p class="msgZipAvailabity">Cash on Delivery is not available in your area!</p>
+	<p class="msgZipAvailabityYes">Cash on Delivery is available in your area!</p>
+	<div><label>Check availability at:</label>
+	<input type="number" name="zipcode" id="zipcode"/>
+	<button class="btnZipCheck">Check</button></div>
+</div>
+

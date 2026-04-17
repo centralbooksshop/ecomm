@@ -1,0 +1,294 @@
+"Go back to product details","Go back to product details"
+"Customize and Add to Cart","Customize and Add to Cart"
+"Your Customization","Your Customization"
+Availability,Availability
+"In stock","In stock"
+"Out of stock","Out of stock"
+Summary,Summary
+"%1 x %2","%1 x %2"
+"Customize: %1","Customize: %1"
+"Select the product options","Select the product options"
+"No options of this product are available.","No options of this product are available."
+"Compare Products","Compare Products"
+Compare,Compare
+"We can't find products matching the selection.","We can't find products matching the selection."
+"Add to Cart","Add to Cart"
+"In Stock","In Stock"
+"Out of Stock","Out of Stock"
+"Add to Wish List","Add to Wish List"
+"Add to Compare","Add to Compare"
+"Not Available","Not Available"
+"Learn More","Learn More"
+...,...
+"New Products","New Products"
+"Check items to add to the cart or","Check items to add to the cart or"
+"select all","select all"
+"Shop By","Shop By"
+"Items %1-%2 of %3","Items %1-%2 of %3"
+"%1 Item","%1 Item"
+"%1 Items","%1 Items"
+Show:,Show:
+"per page","per page"
+"Sort By:","Sort By:"
+"Set Ascending Direction","Set Ascending Direction"
+"Set Descending Direction","Set Descending Direction"
+"View as","View as"
+"Special Price","Special Price"
+"Regular Price","Regular Price"
+"Buy %1 for: ","Buy %1 for: "
+"Click for price","Click for price"
+"Buy %1 for %2 each and <strong class=""benefit"">save<span class=""percent tier-%3"">&nbsp;%4</span>%</strong>","Buy %1 for %2 each and <strong class=""benefit"">save<span class=""percent tier-%3"">&nbsp;%4</span>%</strong>"
+"Buy %1 for %2 each","Buy %1 for %2 each"
+Qty:,Qty:
+Qty,Qty
+"Quick Overview","Quick Overview"
+Loading...,Loading...
+"Email to a Friend","Email to a Friend"
+"See more","See more"
+"Popular Books","Popular Books"
+"Deals of the week","Deals of the week"
+"Update Cart","Update Cart"
+"Shopping Cart","Shopping Cart"
+"* Required Fields","* Required Fields"
+Name,Name
+Email,Email
+"Phone Number","Phone Number"
+"What’s on your mind?","What’s on your mind?"
+Submit,Submit
+"Send Message","Send Message"
+Address:,Address:
+Phone:,Phone:
+Fax:,Fax:
+Email:,Email:
+"Registered Customers","Registered Customers"
+"If you have an account, sign in with your email address.","If you have an account, sign in with your email address."
+Password,Password
+Login,Login
+"Forgot Your Password?","Forgot Your Password?"
+"New Customers","New Customers"
+"Creating an account has many benefits: check out faster, keep more than one address, track orders and more.","Creating an account has many benefits: check out faster, keep more than one address, track orders and more."
+"Create an Account","Create an Account"
+"Your Currency:","Your Currency:"
+"Now Shopping by","Now Shopping by"
+Previous,Previous
+Remove,Remove
+"Clear All","Clear All"
+"Shopping Options","Shopping Options"
+"Average Customer Rating:","Average Customer Rating:"
+"Your Review","Your Review"
+"Submitted on %1","Submitted on %1"
+"Back to My Reviews","Back to My Reviews"
+"Recently Ordered","Recently Ordered"
+"Last Ordered Items","Last Ordered Items"
+"View All","View All"
+Search,Search
+"Search products here...","Search products here..."
+"Select Store","Select Store"
+"Your Language:","Your Language:"
+Top,Top
+"Help Us Keep Magento Healthy","Help Us Keep Magento Healthy"
+"Report All Bugs","Report All Bugs"
+"Toggle Nav","Toggle Nav"
+"Items %1 to %2 of %3 total","Items %1 to %2 of %3 total"
+"%1 Item(s)","%1 Item(s)"
+Page:,Page:
+Page,Page
+"You're currently reading page","You're currently reading page"
+Next,Next
+Show,Show
+"My Account","My Account"
+Setting,Setting
+Colors:,Colors:
+default,default
+blue,blue
+green,green
+yellow,yellow
+violet,violet
+xmas,xmas
+"Last Added Items","Last Added Items"
+"Remove This Item","Remove This Item"
+"Go to Wish List","Go to Wish List"
+"You have no items in your wish list.","You have no items in your wish list."
+"There aren't items yet.","There aren't items yet."
+"Read More","Read More"
+"See Details","See Details"
+"Options Details","Options Details"
+Price,Price
+"See price before order confirmation.","See price before order confirmation."
+Update,Update
+Edit,Edit
+Subtotal:,Subtotal:
+Subtotal,Subtotal
+Shipping,Shipping
+"Order Total","Order Total"
+"Thank you for your purchase!","Thank you for your purchase!"
+"Account Dashboard","Account Dashboard"
+"Address Book","Address Book"
+"Account Information","Account Information"
+Theme,Theme
+Overview,Overview
+"Theme Information","Theme Information"
+Typography,Typography
+"Base Font Size","Base Font Size"
+"The font size of most of other elements (eg. heading elements ) will be automatically calculated relative to this value.","The font size of most of other elements (eg. heading elements ) will be automatically calculated relative to this value."
+"Primary Font Library","Primary Font Library"
+"Determine the font library for regular text.","Determine the font library for regular text."
+"Primary Font Family","Primary Font Family"
+"Determine the font family for regular text. If ‘Inherit’ selected, default font family will be used.","Determine the font family for regular text. If ‘Inherit’ selected, default font family will be used."
+"Primary Font Family Name","Primary Font Family Name"
+"The current font in use is 'Helvetica'. Follow our userguide to add a custom font.","The current font in use is 'Helvetica'. Follow our userguide to add a custom font."
+"Google Font","Google Font"
+"<span>Font preview:</span> this is the preview of the font selected","<span>Font preview:</span> this is the preview of the font selected"
+"Primary Font Weight","Primary Font Weight"
+"Heading Font Library","Heading Font Library"
+"Heading Font Family","Heading Font Family"
+"If ‘Inherit’ selected, default font family will be used.","If ‘Inherit’ selected, default font family will be used."
+"Heading Font Family Name","Heading Font Family Name"
+"Heading Font","Heading Font"
+"Heading Font Weight","Heading Font Weight"
+Elements,Elements
+Logo,Logo
+Image,Image
+Alt,Alt
+Height,Height
+Width,Width
+"General Elements Settings","General Elements Settings"
+"Enable menu sticky","Enable menu sticky"
+"If set 'Yes', sticky menu allows to make your store pages 'sticky' as soon as it hits the top of the page when your users scroll down.","If set 'Yes', sticky menu allows to make your store pages 'sticky' as soon as it hits the top of the page when your users scroll down."
+"Enable Alternative Product Image","Enable Alternative Product Image"
+"When mouse hover on a product (List/Grid), You can see a thumbnail image.","When mouse hover on a product (List/Grid), You can see a thumbnail image."
+"Show author","Show author"
+"Show rating","Show rating"
+"Show price","Show price"
+"Show Add to Cart","Show Add to Cart"
+"Contact for Price","Contact for Price"
+"Show Add to Compare","Show Add to Compare"
+"Show Add to Wishlist","Show Add to Wishlist"
+"Shop by Toggle","Shop by Toggle"
+"Enable Switch Colors","Enable Switch Colors"
+Colors,Colors
+Pages,Pages
+"Primary Color","Primary Color"
+"Default color: #f0141e. If empty, default value will be used.","Default color: #f0141e. If empty, default value will be used."
+"Secondary Color","Secondary Color"
+"Default color: #d8121b. If empty, default value will be used.","Default color: #d8121b. If empty, default value will be used."
+"Primary Text Color","Primary Text Color"
+"Default color: #777. If empty, default value will be used.","Default color: #777. If empty, default value will be used."
+"Secondary Text Color","Secondary Text Color"
+"Default color: #999. If empty, default value will be used.","Default color: #999. If empty, default value will be used."
+"Primary Link Color","Primary Link Color"
+"Default color: #000. If empty, default value will be used.","Default color: #000. If empty, default value will be used."
+"Primary Link Hover Color","Primary Link Hover Color"
+"Primary Border Color","Primary Border Color"
+"Default color: #eee. If empty, default value will be used.","Default color: #eee. If empty, default value will be used."
+"Secondary Border Color","Secondary Border Color"
+"Body background","Body background"
+"Body Background Color","Body Background Color"
+"Default color: #fff. If empty, default value will be used.","Default color: #fff. If empty, default value will be used."
+"Body Background Image","Body Background Image"
+"Body Background Position","Body Background Position"
+"Support three types of values: Length values (eg. 100px 5px); Percentages (e.g. 100% 5%); Keywords (e.g. top right, center bottom, inherit)","Support three types of values: Length values (eg. 100px 5px); Percentages (e.g. 100% 5%); Keywords (e.g. top right, center bottom, inherit)"
+"Body Background Repeat","Body Background Repeat"
+"Set with values - repeat, repeat-x, repeat-y, no-repeat or inherit","Set with values - repeat, repeat-x, repeat-y, no-repeat or inherit"
+Header,Header
+"Head background","Head background"
+"Head Background Color","Head Background Color"
+"Default color: #181818. If empty, default value will be used.","Default color: #181818. If empty, default value will be used."
+"Head Background Image","Head Background Image"
+"Head Background Position","Head Background Position"
+"Head Background Repeat","Head Background Repeat"
+"Head Text Color","Head Text Color"
+"Head Link Color","Head Link Color"
+"Head Link Hover Color","Head Link Hover Color"
+"Header background","Header background"
+"Header Background Color","Header Background Color"
+"Header Background Image","Header Background Image"
+"Header Background Position","Header Background Position"
+"Header Background Repeat","Header Background Repeat"
+"Main Content","Main Content"
+"Main background","Main background"
+"Main Background Color","Main Background Color"
+"Main Background Image","Main Background Image"
+"Main Background Position","Main Background Position"
+"Main Background Repeat","Main Background Repeat"
+Footer,Footer
+"Footer background","Footer background"
+"Footer Background Color","Footer Background Color"
+"Footer Background Image","Footer Background Image"
+"Footer Background Position","Footer Background Position"
+"Footer Background Repeat","Footer Background Repeat"
+"Footer Text Color","Footer Text Color"
+"Footer Link Color","Footer Link Color"
+"Footer Link Hover Color","Footer Link Hover Color"
+"Category (Grid)","Category (Grid)"
+"Product Columns (Desktop)","Product Columns (Desktop)"
+"One column Layout","One column Layout"
+"Two columns Layout","Two columns Layout"
+"Three columns Layout","Three columns Layout"
+"Product Columns Tablet (Landscape)","Product Columns Tablet (Landscape)"
+"Product Columns Tablet (Portrait)","Product Columns Tablet (Portrait)"
+"Product Columns Mobile (Landscape)","Product Columns Mobile (Landscape)"
+"Product Columns Mobile (portrait)","Product Columns Mobile (portrait)"
+"Image Configuration","Image Configuration"
+"Category (List)","Category (List)"
+Settings,Settings
+"Image Height","Image Height"
+"Image Width","Image Width"
+"Show Product Description","Show Product Description"
+"Maximum Description Length","Maximum Description Length"
+"Product View","Product View"
+"Main Image Settings","Main Image Settings"
+"Thumbnail Image Height","Thumbnail Image Height"
+"Thumbnail Image Width","Thumbnail Image Width"
+"Gallery Settings","Gallery Settings"
+"Enable Zoom feature","Enable Zoom feature"
+"If set to 'No', default Magento zoom feature will be used.","If set to 'No', default Magento zoom feature will be used."
+"Mode of zoom","Mode of zoom"
+"Magnifier Fullscreenzoom","Magnifier Fullscreenzoom"
+"Zoom step in percents for the fullscreen view. Default is 20%.","Zoom step in percents for the fullscreen view. Default is 20%."
+"Magnifier Width","Magnifier Width"
+"Width of the magnifier block in pixels.","Width of the magnifier block in pixels."
+"Magnifier Height","Magnifier Height"
+"Gallery navigation loop","Gallery navigation loop"
+"Display alt text as image title","Display alt text as image title"
+"Turn on/off fullscreen","Turn on/off fullscreen"
+"Transition effect for slides changing","Transition effect for slides changing"
+"Transition duration","Transition duration"
+"Value in ms","Value in ms"
+"Related Products","Related Products"
+"Enable Related","Enable Related"
+"Set to 'No' if you wish to hide Related products on the product page.","Set to 'No' if you wish to hide Related products on the product page."
+"Block Title","Block Title"
+"Specify value in pixels.","Specify value in pixels."
+"Related Product Limit","Related Product Limit"
+"Set a default limit on the number of related products displayed on the product page.","Set a default limit on the number of related products displayed on the product page."
+"Upsell Products","Upsell Products"
+"Enable Upsell","Enable Upsell"
+"Set to 'No' if you wish to hide Upsell products on the product page.","Set to 'No' if you wish to hide Upsell products on the product page."
+"Upsell Product Limit","Upsell Product Limit"
+"Set a default limit on the number of upsell products displayed on the product page.","Set a default limit on the number of upsell products displayed on the product page."
+"Custom Tab","Custom Tab"
+Title,Title
+Content,Content
+"Assign static block to content tab","Assign static block to content tab"
+"Assign Custom Tab To","Assign Custom Tab To"
+"Select pages","Select pages"
+"Product Id(s)","Product Id(s)"
+"Enter product id that you want to display Custom Tab. Multiple product ids should be separated by a comma.","Enter product id that you want to display Custom Tab. Multiple product ids should be separated by a comma."
+"Contact Us","Contact Us"
+"Contact Settings","Contact Settings"
+"Contact intro:","Contact intro:"
+Address,Address
+Phone,Phone
+Fax,Fax
+"Show Google Map","Show Google Map"
+"Set to 'No' if you wish to hide Google Map on the contact page.","Set to 'No' if you wish to hide Google Map on the contact page."
+Map:,Map:
+"Supported Iframe.","Supported Iframe."
+"Cross-Sell Products","Cross-Sell Products"
+"Cross-Sell Product Limit","Cross-Sell Product Limit"
+"Set a default limit on the number of cross-sell products displayed on the shopping page.","Set a default limit on the number of cross-sell products displayed on the shopping page."
+More,More
+"Custom CSS","Custom CSS"
+"Load Additional CSS Files","Load Additional CSS Files"
+"You can add your own CSS styles directly here, which allows you to override the default styles of your Theme.","You can add your own CSS styles directly here, which allows you to override the default styles of your Theme."

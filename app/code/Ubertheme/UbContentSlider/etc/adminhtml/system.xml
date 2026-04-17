@@ -1,0 +1,367 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2016 Ubertheme.com All rights reserved.
+
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="ubertheme" translate="label" sortOrder="999">
+            <label>UberTheme</label>
+        </tab>
+        <section id="ubcontentslider" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+            <class>separator-top</class>
+            <label>UB Content Slider</label>
+            <tab>ubertheme</tab>
+            <resource>Ubertheme_UbContentSlider::settings</resource>
+            <group id="general" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>General Config</label>
+                <field id="enable" translate="label comment" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable</label>
+                    <comment>On/Off this module.</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="show_title" translate="label comment" type="select" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Show Block Title</label>
+                    <comment>On/Off the title of Block.</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="title" translate="label comment" type="text" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Block Title</label>
+                    <validate>required-entry</validate>
+                    <depends>
+                        <field id="show_title">1</field>
+                    </depends>
+                </field>
+                <field id="content_type" translate="label comment" type="select" sortOrder="4" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Content Type</label>
+                    <comment>Select the content type to show.</comment>
+                    <source_model>Ubertheme\UbContentSlider\Model\Config\Source\ContentType</source_model>
+                </field>
+                <field id="slider_id" translate="label comment" type="select" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Select Slider</label>
+                    <comment>Select one slider to play.</comment>
+                    <source_model>Ubertheme\UbContentSlider\Model\Config\Source\SelectSlider</source_model>
+                    <depends>
+                        <field id="content_type">slider</field>
+                    </depends>
+                </field>
+                <field id="category_ids" translate="label" type="multiselect" sortOrder="6" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Select Categories</label>
+                    <source_model>Ubertheme\UbContentSlider\Model\Config\Source\Categories</source_model>
+                    <comment>Select categories to filter.</comment>
+                    <depends>
+                        <field id="content_type" separator=",">latest_products,new_products,hot_products,random_products</field>
+                    </depends>
+                </field>
+                <field id="sort_by" translate="label comment" type="select" sortOrder="7" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Products Sort By</label>
+                    <comment>Select field to sort. Default is Created date</comment>
+                    <depends>
+                        <field id="content_type" separator=",">latest_products,new_products,hot_products,random_products</field>
+                    </depends>
+                    <source_model>Ubertheme\UbContentSlider\Model\Config\Source\SortFields</source_model>
+                </field>
+                <field id="sort_dir" translate="label comment" type="select" sortOrder="8" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Products Sort Direction</label>
+                    <comment>Select sort direction. Default is Descending</comment>
+                    <depends>
+                        <field id="content_type" separator=",">latest_products,new_products,hot_products,random_products</field>
+                    </depends>
+                    <source_model>Ubertheme\UbContentSlider\Model\Config\Source\SortDirection</source_model>
+                </field>
+                <field id="from_date" translate="label comment" type="date" sortOrder="9" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>From Date</label>
+                    <comment>If not set. System will get today date time (Y-m-d 0:0:0).</comment>
+                    <frontend_model>Ubertheme\UbContentSlider\Block\Adminhtml\System\Config\Date</frontend_model>
+                    <depends>
+                        <field id="content_type">new_products</field>
+                    </depends>
+                </field>
+                <field id="to_date" translate="label comment" type="date" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>To Date</label>
+                    <comment>If not set. System will get today date time (Y-m-d 23:59:59).</comment>
+                    <frontend_model>Ubertheme\UbContentSlider\Block\Adminhtml\System\Config\Date</frontend_model>
+                    <depends>
+                        <field id="content_type">new_products</field>
+                    </depends>
+                </field>
+                <field id="qty" translate="label comment" type="text" sortOrder="11" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Max Quantity to show</label>
+                    <comment>Set limit of max quantity to show. Maximum is 20.</comment>
+                    <validate>required-entry validate-digits validate-digits-range digits-range-1-20</validate>
+                    <depends>
+                        <field id="content_type" separator=",">latest_products,new_products,hot_products,bestseller_products,random_products</field>
+                    </depends>
+                </field>
+                <field id="item_width" translate="label comment" type="text" sortOrder="12" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Width of Item</label>
+                    <comment>Set width (px) of slide item (image/video). Type '0' for auto width.</comment>
+<!--                    <validate>validate-number required-entry</validate>-->
+                    <validate>required-entry validate-digits validate-digits-range digits-range-0-2000</validate>
+                    <depends>
+                        <field id="content_type">slider</field>
+                    </depends>
+                </field>
+                <field id="item_height" translate="label comment" type="text" sortOrder="13" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Height of Item</label>
+                    <comment>Set height (px) of slide item (image/video). Type '0' for auto height.</comment>
+                    <validate>required-entry validate-digits validate-digits-range digits-range-0-2000</validate>
+                    <depends>
+                        <field id="content_type">slider</field>
+                    </depends>
+                </field>
+                <field id="show_item_title" translate="label comment" type="select" sortOrder="14" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Show Title of Item</label>
+                    <comment>Show/Hide slide item's title.</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="content_type">slider</field>
+                    </depends>
+                </field>
+                <field id="show_item_desc" translate="label comment" type="select" sortOrder="15" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Show Description of Item</label>
+                    <comment>Show/Hide slide item's description.</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="content_type">slider</field>
+                    </depends>
+                </field>
+                <field id="thumb_width" translate="label comment" type="text" sortOrder="16" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Width of Thumbnail</label>
+                    <comment>Set width (px) of thumbnail of slide item (image/video). Type '0' for auto width.</comment>
+                    <validate>required-entry validate-digits validate-digits-range digits-range-0-2000</validate>
+                    <depends>
+                        <field id="content_type">slider</field>
+                    </depends>
+                </field>
+                <field id="thumb_height" translate="label comment" type="text" sortOrder="17" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Height of Thumbnail</label>
+                    <comment>Set height (px) of thumbnail of slide item (image/video). Type '0' for auto height.</comment>
+                    <validate>required-entry validate-digits validate-digits-range digits-range-0-2000</validate>
+                    <depends>
+                        <field id="content_type">slider</field>
+                    </depends>
+                </field>                
+                <field id="show_name" translate="label comment" type="select" sortOrder="18" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Show Name</label>
+                    <comment>Show/Hide product's name.</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="content_type" separator=",">latest_products,new_products,hot_products,bestseller_products,random_products</field>
+                    </depends>
+                </field>
+                <field id="show_price" translate="label comment" type="select" sortOrder="19" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Show Price</label>
+                    <comment>Show/Hide product's price.</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="content_type" separator=",">latest_products,new_products,hot_products,bestseller_products,random_products</field>
+                    </depends>
+                </field>
+                <field id="show_desc" translate="label comment" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Show Description</label>
+                    <comment>Show/Hide product's description.</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="content_type" separator=",">latest_products,new_products,hot_products,bestseller_products,random_products</field>
+                    </depends>
+                </field>
+                <field id="desc_length" translate="label comment" type="text" sortOrder="21" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Length of Description</label>
+                    <comment>Set max length of product's description. Maximum is 500 chars.</comment>
+                    <validate>required-entry validate-digits validate-digits-range digits-range-1-500</validate>
+                    <depends>
+                        <field id="content_type" separator=",">latest_products,new_products,hot_products,bestseller_products,random_products</field>
+                        <field id="show_desc">1</field>
+                    </depends>
+                </field>
+                <field id="show_readmore" translate="label comment" type="select" sortOrder="22" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Show Readmore</label>
+                    <comment>Show/Hide readmore link.</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="content_type" separator=",">latest_products,new_products,hot_products,bestseller_products,random_products</field>
+                        <field id="show_desc" >1</field>
+                    </depends>
+                </field>
+                <field id="show_review" translate="label comment" type="select" sortOrder="23" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Show Review</label>
+                    <comment>Show/Hide product's review.</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="content_type" separator=",">latest_products,new_products,hot_products,bestseller_products,random_products</field>
+                    </depends>
+                </field>
+                <field id="show_wishlist" translate="label comment" type="select" sortOrder="24" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Show Wish List</label>
+                    <comment>Show/Hide add to wish list button.</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="content_type" separator=",">latest_products,new_products,hot_products,bestseller_products,random_products</field>
+                    </depends>
+                </field>
+                <field id="show_compare" translate="label comment" type="select" sortOrder="25" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Show Compare</label>
+                    <comment>Show/Hide add to compare button</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="content_type" separator=",">latest_products,new_products,hot_products,bestseller_products,random_products</field>
+                    </depends>
+                </field>
+                <field id="show_add_cart" translate="label comment" type="select" sortOrder="26" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Show Add To Cart</label>
+                    <comment>Show/Hide add to cart button.</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="content_type" separator=",">latest_products,new_products,hot_products,bestseller_products,random_products</field>
+                    </depends>
+                </field>
+            </group>
+            <group id="slider_config" translate="label" type="text" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Slider Config</label>
+                <field id="js_lib" translate="label comment" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>JS Library</label>
+                    <comment>Select the JS library to include.</comment>
+                    <source_model>Ubertheme\UbContentSlider\Model\Config\Source\JSLib</source_model>
+                </field>
+                <field id="single_item" translate="label comment" type="select" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Single Item</label>
+                    <comment>If you select 'Yes', the slider will show with single item.</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="js_lib">owl1</field>
+                    </depends>
+                </field>
+                <field id="number_items" translate="label comment" type="text" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Number Items Per Page (on large screen)</label>
+                    <comment>Active only if 'Single Item' is 'No'.</comment>
+                    <validate>required-entry validate-digits validate-digits-range digits-range-1-20</validate>
+                    <depends>
+                        <field id="js_lib">owl1</field>
+                        <field id="single_item">0</field>
+                    </depends>
+                </field>
+                <field id="number_items_desktop" translate="label comment" type="text" sortOrder="4" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Number Items Per Page (on desktop)</label>
+                    <comment>Active only if 'Single Item' is 'No'.</comment>
+                    <validate>required-entry validate-digits validate-digits-range digits-range-1-20</validate>
+                    <depends>
+                        <field id="js_lib">owl1</field>
+                        <field id="single_item">0</field>
+                    </depends>
+                </field>
+                <field id="number_items_desktop_small" translate="label comment" type="text" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Number Items Per Page (on desktop small)</label>
+                    <comment>Active only if 'Single Item' is 'No'.</comment>
+                    <validate>required-entry validate-digits validate-digits-range digits-range-1-20</validate>
+                    <depends>
+                        <field id="js_lib">owl1</field>
+                        <field id="single_item">0</field>
+                    </depends>
+                </field>
+                <field id="number_items_tablet" translate="label comment" type="text" sortOrder="6" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Number Items Per Page (on tablet)</label>
+                    <comment>Active only if 'Single Item' is 'No'.</comment>
+                    <validate>required-entry validate-digits validate-digits-range digits-range-1-20</validate>
+                    <depends>
+                        <field id="js_lib">owl1</field>
+                        <field id="single_item">0</field>
+                    </depends>
+                </field>
+                <field id="number_items_tablet_small" translate="label comment" type="text" sortOrder="7" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Number Items Per Page (on tablet mini)</label>
+                    <comment>Active only if 'Single Item' is 'No'.</comment>
+                    <validate>required-entry validate-digits validate-digits-range digits-range-1-20</validate>
+                    <depends>
+                        <field id="js_lib">owl1</field>
+                        <field id="single_item">0</field>
+                    </depends>
+                </field>
+                <field id="number_items_mobile" translate="label comment" type="text" sortOrder="8" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Number Items Per Page (on mobile)</label>
+                    <comment>Active only if 'Single Item' is 'No'.</comment>
+                    <validate>required-entry validate-digits validate-digits-range digits-range-1-20</validate>
+                    <depends>
+                        <field id="js_lib">owl1</field>
+                        <field id="single_item">0</field>
+                    </depends>
+                </field>
+                <field id="auto_run" translate="label comment" type="select" sortOrder="9" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Auto run</label>
+                    <comment>If you select 'Yes', the slider will auto run.</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="auto_height" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Auto Height</label>
+                    <comment>If you select 'Yes', the slider will auto height by content.</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="slide_speed" translate="label comment" type="text" sortOrder="11" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Slider Speed</label>
+                    <comment>Set speed of slider (milisecon).</comment>
+                    <validate>required-entry validate-number</validate>
+                </field>
+                <field id="stop_on_hover" translate="label comment" type="select" sortOrder="12" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Stop On Hover</label>
+                    <comment>If you select 'Yes', the slider will stop when mouse hover.</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="show_navigation" translate="label comment" type="select" sortOrder="13" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Show Slider Navigation</label>
+                    <comment>Select 'Yes' to show the slider navigation.</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="show_paging" translate="label comment" type="select" sortOrder="14" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Show Slider Paging</label>
+                    <comment>Select 'Yes' to show the slider paging.</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="paging_numbers" translate="label comment" type="select" sortOrder="15" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Show Paging Numbers</label>
+                    <comment>Select 'Yes' to show the slider paging with numbers.</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="show_paging">1</field>
+                    </depends>
+                </field>
+                <field id="show_thumbnail" translate="label comment" type="select" sortOrder="16" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Show Slider Thumbnail</label>
+                    <comment>Select 'Yes' to show slider with thumbnail images.</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="js_lib">owl1</field>
+                        <field id="single_item">1</field>
+                    </depends>
+                </field>
+                <field id="enable_lazyload" translate="label comment" type="select" sortOrder="17" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable Lazy Load</label>
+                    <comment>Select 'Yes' to apply lazy load to images.</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="js_lib">owl1</field>
+                    </depends>
+                </field>
+                <field id="slide_transition" translate="label comment" type="select" sortOrder="18" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Slider Transition</label>
+                    <comment>Active only if 'Single Item' is set to 'Yes' and works only in modern browsers that support CSS3 translate3d methods.</comment>
+                    <source_model>Ubertheme\UbContentSlider\Model\Config\Source\Owl1Transitions</source_model>
+                    <depends>
+                        <field id="js_lib">owl1</field>
+                        <field id="single_item">1</field>
+                    </depends>
+                </field>
+                <field id="show_processbar" translate="label comment" type="select" sortOrder="19" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable Process Bar</label>
+                    <comment>Select 'Yes' to show slider process bar.</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="js_lib">owl1</field>
+                        <field id="single_item">1</field>
+                    </depends>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

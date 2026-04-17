@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+    <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Acl/etc/acl.xsd">
+        <preference for="Magento\Bundle\Model\Product\CopyConstructor\Bundle" type="Retailinsights\ProductIssues\Model\Rewrite\Product\CopyConstructor\Bundle" />
+
+        <preference for="Magento\Bundle\Test\Unit\Model\Product\CopyConstructor\BundleTest" type="Retailinsights\ProductIssues\Model\Rewrite\Product\CopyConstructor\BundleTest" />
+		<preference for="Magento\Catalog\Model\Product\Copier" type="Retailinsights\ProductIssues\Model\Rewrite\Product\Copier" />
+		<preference for="Magento\UrlRewrite\Model\Storage\DbStorage" type="Retailinsights\ProductIssues\Model\Storage\DbStorage" />
+    </config>

@@ -1,0 +1,133 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @package     Plumrocket_RMA
+ * @copyright   Copyright (c) 2021 Plumrocket Inc. (https://plumrocket.com)
+ * @license     https://plumrocket.com/license   End-user License Agreement
+ */
+-->
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Webapi:etc/webapi.xsd">
+    <route url="/V1/prreturns" method="GET">
+        <service class="Plumrocket\RMA\Api\ReturnListInterface" method="getList"/>
+        <resources>
+            <resource ref="Plumrocket_RMA::prrma"/>
+        </resources>
+    </route>
+
+    <route url="/V1/pr-returns" method="GET">
+        <service class="Plumrocket\RMA\Api\ReturnRepositoryInterface" method="getList"/>
+        <resources>
+            <resource ref="Plumrocket_RMA::prrma"/>
+        </resources>
+    </route>
+    <route url="/V1/pr-returns" method="POST">
+        <service class="Plumrocket\RMA\Api\ReturnManagementInterface" method="save"/>
+        <resources>
+            <resource ref="Plumrocket_RMA::prrma"/>
+        </resources>
+    </route>
+    <route url="/V1/pr-returns" method="PUT">
+        <service class="Plumrocket\RMA\Api\ReturnManagementInterface" method="save"/>
+        <resources>
+            <resource ref="Plumrocket_RMA::prrma"/>
+        </resources>
+    </route>
+    <route url="/V1/pr-returns/:id" method="GET">
+        <service class="Plumrocket\RMA\Api\ReturnRepositoryInterface" method="getById"/>
+        <resources>
+            <resource ref="Plumrocket_RMA::prrma"/>
+        </resources>
+    </route>
+    <route url="/V1/pr-returns/:id/authorize" method="POST">
+        <service class="Plumrocket\RMA\Api\ReturnManagementInterface" method="authorize"/>
+        <resources>
+            <resource ref="Plumrocket_RMA::prrma"/>
+        </resources>
+    </route>
+    <route url="/V1/pr-returns/:id/receive" method="POST">
+        <service class="Plumrocket\RMA\Api\ReturnManagementInterface" method="receive"/>
+        <resources>
+            <resource ref="Plumrocket_RMA::prrma"/>
+        </resources>
+    </route>
+    <route url="/V1/pr-returns/:id/approve" method="POST">
+        <service class="Plumrocket\RMA\Api\ReturnManagementInterface" method="approve"/>
+        <resources>
+            <resource ref="Plumrocket_RMA::prrma"/>
+        </resources>
+    </route>
+    <route url="/V1/pr-returns/:id/cancel" method="POST">
+        <service class="Plumrocket\RMA\Api\ReturnManagementInterface" method="cancel"/>
+        <resources>
+            <resource ref="Plumrocket_RMA::prrma"/>
+        </resources>
+    </route>
+
+    <route url="/V1/pr-returns/:id/tracking-numbers" method="GET">
+        <service class="Plumrocket\RMA\Api\ReturnManagementInterface" method="getTrackingNumbers"/>
+        <resources>
+            <resource ref="Plumrocket_RMA::prrma"/>
+        </resources>
+    </route>
+    <route url="/V1/pr-returns/:id/tracking-numbers" method="POST">
+        <service class="Plumrocket\RMA\Api\ReturnManagementInterface" method="addTrackingNumber"/>
+        <resources>
+            <resource ref="Plumrocket_RMA::prrma"/>
+        </resources>
+    </route>
+    <route url="/V1/pr-returns/:id/tracking-numbers/:trackId" method="DELETE">
+        <service class="Plumrocket\RMA\Api\ReturnManagementInterface" method="removeTrackingNumber"/>
+        <resources>
+            <resource ref="Plumrocket_RMA::prrma"/>
+        </resources>
+    </route>
+
+    <route url="/V1/pr-returns/items/reasons" method="GET">
+        <service class="Plumrocket\RMA\Api\ReturnItemReasonRepositoryInterface" method="getList"/>
+        <resources>
+            <resource ref="Plumrocket_RMA::prrma"/>
+        </resources>
+    </route>
+
+    <route url="/V1/pr-returns/items/resolutions" method="GET">
+        <service class="Plumrocket\RMA\Api\ReturnItemResolutionRepositoryInterface" method="getList"/>
+        <resources>
+            <resource ref="Plumrocket_RMA::prrma"/>
+        </resources>
+    </route>
+
+    <route url="/V1/pr-returns/items/conditions" method="GET">
+        <service class="Plumrocket\RMA\Api\ReturnItemConditionRepositoryInterface" method="getList"/>
+        <resources>
+            <resource ref="Plumrocket_RMA::prrma"/>
+        </resources>
+    </route>
+
+    <route url="/V1/pr-returns/items/managers" method="GET">
+        <service class="Plumrocket\RMA\Api\ReturnManagerRepositoryInterface" method="getList"/>
+        <resources>
+            <resource ref="Plumrocket_RMA::prrma"/>
+        </resources>
+    </route>
+
+    <route url="/V1/pr-returns/:id/messages" method="GET">
+        <service class="Plumrocket\RMA\Api\ReturnManagementInterface" method="getMessagesList"/>
+        <resources>
+            <resource ref="Plumrocket_RMA::prrma"/>
+        </resources>
+    </route>
+    <route url="/V1/pr-returns/:id/messages" method="POST">
+        <service class="Plumrocket\RMA\Api\ReturnManagementInterface" method="addMessage"/>
+        <resources>
+            <resource ref="Plumrocket_RMA::prrma"/>
+        </resources>
+    </route>
+
+    <route url="/V1/pr-returns/response-templates" method="GET">
+        <service class="Plumrocket\RMA\Api\ResponseTemplateRepositoryInterface" method="getList"/>
+        <resources>
+            <resource ref="Plumrocket_RMA::prrma"/>
+        </resources>
+    </route>
+</routes>

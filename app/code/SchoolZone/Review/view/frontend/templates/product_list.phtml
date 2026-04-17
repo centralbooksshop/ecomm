@@ -1,0 +1,272 @@
+<?php
+/** @var \SchoolZone\Review\Block\Display $block */
+$schoolName = urldecode($this->getRequest()->getParam('schoolname'));
+$classCollection = $block->getCustomClass($schoolName);
+$schoolImage = $block->getImage($schoolName);
+?>
+<div class = "alert">
+<strong><h2><?= $schoolName ?></h2></strong>
+</div>
+<div id="class-list">
+    <?php foreach ($classCollection as $key => $value) {
+        $classId = strtolower(str_replace(' ', '', $value['label'])); 
+    ?>
+        <div class="class-card <?= $classId ?>" onclick="toggleBundle('<?= $classId ?>')">
+            <?= $value['label'] ?>
+        </div>
+    <?php } ?>
+</div>
+
+<?php foreach ($classCollection as $key => $value) {
+    $classLabel = $value['label'];
+    $classId = strtolower(str_replace(' ', '', $classLabel));
+    $productsByClass = $block->getCustomProductsByClass($schoolName, $value);
+    $printedBundles = []; 
+?>
+    <div id="<?= $classId ?>" class="bundle-container">
+        <?php foreach ($productsByClass as $bundle) {
+            foreach ($bundle['data'] as $bundleItem) {
+		    $bundleName = $bundleItem['options'];
+		    $bundleId = $bundleItem['entity_id'];
+		    $orgName = $bundleItem['org_name'];
+                if (in_array($bundleName, $printedBundles)) {
+                    continue;
+                }
+		$printedBundles[] = $bundleName;
+         ?>
+                <div class="bundle-card" onclick="toggleBooks('bundle_<?= $bundleId ?>')">
+                    <?= $bundleName ?>
+		</div>
+		
+		<div id="bundle_<?= $bundleId ?>" class="book-container">
+		<div class = "main_title">
+  		  <?php echo $orgName; ?> 
+	        </div>
+		<table class="book-table">
+            <tr class="table-header">
+                <th>Image</th>
+		<th>Book Name</th>
+  		<th>Publisher</th>
+                <th>Qty</th>
+                <th>Last Year MRP</th>
+               <!-- <th>Total</th> -->
+	    </tr>
+	    <?php
+                $groupedBooks = $block->getCustomBooksByBundleId($bundleId);
+                $grandTotal = 0;
+		foreach ($groupedBooks as $groupTitle => $books) {
+			echo "<tr class='group-title'><td colspan='5'>{$groupTitle}</td></tr>";
+			foreach ($books as $book) {
+	                    $grandTotal += $book['total'];
+	    ?>
+		<tr class="book-row">
+		    <td><img src="<?= $book['image_url'] ?>" class="product-img clickable-img"  data-img="<?= $book['image_url'] ?>"/></td>
+		    <td><?= $book['name'] ?></td>
+		    <td><?= $book['publisher_name'] ?></td>
+                    <td><?= $book['qty'] ?></td>
+                    <td>₹<?= number_format($book['price'], 2) ?></td>
+		   <!-- <td>₹<?= number_format($book['total'], 2) ?></td> -->
+                </tr>
+            <?php } } ?>
+<!--	<tr style="background: #f0f0f0; font-weight: bold;">
+                <td colspan="4" style="text-align: right;">Total Sale Price:</td>
+                <td style="color: red;">₹<?= number_format($grandTotal, 2) ?></td>
+            </tr> -->
+
+        </table>
+                </div>
+        <?php } } ?>
+    </div>
+<?php } ?>
+
+<div id="image-popup" class="popup-overlay">
+    <span class="popup-close">&times;</span>
+    <img id="popup-img" class="popup-content" />
+</div>
+
+<style>
+
+.popup-overlay {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    padding-top: 50px;
+    left: 0; top: 0;
+    width: 100%; height: 100%;
+    background-color: rgba(0,0,0,0.8);
+}
+.popup-content {
+    margin: auto;
+    display: block;
+    max-width: 80%;
+    max-height: 80%;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+.popup-close {
+    position: absolute;
+    top: 20px;
+    right: 35px;
+    color: white;
+    font-size: 40px;
+    font-weight: bold;
+    cursor: pointer;
+}
+.popup-close:hover {
+    color: red;
+}
+.clickable-img {
+    cursor: zoom-in;
+} 
+
+.book-container {
+  display: none;
+  margin-left: 50px;
+}
+
+.book-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+.book-table th,
+.book-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+.book-table th {
+background:#0055aa /* #003366 */ ;
+    color: white;
+    padding: 8px;
+    text-align: left;
+}
+
+.product-img {
+  width: 90px;
+  height: auto;
+} 
+
+.book-table .group-title {
+    background: #003366;
+    color: #fff;
+    font-weight: bold;
+    padding: 10px;
+}
+
+.bundle-container {
+  display: none;
+  margin: 10px 0 20px 30px;
+}
+
+.bundle-card {
+  background: #eef4ff;
+  margin: 10px;
+  padding: 10px 20px;
+  border-left: 4px solid #3366cc;
+  cursor: pointer;
+  font-weight: bold;
+  border-radius: 4px;
+}
+.class-card {
+  display: inline-block;
+  width: 180px;
+  margin: 10px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  cursor: pointer;
+  text-align: center;
+  padding: 15px;
+  transition: 0.3s;
+}
+.class-card:hover {
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+ .alert {
+      margin: 10px auto;
+      max-width: 600px;
+      background-color: #fff3cd;
+      border: 1px solid #ffeeba;
+      border-radius: 8px;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: #856404;
+      text-align: center;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .alert h1 {
+      margin: 0;
+      font-size: 22px;
+    }
+.active-class {
+  background-color: black;
+  color: white;
+  border-radius: 5px;
+}
+h2 {
+    font-weight: 900 !important;
+}
+.main_title {
+    color: black;
+    padding: 8px;
+    text-align: left;
+    font-weight: bold;
+}
+
+</style>
+<script>
+  function toggleBundle(classId) {
+  const escapedClassId = classId.split(' ').map(className => className.replace(/\./g, '\\.')).join('.'); 
+  console.log(" classId : "+ classId+" "+escapedClassId);
+
+  document.querySelectorAll('.bundle-container').forEach(e => e.style.display = 'none');
+  const target = document.getElementById(classId);
+  if (target) {
+	  target.style.display = 'block';
+  }
+  document.querySelectorAll('.class-card').forEach(card => {
+        card.classList.remove('active-class');
+  });
+  const selected = document.querySelector(`.class-card.${escapedClassId}`);
+  	if (selected) {
+	    selected.classList.add('active-class');
+	} 
+ }
+
+ function toggleBooks(bundleId) {
+  document.querySelectorAll('.book-container').forEach(e => e.style.display = 'none');
+  const target = document.getElementById(bundleId);
+  if (target) {
+    target.style.display = 'block';
+  }
+}
+</script>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    const popup = document.getElementById("image-popup");
+    const popupImg = document.getElementById("popup-img");
+    const closeBtn = document.querySelector(".popup-close");
+
+    document.querySelectorAll(".clickable-img").forEach(img => {
+        img.addEventListener("click", function() {
+            popup.style.display = "block";
+            popupImg.src = this.getAttribute("data-img");
+        });
+    });
+
+    closeBtn.addEventListener("click", function() {
+        popup.style.display = "none";
+    });
+
+    popup.addEventListener("click", function(e) {
+        if (e.target === popup) {
+            popup.style.display = "none";
+        }
+    });
+});
+</script>
+

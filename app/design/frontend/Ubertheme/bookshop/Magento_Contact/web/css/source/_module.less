@@ -1,0 +1,280 @@
+// /**
+//  * Copyright © 2016 Magento. All rights reserved.
+//  * See COPYING.txt for license details.
+//  */
+
+//
+//  Common
+//  _____________________________________________
+
+& when (@media-common = true) {
+  .contact-index-index {
+    .page-title-wrapper {
+      h1 {
+        border-bottom: 1px solid #eee;
+        padding: 0 0 15px;
+        width: 100%;
+      }
+    }
+  }
+
+  .form.contact  {
+    float: left;
+    .fieldset{
+      border: 0px none;
+      float: left;
+      padding: 0px;
+      margin: 0px;
+      .form-list input.input-text{
+        border: 1px solid #ccc;
+        box-shadow: 0 0 2px 2px #F0F0F0 inset;
+        -moz-box-shadow: 0 0 2px 2px #F0F0F0 inset;
+        -webkit-box-shadow: 0 0 2px 2px #F0F0F0 inset;
+        height: 23px;
+      }
+      .form-list li.wide textarea {
+        border: 1px solid #ccc;
+        box-shadow: 0 0 2px 2px #F0F0F0 inset;
+        -moz-box-shadow: 0 0 2px 2px #F0F0F0 inset;
+        -webkit-box-shadow: 0 0 2px 2px #F0F0F0 inset;
+        width: 805px;
+      }
+      .buttons-set p.required{
+        text-align: left;
+      }
+      .buttons-set button.button{
+        float: left;
+      }
+    }
+    .fieldset {
+      .field {
+        float: left;
+        width: 275px;
+        label {
+          color: #333;
+          float: left;
+          font-weight: bold;
+          margin: 0 0 10px;
+          position: relative;
+          text-align: left;
+          z-index: 0;
+          width: 100%;
+        }
+        .control  {
+          clear: both;
+          display: block;
+          width: 260px;
+          .input-text {
+            border: 1px solid #cccccc;
+            box-shadow: 0 0 2px 2px #f0f0f0 inset;
+            height: 40px;
+            padding: 7px 5px;
+          }
+        }
+        &.comment {
+          width: 100%;
+          .control {
+            textarea {
+              border: 1px solid #cccccc;
+              min-height: 200px;
+              padding: 7px 5px;
+              width: 810px;
+              min-height: 250px;
+              box-shadow: 0 0 2px 2px #f0f0f0 inset;
+            }
+          }
+        }
+      }
+    }
+    .actions-toolbar {
+      margin: 0 !important;
+      .primary {
+        font-weight: @font-weight__regular;
+        margin-top: 10px;
+        text-transform: uppercase;
+      }
+    }
+  }
+
+  .contact-info .inner{
+    margin: 0;
+    .info-inner {
+      font-size: 14px;
+      padding: 40px 0 0 0;
+      p{
+        float: left;
+        margin: 0 0 20px 0;
+        width: 835px;
+      }
+      .info-inner2 {
+        float: right;
+        width: 270px;
+        .list-info{
+          margin: 0;
+          padding: 0;
+          li{
+            list-style: none;
+            margin: 0;
+            padding: 5px 0;
+            width: 100%;
+            float: left;
+            em {
+              float: left;
+              height: 28px;
+              margin: 3px 10px 0 0;
+            }
+            span{
+              color: #2f2f2f;
+              font-weight: @font-weight__bold;
+            }
+          }
+        }
+      }
+    }
+  } 
+  
+
+}
+
+//
+//    Mobile
+//--------------------------------------
+@media only screen and (max-width : 767px) {
+  .form.contact  {
+    .fieldset {
+      .field {
+        width: 100%;
+        .control  {
+          width: 100%;
+        }
+        &.comment {
+          .control {
+            textarea {
+              width: 100%;
+            }
+          }
+        }
+      }
+    }
+  }
+  .contact-info .inner{
+    .info-inner {
+      p{
+        width: 100%;
+      }
+      .info-inner2 {
+        width: 100%;
+      }
+    }
+  }
+}
+
+//
+//    Mobile vertical
+//--------------------------------------
+@media only screen and (max-width : 479px) {
+
+}
+
+//
+//  Desktop
+//  _____________________________________________
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+  .form.contact  {
+    .fieldset {
+      .field {
+        width: 245px;
+        .control  {
+          width: 230px;
+        }
+        &.comment {
+          .control {
+            textarea {
+              width: 720px;
+            }
+          }
+        }
+      }
+    }
+  }
+  .contact-info .inner{
+    .info-inner {
+      p{
+        width: 450px;
+      }
+      .info-inner2 {
+        width: 270px;
+      }
+    }
+  }
+}
+
+//
+//  Desktop
+//  _____________________________________________
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__l) {
+  .form.contact  {
+    max-width: 700px;
+    .fieldset {
+      .field {
+        width: 225px;
+        .control  {
+          width: 220px;
+        }
+        &.comment {
+          .control {
+            textarea {
+              width: 670px;
+            }
+          }
+        }
+      }
+    }
+  }
+  .contact-info .inner{
+    .info-inner {
+      p{
+        width: 685px;
+      }
+      .info-inner2 {
+        width: 270px;
+      }
+    }
+  }
+}
+//
+//  Desktop large
+//  _____________________________________________
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__xl) {
+  .form.contact  {
+    max-width: 830px;
+    .fieldset {
+      .field {
+        width: 275px;
+        .control  {
+          width: 260px;
+        }
+        &.comment {
+          .control {
+            textarea {
+              width: 810px;
+            }
+          }
+        }
+      }
+    }
+  }
+  .contact-info .inner{
+    .info-inner {
+      p{
+        width: 835px;
+      }
+      .info-inner2 {
+        width: 270px;
+      }
+    }
+  }
+}

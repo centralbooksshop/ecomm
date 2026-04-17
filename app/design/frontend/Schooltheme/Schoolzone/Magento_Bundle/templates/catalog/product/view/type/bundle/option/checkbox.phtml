@@ -1,0 +1,142 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+if(isset($_SESSION["s_school_name"])) {
+	$school_name_post = $_SESSION['s_school_name'];
+	$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+	$school_helper = $objectManager->get('\SchoolZone\Search\Helper\Data');
+	$willbe_given_msg = $school_helper->getSchoolDetails($school_name_post);
+	$school_given_msg = $school_helper->getSchoolGivenDetails($school_name_post);
+} else {
+	$willbe_given_msg = 'This will delivered in 5-7* bussiness days';
+    $school_given_msg = 'This item will be issued by school';
+} ?>
+
+<?php /* @var $block \Magento\Bundle\Block\Catalog\Product\View\Type\Bundle\Option\Checkbox */ ?>
+<?php $validateCheck=0; ?>
+<?php 
+    $pre_selected = $this->getProduct()->getAttributeText('pre_selected');
+    $selectedChecks =array();
+?>
+
+<?php $_option = $block->getOption() ?>
+<?php $_selections = $_option->getSelections() ?>
+<div class="field option <?= ($_option->getRequired()) ? ' required': '' ?>">
+    <tr class="content-title"><td colspan="4"><h2><label class="label">
+       <?= $block->escapeHtml($_option->getTitle()) ?>
+       <?php if($_option->getRequired() == 0){ ?>
+            <?php if($pre_selected == 'No'){?>
+                        <input type="checkbox" class="GroupRequired" id="selectAllGroup-<?= /* @escapeNotVerified */ $_option->getId() ?>" checked="checked"/>
+            <?php }else{?>
+                        <input type="checkbox" class="GroupRequired" id="selectAllGroup-<?= /* @escapeNotVerified */ $_option->getId() ?>" checked="checked" />
+            <?php } ?>
+       <?php } ?>
+    </label><?php if($_option->getRequired() == 1){ ?>* <?php } ?></h2>
+
+    </tr>
+    <div class="control">
+        <div class="nested options-list">
+            <?php //if ($block->showSingle()): ?>
+            <?php //else:?>
+                <?php $_SESSION["required_items"]=''; ?>
+                <?php foreach($_selections as $_selection): ?>
+                  
+                    <?php //echo '<pre>'; print_r($_selection); ?>
+                    <div class="field choice">
+                        <tr><td><?php //echo $_selection->getProductId() .' selection '. $block->isSelected($_selection) ?><input class="bundle-option-<?= /* @escapeNotVerified */ $_option->getId() ?> checkbox product bundle option change-container-classname"
+                               id="bundle-option-<?= /* @escapeNotVerified */ $_option->getId() ?>-<?= /* @escapeNotVerified */ $_selection->getSelectionId() ?>"
+                               type="checkbox"
+                               <?php if ($_option->getRequired()) /* @escapeNotVerified */ echo 'data-validate="{\'validate-one-required-by-name\':\'input[name^=&quot;bundle_option[' . $_option->getId() . ']&quot;]:checked\'}"'?>
+                               name="bundle_option[<?= /* @escapeNotVerified */ $_option->getId() ?>][<?= /* @escapeNotVerified */ $_selection->getId() ?>]"
+                               data-selector="bundle_option[<?= /* @escapeNotVerified */ $_option->getId() ?>][<?= /* @escapeNotVerified */ $_selection->getId() ?>]"
+                                <?php if ($block->isSelected($_selection) && $_option->getRequired() == 1) echo 'onclick="return false"' ?>
+                               <?php if ($block->isSelected($_selection) && $_option->getRequired() != 0) echo ' checked="checked" style="opacity:0.3"' ?>
+                                <?php if(($_option->getRequired() == 0) && $block->isSelected($_selection)) echo 'style="display:none"' .'onclick="return false"' ?>
+                                 <?php if ($_option->getRequired()) echo 'data-validate={required:true}' ?>
+
+                               <?php if (!$_selection->isSaleable()) { echo ' disabled="disabled"'; }
+			//else if ($block->isSelected($_selection) && $_option->getRequired() != 0) {echo ' disabled="disabled"';}
+							   ?>
+                               
+
+                               value="<?= /* @escapeNotVerified */ $_selection->getSelectionId() ?>"  />
+
+                               <?php 
+                                    $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+                                    $customerSession = $objectManager->get('Magento\Customer\Model\Session');
+									if(empty($_SESSION["optional_items"])) {
+										$_SESSION["optional_items"] = "";
+								    }
+
+                                    if($customerSession->isLoggedIn()) {
+                                    }else{
+                                       $_SESSION["optional_items"]='';
+                                    }
+                                  
+                                    if($block->isSelected($_selection) == ''){
+                                        $_SESSION["optional_items"] .= $_selection->getProductId().',';
+                                    }
+                                    if($_option->getRequired() == 0 && $block->isSelected($_selection)!=1){
+                                        $_SESSION["optional_items"] .= $_selection->getProductId().',';
+                                    }
+                               ?>
+                               <?php 
+                                    if($_option->getRequired() == 1 && $block->isSelected($_selection)!=1){
+                                        $validateCheck = 1;
+                                    }
+                                ?>
+
+                              
+                        
+                        <label class="label"
+                               for="bundle-option-<?= /* @escapeNotVerified */ $_option->getId() ?>-<?= /* @escapeNotVerified */ $_selection->getSelectionId()?>">
+                            <span><?= /* @escapeNotVerified */ $block->getSelectionQtyTitlePrice($_selection)  ?></span>
+
+                    <?php
+					if($_selection->getCustomField() == 1){
+
+                         $priceTitle = $willbe_given_msg;
+                    }
+                    else if($_selection->getCustomField() == 2){
+						$priceTitle = $school_given_msg;
+                    } else {
+						$priceTitle ='';  
+					}
+					if(!empty($priceTitle)){
+					?>
+					<tr class="given_tr">
+					  <td class="given_td"><p class="given_opt"><?php echo '( '.$priceTitle.' )'; ?></p></td>
+					  <td class="given_td"></td><td class="given_td"></td><td class="given_td"></td>
+					</tr>
+					<?php } ?>
+                            <?php 
+							   /* 
+					            //$table_content =  $block->getSelectionQtyTitleTable($_selection);
+                                foreach ($table_content as $value) {
+                                   if(isset($value[5])){  ?>
+                                    <tr class="given_tr"><td class="given_td">
+                                    <p class="given_opt"><?php echo '( '.$value[5].' )'; ?></p>
+                                   </td><td class="given_td"></td><td class="given_td"></td><td class="given_td"></td></tr>
+                                  <?php }elseif(isset($value[6])){ ?>
+                                      <tr class="given_tr"><td class="given_td">
+                                    <p class="given_opt"><?php echo '( '.$value[6].' )'; ?></p>
+                                   </td><td class="given_td"></td><td class="given_td"></td><td class="given_td"></td></tr>
+                                   <?php }
+                               }*/
+                            ?>
+                        </label>
+                           
+                    </td></tr>
+                    </div>
+ 
+                  
+                <?php endforeach; ?>
+              <div id="bundle-option-<?= /* @escapeNotVerified */ $_option->getId() ?>-container"></div>
+            <?php //endif; ?>
+        </div>
+    </div>
+</div>

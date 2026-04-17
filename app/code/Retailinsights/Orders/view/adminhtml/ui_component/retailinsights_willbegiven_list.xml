@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd"
+         name="retailinsights_willbegiven_list">
+
+    <!-- JS Configuration -->
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">retailinsights_willbegiven_list.retailinsights_willbegiven_list_data_source</item>
+            <item name="deps" xsi:type="string">retailinsights_willbegiven_list.retailinsights_willbegiven_list_data_source</item>
+        </item>
+        <item name="spinner" xsi:type="string">retailinsights_orders_willbegiven_columns</item>
+    </argument>
+
+    <!-- Data Source -->
+    <dataSource name="retailinsights_willbegiven_list_data_source" component="Magento_Ui/js/grid/provider">
+        <settings>
+            <updateUrl path="mui/index/render"/>
+            <storageConfig>
+                <param name="indexField" xsi:type="string">item_id</param>
+            </storageConfig>
+        </settings>
+
+        <dataProvider name="retailinsights_willbegiven_list_data_source"
+                      class="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider">
+            <argument name="collection" xsi:type="object">Retailinsights\Orders\Model\ResourceModel\Order\Item\Grid\Collection</argument>
+            <settings>
+                <primaryFieldName>item_id</primaryFieldName>
+                <requestFieldName>id</requestFieldName>
+            </settings>
+        </dataProvider>
+    </dataSource>
+
+    <!-- Export -->
+    <listingToolbar name="listing_top">
+		<paging name="listing_paging"/>
+		<bookmark name="bookmarks"/>
+		<columnsControls name="columns_controls"/>
+		<!-- <filterSearch name="fulltext"/> -->
+		<filters name="listing_filters"/>
+		<exportButton name="export_button"/>
+	</listingToolbar>
+
+
+    <!-- Columns -->
+    <columns name="retailinsights_orders_willbegiven_columns">
+        
+		<selectionsColumn name="ids">
+		            <argument name="data" xsi:type="array">
+		                <item name="config" xsi:type="array">
+		                    <item name="resizeEnabled" xsi:type="boolean">false</item>
+		                    <item name="resizeDefaultWidth" xsi:type="string">55</item>
+		                    <item name="indexField" xsi:type="string">item_id</item>
+		                </item>
+		            </argument>
+		        </selectionsColumn>
+		
+		<column name="item_id">
+            <settings>
+                <label translate="true">Item ID</label>
+                <filter>text</filter>
+                <sorting>asc</sorting>
+            </settings>
+        </column>
+       <!--  <column name="order_id">
+            <settings>
+                <label translate="true">Order ID</label>
+                <filter>text</filter>
+                <sorting>asc</sorting>
+            </settings>
+        </column> -->
+        <column name="sku">
+            <settings>
+                <label translate="true">SKU</label>
+                <filter>text</filter>
+                <sorting>asc</sorting>
+            </settings>
+        </column>
+        <column name="name">
+            <settings>
+                <label translate="true">Product Name</label>
+                <filter>text</filter>
+                <sorting>asc</sorting>
+            </settings>
+        </column>
+
+		<column name="base_original_price">
+            <settings>
+                <filter>range</filter>
+                <label translate="true">MRP</label>
+                <dataType>price</dataType>
+                <dataScope>base_original_price</dataScope>
+                <sorting>asc</sorting>
+            </settings>
+        </column>
+
+        <column name="qty_ordered">
+            <settings>
+                <label translate="true">Qty Ordered</label>
+                <sorting>asc</sorting>
+            </settings>
+        </column>
+	   <column name="given_options" component="Magento_Ui/js/grid/columns/select">
+		<settings>
+			<filter>select</filter>
+			<label translate="true">Given Options</label>
+			<dataType>select</dataType>
+			<dataScope>given_options</dataScope>
+			<options>
+				<option name="1" xsi:type="array">
+					<item name="value" xsi:type="string">1</item>
+					<item name="label" xsi:type="string">Will be Given</item>
+				</option>
+				<option name="2" xsi:type="array">
+					<item name="value" xsi:type="string">2</item>
+					<item name="label" xsi:type="string">School Given</item>
+				</option>
+			</options>
+		</settings>
+	</column>
+
+	<!-- <column name="given_option_updated_at">
+		<settings>
+			<filter>dateRange</filter>
+			<label translate="true">Given Option Updated At</label>
+			<sorting>asc</sorting>
+			<dataType>date</dataType>
+			<dataScope>given_option_updated_at</dataScope>
+		</settings>
+	</column>
+	 -->
+    <column name="school_name" class="Magento\Ui\Component\Listing\Columns\Column">
+		<settings>
+			<label translate="true">School Name</label>
+			<filter>text</filter>
+			<sorting>asc</sorting>
+		</settings>
+	</column>
+
+	<column name="product_purchased" class="Magento\Ui\Component\Listing\Columns\Column">
+		<settings>
+			<label translate="true">Bundle Name</label>
+			<filter>text</filter>
+			<sorting>asc</sorting>
+		</settings>
+	</column>
+	<column name="total_count"
+			class="Retailinsights\Orders\Ui\Component\Listing\Column\TotalCount">
+		<settings>
+			<label translate="true">Action</label>
+			<sortable>false</sortable>
+			<filter>false</filter>
+			<bodyTmpl>ui/grid/cells/html</bodyTmpl>
+		</settings>
+	</column>
+
+	<column name="total_name_count" class="Magento\Ui\Component\Listing\Columns\Column">
+		<settings>
+			<label translate="true">Total Orders</label>
+			<sorting>asc</sorting>
+			<filter>text</filter>
+		</settings>
+	</column>
+
+	<column name="confirmed_name_count" class="Magento\Ui\Component\Listing\Columns\Column">
+		<settings>
+			<label translate="true">Confirmed Count</label>
+			<sorting>asc</sorting>
+			<filter>text</filter>
+		</settings>
+	</column>
+
+	<column name="not_confirmed_name_count" class="Magento\Ui\Component\Listing\Columns\Column">
+		<settings>
+			<label translate="true">Not Confirmed Count</label>
+			<sorting>asc</sorting>
+			<filter>text</filter>
+		</settings>
+	</column>
+
+	<column name="item_confirm_status" class="Magento\Ui\Component\Listing\Columns\Column">
+		<settings>
+			<label translate="true">Row Type</label>
+			<sorting>asc</sorting>
+			<filter>select</filter>
+		</settings>
+	</column>
+
+
+
+    <!-- Dispatch Total Qty -->
+	<column name="dispatch_total_qty" class="Magento\Ui\Component\Listing\Columns\Column">
+		<settings>
+			<filter>text</filter>
+			<label translate="true">Dispatch Total Qty</label>
+			<sorting>asc</sorting>
+		</settings>
+	</column>
+
+	<!-- Dispatch Date -->
+	<column name="dispatch_date" class="Magento\Ui\Component\Listing\Columns\Date">
+		<settings>
+			<filter>dateRange</filter>
+			<dataType>date</dataType>
+			<label translate="true">Delivery Date</label>
+			<sorting>asc</sorting>
+		</settings>
+	</column>
+
+	<!-- Dispatch Status Column -->
+	<column name="partially_status" class="Magento\Ui\Component\Listing\Columns\Column">
+		<settings>
+			<filter>text</filter>
+			<label translate="true">Dispatch Status</label>
+			<sortable>false</sortable>
+		</settings>
+	</column>
+
+
+	<column name="delivery_date" class="Magento\Ui\Component\Listing\Columns\Date">
+		<settings>
+			<filter>dateRange</filter>
+			<dataType>date</dataType>
+			<label translate="true">Dispatch Date</label>
+			<sorting>asc</sorting>
+		</settings>
+	</column>
+
+	<actionsColumn name="confirm_order_action" class="Retailinsights\Orders\Ui\Component\Listing\Column\ConfirmOrderAction">
+		<argument name="data" xsi:type="array">
+			<item name="config" xsi:type="array">
+				<item name="indexField" xsi:type="string">item_id</item>
+				<item name="viewUrlPath" xsi:type="string">retailinsights_admin/orders/confirm</item>
+				<item name="label" xsi:type="string">Confirm Order</item>
+				<item name="sortOrder" xsi:type="number">20</item>
+			</item>
+		</argument>
+	</actionsColumn>
+
+
+    <column name="order_line_type" class="Magento\Ui\Component\Listing\Columns\Column">
+		<settings>
+			<label translate="true">Order Category</label>
+			<sortable>true</sortable>
+			<filter>text</filter>
+		</settings>
+	</column>
+
+
+<actionsColumn name="actions" class="Retailinsights\Orders\Ui\Component\Listing\Column\UploadAction">
+    <argument name="data" xsi:type="array">
+        <item name="config" xsi:type="array">
+            <item name="indexField" xsi:type="string">item_id</item>
+            <item name="viewUrlPath" xsi:type="string">retailinsights_admin/orders/uploadForm</item>
+            <item name="label" xsi:type="string">Upload</item>
+            <item name="sortOrder" xsi:type="number">10</item>
+        </item>
+    </argument>
+</actionsColumn>
+
+
+    </columns>
+</listing>

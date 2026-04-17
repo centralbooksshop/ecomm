@@ -1,0 +1,52 @@
+<?php
+/**
+ * Copyright © 2016 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+?>
+<?php
+/**
+ * Category layered navigation
+ *
+ * @var $block \Magento\LayeredNavigation\Block\Navigation
+ */
+?>
+<?php 
+/**
+ * Get configuration values from UbThemeHelper
+*/
+
+/** @var \Ubertheme\UbThemeHelper\Helper\Data  $ubHelper */
+$ubHelper = $this->helper('Ubertheme\UbThemeHelper\Helper\Data');
+$toggleTab = "";
+$toggleTab = (bool) $ubHelper->getParam('category_view/general/shop_by_toggle');
+
+?>
+<?php if ($block->canShowBlock()): ?>
+
+<?php if($toggleTab): ?>
+    <script type="text/javascript">    
+    require([
+        'jquery',
+        'domReady!'        
+        ],function($){
+            $('.filter').addClass('tab-toggle');
+            $('.filter-options .filter-options-title').click(function(){
+                $(this).toggleClass('close');
+                $(this).next().slideToggle();
+            });
+            $('.filter-options .filter-options-content').each(function(i){
+                if(i==0) {            
+                    $(this).prev().addClass('close');
+                    $(this).css({'display':'block'});
+                }else {
+                    $(this).css({'display':'none'});
+                }
+            })
+        });
+    </script>
+    <?php endif; ?>
+<?php endif; ?>

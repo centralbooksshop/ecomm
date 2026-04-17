@@ -1,0 +1,189 @@
+    <?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+?>
+<?php /** @var $block Magento\Bundle\Block\Catalog\Product\View\Type\Bundle */ ?>
+<?php
+// $schoolName = $_GET['school_name'];
+// $blockObj= $block->getLayout()->createBlock('SchoolZone\Search\Block\Display');
+// $schoolType = $blockObj->getSchoolType($schoolName);
+$product = $block->getProduct();
+$helper = $this->helper('Magento\Catalog\Helper\Output');
+$stripSelection = $product->getConfigureMode() ? true : false;
+$options = $block->decorateArray($block->getOptions($stripSelection));
+?>
+<?php if ($product->isSaleable()):?>
+    <?php if (count($options)): ?>
+<script type="text/x-magento-init">
+    {
+        "#product_addtocart_form": {
+            "priceBundle": {
+                "optionConfig": <?= /* @escapeNotVerified */ $block->getJsonConfig() ?>,
+                "controlContainer": ".field.option"
+            }
+        }
+    }
+</script>
+<a href="#" onClick="window.history.back();return false;" class="register_back">Back</a>
+<div class="row">
+    <div class="col-lg-9">
+          <?php 
+if($isnotemessage = $product->getCustomAttribute('note_message')) {
+   $notemessage = $isnotemessage->getValue();
+}
+if(!empty($notemessage)) { ?>
+<div class="notemsg notemsgtop"> <?php echo $notemessage; ?></div>
+<?php } ?>
+        <h1 class="bundle-heading"><?= /* @escapeNotVerified */ __('%1', $helper->productAttribute($product, $product->getName(), 'name')) ?></h1>
+        <!-- <p style="color:red;">Please select the mandatory fields with “*”</p> -->
+        <table class="bundle-product-details">
+              <tr>
+                <th>Book Type</th><th>Qty</th><th>Unit Price (MRP)</th><th>Total Price</th>
+              </tr>
+            <fieldset class="fieldset fieldset-bundle-options">
+                <?= $block->getChildHtml('product_info_bundle_options_top') ?>
+                <?php foreach ($options as $option): ?>
+                    <?php if (!$option->getSelections()): ?>
+                        <?php continue; ?>
+                    <?php endif; ?>
+                    <?= $block->getOptionHtml($option) ?>
+                <?php endforeach; ?>
+                
+            </fieldset>
+        </table>
+    <?php else: ?>
+        <p class="empty"><?= /* @escapeNotVerified */ __('No options of this product are available.') ?></p>
+    <?php endif; ?>
+<?php endif;?>
+<script type="text/javascript">
+require(['jquery'], function(jquery) {
+    jquery(document).ready(function($){
+         /** Do Something **/
+         var a = $('.options-list h2').text();
+
+         $('#finalPrice').text('Rs.'+a);
+
+         $("input[type='radio']").click(function(){
+
+            var radioValue = $('.options-list[name="option-list-name"] .choice :checked').siblings('label').children('span').find('span.price').text().substring(1);
+            var add = Number(radioValue)+Number(a);
+            $('#finalPrice').text('Rs.'+add+'.00');
+        });
+
+        var id = $('.fieldset-bundle-options select').attr('id');
+        // console.log('abc');
+        // var fVal = $('.price-configured_price .price').text();
+        // $('.price-configured_price .price').text(fVal);
+        // console.log($('.price-configured_price .price').text());
+
+        $('#'+id).on('change', function(){ 
+            var array;
+            array = $(this).val();
+            var price = 0;
+            $.each(array, function(index, value){
+                var index = $('#'+id).find('option[value="'+value+'"]').text().indexOf('$');
+                var newPrice = $('#'+id).find('option[value="'+value+'"]').text().substring(index+1);
+                price+=Number(newPrice);
+            });
+            console.log(price);
+             var add = Number(price)+Number(a);
+            $('#finalPrice').text('Rs.'+add+'.00');
+        });
+
+        //For showing discount price 
+
+         $('.oldPrice').hide();
+         $('.finalPrice .bundle-discount').hide();
+         if($('#bundle-spl-discount').val() > 0 && $(".product-spl-enabled")[0]) {
+           $('.finalPrice .bundle-discount').show();
+           $('.oldPrice').show();
+         } else if(!($('#bundle-spl-discount').val() > 0) && $(".product-spl-enabled")[0]) {
+            $('.oldPrice').show();
+            $('.finalPrice .bundle-discount').hide();
+         } else if($('#bundle-spl-discount').val() > 0 && !($(".product-spl-enabled")[0])) {
+            $('.oldPrice').show();
+            $('.finalPrice .bundle-discount .bundle-oldprice').hide();
+            $('.finalPrice .bundle-discount').show();  
+         }
+
+         $('.price-box.price-configured_price').addClass('text-right');
+         $('.price-box.price-configured_price').insertAfter('.bundle-product-details');
+         
+    });
+});
+</script>
+<script type="text/javascript">
+require(['jquery'], function(jquery) {
+    jquery(document).ready(function($){
+
+		if($(".GroupRequired").is(':checked')){
+            //alert('checked');
+		  $(".GroupRequired").closest('.content-title').nextUntil('tr.content-title').find('td').find('input').prop('checked',true).change();
+		} else {
+			 //alert('not checked');
+			 $(".GroupRequired").closest('.content-title').nextUntil('tr.content-title').find('td').find('input').prop('checked',false).change();
+		}
+         $('.GroupRequired').change(function() {
+        if(this.checked) {
+			//alert(this.checked);
+            $(this).closest('.content-title').nextUntil('tr.content-title').find('td').find('input').prop('checked',true).change();
+          }else{
+            $(this).closest('.content-title').nextUntil('tr.content-title').find('td').find('input').prop('checked',false).change();
+        }      
+        });
+    });
+});
+</script>
+<?php 
+    // if(isset($validateCheck)){
+    //     // $validateCheck
+    // }
+ ?>
+<script type="text/javascript">
+     // require(['jquery', 'jquery/ui'], function($){
+     //    $(".mandatory").hide();
+
+     //    $('#product-buynow-button').click(function(){
+     //         var count = ' //echo $validateCheck; ?>';
+     //         if(count == 1){
+     //            $(".mandatory").show();
+     //         }
+     //    });
+         //your js code here  
+     // });
+</script>
+<style type="text/css">
+    .given_td{
+        height: 0px !important;
+        background-color: unset !important;
+        color: red;
+    }
+    .given_tr{
+      border: none !important;
+      display: block;
+      height: 0px !important;
+      background-color: unset !important;
+    }
+    .given_opt{
+        font-size: 12px;
+        font-weight: bold;
+        margin-top: -28px !important;
+        text-align: -webkit-center !important;
+        color: red;
+    }
+</style>
+
+    </div>
+	<div class="col-lg-3">
+    <?php
+echo $this->getLayout()
+->createBlock('Magento\Cms\Block\Block')
+->setBlockId('schoolzone_add_deliverydetails')
+->toHtml();
+?>
+</div>
+</div>

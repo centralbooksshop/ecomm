@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../Magento/Backend/etc/menu.xsd">
+    <menu>
+        <add id="SchoolZone_Addschool::school" title="Schools" module="SchoolZone_Addschool" sortOrder="100" resource="SchoolZone_Addschool::school"/>
+        <add id="SchoolZone_Addschool::similarproductsattributes" title="Add School" module="SchoolZone_Addschool" sortOrder="20" parent="SchoolZone_Addschool::school" action="addschool/similarproductsattributes" resource="SchoolZone_Addschool::similarproductsattributes"/>
+    </menu>
+</config>

@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+	<menu>
+		<add id="Ecom_Ecomexpress::Ecom" title="Ecom Express" module="Ecom_Ecomexpress"
+			sortOrder="15"	resource="Ecom_Ecomexpress::Ecom" />
+		<add id="Ecom_Ecomexpress::Ecom_pincode" title="Manage Pincode" module="Ecom_Ecomexpress"
+			sortOrder="1" action="ecomexpress/ecomexpress/pincode" parent="Ecom_Ecomexpress::Ecom" resource="Ecom_Ecomexpress::Ecom_pincode" />
+		<add id="Ecom_Ecomexpress::Ecom_awb" title="Manage AWB" module="Ecom_Ecomexpress"
+			sortOrder="2" action="ecomexpress/ecomexpress/awb" parent="Ecom_Ecomexpress::Ecom"
+			resource="Ecom_Ecomexpress::Ecom_awb" />
+	</menu>
+</config>

@@ -1,0 +1,32 @@
+<!--
+/**
+ * Webkul Software.
+ *
+ *
+ * @category  Webkul
+ * @package   Webkul_DeliveryBoy
+ * @author    Webkul <support@webkul.com>
+ * @copyright Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html ASL Licence
+ * @link      https://store.webkul.com/license.html
+ */
+-->
+<!--@subject {{trans "Deliveryboy Registration Notification"}} @-->
+<!--@vars {
+"var deliveryboyEmail":"Deliveryboy Email",
+"var deliveryboyName":"Deliveryboy Name"
+} @-->
+
+{{template config_path="design/email/header_template"}}
+
+<p class="greeting">Hello {{trans "%name," name=$ownerName}}</p>
+<p>{{trans "Welcome to %store_name." store_name=$store.getFrontendName()}}</p>
+<p>
+    {{trans 'A new deliveryboy boy has been registered. Please check the below deliveryboy credentials.'}}
+</p>
+<ul>
+    <li><strong>{{trans "Name:"}}</strong> {{var deliveryboyName}}</li>
+    <li><strong>{{trans "Email:"}}</strong> {{var deliveryboyEmail}}</li>
+</ul>
+
+{{template config_path="design/email/footer_template"}}

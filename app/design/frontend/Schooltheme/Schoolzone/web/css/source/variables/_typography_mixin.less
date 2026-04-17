@@ -1,0 +1,93 @@
+// Font Size Base => declare @fsb
+
+.fsb(@param) when (isnumber(@param)){
+  @fsb: unit(@fsb_var, px);
+}
+.fsb(@param) when not (isnumber(@param)){
+  @fsb: 14px;
+}
+.fsb(@fsb_var);
+
+// End declare @fsb ______________________________________________________________________________
+
+    // Begin Declare
+    // -----------------
+
+    .primary_font_tmp(@param) when (@param = google){
+        @primary_font_tmp: '@{primary_google_font_var}';
+    }
+    .primary_font_tmp(@primary_font_library_var);
+
+
+    .primary_font_tmp(@param) when (@param = default){
+        @primary_font_tmp: @primary_font_family_var;
+    }
+    .primary_font_tmp(@primary_font_library_var);
+
+
+    .primary_font_family_other_var(@param) when (isstring(@param)) {
+        @primary_font_family_other_var: @primary_font_family_other_var;
+    }
+    .primary_font_family_other_var(@param) when not (isstring(@param)) {
+        @primary_font_family_other_var: 'Bulter';
+    }
+    .primary_font_family_other_var(@primary_font_family_other_var);
+
+    .primary_font_1(@param) when (@param = other){
+        @primary_font_1: @primary_font_family_other_var;
+    }
+    .primary_font_1(@primary_font_family_var);
+
+    @primary_font_1: @primary_font_family_other_var;
+
+    .primary_font(@param) when (@param = other){
+        @primary_font: '@{primary_font_1}';
+    }
+    .primary_font(@primary_font_tmp);
+
+    .primary_font(@param) when not (@param = other){
+        @primary_font: '@{primary_font_tmp}';
+    }
+    .primary_font(@primary_font_tmp);
+
+
+    // Begin Declare
+    // -----------------
+
+    .heading_font_tmp(@param) when (@param = google){
+        @heading_font_tmp: '@{heading_google_font_var}';
+    }
+    .heading_font_tmp(@heading_font_library_var);
+
+
+    .heading_font_tmp(@param) when (@param = default){
+        @heading_font_tmp: @heading_font_family_var;
+    }
+    .heading_font_tmp(@heading_font_library_var);
+
+
+    .heading_font_family_other_var(@param) when (isstring(@param)) {
+        @heading_font_family_other_var: @heading_font_family_other_var;
+    }
+    .heading_font_family_other_var(@param) when not (isstring(@param)) {
+        @heading_font_family_other_var: 'Bulter';
+    }
+    .heading_font_family_other_var(@heading_font_family_other_var);
+
+    .heading_font_1(@param) when (@param = other){
+        @heading_font_1: @heading_font_family_other_var;
+    }
+    .heading_font_1(@heading_font_family_var);
+
+    @heading_font_1: @heading_font_family_other_var;
+
+    .heading_font(@param) when (@param = other){
+        @heading_font: '@{heading_font_1}';
+    }
+    .heading_font(@heading_font_tmp);
+
+    .heading_font(@param) when not (@param = other){
+        @heading_font: @heading_font_tmp;
+    }
+    .heading_font(@heading_font_tmp);
+

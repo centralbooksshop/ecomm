@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../Magento/Backend/etc/menu.xsd">
+    <menu>
+        <add id="Retailinsights_DelhiveryCustom::ProcessDelhiveryOrder" title="Process Delhivery Orders" module="Retailinsights_DelhiveryCustom" sortOrder="30" parent="Magento_Sales::sales" action="delhiverycustom/processdelhiveryorder" resource="Retailinsights_DelhiveryCustom::ProcessDelhiveryOrder"/>
+        
+		<add id="Retailinsights_DelhiveryCustom::ProcessedDelhiveryOrdersList" title="Processed Delhivery Orders List" module="Retailinsights_DelhiveryCustom" sortOrder="40" parent="Magento_Sales::sales" action="delhiverycustom/processeddelhiveryorderslist" resource="Retailinsights_DelhiveryCustom::ProcessedDelhiveryOrdersList"/>
+        
+		<add id="Retailinsights_DelhiveryCustom::PendingDelhiveryOrders" title="Pending Delhivery Orders List" module="Retailinsights_DelhiveryCustom" sortOrder="50" parent="Magento_Sales::sales" action="delhiverycustom/pendingdelhiveryorders" resource="Retailinsights_DelhiveryCustom::PendingDelhiveryOrders"/>
+    </menu>
+</config>

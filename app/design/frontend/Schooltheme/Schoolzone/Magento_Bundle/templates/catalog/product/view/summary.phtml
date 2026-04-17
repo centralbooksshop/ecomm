@@ -1,0 +1,353 @@
+<?php
+/**
+ * Copyright © 2016 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+?>
+
+<?php $viewModel = $block->getViewModel(); ?>
+<?php
+$core_session = $viewModel->getCoreSessionData();
+$_product = $block->getProduct();
+$student_name = '';
+$admission_id = '';
+$hideClass = "";
+
+if(isset($core_session["s_rollnumbers"]) && isset($core_session["s_school_name"]) && isset($core_session["s_password"]) && isset($core_session["s_username"])) {
+    //print_r($core_session);
+	$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+	$school_helper = $objectManager->get('\SchoolZone\Search\Helper\Data');
+
+	$roll_numbers = $core_session["s_rollnumbers"];
+	$school_name = $core_session["s_school_name"];
+	$password = $core_session["s_password"];
+	$username = $core_session["s_username"];
+
+	$class_product =$_product->getResource()->getAttribute('class_school')->getFrontend()->getValue($_product);
+	$schoolData = $school_helper->getUserDetails($school_name,$username,$password,$roll_numbers,$class_product);
+	//echo '<br>schoolData ';
+	//print_r($schoolData);
+
+
+	$product = $objectManager->create('Magento\Catalog\Model\Product')->load($_product->getId());
+	$schoolId = $product->getData('school_name');
+    $schoolRollnumber = $school_helper->getSchool($schoolId);
+
+
+	if(($schoolData['type'] == '3' || $schoolData['type'] == '2') && $schoolData['status'] == 'success' ) {
+		$hideClass = 'd-none'; 
+		$student_name = $schoolData['student_name'];
+		$admission_id = $schoolData['admission_id'];
+	}
+
+?>
+<?php if ($_product->isSaleable() && $block->hasOptions()): ?>
+
+<div class="row">
+<div class="col-lg-9"> 
+<?php 
+if($isnotemessage = $_product->getCustomAttribute('note_message')) {
+   $notemessage = $isnotemessage->getValue();
+}
+if(!empty($notemessage)) { ?>
+<div class="notemsg"> <?php echo $notemessage; ?></div>
+<?php } ?>
+<div class="bg-image" style="width: 100%;">
+        <div id="bundleSummary"
+             class="block-bundle-summary"
+             data-mage-init='{"sticky":{"container": ".product-add-form"}}'>
+                <div class="col-md-12">
+                    
+                            <div class="bundle-info price-section">
+                            <div class="product-details">
+                                <?php echo $block->getChildHtml('product.price.render.bundle.customization');?>
+                            </div>
+                        </div>
+                        <div class="<?= $hideClass ?>">
+                           <div class="student-field">
+								<input type="text"
+									   value="<?= $student_name; ?>"
+									   name="student_pname"
+									   id="student_pname"
+									   class="student_pname"
+									   placeholder="Enter Student Name"
+									   required>
+
+								<div class="field-error" id="student-name-error">
+									Student Name is required.
+								</div>
+							</div>
+
+							<?php if (isset($schoolRollnumber) && $schoolRollnumber == 1): ?>
+							<div class="student-field">
+								<input type="text"
+									   value="<?= $admission_id; ?>"
+									   name="student_pid"
+									   id="student_pid"
+									   class="student_pid"
+									   placeholder="Enter Admission Number / Roll Number"
+									   maxlength="20"
+									   required>
+
+								<div class="field-error" id="student-id-error">
+									Admission / Roll Number is required.
+								</div>
+							</div>
+							<?php endif; ?>
+
+							<p class="required_entry_pname">Required Fields*</p>
+                         </div>
+                </div>
+
+				 <?php
+				/** @var \Magento\Catalog\Model\Product $product */
+				$product = $block->getLayout()->getBlock('product.info')->getProduct();
+				$approveUrl = $block->getUrl('retailinsights_bundles/product/approve');
+				?>
+				<?php if (!$product->getData('approve_school_preview')): ?>
+					<button id="approve-school-btn"
+							class="action primary"
+							data-product-id="<?= $product->getId(); ?>">
+						Approve School Preview
+					</button>
+
+					<script type="text/javascript">
+						require(['jquery'], function($) {
+							$('#approve-school-btn').on('click', function() {
+								var productId = $(this).data('product-id');
+								$.ajax({
+									url: '<?= $approveUrl ?>',
+									type: 'POST',
+									dataType: 'json',
+									data: { product_id: productId },
+									showLoader: true,
+									success: function(response) {
+										if (response.success) {
+											alert(response.message);
+											location.reload();
+										} else {
+											alert(response.message);
+										}
+									},
+									error: function() {
+										alert('Something went wrong. Please try again.');
+									}
+								});
+							});
+						});
+					</script>
+				<?php else: ?>
+					<!-- <p><strong>Approved on:</strong> <?= $product->getData('approve_school_preview_date'); ?></p> -->
+				<?php endif; ?>
+
+
+            <div class="content">
+                <div class="bundle-info">
+                   
+                    <div class="product-details">
+                        <!-- echo $block->escapeHtml($_product->getName()) -->
+                        <?php if ($_product->getIsSalable()): ?>
+                   
+                        <?php else: ?>
+                            <p class="unavailable stock" title="<?php /* @escapeNotVerified */ echo __('Availability') ?>">
+                                <span><?php /* @escapeNotVerified */ echo __('Out of stock') ?></span>
+                            </p>
+                        <?php endif; ?>
+                        <div class="bundle-info">
+                            <div class="product-details">
+                                <?php echo $block->getChildHtml('addtocart');?>
+                                 <?php echo $block->getChildHtml('addto');?>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="bundle-summary">
+                    <strong class="subtitle"><?php /* @escapeNotVerified */ echo __('Summary'); ?></strong>
+                    <div id="bundle-summary" data-container="product-summary">
+                        <ul data-mage-init='{"productSummary": []}' class="bundle items"></ul>
+                        <script data-template="bundle-summary" type="text/x-magento-template">
+                            <li>
+                                <strong class="label"><%- data._label_ %>:</strong>
+                                <div data-container="options"></div>
+                            </li>
+                        </script>
+                        <script data-template="bundle-option" type="text/x-magento-template">
+                            <div><?php /* @escapeNotVerified */ echo __('%1 x %2', '<%- data._quantity_ %>', '<%- data._label_ %>') ?></div>
+                        </script>
+                    </div>
+                </div>
+            </div>
+        </div>
+</div>
+</div>
+<div class="col-lg-3">
+</div>
+</div>
+<script type="text/x-magento-init">
+    {
+        ".product-add-form": {
+            "slide": {
+                "slideSpeed": 1500,
+                "slideSelector": "#bundle-slide",
+                "slideBackSelector": ".action.customization.back",
+                "bundleProductSelector": "#bundleProduct",
+                "bundleOptionsContainer": ".product-add-form"
+                <?php if ($block->isStartCustomization()): ?>
+                ,"autostart": true
+                <?php endif;?>
+            }
+        }
+    }
+</script>
+
+<script>
+require(['jquery'], function ($) {
+    'use strict';
+
+    function validateStudentFields() {
+        let valid = true;
+
+        const name = $('#student_pname').val().trim();
+        const roll = $('#student_pid').length ? $('#student_pid').val().trim() : '';
+
+        // Student Name
+        if (name === '') {
+            $('#student-name-error').show();
+            valid = false;
+        } else {
+            $('#student-name-error').hide();
+        }
+
+        // Roll Number (if exists)
+        if ($('#student_pid').length) {
+            if (roll === '') {
+                $('#student-id-error').show();
+                valid = false;
+            } else {
+                $('#student-id-error').hide();
+            }
+        }
+
+        return valid;
+    }
+
+    // Validate on typing & blur
+    $('#student_pname, #student_pid').on('keyup blur', function () {
+        validateStudentFields();
+    });
+
+    // Block Update Cart / Submit
+    $('form').on('submit', function (e) {
+        if (!validateStudentFields()) {
+            e.preventDefault();
+            return false;
+        }
+    });
+});
+</script>
+
+
+
+<style type="text/css">
+    .bundle-options-container .product-add-form .block-bundle-summary .bundle-info .price-box .price-container .price {
+        font-weight: 800;
+    }
+    .oldPrice .price {
+        color: gray !important;
+        text-decoration: line-through;
+    }
+
+    .oldPrice .bundle-discount {
+        display: none;
+    }
+    .bundle-discount .offer-text {
+        font-size: 10px;
+    margin-left:3px;
+    margin-right: 3px;
+    }
+    .bundle-discount .bundle-oldprice {
+        font-weight: 800;
+    }
+
+    .price-box .price-configured_price .price {
+    color: #f0141e;
+    font-size: 16px;
+    font-weight: 800;
+}
+.price-box.price-configured_price.text-right {
+    margin-right: 15px;
+    margin-top: 15px;
+}
+.product-options-wrapper p.required {
+    display: none;
+}
+/* Hiding Components on Detaisl page */
+ .hidden_product_summary{
+    display: none;
+  }
+  .bundle-customize-title{
+    display: none;
+  }
+  .bundle-summary{
+    display: none;
+  }
+  .fieldset-bundle-options{
+    display: none;
+  }
+  .single_item_hide{
+    display: none;
+  }
+  .hide_qty_pdp{
+    display: none;
+  }
+  .fgallery-placeholder{
+    display: none;
+  }
+  .bundle-oldprice {
+    color: gray;
+    text-decoration: line-through;
+  }
+  .hideProduct{
+    display: none;
+  }
+
+.notemsg {
+    text-align: center;
+    font-weight: bold;
+    font-size: 29px;
+    color: #f0141e;
+}
+
+#bundleSummary div.mage-error {
+   text-align: center !important;
+}
+
+.student-field {
+    margin-bottom: 15px;
+    position: relative;
+}
+
+.field-error {
+    color: red;
+    font-size: 13px;
+    margin-top: 5px;
+    display: none;
+	text-align: center;
+}
+
+.required_entry_pname {
+    color: red;
+    margin-bottom: 20px;
+}
+
+</style>
+<?php endif; ?>
+	<?php 
+	if(($schoolData['type'] == '3' || $schoolData['type'] == '2') && $schoolData['status'] == 'success' ) { ?>
+	<style type="text/css">
+	#product-updatecart-button { display:none;}
+	</style>
+	<?php } ?>
+<?php } ?>

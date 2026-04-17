@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <carriers>
+            <centralbooksshipping>
+                <active>0</active>
+                <title>Centralbooks Shipping</title>
+		<handlingname>Standard Delivery Incl. GST</handlingname>
+		<handlingtitle>Centralbooks Handling Fee</handlingtitle>
+                <name>Standard delivery</name>
+                <sallowspecific>0</sallowspecific>
+                <shipping_cost>49</shipping_cost>
+                <shipping_weight>500</shipping_weight>
+                <step_shipping_cost>49</step_shipping_cost>
+                <step_shipping_weight>500</step_shipping_weight>
+                <threshold_weight>10</threshold_weight>
+                <flat_shipping_cost>120</flat_shipping_cost>
+                <shipping_cost_per_kg>10</shipping_cost_per_kg>
+                <sort_order>15</sort_order>
+                <model>Retailinsights\CentralbooksShipping\Model\Carrier\Centralbooksshipping</model>
+   	     </centralbooksshipping>
+
+	     <centralbookshandling>
+                <active>0</active>
+                <title>Centralbooks Handling</title>
+                <handlingname>Standard Delivery Incl. GST</handlingname>
+                <handlingtitle>Centralbooks Handling Fee</handlingtitle>
+                <name>Standard delivery</name>
+                <sallowspecific>0</sallowspecific>
+                <shipping_cost>49</shipping_cost>
+                <shipping_weight>500</shipping_weight>
+                <step_shipping_cost>49</step_shipping_cost>
+                <step_shipping_weight>500</step_shipping_weight>
+                <threshold_weight>10</threshold_weight>
+                <flat_shipping_cost>120</flat_shipping_cost>
+                <shipping_cost_per_kg>10</shipping_cost_per_kg>
+                <sort_order>15</sort_order>
+                <model>Retailinsights\CentralbooksShipping\Model\Carrier\Centralbookshandling</model>
+            </centralbookshandling>
+
+        </carriers>
+    </default>
+</config>

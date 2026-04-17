@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2016 UberTheme. All rights reserved.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="ubertheme" translate="label" sortOrder="999" class="tab-ubertheme">
+            <label>Ubertheme Extensions</label>
+        </tab>
+        <section id="ubertheme_base" translate="label" type="text" sortOrder="99999999" showInDefault="1"
+                 showInWebsite="1" showInStore="1">
+            <label><![CDATA[Extensions Version]]></label>
+            <tab>ubertheme</tab>
+            <class>separator-top</class>
+            <resource>Ubertheme_Base::settings</resource>
+            <group id="general" translate="label" type="text" sortOrder="5" showInDefault="1" showInWebsite="0"
+                   showInStore="0">
+                <label>Installed Extensions</label>
+                <frontend_model>Ubertheme\Base\Block\Adminhtml\System\Config\Modules</frontend_model>
+            </group>
+        </section>
+    </system>
+</config>

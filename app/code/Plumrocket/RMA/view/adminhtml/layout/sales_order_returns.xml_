@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @package     Plumrocket_RMA
+ * @copyright   Copyright (c) 2017 Plumrocket Inc. (https://plumrocket.com)
+ * @license     https://plumrocket.com/license   End-user License Agreement
+ */
+-->
+<layout xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/layout_generic.xsd">
+    <update handle="sales_order_shipment_grid_block"/>
+    <container name="root">
+        <block class="Magento\Sales\Block\Adminhtml\Order\View\Tab\Shipments" name="sales_order_returns.grid.container"/>
+    </container>
+</layout>

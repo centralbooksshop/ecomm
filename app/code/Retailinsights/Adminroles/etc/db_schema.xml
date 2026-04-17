@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+ <table name="admin_user" resource="default" engine="innodb" comment="Admin User Table">
+   <column xsi:type="text" name="schoolwise" nullable="true" comment="add schoolwise"/>
+   <column xsi:type="text" name="pickupstore" nullable="true" comment="Pickupstore"/>
+   <column xsi:type="text" name="deliveryboy_partner_type" nullable="true" comment="Deliveryboy Partner Type"/>
+   <column xsi:type="text" name="schoolhub" nullable="true" comment="add schoolhub"/>
+  </table>
+</schema>

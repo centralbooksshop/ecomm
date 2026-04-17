@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:App/etc/config.xsd">
+
+    <default>
+        <smcs_configuration>
+            <general>
+                <base_url>https://customerapi.sevasetu.in/index.php/clientbookingbeta_v5</base_url>
+                <client_code>4739</client_code>
+                <secret_key>DQiA87STBVl</secret_key>
+                <username>CENTRALBOOKBULLKMASTER.DPCLIENT</username>
+                <password>Central@3456</password>
+            </general>
+        </smcs_configuration>
+    </default>
+
+</config>

@@ -1,0 +1,70 @@
+<div class="content-header" style="border-bottom:none;">
+	<div class="entry-edit">
+		<form id='exportorderform' name='exportorderform' action='<?php echo $this->getUrl("orderexport/exportorder/post") ?>' method='post' data-mage-init='{"validation":{}}' style="padding-top:0px;padding-left: 8px;">
+			<input name="form_key" type="hidden" value="<?php echo $block->getFormKey() ?>" />
+			<div class="fieldset" id="base_fieldset">
+				<div class="hor-scroll">
+							<tr>
+								<td class="label"><label for="entity"><h4>Start Date</h4></label></label></td>
+								<td class="value">
+									<input name="from_date" id="sdatepicker" class="sdatepicker required-entry"   value="" type="text">
+								</td>
+							</tr>
+							<tr>
+								<td class="label"></br></br><label for="entity"><h4>End Date</h4></label></label></td>
+								<td class="value">
+									<input name="to_date" id="edatepicker" class="edatepicker required-entry"   value="" type="text">
+								</td>
+							</tr>
+							<tr>
+								<td></br></br></td>
+								<td> 
+								    <input type='submit' name='name' value='<?php echo __('Generate Order Report') ?>' class="scalable go" />
+									<?php /*?>
+									<button type="button" title="<?php echo __('Generate Order Report') ?>" class="scalable go" onclick='document.getElementById("exportorderform").submit();'>
+										<span>
+											<span>
+												<?php echo __('Generate Order Report') ?>
+											</span>
+										</span>
+									</button>
+                                    <?php */?>									
+								</td>
+							</tr>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
+<script type="text/javascript">
+    require([
+        "jquery",
+        "mage/calendar"
+    ], function($){
+        $('#sdatepicker').datepicker({
+                dateFormat : "yy-mm-dd",
+                timeFormat : "H:m:s",
+                changeMonth: true,
+                changeYear :true,
+                numberOfMonths: 1,
+                showsTime: true,
+            }
+        );
+		$('#edatepicker').datepicker({
+                dateFormat : "yy-mm-dd",
+                timeFormat : "H:m:s",
+                changeMonth: true,
+                changeYear :true,
+                numberOfMonths: 1,
+                showsTime: true,
+            }
+        );
+    });
+</script>
+
+<style>
+#exportorderform label {
+    float: left;
+    width: 10%;
+}
+</style>

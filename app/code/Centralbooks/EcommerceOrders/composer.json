@@ -1,0 +1,22 @@
+{
+    "name": "centralbooks/module-ecommerceorders",
+    "description": "Centralbooks Ecommerce Orders",
+    "type": "magento2-module",
+    "license": "proprietary",
+    "authors": [
+        {
+            "name": "CentralBooks",
+            "email": "info@centralbooksonline.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {},
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Centralbooks\\EcommerceOrders\\": ""
+        }
+    }
+}

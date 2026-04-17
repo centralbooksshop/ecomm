@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author CynoInfotech Team
+ * @package Cynoinfotech_StorePickup
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Api/etc/extension_attributes.xsd">
+    <extension_attributes for="Magento\Checkout\Api\Data\ShippingInformationInterface">
+        <attribute code="store_pickup" type="string"/>
+        <attribute code="storepickup_shipping_checked" type="string"/>
+        <attribute code="calendar_inputField" type="string"/>
+        <attribute code="pickup_person_name" type="string"/>
+        <attribute code="pickup_person_id" type="string"/>
+    </extension_attributes>
+
+    <extension_attributes for="Magento\Sales\Api\Data\OrderInterface">
+        <attribute code="store_pickup" type="string"/>
+        <attribute code="storepickup_shipping_checked" type="string"/> 
+		<attribute code="calendar_inputField" type="string"/>	
+        <attribute code="pickup_person_name" type="string"/>
+        <attribute code="pickup_person_id" type="string"/>
+    </extension_attributes>
+</config>

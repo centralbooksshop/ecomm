@@ -1,0 +1,321 @@
+<?php 
+$baseUrl =  $block->getBaseUrl();
+$mediaUrl =  $block->getMediaUrl();
+$collection =  $block->getOrderCollection();
+$schoolType = $block->getSchoolType();
+$classes = $block->getClasses();
+$schoolscoll = $block->getSchools();
+$school_name = $this->getSchoolNameSessionValue();
+$user_name = preg_replace("/[^a-zA-Z\s.]/", "", $_SESSION["user_name"]);
+$user_name = str_replace('.', ' ', $user_name);
+$user_name = ucwords(strtolower($user_name));
+//echo "<pre>"; print_r($_SESSION['school_name']); echo "</pre>";
+//session_start(); 
+//echo $_SESSION['school_name'];
+?>
+<!-- <div class="text-center">
+  <img src="<?= $mediaUrl.'ubertheme/school_zone/PLP_school.png' ?>" alt="" style="max-height: 100px; margin-bottom: 20px">
+</div> -->
+<div class="links_page">
+   <?php 
+	$style = '';
+   	 //if($schoolType == 1){
+	 //$style = 'style="display:none"'; }
+   ?>
+  <a class="customer-index-btn" href="<?= $baseUrl ?>schoolzone_customer/index/StudentInfo" <?= $style; ?>>Student List</a>
+   <a class="customer-index-btn" href="<?= $baseUrl ?>schoolzone_customer/hodashboard/index">Manage School Dashboard</a>
+   <p class="customer-index-btn total-orders">Total Orders: <?php echo $block->getOrderCollectionCount(); ?></p>
+   <p class="customer-index-btn filter-orders" style= "display:none;" ></p>
+ <p class="customer-index-btn user-name"> <?php echo "Welcome, ".$user_name; ?>  </p>
+  <a class="customer-index-btn logout-btn" href="<?= $baseUrl ?>schoolzone_customer/index/Login">Log out</a>
+  
+  <!-- <span class="log_out">Logout</span> -->
+</div>
+<input type="hidden" id="current_page" name="p" value="1">
+<div class="searchInputs">
+	<table >
+		<caption>Filters</caption>
+		<tbody>
+        <tr>
+            <td class="pl-0"><input class="search_by_order" type="text" placeholder="order Id"></td>
+			<td>
+			<select id="search_by_school">
+					<option value="" disabled selected>Select School</option>
+					<?php 
+					foreach($schoolscoll as $schoolvalue){
+			          $school_name_text = $schoolvalue['school_name_text'];
+			          $school_id = $schoolvalue['school_name'];
+					?>
+						<option value="<?php echo $school_id;?>"><?php echo $school_name_text?></option>
+					<?php
+					}
+					?>
+			</select>
+			</td>
+	<!--		<td>
+			<?php $classes = $block->getClasses(); ?>
+				<select id="search_by_class">
+					<option value="" disabled selected>Select Class</option>
+					<?php 
+					foreach($classes as $class){
+						if((isset($class['value'])) && ($class['value'] != '')){
+						?>
+							<option value="<?php echo $class['value'];?>"><?php echo $class['label']?></option>
+						<?php
+						}
+					}
+					?>
+				</select>
+			</td> -->
+			<td>
+			<?php $statuses = $block->getStatus();
+			?>
+				<select id="selectStatus"> 
+					<option value="" disabled selected>Select status</option>
+					<?php 
+					foreach($statuses as $status){
+						if((isset($status['value'])) && ($status['value'] != '')){
+						?>
+							<option value="<?php echo $status['value'];?>"><?php echo $status['label']?></option>
+						<?php
+						}
+					}
+					?>
+				</select>
+			</td>
+			 <td class="pl-0"><input class="search_by_roll_number" type="text" placeholder="Roll Number"></td>
+			<td class="pl-0"><input class="search_by_customeremail" type="text" placeholder="Email"></td>
+			<td class="pl-0"><input class="search_by_phonenumber" type="text" placeholder="Phone Number"></td>
+			<td class="pl-0"><input  id="sdatepicker" class="sdatepicker" type="text" placeholder="From Date"></td>
+		        <td class="pl-0"><input  id="edatepicker" class="edatepicker" type="text" placeholder="To Date"></td>
+			<td class="pr-0 search-back">
+				<button class="search_order_btn">Search</button>
+				<button class="back_btn">Back</button>
+			</td>
+			<td class="pr-0 search-back">
+				<!-- <button class="search_order_export">Export</button> -->
+				<!--	<a class="customer-index-btn" href="<?= $baseUrl ?>schoolzone_search/index/Export" <?= $style; ?>>Export</a> -->
+				<a class="customer-index-btn export-btn" href="<?= $baseUrl ?>schoolzone_search/index/Export" <?= $style; ?>>Export</a>
+			</td>
+		</tr>
+		</tbody>
+	</table>
+</div>
+
+<!-- <div class="display_table">
+	<table class="search_result sales-list">
+		
+	</table>
+</div> -->
+
+<div class="display_table">
+    <table style="width:100%" class="sales-list">
+	<tr>
+	    <th>ID</th>
+	    <th>Purchase Point</th>
+	    <th>Purchase Date</th>
+		<th>Courier Name</th>
+	    <th>Tracking Number</th>
+		<th>Dispatched Date</th>
+	    <th>Bill-to-Name</th>
+	    <th>Ship-to-name</th>
+	    <th>Grand-total (Base) Rs</th>
+	    <th>Grand-total (Purchased) Rs</th>
+	    <th>Student Name</th>
+	    <th>Roll Number</th>
+		<th>School Name</th>
+	    <th>Status</th>
+	    <th>E-mail</th>
+	    <th>mobile</th>
+	    <th>Product</th>
+  	</tr>
+            <?php $stores = $block->getAllStores();$orderIds = [];
+			foreach ($collection as $item) {
+    $orderIds[] = $item['entity_id'];
+}
+$productMap = $block->getProductNamesByOrders($orderIds);
+			foreach ($collection as $value) {
+                ?>
+                	<tr>
+					<td class="sales-id"><?php echo $value['increment_id']; ?></td>
+					<td class="str-name"><?php echo $stores[$value['store_id']] ?? ''; //$value['store_name']; ?></td>
+					<td><?php echo $value['created_at']; ?></td>
+					<td>
+<?php if (!empty($value['cbo_created_at'])): ?>
+    <?= $value['tracking_title'] ?: 'CBO Shipment'; ?>
+<?php else: ?>
+<?php endif; ?>
+</td>
+
+<td>
+<?php if (!empty($value['cbo_created_at'])): ?>
+
+    <?php if (!empty($value['driver_id'])): ?>
+        Driver Name: <?= $value['driver_name']; ?>
+
+    <?php elseif (!empty($value['deliveryboy_id'])): ?>
+        Deliveryboy Name: <?= $value['deliveryboy_name']; ?>
+
+    <?php elseif (!empty($value['tracking_number'])): ?>
+        <?= $value['tracking_number']; ?>
+
+    <?php else: ?>
+        
+    <?php endif; ?>
+
+<?php else: ?>
+    
+<?php endif; ?>
+</td>
+
+<td>
+<?= !empty($value['cbo_created_at']) ? $value['cbo_created_at'] : '' ?>
+</td>
+					<td><?= $value['billing_firstname'] . ' ' . $value['billing_lastname']; ?></td>
+					<td><?= $value['shipping_firstname'] . ' ' . $value['shipping_lastname']; ?></td>
+					<td><?php echo $value['subtotal']; ?></td>
+					<td><?php echo $value['grand_total']; ?></td>
+
+					<td><?php echo $value['student_name']; ?></td>
+					<td class="sales-roll"><?php echo $value['roll_no']; ?></td>
+                    <td class="school_name"><?php echo $value['school_name']; ?></td>
+					<td><?php echo $value['status']; ?></td>
+					<td class="sales-email"><?php echo $value['customer_email']; ?></td>
+					<td class="sales-mb"><?php 
+					if($value['entity_id'] != NULL){
+						$shippingPhoneNumber =  $value['shipping_telephone']; 
+						   if($shippingPhoneNumber){
+						   	echo $shippingPhoneNumber;
+						   }else{
+						   	echo "--";
+						   }
+					}else{
+							echo "--";
+					}
+
+					?></td>
+					<td><?php
+$orderId = $value['entity_id'];
+if (!empty($productMap[$orderId])) {
+    echo implode(', ', $productMap[$orderId]);
+} else {
+    echo '-';
+}
+?></td>
+				</tr>
+            <?php } ?>
+      </table>
+  </div>
+    <div class="order-products-toolbar toolbar bottom">  <?php echo $block->getChildHtml('pager'); ?></div>
+<style>
+.display_table{overflow: auto;}
+.searchInputs input, .searchInputs select {border: 1px solid #555;}
+.search_order_btn{
+	height: 35px;
+    font-weight: 500;
+	padding: 5px 10px;
+    color: #FFF !important;
+    background-color: #F0141E !important;
+    border: 1px solid #F0141E !important;
+}
+.schoolzone_customer-index-display .page-main{
+	max-width: calc(100% - 5rem);
+}
+.schoolzone_customer-index-display .page-title-wrapper{font-size: 21px}
+.customer-index-btn{
+	width: auto;
+	font-size: 14px;
+    padding: 5px 10px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    opacity: 1 !important;
+    display: inline-block;
+    color: #FFF !important;
+    background-image: none;
+    text-decoration: none !important;
+    background-color: #F0141E !important;
+}
+.sales-list{
+	margin-top: 2rem;
+	border: 1px solid #F2F2F2;
+}
+.sales-list th {
+    color: #FFF;
+	font-size: 13px;
+    padding: 5px 7px;
+    border: 1px solid #C7C7C7;
+    background-color: #144889;
+}
+.sales-list td {
+    font-size: 14px;
+    padding: 5px 7px;
+    min-width: 150px;
+    border: 1px solid #C7C7C7;
+}
+.sales-list .sales-mb, .sales-list .sales-roll,
+.sales-list .sales-id{min-width: 120px}
+.sales-email{
+	max-width: 200px;
+	word-break: break-all;
+}
+.searchInputs td{font-size: 14px;}
+.schoolzone_customer-index-display .order-products-toolbar{
+    border: 0;
+	margin-top: 2rem;
+    background-color: #FFF;
+}
+.schoolzone_customer-index-display .order-products-toolbar .pages{padding: 0;}
+.sales-list tr:nth-child(odd) {background-color: #F2F2F2;}
+.sales-list tr:nth-child(even) {background-color: #FFF;}
+.search-back{display: flex;}
+.search-back .back_btn,
+.search-back .search_order_btn{flex: 1;}
+.search_order_btn + .back_btn {margin-left: 1rem;}
+*{outline: 0 !important}
+.customer-index-btn.logout-btn{
+	top: 50px;
+}
+.panel.header { display:none; }
+.customer-index-btn.user-name {
+    top: 0;
+    right: 0;
+    position: absolute;
+    color: #144889 !important;
+    background-color: #fff !important;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    border-radius: 5px;
+    padding: 5px 10px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+</style>
+<script type="text/javascript">
+    require([
+        "jquery",
+        "mage/calendar"
+    ], function($){
+        $('#sdatepicker').datepicker({
+                dateFormat : "yy-mm-dd",
+                timeFormat : "H:m:s",
+                changeMonth: true,
+                changeYear :true,
+                numberOfMonths: 1,
+                showsTime: true,
+            }
+	);
+
+	$('#edatepicker').datepicker({
+                dateFormat : "yy-mm-dd",
+                timeFormat : "H:m:s",
+                changeMonth: true,
+                changeYear :true,
+                numberOfMonths: 1,
+                showsTime: true,
+            }
+	);
+    });
+</script>

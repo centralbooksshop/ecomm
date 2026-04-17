@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <referenceContainer name="content">
+           <block class="SchoolZone\Search\Block\Display" name="search" template="SchoolZone_Search::product_list.phtml" cacheable="false">
+		     <arguments>
+                <argument name="view_model" xsi:type="object">SchoolZone\Search\ViewModel\BlockHelper</argument>
+             </arguments>
+		   </block>
+    </referenceContainer>
+</page>

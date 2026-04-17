@@ -1,0 +1,50 @@
+Reasons,Reasons
+Add,Add
+"Order Cancel","Order Cancel"
+"Canceled Orders List","Canceled Orders List"
+"A total of %1 record(s) have been deleted.","A total of %1 record(s) have been deleted."
+"Your Order has been Canceled successfully.","Your Order has been Canceled successfully."
+"Something went wrong!","Something went wrong!"
+"NOT LOGGED IN","NOT LOGGED IN"
+"View Order","View Order"
+"* Required Fields","* Required Fields"
+"Cancel Reasons","Cancel Reasons"
+Others,Others
+Comment,Comment
+Submit,Submit
+Reset,Reset
+Orders,Orders
+"Order #","Order #"
+Date,Date
+"Ship To","Ship To"
+"Order Total","Order Total"
+Status,Status
+Action,Action
+Actions,Actions
+Reorder,Reorder
+"You have placed no orders.","You have placed no orders."
+"Print Order","Print Order"
+"Recent Orders","Recent Orders"
+"View All","View All"
+"Cancel Order","Cancel Order"
+Configuration,Configuration
+"Frontend Button Title","Frontend Button Title"
+"Order Cancellation Reasons","Order Cancellation Reasons"
+"Enable Cancellation Popup","Enable Cancellation Popup"
+"Cancellation Popup Title","Cancellation Popup Title"
+"Cancellation Popup Note","Cancellation Popup Note"
+"Customer Groups","Customer Groups"
+"Order Statuses","Order Statuses"
+"Email Configuration","Email Configuration"
+"Send Emails To","Send Emails To"
+"Email Sender","Email Sender"
+"Email Template for Admin","Email Template for Admin"
+"Email Template For Customer","Email Template For Customer"
+"Delete items","Delete items"
+"Delete selected items?","Delete selected items?"
+Delete,Delete
+IDs,IDs
+"Order ID","Order ID"
+"Customer Email","Customer Email"
+"Cancellation Date","Cancellation Date"
+"Cancellation Reason","Cancellation Reason"

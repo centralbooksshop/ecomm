@@ -1,0 +1,49 @@
+<?php
+/**
+ * Copyright © 2016 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+/**
+ * Product view template
+ *
+ * @see \Magento\Catalog\Block\Product\View\Details
+ */
+
+?>
+<?php
+$_helper = $this->helper('Magento\Catalog\Helper\Output');
+$product = $block->getProduct();
+$attributes = $product->getAttributes();
+
+?>
+<div class="product-details-info">
+
+<div class="product-features">
+    <table> 
+        <h3><?= /* @escapeNotVerified */ __('Features') ?></h3>
+<?php
+foreach ($attributes as $attribute) {
+    if($attribute->getIsVisibleOnFront() && !empty($attribute->getFrontend()->getValue($product))){
+        ?>
+        <tr>
+            <td><?php echo $attribute->getFrontendLabel();?></td>
+            <td><?php echo $attribute->getFrontend()->getValue($product);?></td>
+        <?php
+    }
+    ?>
+    </tr>
+    <?php
+}
+?>
+    </table>
+</div>
+<div class="product-description">
+    <h3><?= /* @escapeNotVerified */ __('Product Description') ?></h3>
+    <div>
+        <?php echo $_helper->productAttribute($product, $product->getDescription(), 'description');?>
+    </div>
+</div>
+</div>

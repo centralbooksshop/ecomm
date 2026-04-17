@@ -1,0 +1,107 @@
+<?xml version="1.0"?>
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+
+    <system>
+
+        <tab id="elasticrun_tab" translate="label" sortOrder="20">
+            <label>Elasticrun Settings</label>
+        </tab>
+
+        <section id="elasticrun_configuration" translate="label" sortOrder="130"
+                 showInDefault="1" showInWebsite="1" showInStore="1">
+
+            <class>separator-top</class>
+            <label>Configuration</label>
+            <tab>elasticrun_tab</tab>
+            <resource>Centralbooks_Elasticrun::config</resource>
+
+            <group id="general" translate="label" type="text" sortOrder="10"
+                   showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>General Settings</label>
+                <attribute type="expanded">1</attribute>
+
+                <field id="enable" translate="label" type="select" sortOrder="1"
+                       showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Enable Module</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+
+				<!-- Default Weight -->
+                <field id="default_weight" translate="label comment" type="text" sortOrder="80"
+                       showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Default Weight (KG)</label>
+                    <comment>
+                        Used when product weight is missing or zero. Value must be in kilograms.
+                        Example: 0.5
+                    </comment>
+                    <validate>validate-number validate-greater-than-zero</validate>
+                </field>
+
+                <field id="api_url" translate="label" type="text" sortOrder="5"
+                       showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Consignment Creation API URL</label>
+                </field>
+
+				
+				<field id="status_api_url" translate="label" type="text" sortOrder="6"
+                       showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Consignment Status API URL</label>
+                </field>
+
+				<field id="pincode_api_url" translate="label" type="text" sortOrder="7"
+                       showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Pincode API URL</label>
+                </field>
+
+                <field id="api_token" translate="label" type="text" sortOrder="10"
+                       showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>API Authorization Token</label>
+                </field>
+
+                <field id="org_id" translate="label" type="text" sortOrder="20"
+                       showInDefault="1">
+                    <label>Organization ID</label>
+                </field>
+
+                <field id="user_id" translate="label" type="text" sortOrder="30"
+                       showInDefault="1">
+                    <label>User ID</label>
+                </field>
+
+                <field id="consignor_name" translate="label" type="text" sortOrder="40"
+                       showInDefault="1">
+                    <label>Consignor Name</label>
+                </field>
+
+                <field id="consignor_contact" translate="label" type="text" sortOrder="50"
+                       showInDefault="1">
+                    <label>Consignor Contact Number</label>
+                </field>
+
+                <field id="consignor_email" translate="label" type="text" sortOrder="60"
+                       showInDefault="1">
+                    <label>Consignor Email</label>
+                </field>
+
+                <field id="origin_city" translate="label" type="text" sortOrder="70"
+                       showInDefault="1">
+                    <label>Origin City</label>
+                </field>
+				<field id="pickup_address" translate="label" type="textarea" sortOrder="80"
+					   showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Pickup Address (JSON Format)</label>
+					<comment>Enter full Pickup Address in JSON format as required by Elasticrun.</comment>
+				</field>
+
+				<field id="shipper_address" translate="label" type="textarea" sortOrder="80"
+					   showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Shipper Address (JSON Format)</label>
+					<comment>Enter full Shipper Address in JSON format as required by Elasticrun.</comment>
+				</field>
+            </group>
+        </section>
+    </system>
+
+</config>

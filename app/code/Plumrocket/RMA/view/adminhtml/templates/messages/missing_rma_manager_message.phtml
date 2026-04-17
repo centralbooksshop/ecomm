@@ -1,0 +1,16 @@
+<?php
+/**
+ * @package     Plumrocket_RMA
+ * @copyright   Copyright (c) 2023 Plumrocket Inc. (https://plumrocket.com)
+ * @license     https://plumrocket.com/license   End-user License Agreement
+ */
+
+/** @var \Magento\Framework\View\Element\Template $block */
+?>
+<?= $block->escapeHtml(
+    __(
+        'Default RMA Manager was removed from Magento store. Click <a href="%1">here</a> to set new manager for RMA extension.',
+        $block->getData('url')
+    ),
+    ['a']
+); ?>

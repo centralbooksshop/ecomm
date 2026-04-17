@@ -1,0 +1,9 @@
+<config>
+    <default>
+        <schooldashboard>
+            <ordertime>
+                <highest_orders_time>-30 days</highest_orders_time>
+            </ordertime>
+        </schooldashboard>
+    </default>
+</config>

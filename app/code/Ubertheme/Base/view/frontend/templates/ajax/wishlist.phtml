@@ -1,0 +1,24 @@
+<!--
+/**
+ * Copyright © 2016 Ubertheme.com All rights reserved.
+ */
+-->
+
+<?php
+    /** @var \Ubertheme\Base\Block\Ajax\Wishlist $block */
+?>
+
+<!-- Initial ajax wistlist js function -->
+<script type="text/javascript">
+	var ubAjaxWishlistOptions = <?= $block->getAjaxWishlistOptions() ?>;
+	require([
+		"jquery",
+		"Ubertheme_Base/js/ajaxWishlist",
+		"domReady!"
+	], function ($) {
+		'use strict';
+		$.ub.AjaxWishlist(ubAjaxWishlistOptions);
+	});
+</script>
+
+

@@ -1,0 +1,59 @@
+// /**
+//  * Copyright © 2016 Magento. All rights reserved.
+//  * See COPYING.txt for license details.
+//  */
+
+//
+//    Common
+//--------------------------------------
+
+& when (@media-common = true) {
+
+	//
+	//    Using buttons mixins
+	//--------------------------------------
+	button,
+	a.action.primary {
+	    .lib-css(border-radius, @button__border-radius);
+	}
+
+	button {
+	    &:active {
+	        .lib-css(box-shadow, @button__shadow);
+	    }
+	}
+
+	a.action.primary {
+	  .lib-link-as-button();
+
+	}
+
+	.action.primary {
+	  .lib-button-primary();
+	  background: @theme__primary-color;
+	  border: 0;
+	  font-size: @font-size__base;
+		line-height: 22px;
+		padding: 10px 25px;
+	  border-radius: 0;
+	  -moz-border-radius: 0;
+	  -webkit-border-radius: 0;
+	  -o-border-radius: 0;
+	  .login-container & {
+	  	color: @color-white !important;
+	  }
+	  &:active,
+	  &:hover,
+	  &:focus {
+	  	background: @theme__primary-color;
+	  	border: 0;
+	  	color: @color-white;
+	  	opacity: .6;
+	  }
+	}
+	.actions-toolbar .secondary {
+		float: left !important;
+		padding: 7px 10px;
+	}
+
+}

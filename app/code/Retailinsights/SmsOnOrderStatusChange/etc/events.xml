@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="checkout_onepage_controller_success_action">
+        <observer name="new_order_send_sms" instance="Retailinsights\SmsOnOrderStatusChange\Observer\NewOrderSms" />
+    </event>
+    <event name="sales_order_shipment_save_after">
+        <observer name="order_shipment_send_sms" instance="Retailinsights\SmsOnOrderStatusChange\Observer\ShipmentSms" />
+    </event>
+    <event name="sales_order_save_after">
+        <observer name="order_cancel_send_sms" instance="Retailinsights\SmsOnOrderStatusChange\Observer\OrderCancel" />
+        <observer name="order_state_change_sms" instance="Retailinsights\SmsOnOrderStatusChange\Observer\OrderStateChange" />
+    </event>
+</config>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="../../Store/etc/config.xsd">
+    <default>
+        <carriers>
+            <ecomexpress>
+                <active>1</active>
+                <showmethod>1</showmethod>
+                <model>Ecom\Ecomexpress\Model\Carrier\Ecomexpress</model>
+                <name>Ecom Express</name>
+                <title>Ecom Express</title>
+                <specificerrmsg>This shipping method is currently unavailable in this pincode</specificerrmsg>
+            </ecomexpress>
+        </carriers>
+    </default>
+</config>

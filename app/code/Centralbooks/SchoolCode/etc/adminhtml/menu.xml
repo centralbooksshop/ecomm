@@ -1,0 +1,6 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+	<menu>
+		<add id="Centralbooks_SchoolCode::centralbooks_schoolcode_schoolcode" title="Manage School Code" module="Centralbooks_SchoolCode" sortOrder="9999" resource="Magento_Backend::content" parent="SchoolZone_Addschool::school" action="centralbooks_schoolcode/schoolcode/index"/>
+	</menu>
+</config>

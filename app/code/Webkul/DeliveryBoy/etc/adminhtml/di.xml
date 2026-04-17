@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Webkul Software.
+ * 
+ *
+ * @category  Webkul
+ * @package   Webkul_DeliveryBoy
+ * @author    Webkul <support@webkul.com>
+ * @copyright Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html ASL Licence
+ * @link      https://store.webkul.com/license.html
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Config\Controller\Adminhtml\System\Config\Save">
+        <plugin name="wk_deliveryboy_ignore_api_credentials"
+            type="Webkul\DeliveryBoy\Plugin\Adminhtml\Demo\IgnoreApiCredentials" sortOrder="40" />
+    </type>
+    <type name="Magento\Config\Controller\Adminhtml\System\Config\Edit">
+        <plugin name="wk_deliveryboy_add_demo_user_message"
+            type="Webkul\DeliveryBoy\Plugin\Adminhtml\Demo\AddDemoUserMessage" sortOrder="40" />
+    </type>
+</config>

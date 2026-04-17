@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd"
+         name="retailinsights_willbegivenitems_list">
+
+    <!-- JS Configuration -->
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">retailinsights_willbegivenitems_list.retailinsights_willbegivenitems_list_data_source</item>
+            <item name="deps" xsi:type="string">retailinsights_willbegivenitems_list.retailinsights_willbegivenitems_list_data_source</item>
+        </item>
+        <item name="spinner" xsi:type="string">retailinsights_orders_willbegivenitems_columns</item>
+    </argument>
+
+    <!-- Data Source -->
+	<dataSource name="retailinsights_willbegivenitems_list_data_source" component="Magento_Ui/js/grid/provider">
+		<settings>
+			<updateUrl path="mui/index/render"/>
+			<filterUrlParams>
+				<param name="name">*</param>
+				<param name="given_options">*</param>
+				<param name="product_purchased">*</param>
+				<param name="dispatch_date">*</param>
+				<param name="delivery_date">*</param>
+				<param name="delivery_status">*</param>
+				<param name="dispatch_status">*</param>
+				<!-- <param name="is_delivery_confirmed">*</param> -->
+
+			</filterUrlParams>
+			<storageConfig>
+				<param name="indexField" xsi:type="string">item_id</param>
+			</storageConfig>
+		</settings>
+	
+		<dataProvider name="retailinsights_willbegivenitems_list_data_source"
+					  class="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider">
+			<argument name="collection" xsi:type="object">Retailinsights\Orders\Model\ResourceModel\Order\Item\Details\Collection</argument>
+		    
+			<settings>
+				<primaryFieldName>item_id</primaryFieldName>
+				<requestFieldName>item_id</requestFieldName>
+			</settings>
+		</dataProvider>
+	</dataSource>
+
+	<!-- <dataSource name="retailinsights_willbegivenitems_list_data_source" component="Magento_Ui/js/grid/provider">
+	    <argument name="dataProvider" xsi:type="configurableObject">
+	        <argument name="class" xsi:type="string">Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider</argument>
+	        <argument name="name" xsi:type="string">retailinsights_willbegivenitems_list_data_source</argument>
+	        <argument name="primaryFieldName" xsi:type="string">item_id</argument>
+	        <argument name="requestFieldName" xsi:type="string">id</argument>
+	        <argument name="data" xsi:type="array">
+	            <item name="config" xsi:type="array">
+	                <item name="update_url" xsi:type="url" path="mui/index/render"/>
+	                <item name="storageConfig" xsi:type="array">
+	                    <item name="indexField" xsi:type="string">item_id</item>
+	                </item>
+	                <item name="filter_url_params" xsi:type="array">
+	                    <item name="name" xsi:type="string">*</item>
+	                    <item name="given_options" xsi:type="string">*</item>
+	                    <item name="product_purchased" xsi:type="string">*</item>
+	                </item>
+	            </item>
+	        </argument>
+	    </argument>
+	    <argument name="collection" xsi:type="object">Retailinsights\Orders\Model\ResourceModel\Order\Item\Details\Collection</argument>
+	</dataSource> -->
+
+
+
+
+	<!-- Export -->
+    <listingToolbar name="listing_top">
+		<massaction name="listing_massaction">
+			<action name="retailinsights_admin_massPartial">
+				<settings>
+					<url path="retailinsights_admin/orders/massPartial"/>
+					<type>retailinsights_admin_massPartial</type>
+					<label translate="true">Mark as Partial</label>
+					<confirm>
+						<message>Are you sure you want to mark selected orders as Partial?</message>
+					</confirm>
+                </settings>
+			</action>
+
+			<!-- New Upload Action (correct position) -->
+			<action name="retailinsights_admin_uploadDocument">
+				<settings>
+					<url path="retailinsights_admin/orders/massUploadForm"/>
+					<type>retailinsights_admin_uploadDocument</type>
+					<label translate="true">Acknowledgement Upload</label>
+				</settings>
+			</action>
+		</massaction>
+		<paging name="listing_paging"/>
+		<!-- <bookmark name="bookmarks"/> -->
+		<!-- <columnsControls name="columns_controls"/> -->
+		<!-- <filterSearch name="fulltext"/> -->
+		<filters name="listing_filters"/>
+		<!-- <exportButton name="export_button"/> -->
+		<exportButton name="export_button">
+			<argument name="data" xsi:type="array">
+				<item name="config" xsi:type="array">
+					<!-- Export controller URL -->
+					<item name="url" xsi:type="url" path="mui/index/render"/>
+					
+					<!-- Add params that should always go with export -->
+					<item name="urlParams" xsi:type="array">
+						<item name="name" xsi:type="string">*</item>
+						<item name="given_options" xsi:type="string">*</item>
+						<item name="product_purchased" xsi:type="string">*</item>
+					</item>
+					
+					<!-- Needed for selections -->
+					<item name="storageConfig" xsi:type="array">
+						<item name="indexField" xsi:type="string">item_id</item>
+					</item>
+				</item>
+			</argument>
+		</exportButton>
+
+	</listingToolbar>
+
+
+    <!-- Columns -->
+    <columns name="retailinsights_orders_willbegivenitems_columns">
+
+   <selectionsColumn name="ids">
+		<argument name="data" xsi:type="array">
+			<item name="config" xsi:type="array">
+				<item name="indexField" xsi:type="string">item_id</item>
+				<item name="resizeEnabled" xsi:type="boolean">false</item>
+				<item name="resizeDefaultWidth" xsi:type="string">55</item>
+				<item name="displayMode" xsi:type="string">checkbox</item>
+				<item name="selectAll" xsi:type="boolean">false</item>
+			</item>
+		</argument>
+	</selectionsColumn>
+
+
+	
+	<column name="name">
+		<settings>
+			<label translate="true">Product Name</label>
+			<filter>text</filter>
+			<sorting>asc</sorting>
+		</settings>
+	</column>
+        <column name="item_id">
+            <settings>
+                <label translate="true">Item ID</label>
+                <filter>text</filter>
+                <sorting>asc</sorting>
+            </settings>
+        </column>
+	
+   <!--  <column name="school_name" class="Magento\Ui\Component\Listing\Columns\Column">
+    		<settings>
+    			<label translate="true">School Name</label>
+    			<filter>text</filter>
+    			<sorting>asc</sorting>
+    		</settings>
+    	</column>
+    
+    	<column name="product_purchased" class="Magento\Ui\Component\Listing\Columns\Column">
+    		<settings>
+    			<label translate="true">Bundle Name</label>
+    			<filter>text</filter>
+    			<sorting>asc</sorting>
+    		</settings>
+    	</column> -->
+
+
+		<!-- Student Name -->
+		<column name="student_name" class="Magento\Ui\Component\Listing\Columns\Column">
+			<settings>
+				<label translate="true">Student Name</label>
+				<filter>text</filter>
+				<sorting>asc</sorting>
+			</settings>
+		</column>
+
+		<!-- Roll No -->
+		<column name="roll_no" class="Magento\Ui\Component\Listing\Columns\Column">
+			<settings>
+				<label translate="true">Roll No</label>
+				<filter>text</filter>
+				<sorting>asc</sorting>
+			</settings>
+		</column>
+
+		<!-- Order Increment ID -->
+		<column name="increment_id" class="Magento\Ui\Component\Listing\Columns\Column">
+			<settings>
+				<label translate="true">Order Number</label>
+				<filter>text</filter>
+				<sorting>asc</sorting>
+			</settings>
+		</column>
+
+		<!-- Customer Email -->
+		<column name="customer_email" class="Magento\Ui\Component\Listing\Columns\Column">
+			<settings>
+				<label translate="true">Email Id</label>
+				<filter>text</filter>
+				<sorting>asc</sorting>
+			</settings>
+		</column>
+
+	<!-- Customer Full Name -->
+	<column name="customer_name" class="Magento\Ui\Component\Listing\Columns\Column">
+		<settings>
+			<label translate="true">Parent Name</label>
+			<filter>text</filter>
+			<sorting>asc</sorting>
+		</settings>
+	</column>
+
+    <!-- Order Date -->
+	<column name="order_date" class="Magento\Ui\Component\Listing\Columns\Date">
+		<settings>
+			<label translate="true">Order Date</label>
+			<filter>dateRange</filter>
+			<dataType>date</dataType>
+			<sorting>desc</sorting>
+		</settings>
+	</column>
+
+    <!-- Customer Mobile -->
+	<column name="customer_mobile" class="Magento\Ui\Component\Listing\Columns\Column">
+		<settings>
+			<label translate="true">Mobile Number</label>
+			<filter>text</filter>
+			<sorting>asc</sorting>
+		</settings>
+	</column>
+
+	<column name="shipping_address" class="Magento\Ui\Component\Listing\Columns\Column">
+		<settings>
+			<label translate="true">Shipping Address</label>
+			<sortable>false</sortable>
+			<filter>text</filter>
+		</settings>
+	</column>
+
+
+
+	<!-- Dispatch Date -->
+	<column name="dispatch_date" class="Magento\Ui\Component\Listing\Columns\Date">
+		<settings>
+			<filter>dateRange</filter>
+			<dataType>date</dataType>
+			<label translate="true">Delivery Date</label>
+			<sorting>asc</sorting>
+		</settings>
+	</column>
+
+	<column name="delivery_date" class="Magento\Ui\Component\Listing\Columns\Date">
+		<settings>
+			<filter>dateRange</filter>
+			<dataType>date</dataType>
+			<label translate="true">Dispatch Date</label>
+			<sorting>asc</sorting>
+		</settings>
+	</column>
+
+	<column name="delivery_status">
+		<settings>
+			<label translate="true">Delivery Status</label>
+			<dataType>boolean</dataType>
+			<filter>boolean</filter>
+			<sorting>asc</sorting>
+		</settings>
+	</column>
+
+
+
+	<column name="partial_delivery_date" class="Magento\Ui\Component\Listing\Columns\Date">
+		<settings>
+			<filter>dateRange</filter>
+			<dataType>date</dataType>
+			<label translate="true">Partial Confirm Date</label>
+			<sorting>asc</sorting>
+		</settings>
+	</column>
+
+	<column name="acknowledgement_upload"
+        class="Retailinsights\Orders\Ui\Component\Listing\Column\Acknowledgementview"
+        component="Magento_Ui/js/grid/columns/column">
+		<settings>
+			<label translate="true">Acknowledgement Upload</label>
+			<sortable>false</sortable>
+			<filter>false</filter>
+			<bodyTmpl>ui/grid/cells/html</bodyTmpl>
+		</settings>
+	</column>
+
+
+    </columns>
+</listing>

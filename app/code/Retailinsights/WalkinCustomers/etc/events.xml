@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="payment_method_is_active">
+        <observer name="enable_payment_for_walkin_customers" instance="Retailinsights\WalkinCustomers\Observer\PaymentMethodAvailable" />
+    </event>
+    <event name="checkout_onepage_controller_success_action">
+        <observer name="status_change_walkin_customers" instance="Retailinsights\WalkinCustomers\Observer\StatusChangeWalkinCustomers" />
+    </event>
+</config>

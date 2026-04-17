@@ -1,0 +1,108 @@
+<?php
+/**
+ * Plumrocket Inc.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the End-user License Agreement
+ * that is available through the world-wide-web at this URL:
+ * http://wiki.plumrocket.net/wiki/EULA
+ * If you are unable to obtain it through the world-wide-web, please
+ * send an email to support@plumrocket.com so we can send you a copy immediately.
+ *
+ * @package     Plumrocket RMA v2.x.x
+ * @copyright   Copyright (c) 2017 Plumrocket Inc. (http://www.plumrocket.com)
+ * @license     http://wiki.plumrocket.net/wiki/EULA  End-user License Agreement
+ */
+?>
+
+<?php $_entity = $block->getEntity() ?>
+<?php $_order = $block->getOrder() ?>
+<?php $objectManager = \Magento\Framework\App\ObjectManager::getInstance(); 
+	 $resource = $objectManager->get('Magento\Framework\App\ResourceConnection');
+	 $connection = $resource->getConnection();
+	 $tableName = $resource->getTableName('plumrocket_rma_returns_note');
+	 $adminusertableName = $resource->getTableName('admin_user'); 
+ ?>
+
+<div class="admin__page-section-item-title">
+    <span class="title"><?php /* @escapeNotVerified */ echo __('RMA Note') ?></span>
+</div>
+<?php //echo $block->getChildHtml('order_totals') ?>
+
+<div class="admin__field">
+    <!-- <label for="history_comment" class="admin__field-label">
+        <?php /* @escapeNotVerified */ echo __('RMA Note') ?>
+    </label> -->
+    <div class="admin__field-control">
+        <textarea name="note"
+                  rows="3"
+                  cols="5"
+                  id="returns_note"
+                  class="admin__control-textarea required-entry"
+><?php //echo $this->escapeHtml(null !== $this->dataHelper->getFormData('note') ? $this->dataHelper->getFormData('note') : $_entity->getNote()) ?></textarea>
+
+        <div class="admin__field-note">
+            <span>RMA Notes are not visible to customers.</span>
+        </div>
+        <div class= "rma-note-notification" style="margin-top: 13px;">
+		<ul class="note-list returns-comments-list">
+		<?php if ($_entity && $_entity->getNote()): ?>
+			<li class="comment-item sender-manager" style="list-style-type: none;">
+				<span class="note-list-customer" style="font-weight: bold;font-size: 12px;">
+					
+			     <?php
+				 $adminuserql = "Select * FROM " . $adminusertableName . " where user_id = ". $_entity->getManagerId() ;
+				 $adminuserresult = $connection->fetchRow($adminuserql);
+				  if(!empty($adminuserresult)) {
+			     ?>
+				  <span class="note-list-customer-notified"><?php echo $adminuserresult['firstname'] . ' ' .$adminuserresult['lastname']; ?></span>
+                   <?php } ?>
+				</span>
+				<span class="note-list-date">
+					<?php echo $block->formatDate($_entity->getCreatedAt(), \IntlDateFormatter::MEDIUM); ?>
+				</span>
+				<span class="note-list-time">
+					<?php echo $block->formatTime($_entity->getCreatedAt(), \IntlDateFormatter::MEDIUM); ?>
+				</span>
+				<div class="note-list-comment" style="font-size: 12px;">
+					<?php echo $block->escapeHtml($_entity->getNote()); ?>
+				</div>
+			</li>
+		<?php endif; ?>
+		 </ul>
+
+		  <ul class="note-list returns-comments-list">
+             <?php 
+		         $parent_id = $_entity->getEntityId();
+				 if(!empty($parent_id)) {
+
+				 $notefetchsql = "Select * FROM " . $tableName . " where parent_id = ". $parent_id . " ORDER BY entity_id DESC" ;
+				 $noteallresult = $connection->fetchAll($notefetchsql);
+		       foreach ($noteallresult as $noteallresultval){
+		   ?>
+
+            <li class="comment-item sender-manager" style="list-style-type: none;">
+				<span class="note-list-customer" style="font-weight: bold;font-size: 12px;">
+					
+			     <?php
+				 $adminuserql = "Select * FROM " . $adminusertableName . " where user_id = ". $noteallresultval['manager_id'] ;
+				 $adminuserresult = $connection->fetchRow($adminuserql);
+				  if(!empty($adminuserresult)) {
+			     ?>
+				  <span class="note-list-customer-notified"><?php echo $adminuserresult['firstname'] . ' ' .$adminuserresult['lastname']; ?></span>
+                   <?php } ?>
+				</span>
+				<span class="note-list-date"><?php /* @noEscape */ echo $block->formatDate($noteallresultval['created_at'], \IntlDateFormatter::MEDIUM) ?></span>
+				<span class="note-list-time"><?php /* @noEscape */ echo $block->formatTime($noteallresultval['created_at'], \IntlDateFormatter::MEDIUM) ?></span>
+			    <div class="note-list-comment" style="font-size: 12px;">
+				<?php echo $block->escapeHtml($noteallresultval['note']) ?>
+				 <?php //$noteallresultval['note']; ?>
+			    </div>
+           </li>
+		      <?php } }?>
+            </ul>
+		</div>
+
+    </div>
+</div>

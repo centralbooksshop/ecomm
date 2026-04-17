@@ -1,0 +1,40 @@
+<form id="send-mail-form-<%- id %>" method="post" enctype="multipart/form-data" action="<%- formaction %>" data-hasrequired="* Required Fields" data-mage-init='{"validation":{}}'>
+	<div class="modal-body">
+		<div class="bootbox-body">
+			<div class="admin__field field">
+				<label for="incrementid-<%- id %>" class="admin__field-label label"><span>Increment Id</span></label>
+				<div class="admin__field-control control">
+					<input type="text" name="incrementid" id="name-<%- id %>" value="<%- incrementid %>" title="Increment Id" class="admin__control-text" readonly>
+				</div>
+			</div>
+			<div class="admin__field field required">
+				<label for="noofcovers-<%- id %>" class="admin__field-label label"><span>No of Covers</span></label>
+				<div class="admin__field-control control">
+					<input type="number" name="noofcovers" id="noofcovers-<%- id %>" value="<%- noofcovers %>" title="No of Covers" class="admin__control-text required input-fields-delivery" onchange="calculateDelivery(<%- id %>)" data-validate="{required:true}" required>
+				</div>
+			</div>
+			<div class="admin__field field required">
+				<label for="noofboxes-<%- id %>" class="admin__field-label label"><span>No of Boxes</span></label>
+				<div class="admin__field-control control">
+					<input type="number" name="noofboxes" id="noofboxes-<%- id %>" value="<%- noofboxes %>" title="No of Boxes" class="admin__control-text required input-fields-delivery" onchange="calculateDelivery(<%- id %>)" data-validate="{required:true}" required>
+				</div>
+			</div>
+			<div class="admin__field field required">
+				<label for="delivery_amount-<%- id %>" class="admin__field-label label"><span>Delivery Amount</span></label>
+				<div class="admin__field-control control">
+					<input type="text" name="delivery_amount" id="delivery_amount-<%- id %>" value="<%- deliveryamount %>" title="Delivery Amount" class="admin__control-text required" data-validate="{required:true}" required>
+				</div>
+			</div>
+			<div class="admin__field field">
+				<label for="comments-<%- id %>" class="admin__field-label label"><span>Comments</span></label>
+				<div class="admin__field-control control">
+					<textarea class="bootbox-input bootbox-input-text form-control admin__control-text" id="comments-<%- id %>" name="comments" rows="5" cols="100"></textarea>
+				</div>
+			</div>
+			<input type="hidden" name="id" value="<%- id %>">
+			<input type="hidden" name="form_key" value="<%- formakey %>"/>
+			<input type="hidden" id="priceforcover" value="<%- priceforcover %>">
+			<input type="hidden" id="priceforbox" value="<%- priceforbox %>">
+		</div>
+	</div>
+</form>

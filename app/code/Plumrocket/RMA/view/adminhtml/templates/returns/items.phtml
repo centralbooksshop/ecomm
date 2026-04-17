@@ -1,0 +1,212 @@
+<?php
+/**
+ * Plumrocket Inc.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the End-user License Agreement
+ * that is available through the world-wide-web at this URL:
+ * http://wiki.plumrocket.net/wiki/EULA
+ * If you are unable to obtain it through the world-wide-web, please
+ * send an email to support@plumrocket.com so we can send you a copy immediately.
+ *
+ * @package     Plumrocket RMA v2.x.x
+ * @copyright   Copyright (c) 2017 Plumrocket Inc. (http://www.plumrocket.com)
+ * @license     http://wiki.plumrocket.net/wiki/EULA  End-user License Agreement
+ */
+?>
+
+<?php $_entity = $block->getEntity() ?>
+<?php $_order = $block->getOrder() ?>
+
+
+<!-- <div class="admin__page-section-item-title">
+    <span class="title"><?php /* @escapeNotVerified */ echo __('Items To Return') ?></span>
+</div> -->
+
+<div class="admin__table-wrapper">
+    <table class="data-table admin__table-primary edit-order-tableDEL">
+        <thead>
+            <tr class="headings">
+                <th class="col-image"><span><?php /* @escapeNotVerified */ echo __('Image') ?></span></th>
+                <th class="col-product"><span><?php /* @escapeNotVerified */ echo __('Product') ?></span></th>
+                <?php foreach ($block->getColumns() as $colName => $label): ?>
+                    <th class="col-<?php echo $colName ?>" title="<?php echo $this->escapeHtml($block->getInfo($colName)) ?>">
+                        <span><?php echo $this->escapeHtml($label) ?></span>
+                        <?php if ($block->getInfo($colName)): ?>
+                            <span class="icon-info"></span>
+                        <?php endif; ?>
+                    </th>
+                <?php endforeach; ?>
+
+                <?php if (! $_entity->isClosed()): ?>
+                    <th class="col-action" title="<?php echo $this->escapeHtml($block->getInfo('action')) ?>">
+                        <span><?php /* @escapeNotVerified */ echo __('Action') ?></span>
+                        <span class="icon-info"></span>
+                    </th>
+                <?php endif ?>
+
+                <?php if (! $block->isNewEntity()): ?>
+                    <th class="col-status last"><span><?php /* @escapeNotVerified */ echo __('Status') ?></span></th>
+                <?php endif ?>
+            </tr>
+        </thead>
+
+        <tbody>
+            <?php foreach ($block->getItems() as $item): ?>
+                <tr data-item="<?php echo $block->getRowKey($item) ?>">
+                    <td class="col-image">
+                        <img src="<?php echo $this->escapeHtml($block->getImageUrl($item)); ?>" />
+                    </td>
+                    <td class="col-product">
+                        <a href="<?php echo $this->escapeHtml($block->getProductUrl($item)) ?>" target="_blank">
+                            <?php echo $this->escapeHtml($item->getOrderItem()->getName()) ?></a>
+
+                        <div>
+                            <?php echo __('SKU') ?>: <?php echo $this->escapeHtml($item->getOrderItem()->getSku()) ?>
+							<br />
+							<?php
+							$givenOptions = $item->getOrderItem()->getGivenOptions();
+
+							if ($givenOptions == 1) {
+								// Option 1 message
+								//echo '<div class="col-name"><div style="color:red;">' . $item->getOrderItem()->getGivenOptionsMsg() . '</div></div>';
+							?>
+
+							    <div class="col-name"><div style="color:red;">(You can't select this item, as it "will be given in school")</div></div>
+							<?php 
+							} elseif ($givenOptions == 2) {
+								// Option 2 message ?>
+								<div class="col-name"><div style="color:red;">(You can't select this item, as it is a "school-issued item")</div></div>
+							<?php } ?>
+							
+							<br />
+                            <?php $stockItem = $block->getStockItem($item) ?>
+                            <?php echo __('Availability') ?>: <?php echo $stockItem->getIsInStock() ? __('In Stock') : __('Out of Stock') ?><br />
+                            <?php echo __('Inventory Qty') ?>: <?php echo $this->escapeHtml($stockItem->getQty() ?: '-') ?>
+                        </div>
+
+                        <?php echo $block->getElementHtml($item, \Plumrocket\RMA\Helper\Returns\Item::ENTITY_ID) ?>
+                        <?php echo $block->getElementHtml($item, \Plumrocket\RMA\Helper\Returns\Item::ORDER_ITEM_ID) ?>
+                    </td>
+                   
+                    <?php foreach ($block->getColumns() as $colName => $label): ?>
+                        <td class="col-<?php echo $colName ?>">
+                            <?php echo $block->getElementHtml($item, $colName) ?>
+
+                            <?php if (\Plumrocket\RMA\Helper\Returns\Item::REASON_ID === $colName): ?>
+                        
+                        <script>
+                                require([
+                                    'jquery',
+                                    'mage/mage'
+                                ], function($){
+                                     $(document).ready(function(){
+                                        var id = "<?php echo $item->getRowNumber() ?>";
+
+                                        var id_class =  "items_new"+id+"_reason_id";
+                                        var id_layer =  "items_new"+id+"_reason_id_layer";
+                                        var id_replace = "items_new"+id+"_reason_id_replace";
+                                        var id_cancel =  "items_new"+id+"_reason_id_cancel";
+
+                                    
+                                        $('#'+id_layer).hide();
+                                        $('#'+id_replace).hide();
+                                        $('#'+id_cancel).hide();
+              
+                                        $("select#"+id_class).change(function(){
+
+                                            var selectedVal =$(this).val();
+                                            if(selectedVal == 1){
+                                                $('#'+id_layer).show();
+                                            }else{
+                                                $('#'+id_layer).hide();
+                                            }
+                                            if(selectedVal == 2){
+                                                $('#'+id_replace).show();
+                                            }else{
+                                                $('#'+id_replace).hide();
+                                            }
+                                            if(selectedVal == 3){
+                                                $('#'+id_cancel).show();
+                                            }else{
+                                                $('#'+id_cancel).hide();
+                                            }
+
+                                        });
+                                     });
+                                   
+                                });
+                                </script>
+
+                                <div class="payer-hint">
+                                    <span class="payer-owner">
+                                        <?php echo __('%1 will cover shipping costs', $this->getDataHelper()->getStoreName()) ?>
+                                    </span>
+                                    <span class="payer-customer">
+                                        <?php echo __('Customer will cover shipping costs') ?>
+                                    </span>
+                                </div>
+                            <?php endif ?>
+                        </td>
+
+                    <?php endforeach ?>
+
+                    <?php if (! $_entity->isClosed()): ?>
+                        <td class="col-action">
+                            <?php if ($block->getMaxQty($item)): ?>
+                                <a class="row-clone" href="javascript:void(0)">
+                                    <?php /* @escapeNotVerified */ echo __('Split') ?>
+                                </a>
+                                <a class="row-clone-cancel" href="javascript:void(0)">
+                                    <?php /* @escapeNotVerified */ echo __('Delete Row') ?>
+                                </a>
+                            <?php endif ?>
+                        </td>
+                    <?php endif ?>
+
+                    <?php if (! $block->isNewEntity()): ?>
+                        <td class="col-status last">
+                            <span><?php echo $block->getStatusLabel($item) ?></span>
+                        </td>
+                    <?php endif ?>
+                </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+</div>
+
+<script type="text/javascript">
+    window.payerOwnerReasons = <?php echo $this->escapeJsQuote(json_encode($this->getPayerOwnerReasons())) ?>;
+</script>
+<!-- <script>
+require([
+    'jquery',
+    'mage/mage'
+], function($){
+ $(document).ready(function(){
+    $('.col-reason_id_layer').hide();
+    $('.col-reason_id_replace').hide();
+    $('.col-reason_id_cancel').hide();
+
+        $(".col-reason_id select").change(function(){
+            var selectedVal =$(this).val();
+            if(selectedVal == 1){
+                $('.col-reason_id_layer').show();
+            }else{
+                $('.col-reason_id_layer').hide();
+            }
+            if(selectedVal == 2){
+                $('.col-reason_id_replace').show();
+            }else{
+                $('.col-reason_id_replace').hide();
+            }
+            if(selectedVal == 3){
+                $('.col-reason_id_cancel').show();
+            }else{
+                $('.col-reason_id_cancel').hide();
+            }
+        });
+    });
+});
+</script> -->

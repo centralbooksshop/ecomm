@@ -1,0 +1,126 @@
+<?xml version="1.0"?>
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd"
+         name="softdatasync_service_listing">
+
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">softdatasync_service_listing.softdatasync_service_listing_data_source</item>
+            <item name="deps" xsi:type="string">softdatasync_service_listing.softdatasync_service_listing_data_source</item>
+        </item>
+        <item name="spinner" xsi:type="string">softdatasync_service_columns</item>
+    </argument>
+
+    <!-- Enable Inline Editing -->
+   <dataSource name="softdatasync_service_listing_data_source" component="Magento_Ui/js/grid/provider">
+        <settings>
+            <storageConfig>
+                <param name="indexField" xsi:type="string">entity_id</param>
+            </storageConfig>
+             <updateUrl path="mui/index/render"/>
+        <!-- Inline edit controller stays separate -->
+        <submitUrl path="softdatasync/service/inlineEdit"/>
+        </settings>
+
+        <aclResource>Shipsy_EcommerceExtension::menu</aclResource>
+
+        <dataProvider name="softdatasync_service_listing_data_source"
+                      class="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider">
+            <settings>
+                <requestFieldName>entity_id</requestFieldName>
+                <primaryFieldName>entity_id</primaryFieldName>
+            </settings>
+        </dataProvider>
+    </dataSource>
+
+    <!-- Toolbar -->
+    <listingToolbar name="listing_top">
+        <settings>
+            <sticky>true</sticky>
+        </settings>
+        <bookmark name="bookmarks"/>
+        <columnsControls name="columns_controls"/>
+        <filterSearch name="fulltext"/>
+        <filters name="listing_filters"/>
+        <paging name="listing_paging"/>
+    </listingToolbar>
+
+    <!-- Columns -->
+    <columns name="softdatasync_service_columns">
+        <column name="entity_id">
+            <settings>
+                <label translate="true">ID</label>
+                <sorting>asc</sorting>
+                <filter>text</filter>
+            </settings>
+        </column>
+
+        <column name="service_code">
+            <settings>
+                <label translate="true">Service Code</label>
+                <filter>text</filter>
+            </settings>
+        </column>
+
+        <column name="name">
+            <settings>
+                <label translate="true">Service Name</label>
+                <filter>text</filter>
+            </settings>
+        </column>
+
+        <!-- Inline Editable: Active -->
+	<column name="active" class="Magento\Ui\Component\Listing\Columns\Column">
+		<settings>
+			<label translate="true">Active</label>
+			<filter>select</filter>
+			<dataType>select</dataType>
+			<editor>
+				<editorType>select</editorType>
+			</editor>
+			<options>
+				<option name="1" xsi:type="array">
+					<item name="value" xsi:type="number">1</item>
+					<item name="label" xsi:type="string">Yes</item>
+				</option>
+				<option name="0" xsi:type="array">
+					<item name="value" xsi:type="number">0</item>
+					<item name="label" xsi:type="string">No</item>
+				</option>
+			</options>
+		</settings>
+	</column>
+
+	<!-- Inline Editable: Default -->
+	<column name="is_default" class="Magento\Ui\Component\Listing\Columns\Column">
+		<settings>
+			<label translate="true">Default</label>
+			<filter>select</filter>
+			<dataType>select</dataType>
+			<editor>
+				<editorType>select</editorType>
+			</editor>
+			<options>
+				<option name="1" xsi:type="array">
+					<item name="value" xsi:type="number">1</item>
+					<item name="label" xsi:type="string">Yes</item>
+				</option>
+				<option name="0" xsi:type="array">
+					<item name="value" xsi:type="number">0</item>
+					<item name="label" xsi:type="string">No</item>
+				</option>
+			</options>
+		</settings>
+	</column>
+
+	<actionsColumn name="actions" class="Shipsy\EcommerceExtension\Ui\Component\Listing\Column\ServiceActions">
+		<settings>
+			<indexField>entity_id</indexField>
+			<resizeEnabled>false</resizeEnabled>
+			<resizeDefaultWidth>107</resizeDefaultWidth>
+		</settings>
+	</actionsColumn>
+
+
+    </columns>
+</listing>

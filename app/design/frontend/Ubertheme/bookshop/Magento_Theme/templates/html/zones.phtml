@@ -1,0 +1,22 @@
+<?php
+/**
+* Copyright © 2015 Magento. All rights reserved.
+* See COPYING.txt for license details.
+*/
+/** @var $block \Magento\Framework\View\Element\Template */
+$blockObj= $block->getLayout()->createBlock('Retailinsights\Registers\Block\Index\Header');
+?>
+<div data-ui-id="quick-zones" id="zones">  
+  <div class="zone_links clearfix">
+    <div class="zones" id="school_zone">
+      <a href="<?php echo $blockObj->getCustUrl(); ?>">
+        <img src="<?php echo $this->getViewFileUrl('images/header/book_store.png'); ?>" alt="Book store" itemprop="image"> <span>Book Store</span>
+      </a>
+    </div>
+    <div class="zones" id="book_store">
+      <a class="link_image" href="<?php echo $blockObj->getCustUrl(); ?>schools">
+        <img src="<?php echo $this->getViewFileUrl('images/header/school_zone.png'); ?>" alt="School zone" itemprop="image"> <span>School Zone</span>
+      </a>
+    </div>
+  </div>
+</div>

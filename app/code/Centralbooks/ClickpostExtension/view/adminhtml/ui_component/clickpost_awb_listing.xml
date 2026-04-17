@@ -1,0 +1,171 @@
+<?xml version="1.0"?>
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">clickpost_awb_listing.clickpost_awb_listing_data_source</item>
+        </item>
+    </argument>
+    <settings>
+        <spinner>clickpost_awb_columns</spinner>
+        <deps>
+            <dep>clickpost_awb_listing.clickpost_awb_listing_data_source</dep>
+        </deps>
+    </settings>
+    <dataSource name="clickpost_awb_listing_data_source" component="Magento_Ui/js/grid/provider">
+        <settings>
+            <storageConfig>
+                <param name="indexField" xsi:type="string">awb_id</param>
+            </storageConfig>
+            <updateUrl path="mui/index/render"/>
+        </settings>
+        <dataProvider class="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider" name="clickpost_awb_listing_data_source">
+            <settings>
+                <requestFieldName>id</requestFieldName>
+                <primaryFieldName>awb_id</primaryFieldName>
+            </settings>
+        </dataProvider>
+    </dataSource>
+    <listingToolbar name="listing_top">
+        <settings>
+            <sticky>true</sticky>
+        </settings>
+        <bookmark name="bookmarks"/>
+        <exportButton/>
+        <columnsControls name="columns_controls"/>
+        <filterSearch name="fulltext"/>
+        <filters name="listing_filters">
+            <argument name="data" xsi:type="array">
+                <item name="observers" xsi:type="array">
+                    <item name="column" xsi:type="string">column</item>
+                </item>
+            </argument>
+            <settings>
+                <templates>
+                    <filters>
+                        <select>
+                            <param name="template" xsi:type="string">ui/grid/filters/elements/ui-select</param>
+                            <param name="component" xsi:type="string">Magento_Ui/js/form/element/ui-select</param>
+                        </select>
+                    </filters>
+                </templates>
+            </settings>
+        </filters>
+        <massaction name="listing_massaction" component="Magento_Ui/js/grid/tree-massactions">
+			
+			<action name="updateawbstatus">
+                <settings>
+                    <url path="clickpost/awb/updateAwbStatus"/>
+                    <type>updateawbstatus</type>
+                    <label translate="true">Update AWB Status</label>
+					<!--<actions class="Centralbooks\ClickpostExtension\Ui\Component\MassAction\Group\Address"/>-->
+                </settings>
+            </action>
+
+        </massaction>
+        <paging name="listing_paging"/>
+    </listingToolbar>
+    <columns name="clickpost_awb_columns">
+        <settings>
+            <childDefaults>
+                <param name="fieldAction" xsi:type="array">
+                    <item name="provider" xsi:type="string">clickpost_awb_listing.clickpost_awb_listing.clickpost_awb_columns_editor</item>
+                    <item name="target" xsi:type="string">startEdit</item>
+                    <item name="params" xsi:type="array">
+                        <item name="0" xsi:type="string">${ $.$data.rowIndex }</item>
+                        <item name="1" xsi:type="boolean">true</item>
+                    </item>
+                </param>
+            </childDefaults>
+        </settings>
+        <selectionsColumn name="ids">
+            <settings>
+                <indexField>awb_id</indexField>
+                <resizeEnabled>false</resizeEnabled>
+                <resizeDefaultWidth>55</resizeDefaultWidth>
+            </settings>
+        </selectionsColumn>
+        <column name="awb_id">
+            <settings>
+                <filter>textRange</filter>
+                <label translate="true">ID</label>
+                <sorting>asc</sorting>
+            </settings>
+        </column>
+		<column name="courier_name">
+            <settings>
+                <filter>text</filter>
+                <dataType>text</dataType>
+                <label translate="true">Courier Name</label>
+            </settings>
+        </column>
+
+		<column name="courier_partner_id">
+            <settings>
+                <filter>text</filter>
+                <dataType>text</dataType>
+                <label translate="true">Courier Partner Id</label>
+            </settings>
+        </column>
+
+        <column name="waybill">
+            <settings>
+                <filter>text</filter>
+                <editor>
+                    <validation>
+                        <rule name="required-entry" xsi:type="boolean">true</rule>
+                    </validation>
+                    <editorType>text</editorType>
+                </editor>
+                <label translate="true">AWB/Waybill</label>
+            </settings>
+        </column>
+        <column name="shipment_id">
+            <settings>
+                <filter>textRange</filter>
+                <dataType>text</dataType>
+                <label translate="true">Shipment Id</label>
+            </settings>
+        </column>
+        <column name="shipment_to">
+            <settings>
+                <filter>text</filter>
+                <dataType>text</dataType>
+                <label translate="true">Shipment To</label>
+            </settings>
+        </column>
+        <column name="state" component="Magento_Ui/js/grid/columns/select">
+            <settings>
+                <filter>select</filter>
+                <dataType>select</dataType>
+                <options class="Centralbooks\ClickpostExtension\Model\Awb\Source\State"/>
+                <label translate="true">State</label>
+            </settings>
+        </column>
+
+		<column name="location">
+            <settings>
+                <filter>text</filter>
+                <dataType>text</dataType>
+                <label translate="true">Location</label>
+            </settings>
+        </column>
+
+        <column name="status" component="Magento_Ui/js/grid/columns/select">
+            <settings>
+                <filter>select</filter>
+                <dataType>select</dataType>
+                <options class="Centralbooks\ClickpostExtension\Model\Awb\Source\Status"/>
+                <label translate="true">Status</label>
+            </settings>
+        </column>
+       
+        <column name="order_increment_id">
+            <settings>
+                <filter>text</filter>
+                <dataType>text</dataType>
+                <label translate="true">Order Id</label>
+            </settings>
+        </column>
+        
+    </columns>
+</listing>

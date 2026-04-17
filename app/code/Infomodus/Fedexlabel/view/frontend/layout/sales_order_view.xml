@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2015 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceBlock name="sales.order.info.buttons">
+            <block class="Infomodus\Fedexlabel\Block\Order\Info\Buttons" name="infomodus_fedexlabel.order.info.buttons" template="Infomodus_Fedexlabel::order/info/buttons.phtml"/>
+        </referenceBlock>
+        <referenceContainer name="content">
+            <block class="Infomodus\Fedexlabel\Block\Order\Info\Labels" name="infomodus_fedexlabel.order.info.labels" after="sales.order.info" template="Infomodus_Fedexlabel::order/info/labels.phtml"/>
+        </referenceContainer>
+    </body>
+</page>

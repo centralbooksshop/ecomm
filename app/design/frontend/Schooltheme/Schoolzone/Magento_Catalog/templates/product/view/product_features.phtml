@@ -1,0 +1,19 @@
+<?php
+/**
+ * Copyright © 2016 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+/**
+ * Product view template
+ *
+ * @see \Magento\Catalog\Block\Product\View\Details
+ */
+
+?>
+<?php
+$_helper = $this->helper('Magento\Catalog\Helper\Output');
+$product = $block->getProduct();
+$attributes = $product->getAttributes();

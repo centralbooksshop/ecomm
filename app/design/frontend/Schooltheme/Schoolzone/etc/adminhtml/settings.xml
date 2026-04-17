@@ -1,0 +1,59 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2016 Ubertheme. All rights reserved.
+ */
+ //Refer in the file: app\code\Ubertheme\UbThemeHelper\fixtures\theme_config_sample\etc\adminhtml\settings.xml.sample
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="category_view">
+            <group id="general">
+                <field id="enable_author" translate="label comment" type="select" sortOrder="16" showInDefault="1" canRestore="1">
+                    <label>Enable Author</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+            </group>
+            <group id="grid">
+                <group id="image">
+                    <comment><![CDATA[This theme supports default aspect ratio 2:3 (Width x Height)]]></comment>
+                </group>
+            </group>
+            <group id="list">
+                <comment><![CDATA[This theme supports default aspect ratio 2:3 (Width x Height)]]></comment>
+            </group>
+        </section>
+        <section id="product_view">
+            <group id="general">
+                <field id="enable_author" translate="label comment" type="select" sortOrder="10" showInDefault="1" canRestore="1">
+                    <label>Enable Author</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+            </group>
+            <group id="gallery">
+                <group id="general">
+                    <field id="image_medium_height">
+                        <comment><![CDATA[This theme supports default aspect ratio 2:3 (Width x Height).]]></comment>
+                    </field>
+                </group>
+            </group>
+            <group id="related">
+                <field id="image_height">
+                    <comment><![CDATA[This theme supports default aspect ratio 2:3 (Width x Height).]]></comment>
+                </field>
+            </group>
+            <group id="upsell">
+                <field id="image_height">
+                    <comment><![CDATA[This theme supports default aspect ratio 2:3 (Width x Height).]]></comment>
+                </field>
+            </group>
+        </section>
+        <section id="cart">
+            <group id="crosssell">
+                <field id="image_height">
+                    <comment><![CDATA[This theme supports default aspect ratio 2:3 (Width x Height).]]></comment>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

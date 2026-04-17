@@ -1,0 +1,288 @@
+<?php
+/**
+ * Copyright © 2019 UberTheme. All rights reserved.
+ */
+
+// @codingStandardsIgnoreFile
+
+?>
+<?php
+    /** @var  \Ubertheme\UbThemeHelper\Helper\Data $ubHelper */
+    $ubHelper = $this->helper('Ubertheme\UbThemeHelper\Helper\Data');
+    //Get Theme Path
+    $themeId = \Ubertheme\UbThemeHelper\Helper\Data::getCurrentThemeId();
+    $themePath = \Ubertheme\UbThemeHelper\Helper\Data::getThemeById($themeId)->getThemePath();
+    $themePath = strtolower($themePath);
+?>
+
+<script type="text/javascript">
+    require([
+        "jquery",
+        "mage/adminhtml/form",
+        "jquery/validate",
+        "mage/translate",
+        "domReady!"
+    ], function($) {
+        /* General function */
+
+            //Handle for click event on the button reset
+            $('.use-default').on('click', function() {
+                //revert the value of field to default value
+                var $btnReset = $(this).find('.btn-reset');
+                if ($btnReset.length && !$btnReset.hasClass('hide')) {
+                    var defaultFieldId = $btnReset.attr('id').replace('_inherit', '_default');
+                    var fieldId = $btnReset.attr('id').replace('_inherit', '');
+
+                    if ($('#' + fieldId).is('select')) { // if is select field
+                        $("" + '#' + fieldId + " option[selected=selected]").removeAttr('selected');
+                        $("" + '#' + fieldId + " option[value='" + $('#' + defaultFieldId).val() + "']").attr('selected', 'selected');
+                        updateDepends(fieldId);
+                    } else if ($('#' + fieldId).hasClass('input-file')) {
+                        var $chkDelete = $('#' + fieldId).siblings('.delete-image').find('input.checkbox');
+                        if ($chkDelete.length) {
+                            $chkDelete.prop('checked', true);
+                        }
+                    } else if (fieldId.includes('color')) { // reset for color picker
+                        if ($('#color-picker-' + fieldId).length) {
+                            $('#color-picker-' + fieldId).val($('#' + fieldId).val());
+                            $('#color-picker-' + fieldId).siblings(".sp-replacer.ub-color-picker")
+                                .find(".sp-preview-inner").css("backgroundColor", $('#' + fieldId).val());
+                        }
+                    } else if (fieldId.includes('custom_tab')) { // check case field is custom tab
+                        window.resetToDefaultTabs();
+                    } else if (fieldId.includes('align')) { // check case with alignment field
+                        var $alignOptions = $('#' + fieldId).siblings('.ub-alignment-options');
+                        if ($alignOptions.length) {
+                            $alignOptions.find('li').each(function() {
+                                if ($(this).hasClass($('#' + defaultFieldId).val())) {
+                                    $(this).addClass('selected');
+                                } else {
+                                    $(this).removeClass('selected');
+                                }
+                            })
+                        }
+                    }
+
+                    if (!$('#' + fieldId).hasClass('input-file')) { // is not file input type
+                        $('#' + fieldId).val($('#' + defaultFieldId).val()).trigger('change');
+                    }
+
+                    // check to inherit
+                    $btnReset.siblings('input.config-inherit').prop('checked', true);
+
+                    // hide reset button
+                    $btnReset.hide();
+                }
+            })
+
+            //Apply dependence for element
+            function updateDepends(fieldId) {
+                var elementsMap = window.elementsMap;
+                if (elementsMap !== undefined) {
+                    for (idTo in elementsMap) {
+                        for (idFrom in elementsMap[idTo]) {
+                            if(idFrom === fieldId) {
+                                FormElementDependenceController.prototype.trackChange('change', idTo, elementsMap[idTo]);
+                            }
+                        }
+                    }
+                }
+            }
+
+            //Handle change event of input/select setting fields
+            $('.ub-field-value').each(function(i, el) {
+                var $defaultField = $(el).find('.default-value-field');
+                var $currentField = $(el).find('.current-value-field');
+                //for case of image fields
+                if (!$currentField.length) {
+                    $currentField = $(el).find('input.input-file');
+
+                    //check if has default image and used default image state and then hide the delete button
+                    var $btnDelImg =  $currentField.siblings('.delete-image');
+                    if ($btnDelImg.length) {
+                        if ($('#' + $currentField.attr('id') + '_inherit_checkbox').prop('checked')) {
+                            $btnDelImg.addClass('hide');
+                        } else {
+                            $btnDelImg.find('label').text($.mage.__('Delete current image'));
+                        }
+                    }
+                }
+                // bind change event
+                $currentField.on('change', function () {
+                    if ($(this).val() != $defaultField.val()) {
+                        $(el).siblings('.use-default').find('.btn-reset').removeClass('hide').show();
+                        $(el).siblings('.use-default').find('input.config-inherit').prop('checked', false);
+                    } else {
+                        $(el).siblings('.use-default').find('.btn-reset').hide();
+                        $(el).siblings('.use-default').find('input.config-inherit').prop('checked', true);
+                    }
+                })
+            });
+
+            //Validate keyup
+            $.fn.validateKeyup = function(rexg,textError) {
+                var value = $(this).val();
+                if (value) {
+                    if (!rexg.test(value)) {
+                        if(!$(this).hasClass('mage-error')) {
+                            $(this).addClass('mage-error');
+                            $(textError).insertAfter($(this));
+                        }
+                    } else {
+                        $(this).removeClass('mage-error');
+                        $(this).siblings('.mage-error').remove();
+                    }
+                } else {
+                    $(this).removeClass('mage-error');
+                    $(this).siblings('.mage-error').remove();
+                }
+            };
+
+        /* End General function */
+        /* =================================================== */
+
+        /* Section General  */
+
+        $(document).on("keyup", '.validate-number', function() {
+            var rexg = /^[0-9]+$/ ;
+            var textError = '<label class="mage-error">'+ $.mage.__('Please enter a valid number in this field.') + '</label>';
+            $(this).validateKeyup(rexg, textError);
+        })
+
+        $(document).on("keyup", '.validate-cat-ids', function() {
+            var rexg = /^[0-9,]+$/ ;
+            var textError = '<label class="mage-error">'+ $.mage.__('Enter numbers only, no spaces, separated by comma.') + '</label>';
+            $(this).validateKeyup(rexg, textError);
+
+        })
+
+        /* End Section General  */
+
+        /* Section Custom Tab  */
+
+        // Add event change type frontend
+        $("body").delegate(".ubcustom-tab-type", "change", function() {
+            var $elAttribute =  $(this).closest("tr").find('.attribute-code') ;
+            var $elStaticBlock =  $(this).closest("tr").find('.static-block') ;
+            if ($(this).val() === 'static_block') {
+                $elAttribute.removeClass('mage-error').removeAttr("style").prop("disabled", true).hide();
+                $elStaticBlock.prop("disabled", false).show();
+            } else {
+                $elStaticBlock.removeClass('mage-error').removeAttr("style").prop("disabled", true).hide();
+                $elAttribute.prop("disabled", false).show();
+            }
+        });
+        $('.ubcustom-tab-type').trigger('change');
+
+        $("body").delegate(".ubcustom-tab-type", "blur", function() {
+            var $elAttribute =  $(this).closest("tr").find('.attribute-code') ;
+            var $elStaticBlock =  $(this).closest("tr").find('.static-block') ;
+            if ($(this).val() === 'static_block') {
+                $elStaticBlock.focus();
+            } else {
+                $elAttribute.focus();
+            }
+        });
+
+        //Add validate default
+        $.validator.addMethod(
+            'validate-custom-ids', function (value) {
+                if (value) {
+                    var rexg = /^[0-9,]+$/ ;
+                    return rexg.test(value);
+                }
+
+                return true;
+            }, $.mage.__('Enter numbers only, separated by comma'));
+
+        $.validator.addMethod(
+            'validate-custom-identifier', function (value) {
+                if (value) {
+                    var rexg = /^[0-9a-zA-Z_-]+$/ ;
+                    return rexg.test(value);
+                }
+
+                return true;
+            }, $.mage.__('Invalid format'));
+
+        $(document).on("keyup", '.validate-ids', function() {
+            var rexg = /^[0-9,]+$/ ;
+            var textError = '<label class="mage-error">'+ $.mage.__('Enter numbers only, no spaces, separated by comma.') + '</label>';
+            $(this).validateKeyup(rexg, textError);
+
+        })
+
+        $(document).on("keyup", '.validate-identifier', function() {
+            var rexg = /^[0-9a-zA-Z_-]+$/ ;
+            var textError = '<label class="mage-error">'+ $.mage.__('Invalid format') + '</label>';
+            $(this).validateKeyup(rexg, textError);
+        })
+
+        //Update attribute status of button status
+        $(document).on("click", '.slider', function() {
+            if (!$(this).siblings('input').hasClass('disabled')) {
+                var val = $(this).siblings('input').attr('data-status');
+                if (val) {
+                    $(this).siblings('input').attr('data-status','')
+                } else {
+                    $(this).siblings('input').attr('data-status','on')
+                }
+            }
+        })
+
+        //Show Tooltip when hover button status
+        $(document).on("hover", '.switch', function() {
+            if (!$(this).find("input").hasClass('disabled')) {
+                $(".tooltiptext").show();
+                var val = $(this).find("input").attr('data-status');
+                var text = (val) ? "Click to disable this tab" : "Click to enable this tab";
+                $(this).find(".tooltiptext").text($.mage.__(text));
+            }
+        })
+
+        /* End Section Custom Tab */
+
+        /* Section Elements */
+
+
+        /* Start code to preview templates */
+        var themePath = '<?=$themePath?>';
+        var types = ['header', 'footer', 'product', 'category'];
+        var baseMediaUrl = '<?= $ubHelper->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_MEDIA) ?>';
+        $.each(types, function(i, type) {
+            if ($('#element_' + type + '_template').length) {
+                $('#element_' + type + '_template').on('change', function() {
+                    var $previewImg = $(this).parent().find('img.preview');
+                    var imageURL = baseMediaUrl + 'theme/preview/' + themePath + '/' + type + '/' + $(this).val() + '.jpg';
+                    if (!$previewImg.length) {
+                        var $previewImg = '<span class="btn-toggle-preview"> <?php echo __('Close') ?> </span>' +
+                            '<img class="preview" src="' + imageURL + '" />'
+                        $(this).parent().append($previewImg);
+                    } else {
+                        $previewImg.fadeOut().attr('src', imageURL).fadeIn();
+                    }
+                });
+                $('#element_' + type + '_template').trigger('change');
+            }
+        });
+        
+        var state = "first";
+        $('.btn-toggle-preview').on('click', function() {
+            $(this).siblings('img.preview').toggle();
+            $(this).toggleClass('closed');
+            // Checked when click to link Preview.
+            if (state == "first") {
+                $(this).text("Click here to preview the template");
+                state = "second";
+            } else {
+                $(this).text("Close");
+                state = "first";
+            }
+        });
+        
+        /* End code to preview templates */
+
+        /* End Section Elements */
+
+    });
+</script>

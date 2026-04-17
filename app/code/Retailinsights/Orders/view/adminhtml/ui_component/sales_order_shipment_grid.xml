@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+    <listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+        <columns name="sales_order_shipment_columns">
+            
+			<column name="school_name">
+				<argument name="data" xsi:type="array">
+					<item name="config" xsi:type="array">
+						<item name="filter" xsi:type="string">text</item>
+						<item name="label" xsi:type="string" translate="true">School Name</item>
+					</item>
+				</argument>
+			</column>
+			<column name="school_code">
+				<argument name="data" xsi:type="array">
+					<item name="config" xsi:type="array">
+						<item name="filter" xsi:type="string">text</item>
+						<item name="label" xsi:type="string" translate="true">School Code</item>
+					</item>
+				</argument>
+			</column>
+
+			 <column name="student_name">
+				<argument name="data" xsi:type="array">
+					<item name="config" xsi:type="array">
+						<item name="filter" xsi:type="string">text</item>
+						<item name="label" xsi:type="string" translate="true">Student Name</item>
+					</item>
+				</argument>
+			</column>
+			<column name="roll_no">
+				<argument name="data" xsi:type="array">
+					<item name="config" xsi:type="array">
+						<item name="filter" xsi:type="string">text</item>
+						<item name="label" xsi:type="string" translate="true">Student Number</item>
+					</item>
+				</argument>
+			</column>
+
+			
+			<column name="trackingNumber" class="Retailinsights\Orders\Ui\Component\Listing\Column\TrackingNumber">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="bodyTmpl" xsi:type="string">ui/grid/cells/html</item>
+                        <item name="label" xsi:type="string" translate="true">Tracking Number</item>
+                    </item>
+                </argument>
+            </column>
+            <column name="dispatched_on" class="Magento\Ui\Component\Listing\Columns\Date" component="Magento_Ui/js/grid/columns/date">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="label" xsi:type="string" translate="true">Dispatched On</item>
+                    </item>
+                </argument>
+            </column>
+        </columns>
+    </listing>

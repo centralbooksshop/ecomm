@@ -1,0 +1,101 @@
+<?php
+
+$tabData = $block->deliveryBoyAppTabularData();
+$deliveryBoyList = $block->getDeliveryBoysList($tabData);
+$deliveryboys_partnerlist = $block->getDeliveryBoysPartnerList($tabData);
+if(!empty($deliveryboys_partnerlist)) {
+$deliveryboys_partner_id = $deliveryboys_partnerlist['0'];
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$resource = $objectManager->get('Magento\Framework\App\ResourceConnection');
+$connection = $resource->getConnection();
+$partner_tableName = $resource->getTableName('centralbooks_deliverypartner_partner');
+$partnersql = "Select * FROM " . $partner_tableName . " where partner_id = '$deliveryboys_partner_id'";
+$partnerresult = $connection->fetchRow($partnersql);
+}
+?>
+
+<table border="1" style="text-align: center;">
+	<thead style="background-color: #c6e0b4; font-weight: 600;">
+	<div style="margin-bottom:10px;"><strong>Partner Type</strong> - <?php if(!empty($partnerresult)) { echo $partnerresult['name']; } ?></div>
+		<tr>
+			<td rowspan="2">Delivery Boy Name</td>
+			<td colspan="4">Dispatched Orders</td>
+			<td rowspan="2">Total Orders to be delivered</td>
+			<td rowspan="2">Total Delivered Orders</td>
+			<td rowspan="2">Total RTO's</td>
+		</tr>
+		<tr>
+			<td>Below 12 hrs</td>
+			<td>Above 12 hrs</td>
+			<td>Above 24 hrs</td>
+			<td>Above 48 hrs</td>
+		</tr>
+	</thead>
+	<tbody>
+		<?php foreach($deliveryBoyList as $deliveryBoyId => $deliveryBoy): ?>
+			<tr>
+				<td><?php echo $deliveryBoy;?></td>
+				<td><?php echo $block->filteredCount($tabData, $deliveryBoyId, 'dispatched_to_courier', 'below-12'); ?></td>
+				<td><?php echo $block->filteredCount($tabData, $deliveryBoyId, 'dispatched_to_courier', 'above-12'); ?></td>
+				<td><?php echo $block->filteredCount($tabData, $deliveryBoyId, 'dispatched_to_courier', 'above-24'); ?></td>
+				<td><?php echo $block->filteredCount($tabData, $deliveryBoyId, 'dispatched_to_courier', 'above-48'); ?></td>
+				<td><?php echo $block->filteredCount($tabData, $deliveryBoyId, 'dispatched_to_courier'); ?></td>
+				<td><?php echo $block->filteredCount($tabData, $deliveryBoyId, 'order_delivered'); ?></td>
+				<td><?php echo $block->filteredCount($tabData, $deliveryBoyId, 'order_not_delivered'); ?></td>
+			</tr>
+		<?php endforeach; ?>
+		<tr style="font-weight: 600; background-color: #c6e0b4;">
+			<td>Grand Total</td>
+			<td><?php echo $block->filteredCount($tabData, null, 'dispatched_to_courier', 'below-12'); ?></td>
+			<td><?php echo $block->filteredCount($tabData, null, 'dispatched_to_courier', 'above-12'); ?></td>
+			<td><?php echo $block->filteredCount($tabData, null, 'dispatched_to_courier', 'above-24'); ?></td>
+			<td><?php echo $block->filteredCount($tabData, null, 'dispatched_to_courier', 'above-48'); ?></td>
+			<td><?php echo $block->filteredCount($tabData, null, 'dispatched_to_courier'); ?></td>
+			<td><?php echo $block->filteredCount($tabData, null, 'order_delivered'); ?></td>
+			<td><?php echo $block->filteredCount($tabData, null, 'order_not_delivered'); ?></td>
+		</tr>
+	</tbody>
+</table>
+
+<style type="text/css">
+	td {
+		padding: 5px;
+	}
+/*	table * {
+		box-sizing: unset;
+	}*/
+</style>
+
+<script>
+    require(
+        [
+            'jquery',
+            'Magento_Ui/js/modal/modal'
+        ],
+        function(
+            $,
+            modal
+        ) {
+            var options = {
+                type: 'popup',
+                responsive: true,
+                innerScroll: true,
+                title: 'Orders List',
+                buttons: [{
+                    text: $.mage.__('Continue'),
+                    class: '',
+                    click: function () {
+                        this.closeModal();
+                    }
+                }]
+            };
+
+            $(".popup-click").on('click',function(){
+            	var popupid = $(this).data('popupid');
+            	var popup = modal(options, $('#'+popupid));
+                $('#'+popupid).modal("openModal");
+            });
+
+        }
+    );
+</script>

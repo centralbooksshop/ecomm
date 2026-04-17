@@ -1,0 +1,15 @@
+<?xml version="1.0" ?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+	<table name="centralbooks_schoolcode_schoolcode" resource="default" engine="innodb" comment="centralbooks_schoolcode_schoolcode Table">
+		<column xsi:type="int" name="schoolcode_id" padding="10" unsigned="true" nullable="false" identity="true" comment="Entity Id"/>
+		<constraint xsi:type="primary" referenceId="PRIMARY">
+			<column name="schoolcode_id"/>
+		</constraint>
+		<column name="school_name" nullable="true" xsi:type="text" comment="school name"/>
+		<column xsi:type="varchar" name="school_code" nullable="true" length="255" comment="School Code"/>
+		<column xsi:type="smallint" name="school_status" padding="10" unsigned="false" nullable="false" identity="false" default="0" comment="school status"/>
+		<column xsi:type="varchar" name="customer_no" nullable="true" length="255" comment="customer No"/>
+		<column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP" comment="Creation Time"/>
+	        <column xsi:type="timestamp" name="updated_at" on_update="true" nullable="false" default="CURRENT_TIMESTAMP" comment="Updation Time"/>
+	</table>
+</schema>

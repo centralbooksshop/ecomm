@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <backorder>
+            <general>
+                <enable>1</enable>
+                <admin_text>Your order will fullfill with in few days</admin_text>
+                <email_text>Currently Out of stock. We will deliver shortly</email_text>
+                <customer_text>Currently Out of stock. We will deliver shortly</customer_text>
+                <confirmation_text>Currently Out of stock. We will deliver shortly</confirmation_text>
+            </general>
+        </backorder>
+    </default>
+</config>

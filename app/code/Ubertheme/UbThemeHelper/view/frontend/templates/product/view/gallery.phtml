@@ -1,0 +1,227 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+/**
+ * Product media data template
+ *
+ * @var $block \Magento\Catalog\Block\Product\View\Gallery
+ */
+?>
+
+<!--Start custom for gallery from Ubertheme-->
+<?php
+    /** @var \Ubertheme\UbThemeHelper\Helper\Data $themeHelper */
+    $themeHelper = $this->helper('Ubertheme\UbThemeHelper\Helper\Data');
+
+    //rewrite magnifier options
+    $magnifierOpts = $block->getMagnifier();
+    $magnifierOpts = json_decode($magnifierOpts);
+
+    //get config values from theme configuration
+    $zoomEnabled = (bool)$themeHelper->getParam("product_view/product_view_image_gallery/zoom_enabled");
+    $zoomMode = $themeHelper->getParam("product_view/product_view_image_gallery/zoom_mode");
+
+    //this for testing only
+    /*$zoomEnabled = true;
+    $zoomMode = 'outside';*/
+
+    //overwrite for magnifier options
+    $magnifierOpts->mode =  $zoomMode;
+    $magnifierOpts->enabled = ($zoomMode == 'inside') ? false : $zoomEnabled; //will off when mode is inside.
+    $magnifierOpts->fullscreenzoom = $themeHelper->getParam("product_view/product_view_image_gallery/magnifier_fullscreenzoom");
+    $magnifierOpts->width = $themeHelper->getParam("product_view/product_view_image_gallery/magnifier_width");
+    $magnifierOpts->height = $themeHelper->getParam("product_view/product_view_image_gallery/magnifier_height");;
+
+    //encode
+    $magnifierOpts = json_encode($magnifierOpts);
+?>
+
+<!-- If is inside mode, we are direct to use jquery Zoom-->
+<?php if ($zoomEnabled && $zoomMode == 'inside') : ?>
+    <script type="text/javascript">
+        require([
+            'jquery',
+            'jqueryZoom'
+        ], function ($) {
+
+            var applied = false;
+            var imagesData = '<?= addslashes($block->getGalleryImagesJson()) ?>';
+
+            var getLargeImgUrl = function (mediumUrl) {
+                var largeUrl = mediumUrl;
+                if (typeof imagesData != 'undefined') {
+                    imagesData = $.parseJSON(imagesData)
+                    if ($.isArray(imagesData)) {
+                        $.each( imagesData, function( key, $image ) {
+                            if ($image.img == mediumUrl) {
+                                largeUrl = $image.full;
+                                return false;
+                            }
+                        });
+                    }
+                }
+
+                return largeUrl;
+            }
+
+            //apply zoom for activated item
+            var doZoom = function() {
+                //remove old zoom instance
+                removeZoom();
+
+                //get current activated item
+                var $activatedItem = $('.product.media .fotorama__stage .fotorama__active');
+                //active new zoom instance
+                $activatedItem.zoom({
+                    url: getLargeImgUrl($activatedItem.attr('href')),
+                    touch: false
+                });
+                //console.log('added new zoom');
+            }
+
+            var removeZoom = function() {
+                $('.product.media .fotorama__stage .fotorama__loaded--img').trigger('zoom.destroy');
+                $('img.zoomImg').remove();
+                //console.log('removed all old zoom');
+            }
+
+            $('.product.media .gallery-placeholder').on("DOMSubtreeModified", function() {
+
+                $('.product.media .fotorama').off('fotorama:ready').on('fotorama:ready', function (e, fotorama, extra) {
+                    //console.log('fotorama:ready');
+
+                    applied = false;
+                    $('.product.media .fotorama').off('fotorama:load').on('fotorama:load', function (e, fotorama, extra) {
+                        //console.log('fotorama:load');
+                        if (!applied) {
+                            doZoom();
+                            applied = true;
+                        }
+                    });
+
+                    $('.product.media .fotorama')/*.off('fotorama:showend')*/.on('fotorama:showend', function (e, fotorama, extra) {
+                        //console.log('fotorama:showend');
+                        doZoom();
+                    });
+
+                    $('.fotorama').off('fotorama:fullscreenenter').on('fotorama:fullscreenenter', function (e, fotorama, extra) {
+                        removeZoom();
+                    });
+
+                    $('.fotorama').off('fotorama:fullscreenexit').on('fotorama:fullscreenexit', function (e, fotorama, extra) {
+                        doZoom();
+                    });
+
+                });
+            });
+
+        });
+    </script>
+<?php endif; ?>
+<!--End custom for gallery from Ubertheme-->
+
+<div class="gallery-placeholder _block-content-loading" data-gallery-role="gallery-placeholder">
+    <div data-role="loader" class="loading-mask">
+        <div class="loader">
+            <img src="<?= /* @escapeNotVerified */ $block->getViewFileUrl('images/loader-1.gif') ?>"
+                 alt="<?= /* @escapeNotVerified */ __('Loading...') ?>">
+        </div>
+    </div>
+</div>
+
+<!--Fix for jumping content. Loader must be the same size as gallery.-->
+<script>
+    var config = {
+            "width": <?= /* @escapeNotVerified */ $block->getImageAttribute('product_page_image_medium', 'width') ?>,
+            "thumbheight": <?php /* @escapeNotVerified */ echo $block->getImageAttribute('product_page_image_small', 'height')
+                        ?: $block->getImageAttribute('product_page_image_small', 'width'); ?>,
+            "navtype": "<?= /* @escapeNotVerified */ $block->getVar("gallery/navtype") ?>",
+            "height": <?= /* @escapeNotVerified */ $block->getImageAttribute('product_page_image_medium', 'height') ?>
+        },
+        thumbBarHeight = 0,
+        loader = document.querySelectorAll('[data-gallery-role="gallery-placeholder"] [data-role="loader"]')[0];
+
+    if (config.navtype === 'horizontal') {
+        thumbBarHeight = config.thumbheight;
+    }
+
+    loader.style.paddingBottom = ( config.height / config.width * 100) + "%";
+</script>
+<script type="text/x-magento-init">
+    {
+        "[data-gallery-role=gallery-placeholder]": {
+            "mage/gallery/gallery": {
+                "mixins":["magnifier/magnify"],
+                "magnifierOpts": <?= /* @escapeNotVerified */ $magnifierOpts ?>,
+                "data": <?= /* @escapeNotVerified */ $block->getGalleryImagesJson() ?>,
+                "options": {
+                    "nav": "<?= /* @escapeNotVerified */ $block->getVar("gallery/nav") ?>",
+                    <?php if (($block->getVar("gallery/loop"))): ?>
+                        "loop": <?= /* @escapeNotVerified */ $block->getVar("gallery/loop") ?>,
+                    <?php endif; ?>
+                    <?php if (($block->getVar("gallery/keyboard"))): ?>
+                        "keyboard": <?= /* @escapeNotVerified */ $block->getVar("gallery/keyboard") ?>,
+                    <?php endif; ?>
+                    <?php if (($block->getVar("gallery/arrows"))): ?>
+                        "arrows": <?= /* @escapeNotVerified */ $block->getVar("gallery/arrows") ?>,
+                    <?php endif; ?>
+                    <?php if (($block->getVar("gallery/allowfullscreen"))): ?>
+                        "allowfullscreen": <?= /* @escapeNotVerified */ $block->getVar("gallery/allowfullscreen") ?>,
+                    <?php endif; ?>
+                    <?php if (($block->getVar("gallery/caption"))): ?>
+                        "showCaption": <?= /* @escapeNotVerified */ $block->getVar("gallery/caption") ?>,
+                    <?php endif; ?>
+                    "width": "<?= /* @escapeNotVerified */ $block->getImageAttribute('product_page_image_medium', 'width') ?>",
+                    "thumbwidth": "<?= /* @escapeNotVerified */ $block->getImageAttribute('product_page_image_small', 'width') ?>",
+                    <?php if ($block->getImageAttribute('product_page_image_small', 'height') || $block->getImageAttribute('product_page_image_small', 'width')): ?>
+                        "thumbheight": <?php /* @escapeNotVerified */ echo $block->getImageAttribute('product_page_image_small', 'height')
+                        ?: $block->getImageAttribute('product_page_image_small', 'width'); ?>,
+                    <?php endif; ?>
+                    <?php if ($block->getImageAttribute('product_page_image_medium', 'height') || $block->getImageAttribute('product_page_image_medium', 'width')): ?>
+                        "height": <?php /* @escapeNotVerified */ echo $block->getImageAttribute('product_page_image_medium', 'height')
+                        ?: $block->getImageAttribute('product_page_image_medium', 'width'); ?>,
+                    <?php endif; ?>
+                    <?php if ($block->getVar("gallery/transition/duration")): ?>
+                        "transitionduration": <?= /* @escapeNotVerified */ $block->getVar("gallery/transition/duration") ?>,
+                    <?php endif; ?>
+                    "transition": "<?= /* @escapeNotVerified */ $block->getVar("gallery/transition/effect") ?>",
+                    <?php if (($block->getVar("gallery/navarrows"))): ?>
+                        "navarrows": <?= /* @escapeNotVerified */ $block->getVar("gallery/navarrows") ?>,
+                    <?php endif; ?>
+                    "navtype": "<?= /* @escapeNotVerified */ $block->getVar("gallery/navtype") ?>",
+                    "navdir": "<?= /* @escapeNotVerified */ $block->getVar("gallery/navdir") ?>"
+                },
+                "fullscreen": {
+                    "nav": "<?= /* @escapeNotVerified */ $block->getVar("gallery/fullscreen/nav") ?>",
+                    <?php if ($block->getVar("gallery/fullscreen/loop")): ?>
+                        "loop": <?= /* @escapeNotVerified */ $block->getVar("gallery/fullscreen/loop") ?>,
+                    <?php endif; ?>
+                    "navdir": "<?= /* @escapeNotVerified */ $block->getVar("gallery/fullscreen/navdir") ?>",
+                    <?php if ($block->getVar("gallery/transition/navarrows")): ?>
+                        "navarrows": <?= /* @escapeNotVerified */ $block->getVar("gallery/fullscreen/navarrows") ?>,
+                    <?php endif; ?>
+                    "navtype": "<?= /* @escapeNotVerified */ $block->getVar("gallery/fullscreen/navtype") ?>",
+                    <?php if ($block->getVar("gallery/fullscreen/arrows")): ?>
+                        "arrows": <?= /* @escapeNotVerified */ $block->getVar("gallery/fullscreen/arrows") ?>,
+                    <?php endif; ?>
+                    <?php if ($block->getVar("gallery/fullscreen/caption")): ?>
+                        "showCaption": <?= /* @escapeNotVerified */ $block->getVar("gallery/fullscreen/caption") ?>,
+                    <?php endif; ?>
+                    <?php if ($block->getVar("gallery/fullscreen/transition/duration")): ?>
+                        "transitionduration": <?= /* @escapeNotVerified */ $block->getVar("gallery/fullscreen/transition/duration") ?>,
+                    <?php endif; ?>
+                    "transition": "<?= /* @escapeNotVerified */ $block->getVar("gallery/fullscreen/transition/effect") ?>"
+                },
+                "breakpoints": <?= /* @escapeNotVerified */ $block->getBreakpoints() ?>
+            }
+        }
+    }
+</script>
+
+
+

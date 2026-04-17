@@ -1,0 +1,22 @@
+{
+    "name": "centralbooks/module-deliverypartner",
+    "description": "DeliveryPartner",
+    "type": "magento2-module",
+    "license": "proprietary",
+    "authors": [
+        {
+            "name": "ravi",
+            "email": "ravikumar.jaiswal@centralbooks.in"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {},
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Centralbooks\\DeliveryPartner\\": ""
+        }
+    }
+}

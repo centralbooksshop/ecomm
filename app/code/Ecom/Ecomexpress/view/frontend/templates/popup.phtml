@@ -1,0 +1,47 @@
+<?php
+$carrierCode = null; //
+
+$info = $block->_registry->registry('current_shipping_info');
+$objectmanager = \Magento\Framework\App\ObjectManager::getInstance ();
+
+if ($info["ship_id"]) {
+    $shipment = $objectmanager->create('\Magento\Sales\Model\Order\Shipment')->load($info["ship_id"]);
+    $order = $objectmanager->create('\Magento\Sales\Model\Order')->load($shipment->getOrderId());
+    $shipmentIds = $info["ship_id"];
+}
+
+if ($info["order_id"]) {
+    $order = $objectmanager->create('\Magento\Sales\Model\Order')->load($info["order_id"]);
+    if (!$order->canShip()) {
+        foreach ($order->getShipmentsCollection() as $shipment) {
+            $shipmentIds = $shipment->getId();
+        }
+    }
+}
+
+if ($info->getData('track_id')) {
+    $tracks = $objectmanager->create('\Magento\Sales\Model\Order\Shipment\Track')->load($info->getData('track_id'));
+    if (count($tracks->getData())) {
+        $shipmentIds = $tracks->getParentId();
+        $carrierCode = $tracks['carrier_code'];
+    }
+} else {
+    $tracks = $objectmanager->create('\Magento\Sales\Model\Order\Shipment\Track')
+                            ->getCollection()
+                            ->addFieldToFilter('parent_id', $shipmentIds)
+                            ->addFieldToFilter('order_id', $order->getId());
+    if (count($tracks->getData())) {
+        foreach ($tracks as $track) {
+            $carrierCode = $track['carrier_code'];
+        }
+    }
+}
+
+if ($carrierCode == "ecomexpress") {
+    $urll = $block->getUrl('ecomexpress/index/track/', ['shipment_ids' => $shipmentIds]);
+    echo "<script>window.location='$urll';</script>";
+    die;
+} else {
+    $_results = $this->getTrackingInfo();
+}
+?>

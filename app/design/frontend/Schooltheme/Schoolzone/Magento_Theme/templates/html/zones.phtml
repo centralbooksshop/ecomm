@@ -1,0 +1,42 @@
+<?php
+/**
+* Copyright © 2015 Magento. All rights reserved.
+* See COPYING.txt for license details.
+*/
+/** @var $block \Magento\Framework\View\Element\Template */
+$blockObj= $block->getLayout()->createBlock('Retailinsights\Registers\Block\Index\Header');
+$viewModel = $block->getViewModel();
+$core_session = $viewModel->getCoreSessionData();
+if(!empty($core_session["s_school_name"])) {
+$school_name = $core_session["s_school_name"];
+} else {
+	$school_name = '';
+}
+
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$school_block = $objectManager->get('\SchoolZone\Search\Block\Display');
+$display_bookstore = $school_block->isDisplayBookstore($school_name);
+$url_params = $block->getRequest()->getParams();
+if(!empty($url_params['name'])) {
+	$param_school_name = $url_params['name'];
+	if(!empty($param_school_name)) {
+	   $display_bookstore = true;
+	}
+}
+?>
+<div data-ui-id="quick-zones" id="zones">  
+  <div class="zone_links clearfix">
+  <?php if($display_bookstore == true) { ?>
+    <div class="zones" id="school_zone">
+      <a href="<?php echo $blockObj->getCustUrl(); ?>">
+        <img src="<?php echo $this->getViewFileUrl('images/header/book_store.png'); ?>" alt="Book store" itemprop="image"> <span>Book Store</span>
+      </a>
+    </div>
+	<?php  } ?>
+    <div class="zones" id="book_store">
+      <a class="link_image" href="<?php echo $blockObj->getCustUrl(); ?>schools">
+        <img src="<?php echo $this->getViewFileUrl('images/header/school_zone.png'); ?>" alt="School zone" itemprop="image"> <span>School Zone</span>
+      </a>
+    </div>
+  </div>
+</div>

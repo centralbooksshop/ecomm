@@ -1,0 +1,20 @@
+<?php
+/**
+ * @package     Plumrocket_RMA
+ * @copyright   Copyright (c) 2017 Plumrocket Inc. (https://plumrocket.com)
+ * @license     https://plumrocket.com/license   End-user License Agreement
+ */
+?>
+
+<?php
+/** @var \Magento\Sales\Block\Order\Info\Buttons $block */
+$order = $block->getOrder();
+/** @var \Plumrocket\RMA\Helper\Returns $helper */
+$helper = $this->helper('Plumrocket\RMA\Helper\Returns');
+?>
+
+<?php if ($helper->canReturnCustomer($order)): ?>
+    <a href="<?= $block->escapeUrl($helper->getCreateUrl($order)) ?>" class="action returns">
+        <span><?= $block->escapeHtml(__('Return')) ?></span>
+    </a>
+<?php endif ?>

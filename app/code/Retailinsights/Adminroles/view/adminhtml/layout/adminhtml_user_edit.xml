@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="admin-2columns-left" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceBlock name="adminhtml.user.edit.tabs">
+            <!-- <action method="addTab">
+                <argument name="name" xsi:type="string">custom_tabs_school</argument>
+                <argument name="block" xsi:type="string">Retailinsights\Adminroles\Block\Adminhtml\User\Tab\School</argument>
+            </action> -->
+
+			<action method="addTab">
+                <argument name="name" xsi:type="string">custom_tabs_schoolwise</argument>
+                <argument name="block" xsi:type="string">Retailinsights\Adminroles\Block\Adminhtml\User\Tab\Schoolwise</argument>
+            </action>
+			
+			<action method="addTab">
+                <argument name="name" xsi:type="string">custom_tabs_pickup</argument>
+                <argument name="block" xsi:type="string">Retailinsights\Adminroles\Block\Adminhtml\User\Tab\Pickupstore</argument>
+            </action>
+           
+		    <action method="addTab">
+                <argument name="name" xsi:type="string">custom_tabs_deliveryboy_partner_type</argument>
+                <argument name="block" xsi:type="string">Retailinsights\Adminroles\Block\Adminhtml\User\Tab\Partnertype</argument>
+            </action>
+
+			<action method="addTab">
+                <argument name="name" xsi:type="string">custom_tabs_schoolhub</argument>
+                <argument name="block" xsi:type="string">Retailinsights\Adminroles\Block\Adminhtml\User\Tab\Schoolhub</argument>
+            </action>
+        </referenceBlock>
+    </body>
+</page>

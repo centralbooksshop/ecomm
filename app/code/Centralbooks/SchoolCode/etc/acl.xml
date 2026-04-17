@@ -1,0 +1,15 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Acl/etc/acl.xsd">
+	<acl>
+		<resources>
+			<resource id="Magento_Backend::admin">
+				<resource id="Centralbooks_SchoolCode::Schoolcode" title="Manage School Code" sortOrder="10">
+					<resource id="Centralbooks_SchoolCode::Schoolcode_save" title="Save Schoolcode" sortOrder="10"/>
+					<resource id="Centralbooks_SchoolCode::Schoolcode_delete" title="Delete Schoolcode" sortOrder="20"/>
+					<resource id="Centralbooks_SchoolCode::Schoolcode_update" title="Update Schoolcode" sortOrder="30"/>
+					<resource id="Centralbooks_SchoolCode::Schoolcode_view" title="View Schoolcode" sortOrder="40"/>
+				</resource>
+			</resource>
+		</resources>
+	</acl>
+</config>

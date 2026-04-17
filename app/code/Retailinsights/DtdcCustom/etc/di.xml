@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+
+    <!-- VirtualType for your custom grid collection -->
+  <!-- <virtualType name="Retailinsights\DtdcCustom\Model\ResourceModel\ProcessDtdcOrders\Grid\Collection"
+                 type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">cbo_assign_shippment</argument>
+            <argument name="resourceModel" xsi:type="string">
+                Retailinsights\DtdcCustom\Model\ResourceModel\ProcessDtdcOrders
+            </argument>
+        </arguments>
+    </virtualType>
+  
+  	<virtualType name="Retailinsights\DtdcCustom\Model\ResourceModel\ProcessDtdcOrders\Grid\Collection"
+             type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+  		<arguments>
+  			<argument name="mainTable" xsi:type="string">cbo_assign_shippment</argument>
+  			<argument name="resourceModel" xsi:type="string">Retailinsights\DtdcCustom\Model\ResourceModel\ProcessDtdcOrders</argument>
+  
+  			These three are REQUIRED to match SearchResult's constructor
+  			<argument name="eventPrefix" xsi:type="string">retailinsights_dtdccustom_processeddtdcorderslist_grid_collection</argument>
+  			<argument name="eventObject" xsi:type="string">retailinsights_dtdccustom_processeddtdcorderslist_grid</argument>
+  			<argument name="model" xsi:type="string">Magento\Framework\View\Element\UiComponent\DataProvider\Document</argument>
+  		</arguments>
+  	</virtualType>
+   -->
+
+    <!-- Link the grid's data source to the collection -->
+	<!-- Retailinsights\DtdcCustom\Model\ResourceModel\ProcessDtdcOrders\Collection -->
+   <!--  <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="retailinsights_dtdccustom_processeddtdcorderslist_listing_data_source"
+                      xsi:type="string">
+                    Retailinsights\DtdcCustom\Model\ResourceModel\ProcessDtdcOrders\Grid\Collection
+                </item>
+            </argument>
+        </arguments>
+    </type> -->
+
+	 <!-- Register grid collection for your data source -->
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="retailinsights_dtdccustom_processeddtdcorderslist_listing_data_source" xsi:type="string">
+                    Retailinsights\DtdcCustom\Model\ResourceModel\ProcessDtdcOrders\Grid\Collection
+                </item>
+            </argument>
+        </arguments>
+    </type>
+</config>
+

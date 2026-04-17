@@ -1,0 +1,38 @@
+<?php
+/**
+ * Copyright © 2016 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+?>
+
+
+<?php if (count($block->getGroups())>1): ?>
+<div class="switcher skin switcher-skin">
+    <label for="for-colors"><?php /* @escapeNotVerified */ echo __('Select Store') ?></label>
+    <ul class="list-skin">
+        <?php foreach ($block->getGroups() as $_group): ?>
+            <li class="switcher-option <?php echo 'skin-'.strtolower($block->escapeHtml($_group->getName())) ?> <?php if ($_group->getId() == $block->getCurrentGroupId()): ?> active<?php endif; ?>">
+                <a href="#" data-post='<?php /* @escapeNotVerified */ echo $block->getTargetStorePostData($_group->getDefaultStore()); ?>'>
+                    <?php echo $block->escapeHtml($_group->getName()) ?>
+                </a>
+            </li>
+        <?php endforeach; ?>
+    </ul>
+</div>
+<?php endif; ?>
+<?php if (count($block->getStores())>1): ?>
+<?php $id = $block->getIdModifier() ? '-' . $block->getIdModifier() : ''?>
+  <div class="form-language">
+    <label for="select-language"><?php /* @escapeNotVerified */ echo __('Your Language:') ?></label>
+    <ul class="language-switch">
+      <?php foreach ($block->getStores() as $_lang): ?>
+        <li class="view-<?php echo $block->escapeHtml($_lang->getCode()); ?> switcher-option <?php if ($_lang->getId() == $block->getCurrentStoreId()): ?> active <?php endif; ?>">
+          <a href="#" data-post='<?php /* @escapeNotVerified */ echo $block->getTargetStorePostData($_lang); ?>'><img src="<?php echo $block->getViewFileUrl('images/flags/flag_' . $_lang->getCode() . '.png') ?>" alt="<?php echo $block->escapeHtml($_lang->getName()) ?>" /><?php echo $block->escapeHtml($_lang->getName()) ?></a>
+        </li>
+      <?php endforeach; ?>
+    </ul>
+  </div>
+<?php endif; ?>

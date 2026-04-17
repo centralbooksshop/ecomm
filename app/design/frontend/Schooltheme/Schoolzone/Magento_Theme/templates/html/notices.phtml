@@ -1,0 +1,63 @@
+<div class="message global demo">
+        <div class="content">
+            <p><?= $block->escapeHtml(__('Missing, Replacement, or Return Requests are allowed within 7 business days of delivery.')) ?></p>
+        </div>
+</div>
+ <div id="register_success" class="register_success" style="display: none;">Thank you for registering!</div>
+<style>
+
+.page-wrapper.sticky .logo {
+    top: -12px;
+} 
+
+.bundle-options-container {
+    margin-top: 37px;
+ }
+.page-header .panel.wrapper {
+        padding-top: 15px;
+        height: 0px !important;
+    }
+#zones {
+    top: 43px;
+}
+
+.register_success {
+    color: #f0141e;
+    text-align: center;
+}
+
+.message.global.demo {
+    width: 100%;
+    overflow: hidden; 
+    background-color: #f5f5f5;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.message.global.demo .content {
+    display: inline-block;
+    white-space: nowrap;
+    font-size: 18px;
+    color: #333; 
+    font-weight: bold;
+    text-shadow: 0 0 100px #f4ff47, 0 0 20px #f4ff47, 0 0 30px #f4ff47;
+    animation: scroll 20s linear infinite alternate;
+    background-color: yellow;
+}
+
+@keyframes scroll {
+    0% {
+        transform: translateX(100%); 
+    }
+    50% {
+        transform: translateX(-100%); 
+    }
+    100% {
+        transform: translateX(100%); 
+    }
+}  
+}
+
+</style>

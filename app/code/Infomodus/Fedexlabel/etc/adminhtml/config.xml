@@ -1,0 +1,61 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2015 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <fedexlabel>
+            <testmode>
+                <testing>1</testing>
+            </testmode>
+            <packaging>
+                <packagingtypecode>02</packagingtypecode>
+            </packaging>
+            <shipping>
+                <defaultshipmentmethod>03</defaultshipmentmethod>
+                <shipmentdescription>1</shipmentdescription>
+                <defaultshipper>1</defaultshipper>
+                <defaultshipfrom>1</defaultshipfrom>
+                <addtrack>1</addtrack>
+                <reference_id>order</reference_id>
+            </shipping>
+            <return>
+                <frontend_customer_return>1</frontend_customer_return>
+                <refundaccess>1</refundaccess>
+                <refundaccess_admin_email>general</refundaccess_admin_email>
+                <refundaccess_email_template>fedexlabel_return_refundaccess_email_template</refundaccess_email_template>
+                <default_return>0</default_return>
+                <return_time_old>PT</return_time_old>
+            </return>
+            <weightdimension>
+                <weightunits>LBS</weightunits>
+                <unitofmeasurement>IN</unitofmeasurement>
+                <defweigth>0.1</defweigth>
+            </weightdimension>
+            <ratepayment>
+                <currencycode>USD</currencycode>
+                <cod>0</cod>
+                <cod_shipping_cost>0</cod_shipping_cost>
+                <cod_discount>0</cod_discount>
+            </ratepayment>
+            <quantum>
+                <qvn>0</qvn>
+            </quantum>
+            <printing>
+                <printer>PDF</printer>
+                <printer_format_pdf>8X4_A4_PDF</printer_format_pdf>
+            </printing>
+            <paperless>
+                <enable>1</enable>
+                <type>COMMERCIAL_INVOICE</type>
+            </paperless>
+            <additional_settings>
+                <multiple_pdf_label>1</multiple_pdf_label>
+                <umlaut>1</umlaut>
+            </additional_settings>
+        </fedexlabel>
+    </default>
+</config>

@@ -1,0 +1,179 @@
+<?php
+
+// echo $_SESSION["username"];
+  $baseUrl =  $block->getBaseUrl();
+  $studentData = $block->studentData();
+  $url = $baseUrl.'schoolzone_customer/Index/UploadCsv';
+  $media_url = $block->getMediaUrl().'ubertheme/csvSamples/';
+$user_name = preg_replace("/[^a-zA-Z\s.]/", "", $_SESSION["user_name"]);
+$user_name = str_replace('.', ' ', $user_name);
+$user_name = ucwords(strtolower($user_name));
+?>
+<div class="links_page">
+  <a href="<?= $baseUrl ?>schoolzone_customer/index/Display" class="customer-index-btn">Sales Orders</a>
+  <a class="customer-index-btn" href="<?= $baseUrl ?>schoolzone_customer/hodashboard/index">Manage School Dashboard</a>
+  <p class="customer-index-btn"><?= "Total Students : ".count($studentData); ?> </p>
+   <p class="customer-index-btn user-name studentinfo"> <?php echo "Welcome, ".$user_name; ?>  </p>
+  <a href="<?= $baseUrl ?>schoolzone_customer/index/Login" class="customer-index-btn logout-btn">Logout</a>
+  <!-- <span class="log_out">Logout</span> --><?php 
+      $csvFile='';
+      $style = '';
+
+      if($block->getSchoolType() == 2){
+        $csvFile = "type-2 Sample.csv";
+      }
+      if($block->getSchoolType() == 3){
+        $csvFile = "type-3 Sample.csv";
+      }
+      if($csvFile == ''){
+        $style = "style = 'display:none;'";
+      }
+ ?>
+<a href="<?= $media_url.$csvFile ?>" <?=$style?> >
+  <span class="sample_csv customer-index-btn float-right">Download Sample Csv</span>
+</a>
+</div>
+ 
+
+<div class="import-shipping">
+  <div class="header">
+    <h4>CSV File:</h4>
+  </div>
+  <form class="import-shipping-form" action="<?= $url ?>" method="POST" enctype="multipart/form-data">
+   
+    <input type="file" required class="required-entry" name="my_custom_file" id="my_custom_file" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" />
+    <input type='submit' name='submit' value='Upload CSV' class="customer-index-btn">
+  </form>
+  <input id = "btnGet" type="button" value="Delete Selected" />
+  <div class="delete_student_message"></div>
+  <a href="<?= $baseUrl ?>schoolzone_customer/index/Add" class="customer-index-btn float-right">Add New</a>
+</div>
+
+<div class="select-all-container">
+  <input type="checkbox" id="selectAll"> <label for="selectAll">Select All</label>
+</div>
+
+ <table class="student-list" style="width:100%">
+ 	<tr>
+      <th></th>
+	    <th>id</th>
+	    <th>school_name_text</th>
+	    <th>class</th>
+	    <th>student_name</th>
+      <?php if($block->getSchoolType() == 2){?>
+    	  <th>username</th>
+    	  <th>password</th>
+      <?php } ?>
+	    <th>admission_id</th>
+      <th>Action</th>
+	</tr>
+  <?php foreach ($studentData as $value) { ?>
+    <tr>
+    <td><input name="schools" type="checkbox" value="<?php echo $value['id']; ?>"/></td>
+		<td><?php echo $value['id']; ?></td>
+		<td><?php echo $value['school_name_text']; ?></td>
+		<td><?php echo $value['class']; ?></td>
+		<td><?php echo $value['student_name']; ?></td>
+    <?php if($block->getSchoolType() == 2){?>
+		    <td><?php echo $value['username']; ?></td>
+		    <td><?php echo $value['password']; ?></td>
+    <?php } ?>
+		<td><?php echo $value['admission_id']; ?></td>
+	   <td><a href="<?= $baseUrl ?>schoolzone_customer/index/Add?id=<?= $value['id']?>">Edit</a></td>
+
+  </tr>
+
+
+        <?php } ?>
+  </table>
+<?php if ($block->getPagerHtml()): ?>
+    <div class="order-products-toolbar toolbar bottom"><?php echo $block->getPagerHtml(); ?></div>
+<?php endif ?>
+
+<style>
+.display_table{
+  overflow: auto;
+}
+.search_order_btn{
+  width: 100%;
+  font-weight: 500;
+  padding: 5px 10px;
+  color: #FFF !important;
+  background-color: #F0141E !important;
+  border: 1px solid #F0141E !important;
+}
+.schoolzone_customer-index-display .page-main{
+  max-width: calc(100% - 5rem);
+}
+.schoolzone_customer-index-display .page-title-wrapper{font-size: 21px}
+.import-shipping{
+  margin: 2rem 0;
+}
+.customer-index-btn{
+  border: 0;
+  width: auto;
+  font-size: 14px;
+  padding: 5px 10px;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  opacity: 1 !important;
+  display: inline-block;
+  color: #FFF !important;
+  background-image: none;
+  text-decoration: none !important;
+  background-color: #F0141E !important;
+}
+.import-shipping-form{display: inline-block;}
+.student-list th {
+  color: #FFF;
+  font-size: 13px;
+  padding: 5px 7px;
+  border: 1px solid #C7C7C7;
+  background-color: #144889;
+}
+.student-list td {
+    font-size: 14px;
+    padding: 5px 7px;
+    border: 1px solid #C7C7C7;
+}
+.std-email{
+  max-width: 200px;
+  word-break: break-all;
+}
+.searchInputs td{font-size: 14px;}
+::-webkit-file-upload-button{
+    border: 0;
+    width: auto;
+    font-size: 14px;
+    padding: 5px 10px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    opacity: 1 !important;
+    display: inline-block;
+    color: #FFF !important;
+    background-image: none;
+    text-decoration: none !important;
+    background-color: #F0141E !important;
+}
+.student-list th,.student-list td{border: 1px solid #bababa;}
+#minicart{display: none}
+*{outline: 0 !important}
+.customer-index-btn.user-name.studentinfo {
+    top: 0;
+    right: 100px;
+    position: absolute;
+    color: #144889 !important;
+    background-color: #fff !important;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    border-radius: 5px;
+    padding: 5px 10px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+}
+.customer-index-btn.logout-btn {
+    top: 3px !important;
+}
+</style>

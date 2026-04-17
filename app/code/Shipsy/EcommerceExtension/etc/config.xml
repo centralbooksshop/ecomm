@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <configuration>
+            <services> 
+                <shipsy_url>https://app.shipsy.in</shipsy_url>
+                <dtdc_projectx_url>https://app.shipsy.in</dtdc_projectx_url>
+                <enable_w3w_input>1</enable_w3w_input>
+            </services>
+        </configuration>
+    </default>
+</config>

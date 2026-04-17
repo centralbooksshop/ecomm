@@ -1,0 +1,22 @@
+<!--
+/**
+ * Copyright © 2016 Ubertheme.com All rights reserved.
+ */
+-->
+
+<?php /** @var \Ubertheme\Base\Block\Ajax\AddCart $block */ ?>
+
+<!-- Initial ajax add cart js function -->
+<script type="text/javascript">
+	var ubAjaxCartOptions = <?= $block->getAjaxCartOptions() ?>;
+	require([
+		"jquery",
+		"Ubertheme_Base/js/ajaxAddCart",
+		"domReady!"
+	], function ($) {
+		'use strict';
+		$.ub.AjaxAddCart(ubAjaxCartOptions);
+	});
+</script>
+
+

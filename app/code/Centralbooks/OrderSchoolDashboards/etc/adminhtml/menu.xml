@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+      <add id="Centralbooks_OrderSchoolDashboards::parent" title="CBO Dashboard" module="Centralbooks_OrderSchoolDashboards" sortOrder="51" resource="Centralbooks_OrderSchoolDashboards::parent"/>
+
+      <!-- <add id="Centralbooks_OrderSchoolDashboards::orders_processing" title="Orders Processing" translate="title" module="Centralbooks_OrderSchoolDashboards" sortOrder="300" parent="Magento_Sales::sales" resource="Centralbooks_OrderSchoolDashboards::orders_processing" /> -->
+
+      <!-- <add id="Centralbooks_OrderSchoolDashboards::sync_cronreports" title="School Sync Reports" module="Centralbooks_OrderSchoolDashboards" sortOrder="310" action="dashboards/reports/index" resource="Centralbooks_OrderSchoolDashboards::sync_cronreports" parent="Centralbooks_OrderSchoolDashboards::parent"/> -->
+
+      <add id="Centralbooks_OrderSchoolDashboards::hodashboard" title="Manage School Dashboard" module="Centralbooks_OrderSchoolDashboards" sortOrder="300" action="schooldashboards/hodashboard/index" resource="Centralbooks_OrderSchoolDashboards::hodashboard" parent="Centralbooks_OrderSchoolDashboards::parent"/>
+    </menu>
+</config>

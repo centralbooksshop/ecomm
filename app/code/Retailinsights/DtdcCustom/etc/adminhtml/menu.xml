@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="../../../../Magento/Backend/etc/menu.xsd">
+
+    <menu>
+        <!-- Process DTDC Orders Menu -->
+        <add id="Retailinsights_DtdcCustom::ProcessDtdcOrder"
+             title="Process Orders"
+             module="Retailinsights_DtdcCustom"
+             sortOrder="30"
+             parent="Magento_Sales::sales"
+             action="dtdccustom/processorder"
+             resource="Retailinsights_DtdcCustom::ProcessOrder"/>
+
+        <!-- Processed DTDC Orders List Menu -->
+        <add id="Retailinsights_DtdcCustom::ProcessedDtdcOrdersList"
+             title="Processed Orders List"
+             module="Retailinsights_DtdcCustom"
+             sortOrder="40"
+             parent="Magento_Sales::sales"
+             action="dtdccustom/processeddtdcorderslist"
+             resource="Retailinsights_DtdcCustom::ProcessedDtdcOrdersList"/>
+    </menu>
+
+</config>

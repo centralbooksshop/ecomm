@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+
+   <section id="deliveryamount" translate="label" type="text" sortOrder="320" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Delivery Amount</label>
+            <tab>webkul</tab>
+            <resource>Webkul_DeliveryBoy::config_deliveryboy_zone</resource>
+            <group id="deliveryboyzone" translate="label" type="text" sortOrder="2" showInDefault="1" showInWebsite="0" showInStore="0">
+                <label>Zone Configuration</label>      
+                <field id="zoneprice" translate="label" type="textarea" sortOrder="6" showInDefault="1" showInWebsite="1" showInStore="0">
+		    <label>Zone Based Delivery Amount </label>
+                    <comment>Data needs to be separated with a ; (semicolon).</comment>
+        	    <frontend_model>Centralbooks\DeliveryAmount\Block\System\Config\Form\Field\Disable</frontend_model>
+
+	    </field>
+
+           </group>
+   </section>
+
+   <section id="deliveryboy" translate="label" type="text" sortOrder="310" showInDefault="1" showInWebsite="0" showInStore="0"> 
+            <group id="configuration" translate="label" type="text" sortOrder="2" showInDefault="1" showInWebsite="0" showInStore="0">
+                <field id="packagetype"  translate="label" type="text" sortOrder="6" showInDefault="1" showInWebsite="1" showInStore="0">		
+			<label>Package Type</label>
+			<comment>Data needs to be separated with a ; (semicolon).</comment>
+			<frontend_model>Centralbooks\DeliveryAmount\Block\System\Config\Form\Field\Packagetype</frontend_model>
+                </field>
+            </group>
+    </section>
+    </system>
+</config>
+

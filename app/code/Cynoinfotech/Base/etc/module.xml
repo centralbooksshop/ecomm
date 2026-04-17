@@ -1,0 +1,11 @@
+<?xml version="1.0" ?>
+<!--
+/**
+ * @author CynoInfotech Team
+ * @package Cynoinfotech_Base
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNameSchemaLocation ="urn:magento:framework:Module/etc/module.xsd">
+    <module name="Cynoinfotech_Base" setup_version="1.0.0">	
+	</module>
+</config> 

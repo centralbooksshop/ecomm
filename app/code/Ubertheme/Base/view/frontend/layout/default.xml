@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2016 Ubertheme.com All rights reserved.
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	  xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+	<head>
+		<css src="Ubertheme_Base::css/font-awesome.min.css"/>
+	</head>
+	<body>
+		<referenceContainer name="after.body.start">
+			<block class="Magento\Backend\Block\Template" template="Ubertheme_Base::after_body_start.phtml" />
+		</referenceContainer>
+		<referenceContainer name="before.body.end">
+			<block class="Magento\Backend\Block\Template" template="Ubertheme_Base::before_body_end.phtml" />
+		</referenceContainer>
+		<referenceContainer name="root">
+			<block class="Ubertheme\Base\Block\Ajax\Compare" name="ub.ajax.compare"
+				   as="ub-ajax-compare" template="Ubertheme_Base::ajax/compare.phtml"/>
+			<block class="Ubertheme\Base\Block\Ajax\Wishlist" name="ub.ajax.wishlist"
+				   as="ub-ajax-wishlist" template="Ubertheme_Base::ajax/wishlist.phtml"/>
+			<block class="Ubertheme\Base\Block\Ajax\AddCart" name="ub.ajax.cart"
+				   as="ub-ajax-cart" template="Ubertheme_Base::ajax/add_cart.phtml"/>
+		</referenceContainer>
+    </body>
+</page>

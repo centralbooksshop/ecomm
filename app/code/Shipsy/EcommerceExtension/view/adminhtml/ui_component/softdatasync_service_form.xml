@@ -1,0 +1,108 @@
+<?xml version="1.0" ?>
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">softdatasync_service_form.service_form_data_source</item>
+        </item>
+        <item name="label" xsi:type="string" translate="true">Service Information</item>
+        <item name="template" xsi:type="string">templates/form/collapsible</item>
+    </argument>
+
+    <settings>
+        <buttons>
+            <button name="back" class="Shipsy\EcommerceExtension\Block\Adminhtml\Service\Edit\BackButton"/>
+            <button name="delete" class="Shipsy\EcommerceExtension\Block\Adminhtml\Service\Edit\DeleteButton"/>
+            <button name="save" class="Shipsy\EcommerceExtension\Block\Adminhtml\Service\Edit\SaveButton"/>
+            <button name="save_and_continue" class="Shipsy\EcommerceExtension\Block\Adminhtml\Service\Edit\SaveAndContinueButton"/>
+        </buttons>
+
+        <namespace>softdatasync_service_form</namespace>
+        <dataScope>data</dataScope>
+        <deps>
+            <dep>softdatasync_service_form.service_form_data_source</dep>
+        </deps>
+    </settings>
+
+    <!-- Data Source -->
+    <dataSource name="service_form_data_source">
+        <argument name="data" xsi:type="array">
+            <item name="js_config" xsi:type="array">
+                <item name="component" xsi:type="string">Magento_Ui/js/form/provider</item>
+            </item>
+        </argument>
+
+        <settings>
+            <!-- Save controller -->
+            <submitUrl path="softdatasync/service/save"/>
+        </settings>
+
+        <dataProvider name="service_form_data_source"
+                      class="Shipsy\EcommerceExtension\Model\Service\DataProvider">
+            <settings>
+                <requestFieldName>entity_id</requestFieldName>
+                <primaryFieldName>entity_id</primaryFieldName>
+            </settings>
+        </dataProvider>
+    </dataSource>
+
+    <!-- Fieldset -->
+    <fieldset name="general">
+        <settings>
+            <label>General Information</label>
+        </settings>
+
+        <field name="service_code" formElement="input" sortOrder="10">
+            <settings>
+                <dataType>text</dataType>
+                <label translate="true">Service Code</label>
+                <dataScope>service_code</dataScope>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">true</rule>
+                </validation>
+            </settings>
+        </field>
+
+        <field name="name" formElement="input" sortOrder="20">
+            <settings>
+                <dataType>text</dataType>
+                <label translate="true">Service Name</label>
+                <dataScope>name</dataScope>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">true</rule>
+                </validation>
+            </settings>
+        </field>
+
+        <field name="active" formElement="select" sortOrder="30">
+            <settings>
+                <dataType>select</dataType>
+                <label translate="true">Active</label>
+                <dataScope>active</dataScope>
+            </settings>
+            <formElements>
+                <select>
+                    <settings>
+                        <options class="Magento\Config\Model\Config\Source\Yesno"/>
+                    </settings>
+                </select>
+            </formElements>
+        </field>
+
+        <field name="is_default" formElement="select" sortOrder="40">
+            <settings>
+                <dataType>select</dataType>
+                <label translate="true">Default Service</label>
+                <dataScope>is_default</dataScope>
+            </settings>
+            <formElements>
+                <select>
+                    <settings>
+                        <options class="Magento\Config\Model\Config\Source\Yesno"/>
+                    </settings>
+                </select>
+            </formElements>
+        </field>
+    </fieldset>
+</form>

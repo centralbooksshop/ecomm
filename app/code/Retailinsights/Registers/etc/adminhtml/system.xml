@@ -1,0 +1,68 @@
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xs">
+    <system>
+        <tab id="retailinsights_custom_config" translate="label" sortOrder="100">
+            <label>SMS OTP Settings</label>
+        </tab>
+        <section id="retailinsights_entry" translate="label" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="1">
+            <class>separator-top</class>
+            <label>SMS Configuration</label>
+            <tab>retailinsights_custom_config</tab>
+            <resource>Retailinsights_Registers::config</resource>
+            <group id="general" translate="label" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0">
+                <label>SMS Country Configuration</label>
+
+				<field id="apiprovider" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1"
+                       showInStore="1">
+                    <label>SMS API Provider</label>
+                    <source_model>Retailinsights\Registers\Model\Config\Source\Apiprovider</source_model>
+                    <validate>required-entry</validate>
+                </field>
+
+                <field id="sms_username" translate="label" sortOrder="2" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Username</label>
+                    <comment>Username of SMS domain.</comment>
+                </field>
+                <field id="sms_password" translate="label" sortOrder="3" type="password" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Password</label>
+                    <comment>Password of SMS domain.</comment>
+                </field>
+                 <field id="sms_name" translate="label" sortOrder="4" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Sender ID/Sender Name</label>
+                    <comment>Sender ID/Sender Name.</comment>
+                </field>
+                 <field id="sms_url" translate="label" sortOrder="5" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>API URL</label>
+                    <comment>API UR.</comment>
+                </field>
+       
+                <field id="country_dropdown_dependable" translate="label" type="select" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Country</label>
+                    <depends>
+                        <field id="*/*/retailinsights_yesno">1</field>
+                    </depends>
+                    <source_model>Retailinsights\Registers\Model\Config\Custom</source_model>
+                </field>
+            </group>
+
+			<group id="vcon" translate="label" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0">
+                <label>Vcon SMS Configuration</label>
+                <field id="vcon_username" translate="label" sortOrder="1" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Vcon Username</label>
+                </field>
+                <field id="vcon_password" translate="label" sortOrder="1" type="password" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Password</label>
+                </field>
+                <field id="from_name" translate="label" sortOrder="1" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Sender Name</label>
+                </field>
+                <field id="vcon_sms_url" translate="label" sortOrder="1" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Vcon API URL</label>
+                </field>
+                <field id="vcon_unicode" translate="label" sortOrder="1" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Unicode</label>
+                </field>
+                
+            </group>
+        </section>
+    </system>
+</config>

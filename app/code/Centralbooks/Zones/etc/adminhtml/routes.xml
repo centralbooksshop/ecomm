@@ -1,0 +1,11 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:App/etc/routes.xsd">
+	<router id="admin">
+		<route id="zones" frontName="zones">
+			<module name="Centralbooks_Zones" before="Magento_Backend"/>
+		</route>
+		<route frontName="centralbooks_zones" id="centralbooks_zones">
+			<module before="Magento_Backend" name="Centralbooks_Zones"/>
+		</route>
+	</router>
+</config>

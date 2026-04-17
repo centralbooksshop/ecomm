@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <referenceContainer name="content">
+        <block class="SchoolZone\Customer\Block\HODashboard\OrdersGrid" name="schoolZone_ordergrid" template="SchoolZone_Customer::ordergrid.phtml" cacheable="false"/>
+	</referenceContainer>
+    <referenceBlock name="top.login" remove="true" />
+</page>

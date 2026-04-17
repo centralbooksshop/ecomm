@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author CynoInfotech Team
+ * @package Cynoinfotech_StorePickup
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <carriers>
+            <cistorepickup>
+                <active>1</active> 
+				<model>Cynoinfotech\StorePickup\Model\Carrier\StorePickup</model>	
+				<title>StorePickUp</title>
+                <name>StorePickUp</name>               
+                <pickuphoursstart>8</pickuphoursstart>
+                <pickuphoursend>10</pickuphoursend>
+                <gmap_api>AIzaSyA7IZt-36CgqSGDFK8pChUdQXFyKIhpMBY</gmap_api>
+                <zoom_level>10</zoom_level>
+				 <price>15.00</price>
+                <specificerrmsg>This shipping method is not available. To use this shipping method, please contact us.</specificerrmsg>				
+				 <store_lat>0.000000</store_lat>
+				 <store_lng>0.000000</store_lng>				
+                <sallowspecific>0</sallowspecific>
+				<sort_order>1</sort_order>				
+            </cistorepickup>
+        </carriers>
+    </default>
+</config>

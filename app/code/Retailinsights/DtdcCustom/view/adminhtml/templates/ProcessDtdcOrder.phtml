@@ -1,0 +1,474 @@
+<?php
+    $om = \Magento\Framework\App\ObjectManager::getInstance();
+    $persistor = $om->get('Magento\Framework\App\Request\DataPersistorInterface');
+    $colorOption = $persistor->get('coloroptionDtdc');
+
+    // $drivers = $block->getAutoDrivers();
+    $url = $block->getBaseUrl();
+    $url = $url."cbsadmin/dtdccustom/ProcessDtdcOrder/UploadCsv";
+?>
+<div class="processdtdc">
+    <div class="dtdcBarcodeScanning">
+        <div class="panel panel-default">
+            <div class="panel-heading">Dtdc Barcode Scanning Section</div>
+            <div class="panel-body">
+                <table> 
+                    <tr>
+                        <td><label>Dtdc Order Number</label></td>
+                        <td><input type="text" id="txtDelhiveryOrderId"/></td>
+                        <td><input type="button" id="btnCheckDelhiveryOrderId" value="Add"/>
+                        <!-- <td><label class="note">Note: Only 10 Orders will be allowed for transaction</label></td> -->
+                         <td>
+                            <div class="import-shipping">
+                              <div class="header">
+                                <h4>CSV File:</h4>
+                              </div>
+                              <form class="import-shipping-form" name="form" id="form" action="<?= $url ?>" method="POST" enctype="multipart/form-data">
+                                <?php echo $block->getBlockHtml('formkey'); ?>
+                                <input type="file" required class="required-entry" name="csv" />
+                                <button type="submit">Import</button>
+                              </form>
+                             
+                            </div>
+                        </td>
+                        <td>
+                            <a href="<?php echo $block->getBaseUrl()."media/ubertheme/csvSamples/cboOrderSamples.csv"; ?>">
+                              <span class="sample_csv_cbo">Download Sample Csv</span>
+                            </a>
+                        </td>
+                    </tr>
+                </table>
+                <div>
+                    <span id="duplicate"></span>
+                </div>
+                <div>
+                    <span id="readyToSubmit"></span>
+                </div>
+                <div>
+                    <?php 
+                    if($colorOption != ''){
+                        ?>
+                        <label id="test" ></label>
+                        <?php
+                        $size = sizeof($colorOption); ?>
+                        <label id="orderIdListTest"> <?php
+                            foreach ($colorOption as $key => $value) {
+                               echo $value;
+                        }
+
+                        $persistor->set('coloroptionDelhivery','');
+                        ?>
+                        </label>
+                        <script>
+                            require(['jquery'], function($){
+                                 'use strict';
+                                    $("#btnOrderSubmit").hide();
+                                    $('#tdBtnSubmit').append('<input type="button" id="btnOrderSubmit" class="inside_csv" value="Submit"/>');
+
+                            });
+                        </script>
+                   <?php }else{
+                        ?>  <label id="orderIdList"></label><br> <?php
+                    }
+                    ?>
+                </div>
+
+                <label id="orderIdDelhiveryList"></label><br>
+                <span id="tdBtnSubmit"></span>
+                
+                <span id="checkall"></span>
+                <span id="uncheckall"></span>
+                <p id="order_count_box">total orders Are ready to assign : <span id="order_count"></span></p>
+                <p id="order_count_box_success">Succesfully assigned orders : <span id="order_count_success"></span></p>
+                <div id="orderListStatus">
+                    <span></span>
+                </div>
+                <div id="orderListStatusSuccess">
+                    <span></span>
+                </div>
+
+                <div id="orderListStatus"></div>
+                <div id="divAssignDelhiveryBtn"><button class="assignDelhiveryBtn">Submit</button></div>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+#divAssignDelhiveryBtn{
+    display: none;
+}
+.processdtdc .panel-default{
+    border: 1px solid black;
+    margin-bottom: 20px;
+}
+.processdtdc .panel-heading{
+    background-color: #6f8992;
+    padding: 2px 10px;
+    color: white;
+    font-weight: 700;
+}
+.processdtdc .panel-body{
+    padding: 10px;
+}
+.processdtdc .panel-body table tbody tr td{
+    padding: 0 40px 0 0;
+}
+.processdtdc label.note{
+    color: red;
+}
+.processdtdc .panel-body table{
+    margin-top: 5px;
+}
+.processdtdc select{
+    padding: 0 5px;
+}
+.processdtdc .autoCourier{
+    display: none;
+}
+</style>
+<script>
+require(['jquery'], function($){
+    'use strict';
+
+     $("#order_count_box").hide();
+     $("#order_count_box_success").hide();
+
+     $('#checkall').click(function(){
+         $(".group").prop('checked', true);
+     });
+     $('#uncheckall').click(function(){
+         $(".group").prop('checked', false);
+     });
+
+     $('#btnOrderSubmit').click(function(){
+                $(".group1").remove();
+
+                var valid_ids = $('.valid_ids').val();
+                var data='';
+                $("li label span").each(function(){
+                    var $val= $(this).text();
+                    data +=$val+',';
+
+                });
+                console.log(data);
+                var orderIds = $('#orderIdList').html();
+                var orderArray = data.split(',');
+
+
+                var base_url = document.location.origin+"/cbsadmin/dtdccustom/processdtdcorder/CheckShippmentDtdc";
+
+            var param={ orderIds: orderArray}
+            $.ajax({
+                url: base_url,
+                type: "POST",
+                data: param,
+                dataType: "json",
+                complete:function(response){
+                    var obj = response.responseJSON;
+                    
+                    $("#btnOrderSubmit").hide();
+                            $(".assign_courier").remove();
+                            $(".dispatch_courier").remove();
+                            $(".assign_delivered").remove();
+                            $(".assign_pending").remove();
+
+                            $('#checkall').append('<input type="button" id="checkall" value="Check All"/>');
+                            $('#uncheckall').append('<input type="button" id="uncheckall" value="Uncheck All"/>');
+                    var count =0;
+                    for(var index in obj) {
+                        if(index != ''){
+                            if(obj[index] == 'yes'){
+                                count++
+                                $('#orderListStatus').append('<label><input type="checkbox" class="group" name="language" value="'+index
+                                    +'">'+index+' : Assign Couriers</label><br/>');                            
+                                $('#divAssignDelhiveryBtn').show();
+                            }
+                            if(obj[index] == 'dispatched_to_courier'){
+                                 $('#orderListStatus').append('<label><input class="group1" type="checkbox" name="language" value="'+index
+                                    +'"disabled>'+index+' : dispatched_to_courier / Courier selection may be pending</label><br/>');
+                            }
+                            if(obj[index] == 'order_delivered'){
+                                 $('#orderListStatus').append('<label><input class="group1" type="checkbox" name="language" value="'+index
+                                    +'"disabled>'+index+' : order_delivered / Courier selection may be pending</label><br/>');
+                            }
+                            if(obj[index] == 'no order id'){
+                                 $('#orderListStatus').append('<label><input class="group1" type="checkbox" name="language" value="'+index
+                                    +'"disabled>'+index+' : Processing / Courier selection may be pending</label><br/>');
+                            }
+                            if(obj[index] == 'no'){
+                                 $('#orderListStatus').append('<label><input class="group1" type="checkbox" name="language" value="'+index
+                                    +'"disabled>'+index+' : Processing / Courier selection may be pending</label><br/>');
+                            }
+                            if(obj[index] == 'no_tracking_info'){
+                                 $('#orderListStatus').append('<label><input class="group1" type="checkbox" name="language" value="'+index
+                                    +'"disabled>'+index+' : Courier tracking info not exists</label><br/>');
+                            }
+                            if(obj[index] == 'no_pay_slip_generated'){
+                                 $('#orderListStatus').append('<label><input class="group1" type="checkbox" name="language" value="'+index
+                                    +'"disabled>'+index+' : Package slip not downloaded</label><br/>');
+                            }
+                        }
+                    }
+                     $("#order_count_box").show()
+                    $("#order_count").text(count);
+                },
+                error:function(xhr,status,errorThrown){
+                }
+            });
+
+        });
+
+
+    $('#btnCheckDelhiveryOrderId').on('click', function(){
+        var orderId = $('#txtDelhiveryOrderId').val();
+        if((orderId.empty()) || (orderId.length < 9)){
+            alert('Please provide valid order id');
+            return;
+        }
+
+        var orderIds = $('#orderIdDelhiveryList').html();
+        var orderArray = orderIds.split(',');
+
+        orderId = $.trim(orderId);
+        
+        var orderIdList = $('#orderIdList').html();
+        var orderArrayId = orderIdList.split(',');
+
+        var orderIdtes = orderId.split(',');
+
+        for (var i = 0; i < orderArrayId.length; i++) {
+            if($.trim(orderArrayId[i]) == $.trim(orderId)){
+                alert($.trim(orderId)+' : Order ID Already Scanned');
+                return;
+            }
+        }
+
+        for (var i = 0; i < orderArray.length; i++) {
+            for (var j = 0; j < orderIdtes.length; j++) {
+                    if($.trim(orderArray[i]) == $.trim(orderIdtes[j])){
+                    alert($.trim(orderArray[i])+' : Order ID Already Scanned here');
+                    return;
+                }
+            }
+
+            if($.trim(orderArray[i]) == $.trim(orderId)){
+                alert($.trim(orderId)+' : Order ID Already Scanned');
+                return;
+            }
+        }
+        // for (var i = 0; i < orderArray.length; i++) {
+        //     for (var j = 0; j < orderArrayID.length;j++) {
+        //         if($.trim(orderArray[i]) == $.trim(orderArrayID[j])){
+        //             alert($.trim(orderArrayID[j])+' : Order ID Already Scanned');
+        //             return;
+        //         }
+        //     }
+        // }
+
+        if($('#orderIdDelhiveryList').html()){
+            // $('#orderIdDelhiveryList').append(', '+orderId); 
+            var orderArray = orderId.split(',');
+            var base_url = document.location.origin+"/cbsadmin/dtdccustom/processdtdcorder/CheckShippmentDtdc";
+            var param={ orderIds: orderArray}
+                $.ajax({
+                url: base_url,
+                type: "POST",
+                data: param,
+                dataType: "json",
+                showLoader: true,
+                complete:function(response){
+                    var obj = response.responseJSON;
+                    for(var index in obj) {
+                         if(index != ''){
+                             if(obj[index] == 'yes'){
+                                $('#orderIdList').append(','+index);
+                            }
+                            if(obj[index] == 'dispatched_to_courier'){
+                                  $('#readyToSubmit').append('<span class="group1">'+index+
+                                    ' : dispatched_to_courier / Courier selection may be pending</span><br/>');
+                            }
+                            if(obj[index] == 'order_delivered'){
+                                  $('#readyToSubmit').append('<span class="group1">'+index+
+                                    ' : order_delivered / Courier selection may be pending</span><br/>');
+                            }
+                            if(obj[index] == 'no order id'){
+                                  $('#readyToSubmit').append('<span class="group1">'+index+
+                                    ' : Processing / Courier selection may be pending</span><br/>');
+                                
+                            }
+                            if(obj[index] == 'no'){
+                                 $('#readyToSubmit').append('<span class="group1">'+index+
+                                    ' : Processing / Courier selection may be pending</span><br/>');
+                            }
+                            if(obj[index] == 'no_tracking_info'){
+                                 $('#readyToSubmit').append('<span class="group1">'+index+
+                                    ' : Courier tracking info not exists</span><br/>');
+                            }
+                            if(obj[index] == 'no_pay_slip_generated'){
+                                 $('#readyToSubmit').append('<span class="group1">'+index+
+                                    ' : Package slip not downloaded</span><br/>');
+                            }
+                        }
+                    }
+                },
+                error:function(xhr,status,errorThrown){
+                }
+            });
+        }else{
+            // $('#orderIdDelhiveryList').append(orderId);
+            var orderArray = orderId.split(',');
+            var base_url = document.location.origin+"/cbsadmin/dtdccustom/processdtdcorder/CheckShippmentDtdc";
+            var param={ orderIds: orderArray}
+                $.ajax({
+                url: base_url,
+                type: "POST",
+                data: param,
+                dataType: "json",
+                showLoader: true,
+                complete:function(response){
+                    var obj = response.responseJSON;
+                    for(var index in obj) {
+                         if(index != ''){
+                             if(obj[index] == 'yes'){
+                                $('#orderIdDelhiveryList').append(','+index);
+                            }
+                            if(obj[index] == 'dispatched_to_courier'){
+                                  $('#readyToSubmit').append('<span class="group1">'+index+
+                                    ' : dispatched_to_courier / Courier selection may be pending</span><br/>');
+                            }
+                            if(obj[index] == 'order_delivered'){
+                                  $('#readyToSubmit').append('<span class="group1">'+index+
+                                    ' : order_delivered / Courier selection may be pending</span><br/>');
+                            }
+                            if(obj[index] == 'no order id'){
+                                  $('#readyToSubmit').append('<span class="group1">'+index+
+                                    ' : Processing / Courier selection may be pending</span><br/>');
+                                
+                            }
+                            if(obj[index] == 'no'){
+                                 $('#readyToSubmit').append('<span class="group1">'+index+
+                                    ' : Processing / Courier selection may be pending</span><br/>');
+                            }
+                            if(obj[index] == 'no_tracking_info'){
+                                 $('#readyToSubmit').append('<span class="group1">'+index+
+                                    ' : Courier tracking info not exists</span><br/>');
+                            }
+                            if(obj[index] == 'no_pay_slip_generated'){
+                                 $('#readyToSubmit').append('<span class="group1">'+index+
+                                    ' : Package slip not downloaded</span><br/>');
+                            }
+                        }
+                    }
+                },
+                error:function(xhr,status,errorThrown){
+                }
+            });
+
+
+            $('#tdBtnSubmit').append('<input type="button" id="btnOrderSubmit" value="Submit"/>');
+            $('#btnOrderSubmit').on('click', function(){
+                var orderIdsList = $('#orderIdList').html();
+                var orderIds = $('#orderIdDelhiveryList').html();
+
+                orderIds = orderIds+','+orderIdsList;
+                console.log(orderIds);
+
+                var orderArray = orderIds.split(',');
+                var base_url = document.location.origin+"/cbsadmin/dtdccustom/processdtdcorder/CheckShippmentDtdc";
+
+            var param={ orderIds: orderArray}
+            $.ajax({
+                url: base_url,
+                type: "POST",
+                data: param,
+                dataType: "json",
+                complete:function(response){
+                    var obj = response.responseJSON;
+                    $("#btnOrderSubmit").hide();
+                    $('#divAssignDelhiveryBtn').show();
+                    $('#checkall').append('<input type="button" id="checkall" value="Check All"/>');
+                    $('#uncheckall').append('<input type="button" id="uncheckall" value="Uncheck All"/>');
+                    var count=0;
+                    for(var index in obj) {
+                        if(obj[index] == 'yes'){
+                            count++;
+
+                            $('#orderListStatus').append('<label id="assign_orders"><input type="checkbox" class="group" name="language" value="'+index
+                                +'">'+index+' : Assign Couriers here</label><br/>');
+                            $('.autoCourier').show();
+                        }
+                    }
+                    $("#order_count_box").show()
+                    $("#order_count").text(count);
+
+                    
+                    
+                },
+                error:function(xhr,status,errorThrown){
+                }
+            });
+
+            });
+        }
+        $('#txtDelhiveryOrderId').val('');
+
+    });
+
+    $('.assignDelhiveryBtn').on('click', function(){
+        var count=0;
+        console.log('Dtdc couriers');
+        var orderIds = {};
+
+        var arr = [];
+        $.each($("input[name='language']:checked"), function(){
+               arr.push($(this).val());
+               // console.log($(this).val());
+        });
+        orderIds = arr;
+
+        var base_url = document.location.origin+"/cbsadmin/dtdccustom/processdtdcorder/AssignCourier";
+        // var orderIds = {};
+        // $( "#orderListStatus span" ).each(function( index ) {
+        //     var index = [];
+        //     index = $( this ).text().split(':');
+        //         console.log(index);
+        //     orderIds[index[0]] = index[1];
+        //     });
+        
+        if(orderIds.length == 0){
+            alert('Please select Order');
+            return;
+        }
+
+        $('#orderListStatus').remove();
+        
+        $.each( orderIds, function( key, value ) {
+
+        var param={ orderIds: value
+                }
+
+            $.ajax({
+                url: base_url,
+                type: "POST",
+                data: param,
+                dataType: "json",
+                complete:function(response){
+                    var obj = response.responseJSON;
+                    console.log(obj);
+                    if(obj == 'success'){
+                        count++;
+                        $('#orderListStatus').append('<span>'+value
+                                +' : Success</span><br/>');
+                        $('#divAssignDelhiveryBtn').hide();
+                    }
+                },
+                error:function(xhr,status,errorThrown){
+                }
+            });
+        });
+        // $("#order_count_box_success").show()
+        // $("#order_count_success").text(count);
+    });    
+
+});
+</script>

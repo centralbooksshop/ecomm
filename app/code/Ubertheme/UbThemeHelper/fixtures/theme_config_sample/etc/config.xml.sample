@@ -1,0 +1,36 @@
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <cms_home_page>mago-home</cms_home_page>
+        <general>
+            <layout>
+                <theme_color_var>#ffffff</theme_color_var>
+                <logo_src></logo_src>
+            </layout>
+            <general_blocks>
+                <popup_block_type>0</popup_block_type>
+            </general_blocks>
+        </general>
+        <typography>
+            <colors>
+                <link1_color>#000000</link1_color>
+                <link1_hover_color>#00ff00</link1_hover_color>
+            </colors>
+        </typography>
+        <product_list>
+            <list>
+                <show_desc>1</show_desc>
+                <desc_limit>200</desc_limit>
+            </list>
+        </product_list>
+         <product_view>
+            <ub_custom_tab>
+                <tab_content>
+                    <items>{"_1551862905152_152":{"type_default":"product.info.description","title":"Details","type":"attribute_code","static_block":"","category_ids":"","product_ids":"","status":"on","attribute_code":""},"_1551862043920_920":{"type_default":"reviews.tab","title":"Review","type":"static_block","attribute_code":"","category_ids":"","product_ids":"","status":"on","static_block":""}}</items>
+                </tab_content>
+                <tab_style>
+                    <template>list</template>
+                </tab_style>
+            </ub_custom_tab>
+         </product_view>
+    </default>
+</config>

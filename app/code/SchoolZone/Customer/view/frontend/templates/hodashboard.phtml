@@ -1,0 +1,403 @@
+<?php $starttime = microtime(true); ?>
+<?php
+
+	$objectManager = \Magento\Framework\App\ObjectManager::getInstance(); 
+	$resource = $objectManager->get('Magento\Framework\App\ResourceConnection');
+	$connection = $resource->getConnection();
+	$sales_order_payment_table = $resource->getTableName('sales_order_payment');
+	$sales_order_payment_sql = "select DISTINCT method FROM " . $sales_order_payment_table;
+	$sales_order_payment_result = $connection->fetchAll($sales_order_payment_sql);
+	$paymentsStatuses = Array();
+	foreach ($sales_order_payment_result as $sales_order_payment_value) {
+		$paymentsStatuses[] = $sales_order_payment_value['method'];
+	}
+	/*$paymentsStatuses = [
+		'cashfree' => 'success',
+		'ccavenue' => 'shipped',
+		'payu' => 'captured'
+	];*/
+?>
+<div style="padding: 20px">
+    <span class="links_page">
+        <a href="<?= $block->getBaseUrl(); ?>schoolzone_customer/index/Display" class="customer-index-btn">Sales Orders</a>
+		<a class="customer-index-btn" href="<?= $block->getBaseUrl(); ?>schoolzone_customer/index/StudentInfo">Student List</a>
+	 </span>
+	 <span><b>No of days considered for metrics: <?php echo $block->highOrdersTime(); ?></b></span>
+</div>
+
+<div style="padding: 20px">
+    <table class="orders-table" border="1">
+        <thead style="background-color: #e6e684;">
+            <th>Time</th>
+            <th class="hyperlink" id="processing-btn">Processing</th>
+			<th class="hyperlink" id="assigned-to-picker-btn">Assigned to Picker</th>
+            <th>Complete</th>
+            <th class="hyperlink" id="disptached-to-courier-btn">Dispatched_to_courier</th>
+            <th class="hyperlink" id="order-delivered-btn">Order_delivered</th>
+            <th class="hyperlink" id="canceled-btn">Canceled</th>
+            <th class="hyperlink" id="pending-btn">Pending</th>
+            <th class="hyperlink" id="holded-btn">Holded</th>
+            <th>Closed</th>
+            <th>Total Orders</th>
+        </thead>
+        <tbody>
+            <?php foreach (['below-3', 'above-3'] as $value): ?>
+                <tr>
+                    <td style="font-weight: 600;"><?php echo str_replace('-', ' ', ucfirst($value))." days";?></td>
+                    <td><?php echo $block->ordersCountAndLink('processing', null, null, $value)['link']; ?></td>
+					<td><?php echo $block->ordersCountAndLink('assigned_to_picker', null, null, $value)['link']; ?></td>
+                    <td><?php echo $block->ordersCountAndLink('complete', null, null, $value)['link']; ?></td>
+                    <td><?php echo $block->ordersCountAndLink('dispatched_to_courier', null, null, $value)['link']; ?></td>
+                    <td><?php echo $block->ordersCountAndLink('order_delivered', null, null, $value)['link']; ?></td>
+                    <td><?php echo $block->ordersCountAndLink('canceled', null, null, $value)['link']; ?></td>
+                    <td><?php echo $block->ordersCountAndLink('pending', null, null, $value)['link']; ?></td>
+                    <td><?php echo $block->ordersCountAndLink('holded', null, null, $value)['link']; ?></td>
+                    <td><?php echo $block->ordersCountAndLink('closed', null, null, $value)['link']; ?></td>
+                    <td><?php echo $block->ordersCountAndLink(null, null, null, $value)['link']; ?></td>
+                </tr>
+            <?php endforeach;?>
+            <tr style="background-color: #b7f07f;">
+                <td style="font-weight: 600;">Total Orders</td>
+                <td><?php echo $block->ordersCountAndLink('processing', null, null, null)['link']; ?></td>
+				<td><?php echo $block->ordersCountAndLink('assigned_to_picker', null, null, null)['link']; ?></td>
+                <td><?php echo $block->ordersCountAndLink('complete', null, null, null)['link']; ?></td>
+                <td><?php echo $block->ordersCountAndLink('dispatched_to_courier', null, null, null)['link']; ?></td>
+                <td><?php echo $block->ordersCountAndLink('order_delivered', null, null, null)['link']; ?></td>
+                <td><?php echo $block->ordersCountAndLink('canceled', null, null, null)['link']; ?></td>
+                <td><?php echo $block->ordersCountAndLink('pending', null, null, null)['link']; ?></td>
+                <td><?php echo $block->ordersCountAndLink('holded', null, null, null)['link']; ?></td>
+                <td><?php echo $block->ordersCountAndLink('closed', null, null, null)['link']; ?></td>
+                <td><?php echo $block->ordersCountAndLink(null, null, null, null)['link']; ?></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div style="padding-top: 50px; display: none;" class="disptached-to-courier-table">
+    <table border="1" style="width: 70%;">
+        <thead style="background-color: #e6e684;">
+            <tr>
+                <th>Logistic Partner</th>
+                <th>Below 3 days</th>
+                <th>Above 3 days</th>
+                <th>Grand Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php echo $block->dispatchedOrdersTabularData();?> 
+        </tbody>
+    </table>
+</div>
+
+<div style="padding-top: 50px; display: none;" class="assigned-to-picker-table">
+    <div class="status-gateway">Filter with Assigned to Picker</div>
+    <table border="1">
+        <thead style="background-color: #e6e684;">
+            <th>Payment Gateway</th>
+            <th>No of Orders</th>
+        </thead>
+        <tbody>
+            <?php $i = 0; ?>
+            <?php foreach ($paymentsStatuses as $key => $paymentname): ?>
+                <tr>
+                    <td style="font-weight: 700;"><?php echo ucfirst($paymentname); ?></td>
+                    <td><?php echo $block->ordersCountAndLink('assigned_to_picker', $paymentname, null, null)['link']; ?></td>
+                </tr>
+                <?php $i++; ?>
+            <?php endforeach;?>
+        </tbody>
+    </table>    
+</div>
+
+<div style="padding-top: 50px; display: none;" class="processing-table">
+    <div class="status-gateway">Filter with Processing</div>
+    <table border="1">
+        <thead style="background-color: #e6e684;">
+            <th>Payment Gateway</th>
+            <th>No of Orders</th>
+        </thead>
+        <tbody>
+            <?php $i = 0; ?>
+            <?php foreach ($paymentsStatuses as $key => $paymentname): ?>
+                <tr>
+                    <td style="font-weight: 700;"><?php echo ucfirst($paymentname); ?></td>
+                    <td><?php echo $block->ordersCountAndLink('processing', $paymentname, null, null)['link']; ?></td>
+                </tr>
+                <?php $i++; ?>
+            <?php endforeach;?>
+        </tbody>
+    </table>    
+</div>
+
+<div style="padding-top: 50px; display: none;" class="complete-table">
+   <div class="status-gateway">Filter with Complete</div>
+    <table border="1">
+        <thead style="background-color: #e6e684;">
+            <th>Payment Gateway</th>
+            <th>No of Orders</th>
+        </thead>
+		<tbody>
+            <?php $i = 0; ?>
+            <?php foreach ($paymentsStatuses as $key => $paymentname): ?>
+                <tr>
+                    <td style="font-weight: 700;"><?php echo ucfirst($paymentname); ?></td>
+                    <td><?php echo $block->ordersCountAndLink('complete', $paymentname, null, null)['link']; ?></td>
+                </tr>
+                <?php $i++; ?>
+            <?php endforeach;?>
+        </tbody>
+    </table>    
+</div>
+
+<div style="padding-top: 50px; display: none;" class="disptached-to-courier-table">
+    <div class="status-gateway">Filter with Disptached To Courier</div>
+    <table border="1">
+        <thead style="background-color: #e6e684;">
+            <th>Payment Gateway</th>
+            <th>No of Orders</th>
+        </thead>
+
+		<tbody>
+            <?php $i = 0; ?>
+            <?php foreach ($paymentsStatuses as $key => $paymentname): ?>
+                <tr>
+                    <td style="font-weight: 700;"><?php echo ucfirst($paymentname); ?></td>
+                    <td><?php echo $block->ordersCountAndLink('dispatched_to_courier', $paymentname, null, null)['link']; ?></td>
+                </tr>
+                <?php $i++; ?>
+            <?php endforeach;?>
+        </tbody>
+    </table>    
+</div>
+
+<div style="padding-top: 50px; display: none;" class="order-delivered-table">
+    <div class="status-gateway">Filter with Order delivered</div>
+    <table border="1">
+        <thead style="background-color: #e6e684;">
+            <th>Payment Gateway</th>
+            <th>No of Orders</th>
+        </thead>
+		<tbody>
+            <?php $i = 0; ?>
+            <?php foreach ($paymentsStatuses as $key => $paymentname): ?>
+                <tr>
+                    <td style="font-weight: 700;"><?php echo ucfirst($paymentname); ?></td>
+                    <td><?php echo $block->ordersCountAndLink('order_delivered', $paymentname, null, null)['link']; ?></td>
+                </tr>
+                <?php $i++; ?>
+            <?php endforeach;?>
+        </tbody>
+    </table>    
+</div>
+
+<div style="padding-top: 50px; display: none;" class="order-not-delivered-table">
+    <div class="status-gateway">Filter with Order not delivered</div>
+    <table border="1">
+        <thead style="background-color: #e6e684;">
+            <th>Payment Gateway</th>
+            <th>No of Orders</th>
+        </thead>
+		<tbody>
+            <?php $i = 0; ?>
+            <?php foreach ($paymentsStatuses as $key => $paymentname): ?>
+                <tr>
+                    <td style="font-weight: 700;"><?php echo ucfirst($paymentname); ?></td>
+                    <td><?php echo $block->ordersCountAndLink('order-not-delivered', $paymentname, null, null)['link']; ?></td>
+                </tr>
+                <?php $i++; ?>
+            <?php endforeach;?>
+        </tbody>
+    </table>    
+</div>
+
+<div style="padding-top: 50px; display: none;" class="canceled-table">
+    <div class="status-gateway">Filter with Canceled</div>
+    <table border="1">
+        <thead style="background-color: #e6e684;">
+            <th>Payment Gateway</th>
+            <th>No of Orders</th>
+        </thead>
+
+		<tbody>
+            <?php $i = 0; ?>
+            <?php foreach ($paymentsStatuses as $key => $paymentname): ?>
+                <tr>
+                    <td style="font-weight: 700;"><?php echo ucfirst($paymentname); ?></td>
+                    <td><?php echo $block->ordersCountAndLink('canceled', $paymentname, null, null)['link']; ?></td>
+                </tr>
+                <?php $i++; ?>
+            <?php endforeach;?>
+        </tbody>
+    </table>    
+</div>
+
+<div style="padding-top: 50px; display: none;" class="pending-table">
+    <div class="status-gateway">Filter with Pending</div>
+    <table border="1">
+        <thead style="background-color: #e6e684;">
+            <th>Payment Gateway</th>
+            <th>No of Orders</th>
+        </thead>
+		<tbody>
+            <?php $i = 0; ?>
+            <?php foreach ($paymentsStatuses as $key => $paymentname): ?>
+                <tr>
+                    <td style="font-weight: 700;"><?php echo ucfirst($paymentname); ?></td>
+                    <td><?php echo $block->ordersCountAndLink('pending', $paymentname, null, null)['link']; ?></td>
+                </tr>
+                <?php $i++; ?>
+            <?php endforeach;?>
+        </tbody>
+    </table>    
+</div>
+
+<div style="padding-top: 50px; display: none;" class="holded-table">
+    <div class="status-gateway">Filter with Holded</div>
+    <table border="1">
+        <thead style="background-color: #e6e684;">
+            <th>Payment Gateway</th>
+            <th>No of Orders</th>
+        </thead>
+        <tbody>
+            <?php $i = 0; ?>
+            <?php foreach ($paymentsStatuses as $key => $paymentname): ?>
+                <tr>
+                    <td style="font-weight: 700;"><?php echo ucfirst($paymentname); ?></td>
+                    <td><?php echo $block->ordersCountAndLink('holded', $paymentname, null, null)['link']; ?></td>
+                </tr>
+                <?php $i++; ?>
+            <?php endforeach;?>
+        </tbody>
+    </table>    
+</div>
+
+<div style="padding-top: 50px; display: none;" class="closed-table">
+    <div class="status-gateway">Filter with Closed</div>
+    <table border="1">
+        <thead style="background-color: #e6e684;">
+            <th>Payment Gateway</th>
+            <th>No of Orders</th>
+        </thead>
+        <tbody>
+            <?php $i = 0; ?>
+            <?php foreach ($paymentsStatuses as $key => $paymentname): ?>
+                <tr>
+                    <td style="font-weight: 700;"><?php echo ucfirst($paymentname); ?></td>
+                    <td><?php echo $block->ordersCountAndLink('closed', $paymentname, null, null)['link']; ?></td>
+                </tr>
+                <?php $i++; ?>
+            <?php endforeach;?>
+        </tbody>
+    </table>    
+</div>
+
+<div style="padding-top: 50px; display: none;" class="order-delivered-table">
+    <?php echo $block->rmaTableData(); ?>
+</div>
+
+<style type="text/css">
+    table{
+        text-align: center;
+        width: 100%;
+    }
+    td, th {
+        padding: 4px;
+    }
+    .shipment-click:hover, .hyperlink:hover {
+        cursor: pointer;
+    }
+    .hyperlink, .shipment-click {
+        text-decoration: underline;
+        color: dodgerblue;
+    }
+	span.links_page {
+      margin: 10px;
+      font-weight: bold;
+    }
+	.customer-index-btn {
+		width: auto;
+		font-size: 14px;
+		padding: 5px 10px;
+		margin-right: 10px;
+		margin-bottom: 10px;
+		opacity: 1 !important;
+		display: inline-block;
+		color: #FFF !important;
+		background-image: none;
+		text-decoration: none !important;
+		background-color: #F0141E !important;
+    }
+    .panel.header { display:none; }
+
+</style>
+<script type="text/javascript">
+require(['jquery', 'jquery/ui'], function($){
+    $(".shipment-click").click(function(){
+        var classValue = $(this).data("shipment");
+        $('.'+classValue).toggle(1000);
+    });
+    $("#disptached-to-courier-btn").click(function(){
+        $(".disptached-to-courier-table").toggle(1000);
+        $(".processing-table").hide();
+        $(".order-delivered-table").hide();
+        $(".canceled-table").hide();
+        $(".holded-table").hide();
+        $(".pending-table").hide();
+    });
+    $("#processing-btn").click(function(){
+        $(".processing-table").toggle(1000);
+        $(".disptached-to-courier-table").hide();
+        $(".order-delivered-table").hide();
+        $(".canceled-table").hide();
+        $(".holded-table").hide();
+        $(".pending-table").hide();
+		$(".assigned-to-picker-table").hide();
+    });
+	    $("#assigned-to-picker-btn").click(function(){
+        $(".assigned-to-picker-table").toggle(1000);
+        $(".disptached-to-courier-table").hide();
+		$(".processing-table").hide();
+        $(".order-delivered-table").hide();
+        $(".canceled-table").hide();
+        $(".holded-table").hide();
+        $(".pending-table").hide();
+    });
+	
+    $("#canceled-btn").click(function(){
+        $(".canceled-table").toggle(1000);
+        $(".disptached-to-courier-table").hide();
+        $(".order-delivered-table").hide();
+        $(".processing-table").hide();
+        $(".holded-table").hide();
+        $(".pending-table").hide();
+		$(".assigned-to-picker-table").hide();
+    });
+    $("#pending-btn").click(function(){
+        $(".pending-table").toggle(1000);
+        $(".disptached-to-courier-table").hide();
+        $(".order-delivered-table").hide();
+        $(".canceled-table").hide();
+        $(".processing-table").hide();
+        $(".holded-table").hide();
+		$(".assigned-to-picker-table").hide();
+    });
+    $("#holded-btn").click(function(){
+        $(".holded-table").toggle(1000);
+        $(".disptached-to-courier-table").hide();
+        $(".order-delivered-table").hide();
+        $(".canceled-table").hide();
+        $(".processing-table").hide();
+        $(".pending-table").hide();
+		$(".assigned-to-picker-table").hide();
+    });
+    $("#order-delivered-btn").click(function(){
+        $(".order-delivered-table").toggle(1000);
+        $(".disptached-to-courier-table").hide();
+        $(".processing-table").hide();
+        $(".canceled-table").hide();
+        $(".holded-table").hide();
+        $(".pending-table").hide();
+		$(".assigned-to-picker-table").hide();
+    });
+});
+</script>

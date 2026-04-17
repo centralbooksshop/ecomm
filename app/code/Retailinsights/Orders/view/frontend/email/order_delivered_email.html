@@ -1,0 +1,24 @@
+<!--@subject Update on Your Central Books Order @-->
+<!--@vars {
+"var customer_name":"Customer Name",
+"var order.increment_id":"Order Number",
+"var pending_items":"Pending Items",
+"var last_date":"Last Date",
+"var link":"Support Link"
+} @-->
+
+<p>Dear {{var customer_name}},</p>
+
+<p>Thank you for your recent order <strong>#{{var order.increment_id}}</strong>.</p>
+
+<p>This is a quick update. The following items are pending and will be shipped to you as soon as they're available, without any further follow-ups:</p>
+
+<p>{{var pending_items|raw}}</p>
+
+<p>The rest of your order has already been delivered. If there is anything else, please submit a request by <strong>{{var last_date}}</strong> at the link below:</p>
+
+<p><a href="{{var link}}">{{var link}}</a></p>
+
+<p>Thanks for your cooperation. We will make sure all pending items reach your child smoothly.</p>
+
+<p>Warm regards,<br/>Team Central Books</p>

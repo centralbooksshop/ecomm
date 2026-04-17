@@ -1,0 +1,47 @@
+
+<?php
+    $response = $block->getVirtualSeries();
+    $authDetailsFromCookies = $block->getAuthDetailsFromCookies();
+if (array_key_exists('data', $response) && !empty($response['data'])) {
+    $virtualSeriesArray = $response['data'];
+    ?>
+        <div class="table-responsive custom-class">
+            <table class="table table-hover"> 
+                <thead class="thead-dark">
+                <tr> 
+                    <th scope="col">Service Types</th> 
+                    <th scope="col">Prefix</th> 
+                    <th scope="col">Start</th>
+                    <th scope="col">End</th>
+                    <th scope="col">Counter</th>
+                    <th scope="col">Available Count</th>
+                </tr> 
+                </thead>
+                <tbody>
+                <?php foreach ($virtualSeriesArray as $virtualSeries): ?>
+                        <tr scope="row">
+                            <td><?php echo implode(', ', $virtualSeries['serviceType']) ?></td>
+                            <td><?php echo $virtualSeries['prefix'] ?></td>
+                            <td><?php echo $virtualSeries['start'] ?></td>
+                            <td><?php echo $virtualSeries['end'] ?></td>
+                            <td><?php echo $virtualSeries['counter'] ?></td>
+                            <td><?php echo $virtualSeries['availableCount'] ?></td>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table> 
+        </div>
+    <?php
+} elseif (array_key_exists('data', $response) && empty($response['data'])) { ?>
+        <div class="alert alert-warning" role="alert">No virtual series alloted</div>
+    <?php
+} elseif( !$authDetailsFromCookies['access-token'] || !$authDetailsFromCookies['customer-id'] ){
+    ?>
+        <div class="alert alert-danger" role="alert"><?php echo "Shipsy Extension Error: Please login again."?></div>
+    <?php
+} elseif (array_key_exists('error', $response)) { ?>
+        <div class="alert alert-danger" role="alert"><?php echo $response['error']['message']?></div>
+    <?php
+}
+?>
+

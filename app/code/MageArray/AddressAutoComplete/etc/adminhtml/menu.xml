@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+		<update id="MageArray_Core::core" title="MageArray Extensions" module="MageArray_AddressAutoComplete" sortOrder="80"
+                resource="MageArray_AddressAutoComplete::addressautocomplete"/>
+		
+		<add id="MageArray_AddressAutoComplete::addressautocomplete" title="Address Auto-Complete" module="MageArray_AddressAutoComplete" sortOrder="20" parent="MageArray_Core::core" dependsOnModule="MageArray_AddressAutoComplete" resource="MageArray_AddressAutoComplete::addressautocomplete"/>
+			
+		<add id="MageArray_AddressAutoComplete::settings" title="Settings" module="MageArray_AddressAutoComplete" sortOrder="30" resource="MageArray_AddressAutoComplete::settings" 
+		action="adminhtml/system_config/edit/section/addressautocomplete" parent="MageArray_AddressAutoComplete::addressautocomplete"/> 
+    </menu>
+</config>

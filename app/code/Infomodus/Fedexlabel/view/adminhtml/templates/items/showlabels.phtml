@@ -1,0 +1,61 @@
+<?php
+$path_url = $block->_conf->getBaseUrl('media') . 'fedexlabel/label/';
+$path_dir = $block->_conf->getBaseDir('media') . '/fedexlabel/label/';
+echo '<div class="entry-edit form-inline">';
+$isGif = false;
+$isThermal = false;
+$isWithoutError = false;
+$labels = $block->getForm()->getElements();
+$label;
+foreach ($labels as $el) {
+    $label = $block->elements[$el->getId()]['label_element'];
+    if ($label->getTypePrint() == 'pdf' || $label->getTypePrint() == 'png') {
+        $isGif = true;
+    }
+    if ($label->getTypePrint() != 'pdf' || $label->getTypePrint() == 'png') {
+        $isThermal = true;
+    }
+    if($label->getLstatus() == 0){
+        $isWithoutError = true;
+    }
+}
+$printersText = $block->_conf->getStoreConfig('fedexlabel/printing/printer_name');
+if(!empty($printersText) && $isThermal === true && $block->_conf->getStoreConfig('fedexlabel/printing/automatic_printing', $label->getStoreId()) == 0) {
+    $printers = explode(",", $printersText);
+    echo '<label for="thermalPrinterName">'.__('Printer name').':</label> <select id="thermalPrinterName">';
+    foreach($printers as $printer){
+        echo '<option value="'.trim($printer).'">'.trim($printer).'</option>';
+    }
+    echo '</select>';
+    echo '<br /><br />';
+}
+foreach ($labels as $el) {
+    echo '<fieldset class="fieldset admin__fieldset " id="' . $el->getId() . '">
+    <legend class="admin__legend legend">
+                <span>' . $el->getLegend() . '</span>
+            </legend>
+            <br />
+    ';
+    echo $el->getChildrenHtml();
+    $label = $block->elements[$el->getId()]['label_element'];
+    if($label->getLstatus() == 0) {
+        $shipidnumber2 = $label->getShipmentidentificationnumber2();
+        if($label->getTypePrint() == 'pdf' || $label->getTypePrint() == 'png') {
+            echo '<a href="'.$block->getUrl('infomodus_fedexlabel/pdflabels/one', ['label_name' => $label->getLabelname()]).'" target="_blank">' . __('PDF') . '</a>';
+        } else {
+            if($block->_conf->getStoreConfig('fedexlabel/printing/automatic_printing')==1) {
+                echo '<a href="' . /*$path_url . $label->getLabelname()*/$block->getUrl('infomodus_fedexlabel/items/autoprint', ['label_id' => $label->getId(), 'order_id' => $label->getOrderId(), 'type_print' => 'auto']) . '" target="_blank">' . __('Print ' . strtoupper($label->getTypePrint())) . '</a>';
+            } else {
+                echo '<a class="thermal-print-file" href="' . $block->getUrl('infomodus_fedexlabel/items/autoprint', ['label_id' => $label->getId(), 'order_id' => $label->getOrderId(), 'type_print' => 'manual']) . '">' . __('Print thermal') . '</a>';
+            }
+        }
+        if(file_exists($path_dir.'invoice'.$label->getTrackingnumber().'.pdf')){
+            echo '<a href="' . $path_url.'invoice'.$label->getTrackingnumber().'.pdf" target="_blank" style="margin:0 20px;">' . __('Print Invoice') . '</a>';
+        }
+    } else {
+        echo '<span>'.__('Error').': '.$label->getStatustext().'</span><br /><br />';
+        echo '<textarea>'.$label->getXmllog().'</textarea>';
+    }
+    echo '</fieldset>';
+}
+echo '</div>';

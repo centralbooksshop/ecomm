@@ -1,0 +1,33 @@
+<?xml version="1.0" ?>
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Webapi:etc/webapi.xsd">
+	<route url="/V1/centralbooks-schoolhub/schoolhub" method="POST">
+		<service class="Centralbooks\SchoolHub\Api\SchoolhubRepositoryInterface" method="save"/>
+		<resources>
+			<resource ref="Centralbooks_SchoolHub::Schoolhub_save"/>
+		</resources>
+	</route>
+	<route url="/V1/centralbooks-schoolhub/schoolhub/search" method="GET">
+		<service class="Centralbooks\SchoolHub\Api\SchoolhubRepositoryInterface" method="getList"/>
+		<resources>
+			<resource ref="Centralbooks_SchoolHub::Schoolhub_view"/>
+		</resources>
+	</route>
+	<route url="/V1/centralbooks-schoolhub/schoolhub/:schoolhubId" method="GET">
+		<service class="Centralbooks\SchoolHub\Api\SchoolhubRepositoryInterface" method="get"/>
+		<resources>
+			<resource ref="Centralbooks_SchoolHub::Schoolhub_view"/>
+		</resources>
+	</route>
+	<route url="/V1/centralbooks-schoolhub/schoolhub/:schoolhubId" method="PUT">
+		<service class="Centralbooks\SchoolHub\Api\SchoolhubRepositoryInterface" method="save"/>
+		<resources>
+			<resource ref="Centralbooks_SchoolHub::Schoolhub_update"/>
+		</resources>
+	</route>
+	<route url="/V1/centralbooks-schoolhub/schoolhub/:schoolhubId" method="DELETE">
+		<service class="Centralbooks\SchoolHub\Api\SchoolhubRepositoryInterface" method="deleteById"/>
+		<resources>
+			<resource ref="Centralbooks_SchoolHub::Schoolhub_delete"/>
+		</resources>
+	</route>
+</routes>

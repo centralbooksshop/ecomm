@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd"> 
+  <table name="deliveryboy_orders" resource="default" engine="innodb" comment="Delivery Boy Orders Table">
+    <column xsi:type="varchar" name="package_type" nullable="true" length="255" comment="Packge Type"/>  
+    <column xsi:type="varchar" name="payment_status" nullable="true" length="255" comment="Payment Status"/>
+    
+</table>
+
+  <table name="deliveryboy_deliveryboy" resource="default" engine="innodb" comment="Delivery Boy Table">
+    <column xsi:type="int" name="no_of_covers_delivered" nullable="true" padding="10" unsigned="false" identity="false" comment="No Of Covers Delivered"/>
+    <column xsi:type="int" name="no_of_boxes_delivered" nullable="true" padding="10" unsigned="false" identity="false" comment="No Of Boxes Deivered"/>
+    <column xsi:type="int" name="total_no_of_orders" nullable="true" padding="10" unsigned="false"  identity="false" comment="Total No Of Orders"/>
+    <column xsi:type="int" name="total_amount_to_be_received" nullable="true" padding="10" unsigned="false" identity="false" comment="Total Amount To Be Received"/>
+    <column xsi:type="varchar" name="driver_erp_id" nullable="false" length="255" comment="Driver ERP ID"/>
+    <column xsi:type="varchar" name="driver_type" nullable="false" length="255" default="none" comment="Driver Type"/>
+    <column xsi:type="varchar" name="vendor_id" nullable="false" length="255"  comment="Vendor ID"/>
+  </table>
+
+ <table name="sales_order" resource="default" engine="innodb" comment="Sales Orders Table">
+	 <column xsi:type="varchar" name="package_type" nullable="true" length="255" comment="Package Type"/>
+         <column xsi:type="varchar" name="delivery_amount" nullable="true" length="255" comment="Delivery Amount"/>
+ </table>
+
+ <table name="centralbooks_zones_amount" resource="default" engine="innodb" comment="CentralBooks Zones Amount Table">
+		<column xsi:type="int" name="zones_id" padding="10" unsigned="true" nullable="false" identity="true" comment="Entity Id"/>
+		<constraint xsi:type="primary" referenceId="PRIMARY">
+			<column name="zones_id"/>
+		</constraint>
+		<column xsi:type="varchar" name="zone_token" nullable="true" length="255" comment="ERP Token"/>
+		<column xsi:type="varchar" name="zone_list" nullable="true" length="255" comment="Zone List"/>
+		<column xsi:type="varchar" name="package_type" nullable="true" length="255" comment="Package Type"/>
+                <column xsi:type="varchar" name="delivery_amount" nullable="true" length="255" comment="Delivery Amount"/>
+</table>
+
+ <table name="centralbooks_transactions" resource="default" engine="innodb" comment="CentralBooks Transactions Table">
+                <column xsi:type="int" name="id" padding="10" unsigned="true" nullable="false" identity="true" comment="Transaction Id"/>
+                <constraint xsi:type="primary" referenceId="PRIMARY">
+                        <column name="id"/>
+		</constraint>
+		<column xsi:type="varchar" name="vid" nullable="true" length="255" comment="Vendor ID"/>
+		<column xsi:type="varchar" name="vname" nullable="true" length="255" comment="Vendor Name"/>
+		<column xsi:type="varchar" name="total_requested_amount" nullable="true" length="255" comment="Total Request Amount"/>
+		<column xsi:type="varchar" name="total_amount_paid" nullable="true" length="255" comment="Total Amount Paid"/>
+		<column xsi:type="varchar" name="total_remaining_amount" nullable="true" length="255" comment="Total Remaining  Amount"/>
+		<column xsi:type="varchar" name="created_at" nullable="true" length="255" comment="Created At"/>
+		<column xsi:type="varchar" name="driver_erp_token" nullable="true" length="255" comment="Driver ERP Token"/>
+
+  </table>
+
+</schema>
+

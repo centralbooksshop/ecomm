@@ -1,0 +1,415 @@
+<a href="#" onClick="window.history.back();return false;" class="register_back">Back</a>
+<?php $viewModel = $block->getViewModel(); ?>
+
+<?php
+
+/**
+ * @var \Mageplaza\HelloWorld\Block\Display $block
+ */
+
+// echo $block->getProductCollection();
+
+// $queries = array();
+// parse_str($_SERVER['QUERY_STRING'], $queries);
+$core_session = $viewModel->getCoreSessionData();
+$school_name = '';
+$display_bookstore = '';
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$request_url = $objectManager->get('\Magento\Framework\App\Request\Http');
+$schoolname = $request_url->getParam('schoolname');
+if(isset($core_session['s_school_name'])) {
+	$school_name = $core_session['s_school_name'];
+	$username = $core_session["s_username"];
+	$password = $core_session["s_password"];
+	$roll_numbers = $core_session["s_rollnumbers"];
+} else if(!empty($schoolname)) {
+	$redirect = $objectManager->get('\Magento\Framework\App\Response\Http');
+	$school_url = $block->getBaseUrl().'?name='.$schoolname;
+	$redirect->setRedirect($school_url);	
+
+} else {
+	$redirect = $objectManager->get('\Magento\Framework\App\Response\Http');
+	$school_url = $block->getBaseUrl();
+	$redirect->setRedirect($school_url);
+}
+
+$blockObj= $block->getLayout()->createBlock('Retailinsights\Registers\Block\Index\Header');
+
+$schoolDescription = $block->getDescription($school_name,$username,$password,$roll_numbers);
+
+$isPrebookingEnabled = $block->isPrebookingEnabled($school_name);
+$display_bookstore = $block->isDisplayBookstore($school_name);
+
+$image = $block->getImage($school_name);
+
+$schoolType = $block->getSchoolType($school_name);
+?>
+
+<input type="hidden" id="school_text" name="school_text" value="<?php echo $schoolType;?>">
+<div class="description_header text-center">
+    <?php //if($image){ ?>
+        <!-- <img src="<?php //echo $blockObj->getCustUrl(); ?>pub/media/ubertheme/school_zone/<?php //echo $image ?>"> -->
+    <?php //}else{ ?>
+         <!-- <img src="<?php //echo $blockObj->getCustUrl(); ?>pub/media/ubertheme/school_zone/PLP_school.png"> -->
+    <?php //} ?>
+    
+    <?php foreach ($schoolDescription as $schvalue) { ?>
+            <!-- $image = explode('&quot;', $schvalue['description']);
+            if(isset($image[1])){
+                $images = explode('&quot;', $image[1]);
+                $imageUrl = $block->getMediaUrl().$images[0];
+            } -->
+
+          <?php echo $schvalue['preview_description']; ?>
+		<?php echo $schvalue['description']; ?>
+        
+        <!-- <img src="<?php if(isset($images[0])){ echo $imageUrl; }else{  echo $blockObj->getCustUrl()."pub/media/ubertheme/school_zone/PLP_school.png"; }?>"> -->
+    <?php } ?>
+
+			
+    
+    <?php //print($value['preview_description']); ?> 
+</div>
+
+<?php if($schoolType == 1){
+    $classCollection = $block->getClass($school_name);
+?>
+<div class="SchoolClass row">
+    <?php 
+        foreach($classCollection as $key => $value){ ?>
+        <div class="col-md-3">
+            <div class="product-list-block">
+            <label class="prod-head"><?php echo $value['label']; ?></label> 
+            <?php $productsByClass = $block->getProductsByClass($school_name, $value);
+                ?>
+                <div class="clearfix productClassGrp">
+                <?php
+                foreach($productsByClass as $key => $value){
+                    if($key == (count($productsByClass)-1)){
+						//echo '<pre>'; print_r($value);
+                    ?>
+                    <div class="ContainerDivClass">
+                        <?php if($value['code'] == 2){
+						$select_language_type = $value['select_language_type'];
+						?>
+                            <div class="code"><p><?php if($value['label_name']){ echo $value['label_name']; }else{ ?>Select <?php echo $select_language_type; ?> language <?php } ?></p>
+                            </div>
+                            <div class="products">
+                                <?php 
+                                foreach($value['data'] as $keyNew => $valueNew){
+                                    $url = $block->getUrl().$valueNew['url'].'.html';
+                                    ?>
+                                    <p><a href="<?php echo $url; ?>"><?php echo $valueNew['options']; ?></a></p>
+                                    <?php
+                                }
+                                ?>
+                            </div>
+                        <!-- </div> -->
+                        <?php
+                        }
+                        if($value['code'] == 3){
+                            ?>
+                            <div class="code">
+                                <p><?php if($value['label_name']){ echo $value['label_name']; }else{ ?>Select 2nd & 3rd language <?php } ?></p>
+                            </div>
+                            <div class="products">
+                                <?php 
+                                foreach($value['data'] as $keyNew => $valueNew){
+                                    $url = $block->getUrl().$valueNew['url'].'.html';
+                                    ?>
+                                    <p><a href="<?php echo $url; ?>"><?php echo $valueNew['options']; ?></a></p>
+                                    <?php
+                                }
+                            ?>
+                            </div>
+                        <!-- </div> -->
+                            <?php
+                        }
+                        if($value['code'] == 1){
+                            ?>
+                            <div class="code"><p>Select group</p></div>
+                            <div class="products">
+                            <?php 
+                            foreach($value['data'] as $keyNew => $valueNew){
+                                $url = $block->getUrl().$valueNew['url'].'.html';
+                                ?>
+                                <p><a href="<?php echo $url; ?>"><?php echo $valueNew['options']; ?></a></p>
+                                <?php
+                            }
+                            ?>
+                            </div>
+                        <!-- </div> -->
+                            <?php
+                        }
+                        if($value['code'] == 0){
+                            ?>
+                            <div class="products">
+                            <?php 
+                            foreach($value['data'] as $keyNew => $valueNew){
+                                $url = $block->getUrl().$valueNew['url'].'.html';
+                                ?>
+                                <p><a href="<?php echo $url; ?>"><?php echo $valueNew['options']; ?></a></p>
+                                <?php
+                            }
+                            ?>
+                            </div>
+                        <!-- </div> -->
+                        <?php
+                        }
+                        ?>
+                    </div>
+                <?php }
+            }?>
+            </div>
+        </div>
+        </div>
+
+        <?php }
+    ?>
+</div>
+<?php
+}elseif($schoolType == 3){
+?>
+    <div class="clearfix mt-5 pt-5">
+        <?php
+        $productCollection = $block->getProductOfTypeThree($school_name,$roll_numbers);
+        foreach($productCollection as $key => $value){ ?>
+            <div class="col-md-3">
+            <div class="product-list-block">
+            <?php
+            if($key == (count($productCollection)-1)){
+                ?>
+                <div class="prod-head"><?php echo $block->getClassName($value['class']); ?></div>
+                <div class="ContainerDivClass">
+                <?php if($value['code'] == 3){
+                    ?>
+                    <div class="code">
+                        <p><?php if($value['label_name']){ echo $value['label_name']; }else{ ?>Select 2nd & 3rd language <?php } ?></p>
+                    </div>
+                    <div class="products">
+                    <?php 
+                    foreach($value['data'] as $keyNew => $valueNew){
+                        $url = $block->getUrl().$valueNew['url'].'.html';
+                        ?>
+                        <p><a href="<?php echo $url; ?>"><?php echo $valueNew['options']; ?></a></p>
+                        <?php
+                    }
+                    ?>
+                    </div>
+                </div>
+                    <?php
+                }
+                if($value['code'] == 2){
+                    ?>
+                    <div class="code">
+                        <p><?php if($value['label_name']){ echo $value['label_name']; }else{ ?>Select 2nd language <?php } ?></p>
+                    </div>
+                    <div class="products">
+                    <?php 
+                    foreach($value['data'] as $keyNew => $valueNew){
+                        $url = $block->getUrl().$valueNew['url'].'.html';
+                        ?>
+                        <p><a href="<?php echo $url; ?>"><?php echo $valueNew['options']; ?></a></p>
+                        <?php
+                    }
+                    ?>
+                    </div>
+                    <?php
+                }
+                if($value['code'] == 1){
+                    ?>
+                    <div class="code"><p>Select group</p></div>
+                    <div class="products">
+                    <?php 
+                    foreach($value['data'] as $keyNew => $valueNew){
+                        $url = $block->getUrl().$valueNew['url'].'.html';
+                        ?>
+                        <p><a href="<?php echo $url; ?>"><?php echo $valueNew['options']; ?></a></p>
+                        <?php
+                    }
+                    ?>
+                    </div>
+                    <?php
+                }
+                if($value['code'] == 0){
+                    ?>
+                    <div class="products">
+                    <?php 
+                    foreach($value['data'] as $keyNew => $valueNew){
+                        $url = $block->getUrl().$valueNew['url'].'.html';
+                        ?>
+                        <p><a href="<?php echo $url; ?>"><?php echo $valueNew['options']; ?></a></p>
+                        <?php
+                    }
+                    ?>
+                    </div>
+                    <?php
+                }
+            }
+        ?>
+        </div>
+        </div>
+    <?php }  ?>
+    </div>
+<?php }elseif($schoolType == 2){
+    ?>
+        <div class="clearfix mt-5 pt-5 col-md-3">
+            <div class="product-list-block">
+            <?php
+            $productCollection = $block->getProductOfTypeTwo($school_name,$username,$password);
+            $admission_id = $block->getAdmissionId($school_name,$username,$password);
+            ?>
+            <?php
+            $str = '';
+            foreach($productCollection as $key => $value){
+                if($key == (count($productCollection)-1)){
+                    ?>
+                    <div class="prod-head"><?php echo $block->getClassName($value['class']); ?></div>
+                    <div class="ContainerDivClass">
+                        <?php if($value['code'] == 3){
+                            ?>
+                            <div class="code">
+                                <p><?php if($value['label_name']){ echo $value['label_name']; }else{ ?>Select 2nd & 3rd language <?php } ?></p>
+                            </div>
+                            <div class="products">
+                                <?php 
+                                foreach($value['data'] as $keyNew => $valueNew){
+                                    $url = $block->getUrl().$valueNew['url'].'.html';
+                                    ?>
+                                    <p><a href="<?php echo $url; ?>"><?php echo $valueNew['options']; ?></a></p>
+                                    <?php
+                                }
+                                ?>
+                            </div>
+                        <!-- </div> -->
+                            <?php
+                        }
+                        if($value['code'] == 2){
+                            ?>
+                            <div class="code">
+                                <p><?php if($value['label_name']){ echo $value['label_name']; }else{ ?>Select 2nd language <?php } ?></p>
+                            </div>
+                            <div class="products">
+                                <?php 
+                                foreach($value['data'] as $keyNew => $valueNew){
+                                    $url = $block->getUrl().$valueNew['url'].'.html';
+                                    ?>
+                                    <p><a href="<?php echo $url; ?>"><?php echo $valueNew['options']; ?></a></p>
+                                    <?php
+                                }
+                                ?>
+                            </div>
+                        <!-- </div> -->
+                            <?php
+                        }
+                        if($value['code'] == 1){
+                            ?>
+                            <div class="code"><p>Select group</p>
+                            </div>
+                            <div class="products">
+                                <?php 
+                                foreach($value['data'] as $keyNew => $valueNew){
+                                    $url = $block->getUrl().$valueNew['url'].'.html';
+                                    ?>
+                                    <p><a href="<?php echo $url; ?>"><?php echo $valueNew['options']; ?></a></p>
+                                    <?php
+                                }
+                                ?>
+                            </div>
+                        <!-- </div> -->
+                            <?php
+                        }
+                        if($value['code'] == 0){
+                            ?>
+                            <div class="products">
+                            <div class="productsNoLanguage">
+                                <?php 
+                                foreach($value['data'] as $keyNew => $valueNew){
+                                    $url = $block->getUrl().$valueNew['url'].'.html';
+                                    ?>
+                                    <p><a href="<?php echo $url; ?>"><?php echo $valueNew['options']; ?></a></p>
+                                    <?php
+                                }
+                                ?>
+                            </div>
+                            </div>
+                        <!-- </div> -->
+                            <?php
+                        }?>
+                        </div>
+                <?php }
+            }
+            ?>
+            </div>
+        </div>
+    <?php
+    }?>
+
+<style>
+.ContainerDivClass, .product-list-block{
+    border: 1px solid gray;
+    margin-bottom: 10px;
+}
+.code{
+    padding: 5px;
+    color: white;
+    cursor: pointer;
+    background-color: #F4524D;
+}
+.code p{
+    margin: 0px;
+}
+.product-list-block {
+    height: 100%;
+    padding: 1.5rem;
+    border-radius: 10px;
+    box-shadow: 6px 6px 20px 0px rgba(0, 0, 0, 0.5);
+}
+.product-list-block .products a {
+    color: #666;
+    text-decoration: none !important;
+}
+.prod-head {
+    display: block;
+    font-size: 18px;
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: 1rem;
+    text-transform: capitalize;
+}
+.product-list-block .products a:before {
+    content: "»";
+    color: #e94f31;
+    margin-right: 10px;
+}
+.product-list-block .products p {
+    padding: 10px;
+    margin: 0;
+}
+.products p + p {
+    border-top: 1px solid #808080;
+}
+</style>
+<script type="text/javascript">
+    require(['jquery'], function(jquery) {
+        jquery(document).ready(function($){
+            // $( "div.classNameHeader" ).click(function() {
+            //     console.log($(this));
+            //     $(this).find('.productClassGrp').show();
+            //     $(this).siblings('.classNameHeader').find('.productClassGrp').hide();
+            // });
+
+            $('.code').click(function(){
+                console.log($(this).next())
+                $(this).next().slideToggle();
+            });
+        });
+    });
+</script>
+<?php if($display_bookstore == false) { ?>
+<style>
+#school_zone {
+  display: none;
+}
+</style>
+<?php } ?>

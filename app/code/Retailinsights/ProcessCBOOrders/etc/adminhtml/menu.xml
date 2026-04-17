@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../Magento/Backend/etc/menu.xsd">
+    <menu>
+        <add id="Retailinsights_ProcessCBOOrders::ProcessCBOShippingOrders" title="Process CBO Shipping Orders" module="Retailinsights_ProcessCBOOrders" sortOrder="20" parent="Magento_Sales::sales" action="processcboorders/processcboshippingorders" resource="Retailinsights_ProcessCBOOrders::ProcessCBOShippingOrders"/>
+        <add id="Retailinsights_ProcessCBOOrders::ProcessedCBOOrdersList" title="Processed CBO Orders List" module="Retailinsights_ProcessCBOOrders" sortOrder="21" parent="Magento_Sales::sales" action="processcboorders/processedcboorderslist" resource="Retailinsights_ProcessCBOOrders::ProcessedCBOOrdersList"/>
+        <add id="Retailinsights_ProcessCBOOrders::CBODeliveredList" title="Delivered CBO Orders List" module="Retailinsights_ProcessCBOOrders" sortOrder="22" parent="Magento_Sales::sales" action="processcboorders/cbodeliveredlist" resource="Retailinsights_ProcessCBOOrders::CBODeliveredList"/>
+    </menu>
+</config>

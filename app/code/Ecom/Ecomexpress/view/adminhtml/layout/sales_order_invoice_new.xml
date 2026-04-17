@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+	<head>
+		<script src="Ecom_Ecomexpress::js/jquery-3.6.1.min.js" />
+		<script src="Ecom_Ecomexpress::js/ecomexpress.js"/>
+	</head>
+    <body>
+        <referenceContainer name="content">
+            <block class="Ecom\Ecomexpress\Block\Adminhtml\Tracking" name="ecom_assign_tracking" template="Ecom_Ecomexpress::track/tracking.phtml"/>
+        </referenceContainer>
+    </body>
+</page>

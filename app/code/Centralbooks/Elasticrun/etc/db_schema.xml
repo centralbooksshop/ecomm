@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="sales_order" resource="default" engine="innodb" comment="Sales Order Table">
+        <column xsi:type="varchar" name="cbo_courier_name" nullable="true" length="255" comment="CBO Courier Name"/>
+		<column xsi:type="varchar" name="cbo_reference_number" nullable="true" length="255" comment="CBO Reference Number"/>
+		<column xsi:type="text" name="elasticrun_label_url" nullable="true" comment="Elasticrun Shipping Label URL"/>
+
+		<index referenceId="SALES_ORDER_CBO_COURIER_NAME" indexType="btree">
+			<column name="cbo_courier_name"/>
+		</index>
+		<index referenceId="SALES_ORDER_CBO_REFERENCE_NUMBER" indexType="btree">
+			<column name="cbo_reference_number"/>
+		</index>
+    </table>
+</schema>

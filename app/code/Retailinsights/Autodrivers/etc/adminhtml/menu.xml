@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../Magento/Backend/etc/menu.xsd">
+    <menu>
+        <add id="Retailinsights_Autodrivers::parent" title="Auto Drivers" module="Retailinsights_Autodrivers" sortOrder="100" resource="Retailinsights_Autodrivers::parent"/>
+        <add id="Retailinsights_Autodrivers::Listautodrivers" title="List Auto drivers" module="Retailinsights_Autodrivers" sortOrder="20" parent="Retailinsights_Autodrivers::parent" action="autodrivers/listautodrivers" resource="Retailinsights_Autodrivers::Listautodrivers"/>
+
+    </menu>
+</config>

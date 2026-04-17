@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+	    <tab id="smcs_tab" translate="label" sortOrder="20">
+            <label>SMCS Settings</label>
+        </tab>
+        <section id="smcs_configuration" translate="label" sortOrder="900" showInDefault="1" showInWebsite="0" showInStore="0">
+		    <class>separator-top</class>
+            <label>SMCS Configuration</label>
+            <tab>smcs_tab</tab>
+            <resource>Centralbooks_Smcs::config</resource>
+
+            <group id="general" translate="label" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0">
+                <label>API Configuration</label>
+
+                <field id="enabled" type="select" sortOrder="5" showInDefault="1">
+					<label>Enable</label>
+					<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+				</field>
+				
+				<field id="base_url" type="text" sortOrder="10" showInDefault="1">
+                    <label>Base URL</label>
+                </field>
+
+                <field id="client_code" type="text" sortOrder="20" showInDefault="1">
+                    <label>Client Code</label>
+                </field>
+
+                <field id="secret_key" type="password" sortOrder="30" showInDefault="1">
+                    <label>Secret Key</label>
+                </field>
+
+                <field id="username" type="text" sortOrder="40" showInDefault="1">
+                    <label>Login Username</label>
+                </field>
+
+                <field id="password" type="password" sortOrder="50" showInDefault="1">
+                    <label>Login Password</label>
+                </field>
+
+                <field id="pickup_pincode" type="text" sortOrder="51" showInDefault="1">
+                    <label>Pickup Pincode</label>
+                </field>
+
+            </group>
+        </section>
+    </system>
+</config>

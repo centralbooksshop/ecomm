@@ -1,0 +1,12 @@
+<?xml version="1.0" ?>
+<!--
+/**
+ * @author CynoInfotech Team
+ * @package Cynoinfotech_Base
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend/etc.menu.xsd">
+	<menu>	
+		<add id ="Cynoinfotech_Base::base" title="Store Pickup" module="Cynoinfotech_Base" sortOrder='41' resource="Cynoinfotech_Base::base" />		
+    </menu>
+</config>

@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="schoolzone_review" resource="default" engine="innodb" comment="Prebuilt School Data">
+        <column name="entity_id" xsi:type="int" nullable="false" identity="true" unsigned="true" comment="Entity ID"/>
+        <column name="school_name" xsi:type="varchar" length="255" nullable="false" comment="School Name"/>
+        <column name="data_json" xsi:type="longtext" nullable="false" comment="School Data JSON"/>
+        <column name="created_at" xsi:type="timestamp" nullable="false" default="CURRENT_TIMESTAMP" comment="Created At"/>
+        <column name="updated_at" xsi:type="timestamp" nullable="false" default="CURRENT_TIMESTAMP" on_update="true" comment="Updated At"/>
+
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+
+        <index referenceId="SCHOOLZONE_SCHOOLNAME_UNIQUE">
+            <column name="school_name"/>
+        </index>
+    </table>
+</schema>
+

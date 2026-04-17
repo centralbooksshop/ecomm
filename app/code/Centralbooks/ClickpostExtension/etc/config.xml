@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <clickpost>
+            <clickpostservices> 
+                <clickpost_url>https://www.clickpost.ai</clickpost_url>
+                <clickpost_projectx_url>https://api.clickpost.in/api</clickpost_projectx_url>
+            </clickpostservices>
+        </clickpost>
+		<!-- <carriers>
+		            <clickpost>				
+				<active>1</active>
+		                [Carrier's title default value]
+		                <title>Clickpost</title>
+		                [Carrier's model class]
+		                <model>Centralbooks\ClickpostExtension\Model\Carrier\Shipping</model>
+		                <specificerrmsg>This shipping method is currently unavailable. If you would like to ship using this shipping method, please contact us.</specificerrmsg>
+		            </clickpost>
+		        </carriers> -->
+    </default>
+</config>

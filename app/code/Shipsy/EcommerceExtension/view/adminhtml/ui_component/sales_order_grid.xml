@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <listingToolbar name="listing_top">
+            <massaction name="listing_massaction">
+               <action name="softdatasync">
+					<settings>
+						<url path="softdatasync/softdatashipsy/formdata"/>
+						<type>softdata_sync_shipsy</type>
+						<label translate="true">Ship with DTDC</label>
+					</settings>
+				</action>
+
+                <action name="manageorders">
+                    <settings>
+                        <url path="softdatasync/order/details"/>
+                        <type>manage_orders_shipsy</type>
+                        <label translate="true">Manage DTDC orders</label>
+                    </settings>
+                </action>
+                <action name="addtracking">
+                    <settings>
+                        <url path="softdatasync/order/tracking"/>
+                        <type>add_tracking_shipsy</type>
+                        <label translate="true">Add DTDC Tracking</label>
+                    </settings>
+                </action>
+                <!-- <action name="bulklabelprint">
+                    <settings>
+                        <url path="softdatasync/order/bulklabel"/>
+                        <type>bulk_label_print</type>
+                        <label translate="true">Generate DTDC Labels in Bulk</label>
+                    </settings>
+                </action> -->
+            </massaction>
+    </listingToolbar>
+
+    <columns name="sales_order_columns">
+        <!-- <column name="shipsy_reference_numbers" class="Shipsy\EcommerceExtension\Ui\Component\Listing\Column\ReferenceNumbers">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="bodyTmpl" xsi:type="string">ui/grid/cells/html</item>
+                    <item name="visible" xsi:type="boolean">true</item>
+                    <item name="label" xsi:type="string" translate="true">DTDC Reference Number</item>
+                    <item name="disableAction" xsi:type="boolean">true</item>
+                    <item name="filter" xsi:type="string">text</item>
+                </item>
+            </argument>
+        </column> -->
+        <column name="shipsy_tracking_url" class="Shipsy\EcommerceExtension\Ui\Component\Listing\Column\TrackingUrl">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="bodyTmpl" xsi:type="string">ui/grid/cells/html</item>
+                    <item name="visible" xsi:type="boolean">true</item>
+                    <item name="label" xsi:type="string" translate="true">DTDC Tracking URL</item>
+                    <item name="disableAction" xsi:type="boolean">true</item>
+                    <item name="filter" xsi:type="string">text</item>
+                </item>
+            </argument>
+        </column> 
+        <!-- <column name="shipsy_cron_error_log" class="Shipsy\EcommerceExtension\Ui\Component\Listing\Column\CronErrorLog">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="bodyTmpl" xsi:type="string">ui/grid/cells/html</item>
+                    <item name="visible" xsi:type="boolean">true</item>
+                    <item name="label" xsi:type="string" translate="true">DTDC Order Status</item>
+                    <item name="disableAction" xsi:type="boolean">true</item>
+                    <item name="filter" xsi:type="string">text</item>
+                </item>
+            </argument>
+        </column> -->
+    </columns>
+</listing>

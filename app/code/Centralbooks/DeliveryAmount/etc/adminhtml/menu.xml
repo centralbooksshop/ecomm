@@ -1,0 +1,12 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+	<menu>
+				
+	<add id="Centralbooks_DeliveryAmount::deliveryamount" title="Delivery Amount" module="Centralbooks_DeliveryAmount" sortOrder="9999" resource="Centralbooks_DeliveryAmount::deliveryamount" parent="Webkul_DeliveryBoy::expressdelivery" action="deliveryamount/delivery/amount"/>
+
+	<add id="Centralbooks_DeliveryAmount::deliveryboytrans" title="Transactions" module="Centralbooks_DeliveryAmount" sortOrder="9999" resource="Centralbooks_DeliveryAmount::deliveryboytrans" parent="Webkul_DeliveryBoy::expressdelivery" action="deliveryamount/delivery/transactions"/>
+
+
+	</menu>
+</config>
+

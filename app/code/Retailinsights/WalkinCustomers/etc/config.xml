@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../Store/etc/config.xsd">
+    <default>
+        <payment>
+            <receivedpaymentcash>
+                <active>1</active>
+                <title>Receiver Payment - Cash</title>
+                <orderStatus>processing</orderStatus><!-- set default order status-->
+                <model>Retailinsights\WalkinCustomers\Model\ReceivedPaymentCash</model>
+            </receivedpaymentcash>
+            <receivedpaymentcard>
+                <active>1</active>
+                <title>Receiver Payment - Card</title>
+                <orderStatus>processing</orderStatus><!-- set default order status-->
+                <model>Retailinsights\WalkinCustomers\Model\ReceivedPaymentCard</model>
+            </receivedpaymentcard>
+        </payment>
+    </default>
+</config>

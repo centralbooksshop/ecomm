@@ -1,0 +1,137 @@
+<?php
+    /** @var  \Ubertheme\UbThemeHelper\Block\InfiniteScroll\Initial $block */
+    $isShowParam = $block->isShowParam();
+    $loadMode = $block->getLoadingMode();
+    $canLoadOnScrolling = $block->canLoadOnScrolling();
+    $urlImageLoading = $block->getLoaderImageURL();
+    $textLoadingMore = $block->getLoadingMoreText();
+    $textNoMoreItems = $block->getNoMoreItemsText();
+    $textButton = $block->getButtonText();
+    $numberPageLimit = $block->getNumberPageLimit();
+    $isShowToolbar = $block->isShowToolbar();
+    $productListMode = $block->getProductListMode();
+    $htmlImgLoading = ($urlImageLoading) ? '<img src="' . $urlImageLoading . '" alt="'. __("Image Loading") .'" />' : '';
+    $htmlLoader = '<div class="page-load-status">' .
+        '<div class="infinite-scroll-request">' . $htmlImgLoading . __($textLoadingMore) . '</div>' .
+        '<p class="infinite-scroll-error infinite-scroll-last">' . __($textNoMoreItems) . '</p>' .
+        '</div>';
+    $btnLoadMore = '<div class="load-mode-button"><button class="load-more-button">' . __($textButton) . '</button></div>';
+?>
+
+<script>
+    require([
+        'jquery',
+        'Ubertheme_UbThemeHelper/js/jquery.infiniteScroll'
+    ], function ($, infiniteScroll) {
+        $(document).ready(function () {
+            // Hide/Show Toolbar
+            $(".toolbar").<?php echo ($isShowToolbar) ? 'hide' : 'show' ?>();
+
+            var $pager = $(".column.main .toolbar .pages").hide(),
+                $btnNext = $pager.find('.next');
+            if ($btnNext.length) {
+                $(".products-<?= $productListMode ?>.products").append('<?= $htmlLoader ?>');
+                $(".products-<?= $productListMode ?>.products").append('<?= $btnLoadMore ?>');
+
+                // Initial infiniteScroll
+                var $infiniteScroll = new infiniteScroll('.list.product-items', {
+                    path: '.next',
+                    append: '.product.product-item',
+                    status: '.page-load-status',
+                    button: '.load-more-button',
+                    loadOnScroll: <?= ($canLoadOnScrolling) ? 'true' : 'false' ?>,
+                    history: <?= ($isShowParam) ? '"replace"' : 'false' ?>,
+                });
+
+                var $btnLoadMore = $('.load-more-button');
+                $(".page-load-status").<?php echo ($canLoadOnScrolling) ? 'show' : 'hide' ?>();
+                $btnLoadMore.<?php echo ($canLoadOnScrolling) ? 'hide' : 'show' ?>();
+
+                //Case Scroll Limit Page
+                <?php if ($loadMode == 'scroll_limit' && $numberPageLimit > 1 ): ?>
+                $infiniteScroll.on('load', function (response, path) {
+                    onPageLoad();
+                });
+
+                function onPageLoad() {
+                    var limitPage = <?= $numberPageLimit ?>;
+                    if ($infiniteScroll.loadCount == parseInt(limitPage - 1)) {
+                        // disable loading on scroll
+                        $infiniteScroll.options.loadOnScroll = false;
+                        // show button
+                        $btnLoadMore.show();
+                        // remove event listener
+                        $infiniteScroll.off('load', onPageLoad);
+                    }
+                }
+                <?php endif; ?>
+
+                //Re-update after rendered
+                $infiniteScroll.on('append', function (response, path, items) {
+                    $btnLoadMore.show();
+
+                    // add re-initial UBQuickView
+                    if ($('body').UBQuickView && ubQuickViewOptions !== undefined) {
+                        $.ub.UBQuickView(ubQuickViewOptions);
+                    }
+
+                    //Bind ajax add cart functions for newly loaded items
+                    if ($('body').AjaxAddCart && ubAjaxCartOptions !== undefined) {
+                        $.ub.AjaxAddCart(ubAjaxCartOptions);
+                    }
+
+                    if (!$(".infinite-scroll-last").is(":hidden")) {
+                        $btnLoadMore.hide()
+                    }
+
+                    $('.products.wrapper').trigger('contentUpdated');
+                });
+
+                $infiniteScroll.on('request', function (path) {
+                    $btnLoadMore.hide();
+                });
+
+                $infiniteScroll.on('last', function (response, path) {
+                    $(".list.product-items").addClass("last-page");
+                })
+
+                //function check when scroll to element view
+                $.fn.canShow = function () {
+                    var win = $(window);
+                    var viewport = {
+                        top: win.scrollTop(),
+                        left: win.scrollLeft()
+                    };
+                    viewport.right = viewport.left + win.width();
+                    viewport.bottom = viewport.top + win.height();
+
+                    var bounds = this.offset();
+                    bounds.right = bounds.left + this.outerWidth();
+                    bounds.bottom = bounds.top + this.outerHeight();
+
+                    return (!(viewport.right < bounds.left
+                        || viewport.left > bounds.right
+                        || viewport.bottom < bounds.top
+                        || viewport.top > bounds.bottom));
+
+                };
+
+                $(window).scroll(function () {
+                    //Check if last page loaded already
+                    if ($(".list.product-items").hasClass("last-page")) {
+                        if ($(".page-load-status").canShow()) {
+                            if ($(".infinite-scroll-last").is(":hidden")) {
+                                var scroll = $(window).scrollTop();
+                                if(scroll < $(".product-item img:last").offset().top) {
+                                    $(".infinite-scroll-last").fadeIn(2000);
+                                }
+                            } else {
+                                $(".infinite-scroll-last").fadeOut(2000);
+                            }
+                        }
+                    }
+                })
+            }
+        })
+    });
+</script>

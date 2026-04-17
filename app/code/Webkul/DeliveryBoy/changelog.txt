@@ -1,0 +1,58 @@
+Legend
+
++ Features
+- Bugs
+
+-------------------------------- Version 5.0.4 -------------------------------
+    - Bugs
+
+-------------------------------- Version 5.0.3 -------------------------------
+    - Bugs
+
+-------------------------------- Version 5.0.2 -------------------------------
+    - Bugs
+
+-------------------------------- Version 5.0.1 -------------------------------
+    + Added approve status in deliveyrboy
+
+-------------------------------- Version 5.0.0 -------------------------------
+    + Compatible with magento 2.4
+
+-------------------------------- Version 2.1.0 -------------------------------
+    + COD Amount management system in which the amount collected by
+      the delivery boy will be visible in the mobile application.
+
+    + Auto assigning feature of delivery boy based on the delivery boy
+      address. This feature can be enabled or disabled from the admin end.
+      The delivery boy which is nearest to the shipping address of the order
+      will be auto-assigned the order.
+
+-------------------------------- Version 2.0.2 -------------------------------
+    - Bug fixes.
+
+-------------------------------- Version 2.0.1 -------------------------------
+    + Customer can rate deliveryboy from order view page.
+
+-------------------------------- Version 2.0.0 -------------------------------
+    + Compatible with Single app.
+
+-------------------------------- Version 1.1.0 -------------------------------
+    + Performance improvement.
+
+-------------------------------- Version 1.0.2 -------------------------------
+    + Added Delivery boy rating and review feature.
+
+-------------------------------- Version 1.0.1 -------------------------------
+    + OTP will be sent to the customer via email.
+    + Admin can unassign orders to any of the deliveryboy.
+    + Deliveryboy can accept or reject an assigned order.
+    + Deliveryboy and Admin can see comment history of a specific order.
+
+-------------------------------- Version 1.0.0 -------------------------------
+    + Common Login for both deliveryboy and admin.
+    + Admin can assign order to any of the available deliveryboy.
+    + Admin can check location of their deliveryboy on map.
+    + Admin can check status of the order and deliveryboy.
+    + Deliveryboy can enable their status wheather they are available for service or not.
+    + Customer can check the current location of their order.
+    + Provide unique OTP at the time of delivery to deliveryboy, to confirm delivery.

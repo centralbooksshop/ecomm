@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Cron:etc/crontab.xsd">
+
+    <group id="default">
+        <job name="delhivery_lastmile_order_status_update"
+             instance="Delhivery\Lastmile\Cron\UpdateOrderStatus"
+             method="execute">
+            <!-- Runs every 30 minutes -->
+            <schedule>0 */2 * * *</schedule>
+        </job>
+    </group>
+</config>

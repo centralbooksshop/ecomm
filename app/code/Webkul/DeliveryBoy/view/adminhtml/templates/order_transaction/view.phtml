@@ -1,0 +1,51 @@
+<?php
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_DeliveryBoy
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+?>
+<?php $orderTransaction = $block->getCurrentTransaction(); ?>
+<div class="admin__fieldset-wrapper opened">
+    <div class="admin__fieldset-wrapper-title">
+        <strong class="title">
+            <span data-bind="text: label"><?= $block->escapeHtml(__('Deliveryboy Order Transaction')) ?></span>
+        </strong>
+    </div>
+    <div class="admin__fieldset-wrapper-content">
+        <fieldset class="admin__fieldset">
+            <table class="admin__table-secondary">
+            <tbody>
+            <tr>
+                <th><?= $block->escapeHtml(__('Transaction Id')); ?></th>
+                <td><?= $block->escapeHtmlAttr($orderTransaction->getTransactionId()); ?></td>
+            </tr>
+            <tr>
+                <th><?= $block->escapeHtml(__('Amount')); ?></th>
+                <td><?= $block->escapeHtmlAttr($block->getAmount()); ?></td>
+            </tr>
+            <tr>
+                <th><?= $block->escapeHtml(__('Is Closed')); ?></th>
+                <td><?= $block->escapeHtmlAttr($block->getIsClosedStatusString()); ?></td>
+            </tr>
+            <tr>
+                <th><?= $block->escapeHtml(__('Created Date')); ?></th>
+                <td><?= $block->escapeHtmlAttr($block->formatLocalSpecificDate(
+                    $orderTransaction->getCreatedAt()
+                )); ?></td>
+            </tr>
+            <tr>
+                <th><?= $block->escapeHtml(__('Last Updated')); ?></th>
+                <td><?= $block->escapeHtmlAttr($block->formatLocalSpecificDate(
+                    $orderTransaction->getUpdatedAt()
+                )); ?></td>
+            </tr>
+            </tbody>
+        </table>
+        </fieldset>
+    </div>
+</div>

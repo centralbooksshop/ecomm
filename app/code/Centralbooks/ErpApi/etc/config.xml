@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <erp>
+            <general>
+                <enabled>0</enabled>
+            </general>
+            <erpapicredential>
+                <endpoint>https://api.businesscentral.dynamics.com/v2.0/2fb3e83f-4bff-43ab-bdc0-2322285eb593</endpoint>
+                <environment>uat</environment>
+                <pagetype>api/cbs</pagetype>
+                <apigroup>master/v1.0</apigroup>
+				<invoiceapigroup>si/v1.0</invoiceapigroup>
+				<ledgerapigroup>ledger/v1.0</ledgerapigroup>
+                <company>companies(785b504f-834f-ed11-9471-6045bdaea5aa)</company>
+                <prefer>20000</prefer> 
+            </erpapicredential>
+        </erp>
+		<csp>
+            <policies>
+                <storefront_checkout_index_index>
+                    <scripts>
+                        <inline>1</inline>
+                    </scripts>
+                </storefront_checkout_index_index>
+            </policies>
+        </csp>
+    </default>
+</config>

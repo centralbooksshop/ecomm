@@ -1,0 +1,37 @@
+<?php //echo $block->getAwb();die('-----');?>
+
+<script type="text/javascript">
+var ecom = jQuery.noConflict();
+
+ecom('body').on('change','.carrier',function(){
+
+	if(ecom(this).val()=='ecomexpress'){
+		var value = "<?php echo $block->getRequest()->getParam('order_id');?>"
+		var url ="<?php echo $block->getUrl('ecomexpress/ecomexpress_assign/fetch')?>";
+		new Ajax.Request(url,{
+    		method: 'post',
+    		parameters: {'order':value},		
+			onComplete: function(response) {
+				if(!isNaN(response.responseText)){
+					ecom( "tbody#track_row_container tr:last-child td:nth-child(3) input" ).val(response.responseText);
+					ecom( "tbody#track_row_container tr:last-child td:nth-child(3) input" ).attr('readOnly',true);
+					
+					//ecom( "tbody#track_row_container tr:nth-child(2) td:nth-child(3) input" ).val(response.responseText);
+					//ecom( "tbody#track_row_container tr:nth-child(2) td:nth-child(3) input" ).attr('readOnly',true);
+					//document.getElementById("trackingN1").value = response.responseText;
+					//document.getElementById("trackingN1").readOnly = true;
+					
+				}else{
+					alert(response.responseText);
+				}
+       		}
+		});
+	}
+		
+});
+
+/*ecom(document).on('change','.carrier',function(){
+	alert(ecom(this).val());
+});*/
+
+</script>

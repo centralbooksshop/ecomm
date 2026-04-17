@@ -1,0 +1,15 @@
+<?php
+/**
+ * @package     Plumrocket_RMA
+ * @copyright   Copyright (c) 2017 Plumrocket Inc. (https://plumrocket.com)
+ * @license     https://plumrocket.com/license   End-user License Agreement
+ */
+?>
+
+<?php if ($address = $block->getAddress()): ?>
+    <div class="admin__page-section-item-title">
+        <span class="title"><?php /* @escapeNotVerified */ echo __('Customer Address') ?></span>
+            <div class="actions"><?php /* @escapeNotVerified */ echo $block->getAddressEditLink($address); ?></div>
+    </div>
+    <address class="admin__page-section-item-content"><?php /* @escapeNotVerified */ echo $block->getFormattedAddress($address); ?></address>
+<?php endif ?>

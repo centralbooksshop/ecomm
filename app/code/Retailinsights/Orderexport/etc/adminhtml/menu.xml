@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+      <add id="Retailinsights_Orderexport::export" title="Export" translate="title" module="Retailinsights_Orderexport" parent="Magento_Backend::content" sortOrder="50" dependsOnModule="Retailinsights_Orderexport" resource="Retailinsights_Orderexport::export"/>
+      
+	  <add id="Retailinsights_Orderexport::exportorder" title="Export Order" translate="title" module="Retailinsights_Orderexport" parent="Retailinsights_Orderexport::export" sortOrder="10" dependsOnModule="Retailinsights_Orderexport" action="orderexport/exportorder" resource="Retailinsights_Orderexport::export"/>
+
+	  <add id="Retailinsights_Orderexport::exportorder_download" title="Download Export Order" translate="title" module="Retailinsights_Orderexport" parent="Retailinsights_Orderexport::export" sortOrder="11" dependsOnModule="Retailinsights_Orderexport" action="orderexport/exportorder/download" resource="Retailinsights_Orderexport::export"/>
+    </menu>
+</config>

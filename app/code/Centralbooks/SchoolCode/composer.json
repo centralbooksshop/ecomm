@@ -1,0 +1,22 @@
+{
+    "name": "centralbooks/module-schoolcode",
+    "description": "Location Code",
+    "type": "magento2-module",
+    "license": "proprietary",
+    "authors": [
+        {
+            "name": "Central Books",
+            "email": ""
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {},
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Centralbooks\\SchoolCode\\": ""
+        }
+    }
+}

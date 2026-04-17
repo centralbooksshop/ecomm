@@ -1,0 +1,19 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+	<preference for="Centralbooks\SchoolCode\Api\SchoolcodeRepositoryInterface" type="Centralbooks\SchoolCode\Model\SchoolcodeRepository"/>
+	<preference for="Centralbooks\SchoolCode\Api\Data\SchoolcodeInterface" type="Centralbooks\SchoolCode\Model\Schoolcode"/>
+	<preference for="Centralbooks\SchoolCode\Api\Data\SchoolcodeSearchResultsInterface" type="Magento\Framework\Api\SearchResults"/>
+	<virtualType name="Centralbooks\SchoolCode\Model\ResourceModel\Schoolcode\Grid\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+		<arguments>
+			<argument name="mainTable" xsi:type="string">centralbooks_schoolcode_schoolcode</argument>
+			<argument name="resourceModel" xsi:type="string">Centralbooks\SchoolCode\Model\ResourceModel\Schoolcode\Collection</argument>
+		</arguments>
+	</virtualType>
+	<type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+		<arguments>
+			<argument name="collections" xsi:type="array">
+				<item name="centralbooks_schoolcode_schoolcode_listing_data_source" xsi:type="string">Centralbooks\SchoolCode\Model\ResourceModel\Schoolcode\Grid\Collection</item>
+			</argument>
+		</arguments>
+	</type>
+</config>

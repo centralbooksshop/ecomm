@@ -1,0 +1,169 @@
+<?php
+
+namespace Centralbooks\Navision\Model\Api;
+
+use Psr\Log\LoggerInterface;
+use Magento\Framework\Controller\ResultFactory;
+use Magento\Framework\Json\Helper\Data;
+use Magento\Framework\App\ResourceConnection;
+
+class Navisionproduct {
+
+    protected $logger;
+    protected $jsonResultFactory;
+    protected $request;
+    private $productAction;
+    private $storeManager;
+    protected $orderCollectionFactory;
+
+    public function __construct(
+        LoggerInterface $logger,
+        \Magento\Framework\Controller\Result\JsonFactory $resultJsonFactory,
+        \Magento\Framework\Webapi\Rest\Request $request,
+        \Magento\Store\Model\StoreManagerInterface $storeManager,
+        ResourceConnection $resourceConnection,
+         \Magento\Customer\Model\CustomerFactory $customerFactory,
+        \Magento\Sales\Model\ResourceModel\Order\CollectionFactory $orderCollectionFactory    
+    
+    ) {
+
+        $this->logger = $logger;
+        $this->resultJsonFactory = $resultJsonFactory;
+        $this->request = $request;
+         $this->storeManager = $storeManager;
+        $this->resourceConnection = $resourceConnection;
+        $this->_customerFactory = $customerFactory;
+        $this->orderCollectionFactory = $orderCollectionFactory;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+//      public function getNaviosionproduct($data) {
+//
+////        print_r($data);
+////        $params = $this->request->getBodyParams();
+//
+//        if ($data) {
+//            try {
+////                $pdata = $this->loadMyProduct($data['No']);
+////                if ($pdata == FALSE) {
+//                    /** @var \Magento\Catalog\Api\Data\ProductInterface $product */
+//                    $product = $this->productFactory->create();
+//
+//                    $product->setSku($data['No']);
+//                    $product->setName($data['Description']);
+//                    $product->setTypeId(\Magento\Catalog\Model\Product\Type::TYPE_SIMPLE);
+//                    $product->setVisibility(4);
+//                    $product->setPrice($data['Unit_Price']);
+//                    $product->setHsn($data['HSN']);
+////          $product->setQty($data['qty']);
+//                    $attr = $product->getResource()->getAttribute('publisher');
+//                    $avid = $attr->getSource()->getOptionId($data['Publisher']); //name in Default Store View
+//                    $product->setData('publisher', $avid);
+//                    $product->setPrice($data['Unit_Price']);
+//                    $product->setAttributeSetId(4); // Default attribute set for products
+//                    $product->setStatus(\Magento\Catalog\Model\Product\Attribute\Source\Status::STATUS_ENABLED);
+//                    $product->setData('isbn', $data['ISBN']);
+//                    $attr = $this->getAttributeoptionid($product, 'class_school', "UKG");
+//                    $product->setData('class_school', $attr);
+//                    $product->setStockData(
+//                            array(
+//                                'use_config_manage_stock' => 0,
+//                                // checkbox for 'Use config settings' 
+//                                'manage_stock' => 1, // manage stock
+//                                'min_sale_qty' => 1, // Shopping Cart Minimum Qty Allowed 
+//                                'max_sale_qty' => 2, // Shopping Cart Maximum Qty Allowed
+//                                'is_in_stock' => 1, // Stock Availability of product
+//                                'qty' => $data['qty'] // qty of product
+//                            )
+//                    );
+////          If desired, you can set a tax class like so:
+////          $taxClassess = $this->productTaxClassSource->getAllOptions();
+//
+//                    $product->setCustomAttribute('tax_class_id', 8);
+//
+//                    $product = $this->productRepository->save($product); // This is important - the version provided and the version returned will be different objects
+//                    $response = ['Status' => "success", 'Categories' => "Product created success fully" . $product->getId()];
+////                } else {
+//////                    $product = $this->productRepository->getById($pdata->getId());
+////                    $attr = $this->getAttributeoptionid($pdata, 'class_school', "UKG");
+////                    try {
+////                        
+////                        $storeId = $this->storeManager->getStore()->getId();
+////                       
+////                        $this->productAction->updateAttributes($pdata->getId(), array('class_school' => $attr), $storeId);
+////                        $this->productAction->updateAttributes($pdata->getId(), array('tax_class_id' => 8), $storeId);
+////                    } catch (\Exception $e) {
+//////                        $this->messageManager->addError($e->getMessage());
+////                        echo $e->getMessage();
+//////                        $response = ['Status' => "success", 'Categories' => "Product created success fully" . $e->getMessage()];
+////                    }
+////                }
+//            } catch (Exception $ex) {
+//                $response = ['Status' => "error", 'message' => $ex->getMessage()];
+//            }
+//            echo $json = json_encode($response, JSON_UNESCAPED_UNICODE);
+//        }
+//    }
+
+//    public function loadMyProduct($sku) {
+//
+//        try {
+//            $product = $this->productRepository->get($sku);
+//        } catch (\Magento\Framework\Exception\NoSuchEntityException $e) {
+//            $product = false;
+//        }
+//        return $product;
+//    }
+//
+//    public function getAttributeoptionid($product, $attributecode, $optionlabel) {
+//        $attr = $product->getResource()->getAttribute($attributecode);
+//        return $avid = $attr->getSource()->getOptionId($optionlabel); //name in Default Store View
+//    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getCustomerorder($mobile) {
+        $connection = $this->resourceConnection->getConnection();
+        $customerdata = $this->_customerFactory->create()->getCollection()
+                ->addAttributeToSelect("entity_id")
+                ->addAttributeToSelect("email")
+                ->addAttributeToSelect("mobile_number")
+                ->addAttributeToFilter("mobile_number", array("like" => '%' . $mobile . '%')); //-load();
+        if (count($customerdata) > 0) {
+            $collectionData = $customerdata->toArray();
+            print_r($customerdata->getData());
+            foreach ($customerdata as $customer) {
+                $customerId = $customer->getId();
+            }
+            echo $customerId;
+            $orders = $this->orderCollectionFactory->create();
+            $orders->addFieldToSelect('*');
+            $orders->addFieldToFilter(
+                    'customer_id', $customerId
+            )->setOrder(
+                    'created_at', 'desc'
+            );
+//            $orders->setPageSize(1)->setCurPage(1);
+            echo "ordercount" . $orders->count();
+            if ($orders->count() > 0) {
+                $lastestOrder = $orders->getFirstItem();
+                print_r($lastestOrder->getData());
+            } else {
+                // no order found
+                $lastestOrder = false;
+            }
+        } else {
+            echo "no cusotmer found";
+        }
+//        $json = json_encode($customerdata->getData(), JSON_UNESCAPED_UNICODE);
+//        print_r($customerdata->getSelect()->__toString());
+//        print_r($json);
+//        
+
+        return count($customerdata);
+    }
+
+}

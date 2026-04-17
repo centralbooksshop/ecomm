@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+<table name="catalog_product_bundle_selection" resource="default" engine="innodb" comment="School After given">
+ <column xsi:type="text" name="updated_at" nullable="true" comment="Updated Date"/>
+  </table>
+</schema>

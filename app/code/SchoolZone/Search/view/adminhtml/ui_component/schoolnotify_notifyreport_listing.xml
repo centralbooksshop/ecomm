@@ -1,0 +1,310 @@
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">schoolnotify_notifyreport_listing.schoolnotify_notifyreport_listing_data_source</item>
+            <item name="deps" xsi:type="string">schoolnotify_notifyreport_listing.schoolnotify_notifyreport_listing_data_source</item>
+        </item>
+        <item name="spinner" xsi:type="string">spinner_columns</item>
+        
+    </argument>
+	<settings>
+        <spinner>schoolnotify_notifyreport_listing</spinner>
+        <deps>
+            <dep>schoolnotify_notifyreport_listing.schoolnotify_notifyreport_listing_data_source</dep>
+        </deps>
+    </settings>
+    <!-- <dataSource name="schoolnotify_notifyreport_listing_data_source" component="Magento_Ui/js/grid/provider">
+        <settings>
+            <storageConfig>
+                <param name="indexField" xsi:type="string">id</param>
+            </storageConfig>
+            <updateUrl path="mui/index/render"/>
+        </settings>
+        <dataProvider class="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider" name="schoolnotify_notifyreport_listing_data_source">
+            <settings>
+                <requestFieldName>id</requestFieldName>
+                <primaryFieldName>id</primaryFieldName>
+            </settings>
+        </dataProvider>
+    </dataSource> -->
+
+	<dataSource name="schoolnotify_notifyreport_listing_data_source">
+        <argument name="dataProvider" xsi:type="configurableObject">
+            <argument name="class" xsi:type="string">Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider</argument>
+            <argument name="name" xsi:type="string">schoolnotify_notifyreport_listing_data_source</argument>
+            <argument name="primaryFieldName" xsi:type="string">id</argument>
+            <argument name="requestFieldName" xsi:type="string">id</argument>
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="component" xsi:type="string">Magento_Ui/js/grid/provider</item>
+                    <item name="update_url" xsi:type="url" path="mui/index/render"/>
+                    <item name="storageConfig" xsi:type="array">
+                        <item name="indexField" xsi:type="string">id</item>
+                    </item>
+                </item>
+            </argument>
+        </argument>
+    </dataSource>
+
+    <!-- extra page top items -->
+   <container name="listing_top">
+      <argument name="data" xsi:type="array">
+         <item name="config" xsi:type="array">
+            <item name="template" xsi:type="string">ui/grid/toolbar</item>
+            <item name="stickyTmpl" xsi:type="string">ui/grid/sticky/toolbar</item>
+         </item>
+      </argument>
+      <bookmark name="bookmarks">
+         <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+               <item name="storageConfig" xsi:type="array">
+                  <item name="namespace" xsi:type="string">schoolnotify_notifyreport_listing</item>
+               </item>
+            </item>
+         </argument>
+      </bookmark>
+      <exportButton name="export_button">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="selectProvider" xsi:type="string">schoolnotify_notifyreport_listing.schoolnotify_notifyreport_listing.spinner_columns.ids</item>
+                </item>
+            </argument>
+      </exportButton>
+   
+      <filters name="listing_filters">
+         <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+               <item name="columnsProvider" xsi:type="string">schoolnotify_notifyreport_listing.schoolnotify_notifyreport_listing.spinner_columns</item>
+               <item name="storageConfig" xsi:type="array">
+                  <item name="provider" xsi:type="string">schoolnotify_notifyreport_listing.schoolnotify_notifyreport_listing.listing_top.bookmarks</item>
+                  <item name="namespace" xsi:type="string">current.filters</item>
+               </item>
+               <item name="templates" xsi:type="array">
+                  <item name="filters" xsi:type="array">
+                     <item name="select" xsi:type="array">
+                        <item name="component" xsi:type="string">Magento_Ui/js/form/element/ui-select</item>
+                        <item name="template" xsi:type="string">ui/grid/filters/elements/ui-select</item>
+                     </item>
+                  </item>
+               </item>
+               <item name="childDefaults" xsi:type="array">
+                  <item name="provider" xsi:type="string">schoolnotify_notifyreport_listing.schoolnotify_notifyreport_listing.listing_top.listing_filters</item>
+                  <item name="imports" xsi:type="array">
+                     <item name="visible" xsi:type="string">schoolnotify_notifyreport_listing.schoolnotify_notifyreport_listing.spinner_columns.${ $.index }:visible</item>
+                  </item>
+               </item>
+            </item>
+            <item name="observers" xsi:type="array">
+               <item name="column" xsi:type="string">column</item>
+            </item>
+         </argument>
+         <filterSelect name="store_id">
+            <argument name="optionsProvider" xsi:type="configurableObject">
+               <argument name="class" xsi:type="string">Magento\Cms\Ui\Component\Listing\Column\Cms\Options</argument>
+            </argument>
+            <argument name="data" xsi:type="array">
+               <item name="config" xsi:type="array">
+                  <item name="provider" xsi:type="string">${ $.parentName }</item>
+                  <item name="imports" xsi:type="array">
+                     <item name="visible" xsi:type="string">componentType = column, index = ${ $.index }:visible</item>
+                  </item>
+                  <item name="dataScope" xsi:type="string">store_id</item>
+                  <item name="label" xsi:type="string" translate="true">Store View</item>
+                  <item name="captionValue" xsi:type="string">0</item>
+               </item>
+            </argument>
+         </filterSelect>
+      </filters>
+      <!-- Mass action for status change -->
+       <massaction name="listing_massaction">
+         <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+               <item name="selectProvider" xsi:type="string">schoolnotify_notifyreport_listing.schoolnotify_notifyreport_listing.spinner_columns.ids</item>
+               <item name="component" xsi:type="string">Magento_Ui/js/grid/tree-massactions</item>
+               <item name="indexField" xsi:type="string">id</item>
+            </item>
+         </argument>
+            <action name="notify_delete">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="type" xsi:type="string">text1</item>
+                        <item name="label" xsi:type="string" translate="true">Delete</item>
+                        <item name="url" xsi:type="url" path="schoolnotify/notifyreport/delete"/>
+                        <item name="paramName" xsi:type="string">is_deleted</item>
+                    </item>
+                </argument>
+            </action>
+            <action name="status_to_inprogress">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="type" xsi:type="string">text2</item>
+                        <item name="label" xsi:type="string" translate="true">Change status to In Progress</item>
+                        <item name="url" xsi:type="url" path="schoolnotify/notifyreport/changetoinprogress"/>
+                        <item name="paramName" xsi:type="string">status</item>
+                    </item>
+                </argument>
+            </action>
+            <action name="status_to_hold">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="type" xsi:type="string">text3</item>
+                        <item name="label" xsi:type="string" translate="true">Change status to Hold</item>
+                        <item name="url" xsi:type="url" path="schoolnotify/notifyreport/changetohold"/>
+                        <item name="paramName" xsi:type="string">status</item>
+                    </item>
+                </argument>
+            </action>
+            <action name="status_to_closed">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="type" xsi:type="string">text4</item>
+                        <item name="label" xsi:type="string" translate="true">Change status to Closed</item>
+                        <item name="url" xsi:type="url" path="schoolnotify/notifyreport/changetoclosed"/>
+                        <item name="paramName" xsi:type="string">status</item>
+                    </item>
+                </argument>
+            </action>
+
+      </massaction>
+      <paging name="listing_paging">
+         <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+               <item name="storageConfig" xsi:type="array">
+                  <item name="provider" xsi:type="string">schoolnotify_notifyreport_listing.schoolnotify_notifyreport_listing.listing_top.bookmarks</item>
+                  <item name="namespace" xsi:type="string">current.paging</item>
+               </item>
+               <item name="selectProvider" xsi:type="string">schoolnotify_notifyreport_listing.schoolnotify_notifyreport_listing.spinner_columns.ids</item>
+            </item>
+         </argument>
+      </paging>
+   </container>
+    <columns name="spinner_columns">
+        <selectionsColumn name="ids">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="resizeEnabled" xsi:type="boolean">false</item>
+                    <item name="resizeDefaultWidth" xsi:type="string">55</item>
+                    <item name="indexField" xsi:type="string">id</item>
+                </item>
+            </argument>
+        </selectionsColumn>
+        <!-- <column name="id">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">textRange</item>
+                    <item name="sorting" xsi:type="string">asc</item>
+                    <item name="label" xsi:type="string" translate="true">ID</item>
+                </item>
+            </argument>
+        </column> -->
+
+		<column name="id">
+            <settings>
+                <filter>textRange</filter>
+                <label translate="true">ID</label>
+                <sorting>asc</sorting>
+            </settings>
+        </column>
+        <column name="name">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">text</item>
+                    <item name="editor" xsi:type="array">
+                        <item name="editorType" xsi:type="string">text</item>
+                        <item name="validation" xsi:type="array">
+                            <item name="required-entry" xsi:type="boolean">true</item>
+                        </item>
+                    </item>
+                    <item name="label" xsi:type="string" translate="true">Name</item>
+                </item>
+            </argument>
+        </column>
+        <column name="phone">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Phone</item>
+                </item>
+            </argument>
+        </column>
+        <column name="email">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Email</item>
+                </item>
+            </argument>
+        </column>
+        <column name="school_name">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">School Name</item>
+                </item>
+            </argument>
+        </column>
+        <column name="school_address">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">School Address</item>
+                </item>
+            </argument>
+        </column>
+        <column name="message" class="SchoolZone\Search\Ui\Component\Listing\Column\Message">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="bodyTmpl" xsi:type="string">ui/grid/cells/html</item>
+                    <item name="filter" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Message</item>
+
+                </item>
+            </argument>
+        </column>
+        <column name="notify_status">
+            <argument name="data" xsi:type="array">
+                <item name="options" xsi:type="object">SchoolZone\Search\Model\Config\Source\Status</item>
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">select</item>
+                    <item name="component" xsi:type="string">Magento_Ui/js/grid/columns/select</item>
+                    <item name="dataType" xsi:type="string">select</item>
+                    <item name="sorting" xsi:type="string">asc</item>
+                    <item name="sortOrder" xsi:type="number">2</item>
+                    <item name="label" translate="true" xsi:type="string">Status</item>
+                </item>
+            </argument>
+        </column>
+        <column name="is_deleted">
+            <argument name="data" xsi:type="array">
+                <item name="options" xsi:type="object">SchoolZone\Search\Model\Config\Source\IsDeleted</item>
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">select</item>
+                    <item name="component" xsi:type="string">Magento_Ui/js/grid/columns/select</item>
+                    <item name="dataType" xsi:type="string">select</item>
+                    <item name="sorting" xsi:type="string">asc</item>
+                    <item name="sortOrder" xsi:type="number">2</item>
+                    <item name="label" translate="true" xsi:type="string">Is Deleted</item>
+                </item>
+            </argument>
+        </column>
+        <!-- <column name="is_deleted">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Is Deleted</item>
+                </item>
+            </argument>
+        </column> -->
+
+        <column name="notify_created_at" class="Magento\Ui\Component\Listing\Columns\Date" component="Magento_Ui/js/grid/columns/date">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">dateRange</item>
+                    <item name="editor" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Reported On</item>
+                    <item name="sortOrder" xsi:type="number">60</item>
+                </item>
+            </argument>
+        </column>
+    </columns>
+</listing>

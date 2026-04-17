@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Acl/etc/acl.xsd">
+    <acl>
+        <resources>
+            <resource id="Magento_Backend::admin">
+                <resource id="Magento_Sales::sales">
+                    <resource id="Infomodus_Fedexlabel::fedexlabel_acl" title="Infomodus FedEx Shipping Labels" sortOrder="30">
+                        <resource id="Infomodus_Fedexlabel::items" title="View labels" sortOrder="5">
+                            <resource id="Infomodus_Fedexlabel::create" title="Create label" sortOrder="5"/>
+                            <resource id="Infomodus_Fedexlabel::delete" title="Delete label" sortOrder="10"/>
+                        </resource>
+                        <resource id="Infomodus_Fedexlabel::account_items" title="View accounts" sortOrder="10">
+                            <resource id="Infomodus_Fedexlabel::account_create" title="Create account" sortOrder="5"/>
+                            <resource id="Infomodus_Fedexlabel::account_delete" title="Delete account" sortOrder="10"/>
+                        </resource>
+                        <resource id="Infomodus_Fedexlabel::boxes_items" title="View box" sortOrder="10">
+                            <resource id="Infomodus_Fedexlabel::boxes_create" title="Create box" sortOrder="5"/>
+                            <resource id="Infomodus_Fedexlabel::boxes_delete" title="Delete box" sortOrder="10"/>
+                        </resource>
+                        <resource id="Infomodus_Fedexlabel::address_items" title="View address" sortOrder="15">
+                            <resource id="Infomodus_Fedexlabel::address_create" title="Create address" sortOrder="5"/>
+                            <resource id="Infomodus_Fedexlabel::address_delete" title="Delete address" sortOrder="10"/>
+                        </resource>
+                        <resource id="Infomodus_Fedexlabel::conformity_items" title="View compliance methods" sortOrder="20">
+                            <resource id="Infomodus_Fedexlabel::conformity_create" title="Create compliance method" sortOrder="5"/>
+                            <resource id="Infomodus_Fedexlabel::conformity_delete" title="Delete compliance method" sortOrder="10"/>
+                        </resource>
+                    </resource>
+						 <resource id="Infomodus_Fedexlabel::base" title="Infomodus" sortOrder="30">
+							<!-- <resource id="Infomodus_Fedexlabel::fedexlabel" title="FedEx Labels" sortOrder="10" /> -->
+							<resource id="Infomodus_Fedexlabel::account" title="FedEx Third party shippers" sortOrder="20" />
+							<resource id="Infomodus_Fedexlabel::boxes" title="Fedex Boxes" sortOrder="30" />
+							<resource id="Infomodus_Fedexlabel::address" title="Fedex Addresses" sortOrder="40" />
+						 </resource>
+
+                </resource>
+                <resource id="Magento_Backend::stores">
+                    <resource id="Magento_Backend::stores_settings">
+                        <resource id="Magento_Config::config">
+                            <resource id="Infomodus_Fedexlabel::fedexlabel" title="FedEx Shipping Labels" sortOrder="5"/>
+                        </resource>
+                    </resource>
+                </resource>
+            </resource>
+        </resources>
+    </acl>
+</config>

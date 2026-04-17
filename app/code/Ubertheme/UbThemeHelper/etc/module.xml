@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * Copyright © 2016 UberTheme. All rights reserved.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Module/etc/module.xsd">
+    <module name="Ubertheme_UbThemeHelper" setup_version="1.0.6">
+        <sequence>
+            <module name="Magento_Store"/>
+            <module name="Magento_Cms"/>
+            <module name="Magento_Catalog"/>
+            <module name="Magento_Theme"/>
+            <module name="Magento_ThemeSampleData"/>
+            <module name="Ubertheme_Base"/>
+        </sequence>
+    </module>
+</config>

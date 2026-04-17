@@ -1,0 +1,37 @@
+<?php 
+
+    $userId = $this->getRequest()->getParams();
+    if(isset($userId['user_id'])){
+        $admin_user_list = $block->getAdminuserlist($userId['user_id']);
+		//echo '<pre>';print_r($admin_user_list);
+?>
+<div class="fieldset-wrapper order-information">
+    <div class="fieldset-wrapper-title">
+        <span class="title"><?php /* @escapeNotVerified */
+            echo __('Deliveryboy Partner List') ?></span>
+    </div>
+        <?php echo $block->getChildHtml(); ?>
+        <select class="pickupstore_permission" name="partnername">
+             <?php $deliveryboy_partnerlist = $block->getPartnerlist(); 
+            foreach ($deliveryboy_partnerlist as $partnerid) { ?>
+                <option <?php if($partnerid['value'] == $admin_user_list['value']){echo "selected='selected'"; } ?> value="<?php echo $partnerid['value']; ?>"> <?php echo $partnerid['label']; ?></option>
+            <?php } ?>
+        </select>
+</div>
+<?php } else { ?>
+
+ <div class="fieldset-wrapper order-information">
+    <div class="fieldset-wrapper-title">
+        <span class="title"><?php /* @escapeNotVerified */
+            echo __('Deliveryboy Partner List') ?></span>
+    </div>
+        <?php echo $block->getChildHtml(); ?>
+        <select class="pickupstore_permission" name="partnername">
+             <?php $deliveryboy_partnerlist = $block->getPartnerlist(); 
+            foreach ($deliveryboy_partnerlist as $partnerid) { ?>
+                 <option value="<?php echo $partnerid['value']; ?>"><?php echo $partnerid['label']; ?></option>
+            <?php } ?>
+        </select>
+</div>  
+
+<?php } ?>

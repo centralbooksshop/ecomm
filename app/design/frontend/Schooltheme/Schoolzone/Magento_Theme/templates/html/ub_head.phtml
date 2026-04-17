@@ -1,0 +1,103 @@
+<?php 
+  /** @var \Ubertheme\UbThemeHelper\Helper\Data  $ubHelper */
+  $ubHelper = $this->helper('Ubertheme\UbThemeHelper\Helper\Data');
+  $ckm = $ubHelper->getCookieManager();
+  $ubcolor = isset($_GET['ubcolor']) ? $_GET['ubcolor'] : $ckm->getCookie('ubcolor');
+  if (isset($_GET['ubcolor']) && $_GET['ubcolor']) {
+    $ckMeta = $ubHelper->getCookieMetadataFactory()->createPublicCookieMetadata()->setPath('/');
+    $ckm->setPublicCookie('ubcolor', $ubcolor, $ckMeta);
+  } 
+  
+  // add google fonts
+
+$googleFonts = [];
+
+// check has used google font for Primary
+$primaryFontLib = $ubHelper->getParam('typography/fonts/primary_font_library_var');
+if ($primaryFontLib == 'google') {
+    $googleFonts[] = $ubHelper->getParam('typography/fonts/primary_google_font_var');
+}
+
+// check has used google font for Heading
+$headingFontLib = $ubHelper->getParam('typography/fonts/heading_font_library_var');
+if ($headingFontLib == 'google') {
+    $googleFonts[] = $ubHelper->getParam('typography/fonts/heading_google_font_var');
+}
+
+// load google font lib if has used
+if (sizeof($googleFonts)) {
+  $googleFonts = implode('|', array_unique($googleFonts));
+  echo "<link href=\"//fonts.googleapis.com/css?family=". $googleFonts .":100,200,300,400,500,600,700,900\" rel=\"stylesheet\" />";
+}
+?>
+<?php // Add Custom Css File ?>
+<?php  
+  if(!empty($ubHelper->getParam('custom_css/custom_css/file'))):
+  if($customCssFile = explode(',', $ubHelper->getParam('custom_css/custom_css/file'))):
+        $i=0;
+        foreach($customCssFile as $add):
+              if (preg_match("/.css/",$add)):
+                    $add =   "css/custom/".$add;
+                    $linkadd[$i] = trim($block->getViewFileUrl($add));
+                    echo '<link rel="stylesheet" type="text/css" href="'.$linkadd[$i].'">';
+              endif; 
+        $i++;
+        endforeach; 
+  endif; 
+  endif;
+  if($ubHelper->getParam('custom_css/custom_css/css_code')){
+    $link = trim($block->getViewFileUrl("css/custom/custom.css"));
+    echo '<link rel="stylesheet" type="text/css" href="'.$link.'">';
+  }  
+  
+  //Check for switch colors
+  if ($ubcolor == "blue") {
+    echo '<link rel="stylesheet" type="text/css" href="'.trim($block->getViewFileUrl("css/source/skin/blue.css")).'">';
+  }elseif ($ubcolor == "green") {
+    echo '<link rel="stylesheet" type="text/css" href="'.trim($block->getViewFileUrl("css/source/skin/green.css")).'">';
+  }elseif ($ubcolor == "violet") {
+    echo '<link rel="stylesheet" type="text/css" href="'.trim($block->getViewFileUrl("css/source/skin/violet.css")).'">';
+  }elseif ($ubcolor == "yellow") {
+    echo '<link rel="stylesheet" type="text/css" href="'.trim($block->getViewFileUrl("css/source/skin/yellow.css")).'">';
+  }elseif ($ubcolor == "xmas") {
+    echo '<link rel="stylesheet" type="text/css" href="'.trim($block->getViewFileUrl("css/source/skin/xmas.css")).'">';
+  }else{
+
+  }
+?>
+<?php
+  if ((bool) $ubHelper->getParam('element/header/actions/enable_sticky') == 1) { 
+  ?>
+  <script type="text/javascript">
+//<![CDATA[
+    require([
+    'jquery',
+    'matchMedia',
+    'domReady!'
+    ], function($){
+      mediaCheck({
+        media: '(min-width: 768px)',
+        entry: function () {
+          $(".page-wrapper").addClass('sticky');
+          $(window).scroll(function() {
+              if ($(window).scrollTop() > 0) {
+                $(".page-wrapper").addClass('scrolled');
+              } else {
+                $(".page-wrapper").removeClass('scrolled');
+              }
+              if ($(window).scrollTop() >= 20) {
+                $(".has-toggle").children().removeClass('active');
+              }
+              if ($(window).scrollTop() >= 100) {
+                  $("body").addClass("hide-magnifier");
+              }else {
+                $("body").removeClass("hide-magnifier");
+              }
+              $(".has-toggle.quick-search").css('opacity', '1');
+          });
+        }
+      });
+    });
+//]]>
+</script>
+<?php } ?>

@@ -1,0 +1,118 @@
+<?xml version="1.0" ?>
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+	<argument name="data" xsi:type="array">
+		<item name="js_config" xsi:type="array">
+			<item name="provider" xsi:type="string">centralbooks_zones_zones_form.zones_form_data_source</item>
+		</item>
+		<item name="label" xsi:type="string" translate="true">Zone Information</item>
+		<item name="template" xsi:type="string">templates/form/collapsible</item>
+	</argument>
+	<settings>
+		<buttons>
+			<button name="back" class="Centralbooks\Zones\Block\Adminhtml\Zones\Edit\BackButton"/>
+			<button name="delete" class="Centralbooks\Zones\Block\Adminhtml\Zones\Edit\DeleteButton"/>
+			<button name="save" class="Centralbooks\Zones\Block\Adminhtml\Zones\Edit\SaveButton"/>
+			<button name="save_and_continue" class="Centralbooks\Zones\Block\Adminhtml\Zones\Edit\SaveAndContinueButton"/>
+		</buttons>
+		<namespace>centralbooks_zones_zones_form</namespace>
+		<dataScope>data</dataScope>
+		<deps>
+			<dep>centralbooks_zones_zones_form.zones_form_data_source</dep>
+		</deps>
+	</settings>
+	<dataSource name="zones_form_data_source">
+		<argument name="data" xsi:type="array">
+			<item name="js_config" xsi:type="array">
+				<item name="component" xsi:type="string">Magento_Ui/js/form/provider</item>
+			</item>
+		</argument>
+		<settings>
+			<submitUrl path="*/*/save"/>
+		</settings>
+		<dataProvider name="zones_form_data_source" class="Centralbooks\Zones\Model\Zones\DataProvider">
+			<settings>
+				<requestFieldName>zones_id</requestFieldName>
+				<primaryFieldName>zones_id</primaryFieldName>
+			</settings>
+		</dataProvider>
+	</dataSource>
+	<fieldset name="general">
+		<settings>
+			<label>Add Zone Information</label>
+		</settings>
+		<field name="pincode" formElement="input" sortOrder="8">
+			<argument name="data" xsi:type="array">
+				<item name="config" xsi:type="array">
+					<item name="source" xsi:type="string">Zones</item>
+				</item>
+			</argument>
+			<settings>
+			    <validation>
+                    <rule name="required-entry" xsi:type="boolean">true</rule>
+                </validation>
+				<dataType>text</dataType>
+				<label translate="true">Pincode</label>
+				<dataScope>pincode</dataScope>
+				<validation>
+					<rule name="required-entry" xsi:type="boolean">true</rule>
+				</validation>
+			</settings>
+		</field>
+
+		<field name="area" formElement="input" sortOrder="9">
+			<argument name="data" xsi:type="array">
+				<item name="config" xsi:type="array">
+					<item name="source" xsi:type="string">Zones</item>
+				</item>
+			</argument>
+			<settings>
+				<dataType>text</dataType>
+				<label translate="true">Area</label>
+				<dataScope>area</dataScope>
+				<validation>
+					<rule name="required-entry" xsi:type="boolean">false</rule>
+				</validation>
+			</settings>
+		</field>
+
+		<!-- <field name="zone" formElement="input" sortOrder="10">
+			<argument name="data" xsi:type="array">
+				<item name="config" xsi:type="array">
+					<item name="source" xsi:type="string">Zones</item>
+				</item>
+			</argument>
+			<settings>
+				<dataType>text</dataType>
+				<label translate="true">Zone</label>
+				<dataScope>zone</dataScope>
+				<validation>
+					<rule name="required-entry" xsi:type="boolean">true</rule>
+				</validation>
+			</settings>
+		</field> -->
+
+		 <field name="zone" formElement="select" sortOrder="10">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">pincode</item>
+                </item>
+            </argument>
+            <settings>
+                <dataType>text</dataType>
+                <label translate="true">Zone</label>
+                <dataScope>zone</dataScope>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">true</rule>
+                </validation>
+            </settings>
+            <formElements>
+                <select>
+                    <settings>
+                        <options class="Centralbooks\Zones\Model\Addzone\Source\Option"/>
+                    </settings>
+                </select>
+            </formElements>
+        </field>
+
+	</fieldset>
+</form>

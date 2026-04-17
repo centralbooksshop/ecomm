@@ -1,0 +1,37 @@
+<?php 
+
+    $userId = $this->getRequest()->getParams();
+    if(isset($userId['user_id'])){
+        $pickupstore = $block->pickupstore($userId['user_id']);
+
+?>
+<div class="fieldset-wrapper order-information">
+    <div class="fieldset-wrapper-title">
+        <span class="title"><?php /* @escapeNotVerified */
+            echo __('Pickupstore List') ?></span>
+    </div>
+        <?php echo $block->getChildHtml(); ?>
+        <select class="pickupstore_permission" name="pickupstore">
+             <?php $pickupstores = $block->getPickupstore(); 
+            foreach ($pickupstores as $value) { ?>
+                <option <?php if($value['value'] == $pickupstore['value']){echo "selected='selected'"; } ?> value="<?php echo $value['label']; ?>"> <?php echo $value['label']; ?></option>
+            <?php } ?>
+        </select>
+</div>
+<?php } else { ?>
+
+ <div class="fieldset-wrapper order-information">
+    <div class="fieldset-wrapper-title">
+        <span class="title"><?php /* @escapeNotVerified */
+            echo __('Pickupstore List') ?></span>
+    </div>
+        <?php echo $block->getChildHtml(); ?>
+        <select class="pickupstore_permission" name="pickupstore">
+             <?php $pickupstores = $block->getPickupstore(); 
+            foreach ($pickupstores as $value) { ?>
+                 <option value="<?php echo $value['label']; ?>"><?php echo $value['label']; ?></option>
+            <?php } ?>
+        </select>
+</div>  
+
+<?php } ?>

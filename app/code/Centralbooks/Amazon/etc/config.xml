@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!-- config.xml for Centralbooks Amazon module: provides default values for system config -->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Config/etc/config.xsd">
+
+    <default>
+        <amazon_configuration>
+            <general>
+                <client_id></client_id>
+                <client_secret></client_secret>
+                <refresh_token></refresh_token>
+                <x_amz_access_token></x_amz_access_token>
+                <x_amz_expires_at>0</x_amz_expires_at>
+                <ship_from_json></ship_from_json>
+            </general>
+        </amazon_configuration>
+    </default>
+
+</config>

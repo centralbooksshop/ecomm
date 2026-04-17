@@ -1,0 +1,39 @@
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../lib/internal/Magento/Framework/ObjectManager/etc/config.xsd">
+    
+    <preference for="Centralbooks\OrderDashboards\Api\OrderRepositoryInterface" type="Centralbooks\OrderDashboards\Model\OrderRepository"/>
+	<preference for="Centralbooks\OrderDashboards\Api\Data\OrderInterface" type="Centralbooks\OrderDashboards\Model\Order"/>
+	<preference for="Centralbooks\OrderDashboards\Api\Data\OrderSearchResultsInterface" type="Magento\Framework\Api\SearchResults"/>
+	<preference for="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider" type="Centralbooks\OrderDashboards\Ui\DataProvider\DataProvider" />
+
+	<virtualType name="Centralbooks\OrderDashboards\Model\ResourceModel\HODashboard\Grid\Collection">
+		<arguments>
+			<argument name="mainTable" xsi:type="string">sales_order_grid</argument>
+			<argument name="resourceModel" xsi:type="string">Magento\Sales\Model\ResourceModel\Order</argument>
+		</arguments>
+	</virtualType>
+	<type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+		<arguments>
+			<argument name="collections" xsi:type="array">
+				<item name="centralbooks_orderdashboards_hodashboard_orders_listing_data_source" xsi:type="string">Centralbooks\OrderDashboards\Model\ResourceModel\HODashboard\Grid\Collection</item>
+			</argument>
+		</arguments>
+	</type>
+	
+	<virtualType name="Centralbooks\OrderDashboards\Model\ResourceModel\CronReports\Grid\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">cbo_orders_payment_sync_reports</argument>
+            <argument name="resourceModel" xsi:type="string">Centralbooks\OrderDashboards\Model\ResourceModel\CronReports</argument>
+            <argument name="collections" xsi:type="array">
+                <item name="cbo_orders_payment_sync_reports" xsi:type="string">Centralbooks\OrderDashboards\Model\ResourceModel\CronReports\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="cbo_orderdashboards_grid_listing_data_source" xsi:type="string">Centralbooks\OrderDashboards\Model\ResourceModel\CronReports\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+</config>

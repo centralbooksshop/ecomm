@@ -1,0 +1,525 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * Webkul Software.
+ * 
+ *
+ * @category  Webkul
+ * @package   Webkul_DeliveryBoy
+ * @author    Webkul <support@webkul.com>
+ * @copyright Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html ASL Licence
+ * @link      https://store.webkul.com/license.html
+ */
+-->
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Ui/etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">expressdelivery_order_list.expressdelivery_order_list_data_source</item>
+            <item name="deps" xsi:type="string">expressdelivery_order_list.expressdelivery_order_list_data_source</item>
+        </item>
+	<item name="spinner" xsi:type="string">expressdelivery_order_columns</item>
+	<!--	<item name="buttons" xsi:type="array">
+            <item name="update" xsi:type="array">
+                <item name="name" xsi:type="string">update</item>
+                <item name="label" xsi:type="string" translate="true">DeliveryBoy RunSheet</item>
+                <item name="class" xsi:type="string">primary</item>
+                <item name="url" xsi:type="string">*/*/deliveryboyrunseet</item>
+            </item>
+	</item> -->
+    </argument>
+    <dataSource name="expressdelivery_order_list_data_source">
+        <argument name="dataProvider" xsi:type="configurableObject">
+            <argument name="class" xsi:type="string">Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider</argument>
+            <argument name="name" xsi:type="string">expressdelivery_order_list_data_source</argument>
+            <argument name="primaryFieldName" xsi:type="string">id</argument>
+            <argument name="requestFieldName" xsi:type="string">id</argument>
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="update_url" xsi:type="url" path="mui/index/render"/>
+                    <item name="storageConfig" xsi:type="array">
+                        <item name="indexField" xsi:type="string">id</item>
+                    </item>
+                </item>
+            </argument>
+        </argument>
+        <argument name="data" xsi:type="array">
+            <item name="js_config" xsi:type="array">
+                <item name="component" xsi:type="string">Magento_Ui/js/grid/provider</item>
+            </item>
+        </argument>
+    </dataSource>
+    <container name="listing_top">
+
+
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="template" xsi:type="string">ui/grid/toolbar</item>
+                <item name="stickyTmpl" xsi:type="string">ui/grid/sticky/toolbar</item>
+            </item>
+        </argument>
+        <bookmark name="bookmarks">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="storageConfig" xsi:type="array">
+                        <item name="namespace" xsi:type="string">expressdelivery_order_list</item>
+                    </item>
+                </item>
+            </argument>
+        </bookmark>
+   <component name="columns_controls">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="columnsData" xsi:type="array">
+                        <item name="provider" xsi:type="string">expressdelivery_order_list.expressdelivery_order_list.expressdelivery_order_columns</item>
+                    </item>
+                    <item name="component" xsi:type="string">Magento_Ui/js/grid/controls/columns</item>
+                    <item name="displayArea" xsi:type="string">dataGridActions</item>
+                </item>
+            </argument>
+	</component> 
+	<!--
+			<exportButton name="export_button" class="Retailinsights\ProcessCBOOrders\Ui\Component\ExportButton">
+		            <argument name="data" xsi:type="array">
+		                <item name="config" xsi:type="array">
+					<item name="selectProvider" xsi:type="string">expressdelivery_order_list.expressdelivery_order_list.expressdelivery_order_columns.ids</item>
+		                </item>
+		            </argument>
+	</exportButton>-->
+
+		<exportButton name="export_button" class="Retailinsights\ProcessCBOOrders\Ui\Component\ExportButton">
+    <argument name="data" xsi:type="array">
+        <item name="config" xsi:type="array">
+            <!-- Default Export Options -->
+            <item name="options" xsi:type="array">
+                <item name="csv" xsi:type="array">
+                    <item name="value" xsi:type="string">csv</item>
+                    <item name="label" xsi:type="string" translate="true">CSV</item>
+                    <item name="url" xsi:type="string">mui/export/gridToCsv</item>
+                </item>
+                <item name="xml" xsi:type="array">
+                    <item name="value" xsi:type="string">xml</item>
+                    <item name="label" xsi:type="string" translate="true">Excel XML</item>
+                    <item name="url" xsi:type="string">mui/export/gridToXml</item>
+	        </item>
+
+		<item name="custom_export" xsi:type="array">
+                	<item name="value" xsi:type="string">custom_export</item>
+                	<item name="label" xsi:type="string" translate="true">Export Runsheet</item>
+     			<item name="url" xsi:type="string">expressdelivery/export/customGridToCsv</item>
+		</item>
+
+            </item>         
+        </item>
+    </argument>
+</exportButton>
+
+
+
+
+			   	
+	  <filters name="listing_filters">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="columnsProvider" xsi:type="string">expressdelivery_order_list.expressdelivery_order_list.expressdelivery_order_columns</item>
+                    <item name="storageConfig" xsi:type="array">
+                        <item name="provider" xsi:type="string">expressdelivery_order_list.expressdelivery_order_list.listing_top.bookmarks</item>
+                        <item name="namespace" xsi:type="string">current.filters</item>
+                    </item>
+                    <item name="templates" xsi:type="array">
+                        <item name="filters" xsi:type="array">
+                            <item name="select" xsi:type="array">
+                                <item name="component" xsi:type="string">Magento_Ui/js/form/element/ui-select</item>
+                                <item name="template" xsi:type="string">ui/grid/filters/elements/ui-select</item>
+                            </item>
+                        </item>
+                    </item>
+                    <item name="childDefaults" xsi:type="array">
+                        <item name="provider" xsi:type="string">expressdelivery_order_list.expressdelivery_order_list.listing_top.listing_filters</item>
+                        <item name="imports" xsi:type="array">
+                            <item name="visible" xsi:type="string">expressdelivery_order_list.expressdelivery_order_list.expressdelivery_order_columns.${ $.index }:visible</item>
+                        </item>
+                    </item>
+                </item>
+                <item name="observers" xsi:type="array">
+                    <item name="column" xsi:type="string">column</item>
+                </item>
+            </argument>
+        </filters>
+
+		<!-- <exportButton class="Magento\Ui\Component\ExportButton">
+		            <argument name="data" xsi:type="array">
+		                <item name="config" xsi:type="array">
+		                    <item name="options" xsi:type="array">
+		                        <item name="csv" xsi:type="array">
+		                            <item name="value" xsi:type="string">csv</item>
+		                            <item name="label" xsi:type="string" translate="true">CSV</item>
+		                            <item name="url" xsi:type="string">mui/export/gridToCsv</item>
+		                        </item>
+		                        <item name="xml" xsi:type="array">
+		                            <item name="value" xsi:type="string">xml</item>
+		                            <item name="label" xsi:type="string" translate="true">Excel XML</item>
+		                            <item name="url" xsi:type="string">mui/export/gridToXml</item>                          
+		                        </item> 
+		                    </item>
+		                </item>
+		            </argument>
+		        </exportButton> -->
+
+        <paging name="listing_paging">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="storageConfig" xsi:type="array">
+                        <item name="provider" xsi:type="string">expressdelivery_order_list.expressdelivery_order_list.listing_top.bookmarks</item>
+                        <item name="namespace" xsi:type="string">current.paging</item>
+                    </item>
+                    <item name="selectProvider" xsi:type="string">expressdelivery_order_list.expressdelivery_order_list.expressdelivery_order_columns.ids</item>
+                </item>
+            </argument>
+        </paging>
+    </container>
+    <columns name="expressdelivery_order_columns">
+        
+		<selectionsColumn name="ids">
+         <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+               <item name="resizeEnabled" xsi:type="boolean">false</item>
+               <item name="resizeDefaultWidth" xsi:type="string">55</item>
+               <item name="indexField" xsi:type="string">id</item>
+            </item>
+            <!-- <item name="sortOrder" xsi:type="number">0</item> -->
+         </argument>
+      </selectionsColumn>
+
+		<column name="id" sortOrder="1">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="sorting" xsi:type="string">asc</item>
+                    <item name="filter" xsi:type="string">textRange</item>
+                    <item name="label" xsi:type="string" translate="true">ID</item>
+                </item>
+            </argument>
+        </column>
+        <column name="firstname" sortOrder="2">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Name</item>
+                </item>
+            </argument>
+        </column>
+
+		<column name="email" sortOrder="3">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Customer Email</item>
+                </item>
+            </argument>
+        </column>
+
+        <column name="deliveryboy_name" sortOrder="4">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Deliveryboy Name </item>
+                </item>
+            </argument>
+        </column>
+
+		<column name="partner_type">
+            <argument name="data" xsi:type="array">
+                <item name="options" xsi:type="object">Webkul\DeliveryBoy\Model\Deliveryboy\Source\Partnertype</item>
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">select</item>
+                    <item name="component" xsi:type="string">Magento_Ui/js/grid/columns/select</item>
+                    <item name="editor" xsi:type="string">select</item>
+                    <item name="dataType" xsi:type="string">select</item>
+                    <item name="label" xsi:type="string" translate="true">Partner Type</item>
+                    <item name="sortOrder" xsi:type="number">5</item>
+                </item>
+            </argument>
+        </column>
+
+		<column name="deliveryboy_mobile_number" sortOrder="5">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Deliveryboy Mobile</item>
+                </item>
+            </argument>
+        </column>
+
+		<column name="deliveryboy_vehicle_number" sortOrder="6">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Auto Number</item>
+                </item>
+            </argument>
+        </column>
+
+        <column name="increment_id" sortOrder="7">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">textRange</item>
+                    <item name="label" xsi:type="string" translate="true">Order ID</item>
+                </item>
+            </argument>
+        </column>
+
+        <column name="alternate_delivery" sortOrder="8">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Alternate Delivery Details</item>
+                </item>
+            </argument>
+        </column>
+
+        <column name="package_items" sortOrder="23">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Package Items</item>
+                </item>
+            </argument>
+        </column>
+
+        <column name="delivery_amount" sortOrder="24">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Delivery Amount</item>
+                </item>
+            </argument>
+        </column>
+
+        <column name="comments" sortOrder="24">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Comments</item>
+                </item>
+            </argument>
+        </column>
+        <!-- <column name="order_id" sortOrder="8">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">textRange</item>
+                    <item name="label" xsi:type="string" translate="true">Order Id</item>
+                </item>
+            </argument>
+        </column> -->
+
+		<column name="product_purchased">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="bodyTmpl" xsi:type="string">ui/grid/cells/html</item>
+                    <item name="filter" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Product Purchased</item>
+                </item>
+            </argument>
+        </column>
+
+		<column name="order_status" sortOrder="9">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Order Status</item>
+                </item>
+            </argument>
+        </column>
+
+		     <column name="shipping_address" sortOrder="10">
+				  <argument name="data" xsi:type="array">
+					 <item name="config" xsi:type="array">
+						 <item name="filter" xsi:type="string">text</item>
+						 <item name="sorting" xsi:type="string">asc</item>
+						 <item name="label" xsi:type="string" translate="true">Address</item>
+					 </item>
+				 </argument>
+			</column>
+			<column name="postcode" sortOrder="11">
+			   <argument name="data" xsi:type="array">
+					<item name="config" xsi:type="array">
+						<item name="filter" xsi:type="string">text</item>
+						<item name="sorting" xsi:type="string">asc</item>
+						<item name="label" xsi:type="string" translate="true">Pincode</item>
+					</item>
+				</argument>
+			</column>
+			<column name="created_at" sortOrder="12" class="Magento\Ui\Component\Listing\Columns\Date" component="Magento_Ui/js/grid/columns/date">
+				<argument name="data" xsi:type="array">
+					<item name="config" xsi:type="array">
+						<item name="filter" xsi:type="string">dateRange</item>
+						<item name="editor" xsi:type="string">text</item>
+						<item name="label" xsi:type="string" translate="true">Dispatched Date</item>
+						<item name="sortOrder" xsi:type="number">60</item>
+					</item>
+				</argument>
+			</column>
+			<column name="billing_name" sortOrder="13">
+				<argument name="data" xsi:type="array">
+					<item name="config" xsi:type="array">
+						<item name="filter" xsi:type="string">text</item>
+						<item name="sorting" xsi:type="string">asc</item>
+						<item name="label" xsi:type="string" translate="true">Bill To</item>
+					</item>
+				</argument>
+			</column>
+			
+			<column name="shipping_name" sortOrder="13">
+                                <argument name="data" xsi:type="array">
+                                        <item name="config" xsi:type="array">
+                                                <item name="filter" xsi:type="string">text</item>
+                                                <item name="sorting" xsi:type="string">asc</item>
+                                                <item name="label" xsi:type="string" translate="true">Customer Name</item>
+                                        </item>
+                                </argument>
+                        </column>
+
+			
+			 <column name="telephone" sortOrder="13">
+                                <argument name="data" xsi:type="array">
+                                        <item name="config" xsi:type="array">
+                                                <item name="filter" xsi:type="string">text</item>
+                                                <item name="sorting" xsi:type="string">asc</item>
+                                                <item name="label" xsi:type="string" translate="true">Customer Phone</item>
+                                        </item>
+                                </argument>
+			</column>
+
+			<column name="pod_image_path" class="Webkul\DeliveryBoy\Ui\Component\Listing\Columns\Pod">
+		            <argument name="data" xsi:type="array">
+                		<item name="config" xsi:type="array">
+					<item name="component" xsi:type="string"> Magento_Ui/js/grid/columns/thumbnail</item>
+                   			<item name="sortable" xsi:type="boolean">false</item>
+                    			<item name="filterable" xsi:type="boolean">false</item>
+                    			<item name="label" xsi:type="string" translate="true">POD</item>
+					<item name="sortOrder" xsi:type="number">2</item>
+				        <item name="has_preview" xsi:type="string">1</item>
+					<item name="altField" xsi:type="string">POD Image</item>
+                		</item>
+            		    </argument>
+        		</column>
+
+
+
+			<column name="student_name" sortOrder="14">
+				<argument name="data" xsi:type="array">
+					<item name="config" xsi:type="array">
+						<item name="filter" xsi:type="string">text</item>
+						<item name="sorting" xsi:type="string">asc</item>
+						<item name="label" xsi:type="string" translate="true">Student Name</item>
+					</item>
+				</argument>
+	          </column>
+			<column name="roll_no" sortOrder="15">
+				<argument name="data" xsi:type="array">
+					<item name="config" xsi:type="array">
+						<item name="filter" xsi:type="string">text</item>
+						<item name="sorting" xsi:type="string">asc</item>
+						<item name="label" xsi:type="string" translate="true">Student Number</item>
+					</item>
+				</argument>
+			</column>
+
+       <column name="school_name" sortOrder="16">
+         <argument name="data" xsi:type="array">
+			 <item name="config" xsi:type="array">
+				<item name="filter" xsi:type="string">text</item>
+				<item name="sorting" xsi:type="string">asc</item>
+				<item name="label" xsi:type="string" translate="true">School Name</item>
+			 </item>
+		  </argument>
+       </column>
+       <column name="school_code" sortOrder="17">
+         <argument name="data" xsi:type="array">
+			 <item name="config" xsi:type="array">
+				<item name="filter" xsi:type="string">text</item>
+				<item name="sorting" xsi:type="string">asc</item>
+				<item name="label" xsi:type="string" translate="true">School Code</item>
+			 </item>
+		  </argument>
+       </column>
+
+
+        <column name="transaction_id" sortOrder="18">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">textRange</item>
+                    <item name="label" xsi:type="string" translate="true">Transaction Id</item>
+                </item>
+            </argument>
+        </column>
+          <column name="total" class="Magento\Sales\Ui\Component\Listing\Column\PurchasedPrice" sortOrder="19">
+            <settings>
+                <filter>textRange</filter>
+                <label translate="true">Grand Total</label>
+            </settings>
+        </column>
+
+
+		  <column name="payment_method" sortOrder="20">
+			<argument name="data" xsi:type="array">
+						<item name="config" xsi:type="array">
+							<item name="filter" xsi:type="string">text</item>
+							<item name="sorting" xsi:type="string">asc</item>
+							<item name="label" xsi:type="string" translate="true">Payment Method</item>
+						</item>
+					</argument>
+		   </column>
+		  <!-- <column name="base_grand_total">
+		  			<argument name="data" xsi:type="array">
+		  						<item name="config" xsi:type="array">
+		  							<item name="filter" xsi:type="string">text</item>
+		  							<item name="sorting" xsi:type="string">asc</item>
+		  							<item name="label" xsi:type="string" translate="true">Grand Total</item>
+		  						</item>
+		  					</argument>
+		  			 </column> -->
+        <actionsColumn sortOrder="21" name="view" class="Webkul\DeliveryBoy\Ui\Component\Listing\Columns\ViewAction">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="resizeEnabled" xsi:type="boolean">false</item>
+                    <item name="resizeDefaultWidth" xsi:type="string">107</item>
+                    <item name="indexField" xsi:type="string">id</item>
+                </item>
+            </argument>
+        </actionsColumn>
+       
+        <column name="delivery_amount_action" class="Webkul\DeliveryBoy\Ui\Component\Listing\Columns\DeliveryAmountAction">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="component" xsi:type="string">Webkul_DeliveryBoy/js/grid/columns/deliveryAmount</item>
+                    <item name="indexField" xsi:type="string">id</item>
+                    <item name="sortable" xsi:type="boolean">false</item>
+                    <item name="sortOrder" xsi:type="number">120</item>
+                    <item name="label" xsi:type="string" translate="true">Update Delivery Amount</item>
+                </item>
+            </argument>
+        </column>
+	   <!-- <actionsColumn name="actions" class="Webkul\DeliveryBoy\Ui\Component\Listing\Columns\EditAction">
+	               <argument name="data" xsi:type="array">
+	                   <item name="config" xsi:type="array">
+	                       <item name="indexField" xsi:type="string">id</item>
+	                       <item name="viewUrlPath" xsi:type="string">expressdelivery/rating/edit</item>
+	                       <item name="sortOrder" xsi:type="number">7</item>
+	                   </item>
+	               </argument>
+	           </actionsColumn> -->
+
+
+		<actionsColumn sortOrder="22" name="actions" class="Webkul\DeliveryBoy\Ui\Component\Listing\Columns\ReturnAction">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="resizeEnabled" xsi:type="boolean">false</item>
+                    <item name="resizeDefaultWidth" xsi:type="string">107</item>
+                    <item name="indexField" xsi:type="string">id</item>
+					<item name="label" xsi:type="string" translate="true">Return Action</item>
+                </item>
+            </argument>
+        </actionsColumn>
+    </columns>
+</listing>

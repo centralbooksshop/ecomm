@@ -1,0 +1,74 @@
+<div class="custome-login-fom">
+<?php
+//echo "<pre>"; print_r($_SESSION['school_name']); echo "</pre>";
+
+unset($_SESSION['school_name']);
+session_destroy();
+   // echo $block->sayHello();
+   if((isset($_SESSION["school_name"])) && ($_SESSION["school_name"] != '')){
+  echo $_SESSION['school_name'];
+}
+  ?>
+<div class="login_screen mgz-col-md-4">
+    <h2>Login Here</h2>
+	<label>Username</label>
+	<input type="text" class="customer_username" name="customer_username"/>
+	<label>Password</label>
+	<input type="password" class="customer_password" name="customer_password"/>
+	<span class="blank_user">Username/Passsword Cannot be Blank</span>
+    <span class="invalied_user"> User Is Not registered</span>
+	<div class="login-btn-section">
+	<button class="customer_login mgz-col-md-3" >Login</button>
+</div>
+</div>
+</div>
+
+<style type="text/css">
+
+.custome-login-fom {
+	display: flex;
+	justify-content: center;
+}
+.custome-login-fom .blank_user, .custome-login-fom .invalied_user {
+	color: #F0141E;
+    font-size: 12px;
+}
+.custome-login-fom .customer_username,.custome-login-fom .customer_password {
+    display: block;
+    color: #144889;
+    font-size: 16px;
+    max-width: 400px;
+    border-radius: 5px;
+    margin-bottom: 15px;
+    border: 1px solid #144889;
+}
+.custome-login-fom label {
+	font-size: 13px;
+}
+.custome-login-fom h2 {
+	text-align: center;
+}
+.custome-login-fom .customer_login {
+	background: #f0141e !important;
+    border: 0;
+    min-height: 38px;
+    transition: 0.2s all;
+    color: #fff;
+    min-width: 170px;
+    box-shadow: 1px 2px #A3A3A3;
+}
+.custome-login-fom .customer_login:active {
+    transform: scale(0.98);
+    box-shadow: 3px 2px 22px 1px rgba(0, 0, 0, 0.24);
+}
+.custome-login-fom .login-btn-section {
+	display: flex;
+    justify-content: center;
+    margin-top: 30px;
+}
+
+.page-header .header.panel {
+   display: none;
+}
+#minicart{display: none}
+</style>

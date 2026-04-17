@@ -1,0 +1,17 @@
+<?php
+/**
+ * @package     Plumrocket_RMA
+ * @copyright   Copyright (c) 2017 Plumrocket Inc. (https://plumrocket.com)
+ * @license     https://plumrocket.com/license   End-user License Agreement
+ */
+?>
+<?php /** @var \Plumrocket\RMA\Block\Adminhtml\Returns\Address\Form $block */ ?>
+<fieldset class="fieldset admin__fieldset-wrapper">
+    <legend class="legend admin__legend">
+        <span><?= $block->escapeHtml($block->getHeaderText()) ?></span>
+    </legend>
+    <br>
+    <div class="form-inline">
+        <?= $block->getForm()->toHtml() ?>
+    </div>
+</fieldset>

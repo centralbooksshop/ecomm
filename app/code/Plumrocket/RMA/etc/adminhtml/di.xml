@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @package     Plumrocket_RMA
+ * @copyright   Copyright (c) 2019 Plumrocket Inc. (https://plumrocket.com)
+ * @license     https://plumrocket.com/license   End-user License Agreement
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Sales\Block\Adminhtml\Order\View">
+        <plugin name="prrma_sales_veiw_returns_button" type="Plumrocket\RMA\Plugin\Adminhtml\OrderView" />
+    </type>
+    
+	<!-- <preference for="Magento\Ui\Model\Export\ConvertToCsv" type="Plumrocket\RMA\Model\Export\ConvertToCsv" /> -->
+    <!-- <preference for="Magento\Ui\Model\Export\ConvertToXml" type="Plumrocket\RMA\Model\Export\ConvertToXml" /> -->
+    <preference for="Magento\Ui\Model\Export\MetadataProvider" type="Plumrocket\RMA\Model\Export\MetadataProvider" />
+
+    <type name="Magento\Framework\View\Element\Message\MessageConfigurationsPool">
+        <arguments>
+            <argument name="configurationsMap" xsi:type="array">
+                <item name="prMissingRmaManagerMessage" xsi:type="array">
+                    <item name="renderer" xsi:type="const">\Magento\Framework\View\Element\Message\Renderer\BlockRenderer::CODE</item>
+                    <item name="data" xsi:type="array">
+                        <item name="template" xsi:type="string">Plumrocket_RMA::messages/missing_rma_manager_message.phtml</item>
+                    </item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+</config>

@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Dependency injection file
+ *
+ * @author Rakesh Jesadiya
+ * @package Rbj_ImportData
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\ImportExport\Model\Import\SampleFileProvider">
+        <arguments>
+            <argument name="samples" xsi:type="array">
+                <item name="fedexpincodeTest" xsi:type="string">Retailinsights_Postcode</item>
+            </argument>
+        </arguments>
+    </type>
+</config>

@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+    <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+
+        <type name="Magento\User\Controller\Adminhtml\User\Save">
+            <plugin name="save_fields" type="Retailinsights\Adminroles\Plugin\Adminsave" />    
+        </type>
+
+		<type name="Magento\User\Block\User\Edit\Tab\Main">
+        <plugin name="admin_user_form" type="Retailinsights\Adminroles\Plugin\Block\Adminhtml\User\Edit\Tab\Main" sortOrder="1"/>
+       </type>
+
+    </config>

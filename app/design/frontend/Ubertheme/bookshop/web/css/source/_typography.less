@@ -1,0 +1,147 @@
+//----
+// @category  : Ubertheme
+// @package   : Ubertheme_BookShop
+// @author    : Ubertheme.com
+// @copyright : Copyright 2009-2016 Ubertheme
+//---------------------------
+
+.lib-font-face(
+  @family-name: 'Roboto Black',
+  @font-path: '@{baseDir}fonts/roboto/roboto-black/roboto-black-webfont',
+  @font-weight: normal,
+  @font-style: normal
+);
+
+.lib-font-face(
+  @family-name: 'Roboto Bold',
+  @font-path: '@{baseDir}fonts/roboto/roboto-bold/roboto-bold-webfont',
+  @font-weight: normal,
+  @font-style: normal
+);
+
+.lib-font-face(
+  @family-name: 'Roboto Light',
+  @font-path: '@{baseDir}fonts/roboto/roboto-light/roboto-light-webfont',
+  @font-weight: normal,
+  @font-style: normal
+);
+
+.lib-font-face(
+  @family-name: 'Roboto Medium',
+  @font-path: '@{baseDir}fonts/roboto/roboto-medium/roboto-medium-webfont',
+  @font-weight: normal,
+  @font-style: normal
+);
+
+.lib-font-face(
+  @family-name: 'Roboto Medium Regular',
+  @font-path: '@{baseDir}fonts/roboto/roboto-regular/roboto-regular-webfont',
+  @font-weight: normal,
+  @font-style: normal
+);
+
+.lib-font-face(
+  @family-name: 'Roboto Thin',
+  @font-path: '@{baseDir}fonts/roboto/roboto-thin/roboto-thin-webfont',
+  @font-weight: normal,
+  @font-style: normal
+);
+
+.lib-font-face(
+  @family-name: 'Roboto Slab Bold',
+  @font-path: '@{baseDir}fonts/roboto/robotoslab-bold/robotoslab-bold-webfont',
+  @font-weight: normal,
+  @font-style: normal
+);
+
+.lib-font-face(
+  @family-name: 'Roboto Slab Light',
+  @font-path: '@{baseDir}fonts/roboto/robotoslab-light/robotoslab-light-webfont',
+  @font-weight: normal,
+  @font-style: normal
+);
+
+.lib-font-face(
+  @family-name: 'Roboto Slab Regular',
+  @font-path: '@{baseDir}fonts/roboto/robotoslab-regular/robotoslab-regular-webfont',
+  @font-weight: normal,
+  @font-style: normal
+);
+
+.lib-font-face(
+  @family-name: 'Roboto Slab Thin',
+  @font-path: '@{baseDir}fonts/roboto/robotoslab-thin/robotoslab-thin-webfont',
+  @font-weight: normal,
+  @font-style: normal
+);
+
+.lib-typography(
+  @_color: @color-gray40,
+  @_font-family: @font-family__base,
+  @_font-size: (@font-size__base),
+  @_font-weight: @font-weight__regular,
+  @_line-height: @line-height__l,
+  @_font-style: @font-style__base
+) {
+  .lib-css(color, @_color);
+  .lib-css(font-family, @_font-family);
+  .lib-css(font-style, @_font-style);
+  .lib-font-size(@_font-size);
+  .lib-css(font-weight, @_font-weight);
+  .lib-css(line-height, @_line-height);
+}
+
+.lib-link(
+    @_link-color: @link__color,
+    @_link-text-decoration: @link__text-decoration,
+    @_link-color-visited: @link__visited__color,
+    @_link-text-decoration-visited: @link__visited__text-decoration,
+    @_link-color-hover: @link__hover__color,
+    @_link-text-decoration-hover: @link__hover__text-decoration,
+    @_link-color-active: @link__active__color,
+    @_link-text-decoration-active: @link__active__text-decoration
+) {
+    .lib-css(color, @_link-color);
+    .lib-css(text-decoration, @_link-text-decoration);
+
+    &:visited {
+        .lib-css(color, @_link-color-visited);
+        .lib-css(text-decoration, @_link-text-decoration-visited);
+    }
+
+    &:hover {
+        .lib-css(color, @_link-color-hover);
+        .lib-css(text-decoration, @_link-text-decoration-hover);
+    }
+
+    &:active {
+        .lib-css(color,@_link-color-active);
+        .lib-css(text-decoration, @_link-text-decoration-active);
+    }
+}
+
+
+
+
+
+//
+//    Desktop
+//--------------------------------------
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+  h1 {
+    .lib-css(font-size, @h1__font-size-desktop);
+    .lib-css(margin-bottom, @h1__margin-bottom__desktop);
+  }
+}
+
+
+//
+//    Common
+//--------------------------------------
+
+& when (@media-common = true) {
+  .items {
+    .lib-list-reset-styles();
+  }
+  
+}

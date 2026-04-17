@@ -1,0 +1,25 @@
+<?xml version="1.0" ?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="clickpost_pickup_address" resource="default" engine="innodb" comment="Clickpost Pickup Address">
+        <column xsi:type="int" name="id" padding="6" unsigned="true" nullable="false" identity="true" comment="Id"/>
+        <column xsi:type="varchar" name="forward_name" nullable="true" comment="forward name"/>
+		<column xsi:type="varchar" name="forward_email" nullable="true" comment="forward email"/>
+        <column xsi:type="varchar" name="forward_phone" nullable="true" comment="forward phone"/>
+		 <column xsi:type="varchar" name="forward_alt_phone" nullable="true" comment="forward alt phone"/>
+		 <column xsi:type="varchar" name="forward_line_1" nullable="true" comment="forward line-1"/>
+		 <column xsi:type="varchar" name="forward_line_2" nullable="true" comment="forward line-2"/>
+		 <column xsi:type="varchar" name="forward_city" nullable="true" comment="forward city"/>
+	     <column xsi:type="varchar" name="forward_state" nullable="true" comment="forward state"/>
+         <column xsi:type="varchar" name="forward_country" nullable="true" comment="forward country"/>
+	     <column xsi:type="varchar" name="forward_pincode" nullable="true" comment="forward pincode"/>
+         <column xsi:type="varchar" name="forward_tin" nullable="false" comment="forward tin"/>
+         <column xsi:type="varchar" name="created_at" nullable="false" length="100" comment="Created At"/>
+         <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="id"/>
+         </constraint>
+    </table>
+
+	<table name="clickpost_waybill" resource="default" engine="innodb" comment="Clickpost Waybill">
+       <column xsi:type="varchar" name="location" nullable="true" comment="Location"/>
+    </table>
+</schema>

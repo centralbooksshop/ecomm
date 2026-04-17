@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_ImportExport:etc/import_files.xsd">
+    <entity name="courierpincodeimport">
+        <file name="courier_pincode_sample.csv"/>
+    </entity>
+</config>

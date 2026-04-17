@@ -1,0 +1,30 @@
+{
+	"name": "shipsy/ecommerce-module",
+	"description": "A generic module that adds syncing, tracking and label generation functionality",
+	"type": "magento2-module",
+	"version": "2.0.1",
+	"license": [
+		"OSL-3.0",
+		"AFL-3.0"
+	],
+	"require": {
+		"php": "~7.3.0||~7.4.0",
+		"magento/framework": "^102.0.0 || ^103.0.0",
+        "magento/module-backend": "^101.0.0 || ^102.0.0",
+        "magento/module-catalog": "^103.0.0 || ^104.0.0",
+        "magento/module-config": "^101.1.0",
+        "magento/module-directory": "^100.3.0",
+        "magento/module-quote": "^101.1.0",
+        "magento/module-sales": "^103.0.2",
+        "magento/module-sales-rule": "^101.2.2",
+        "magento/module-shipping": "^100.3.0",
+        "magento/module-store": "^101.0.0"
+	},
+	"autoload": {
+		"files": [ "registration.php" ],
+		"psr-4": {
+			"Shipsy\\EcommerceExtension\\": ""
+		}
+	}
+	
+}

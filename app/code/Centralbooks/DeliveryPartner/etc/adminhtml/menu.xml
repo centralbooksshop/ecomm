@@ -1,0 +1,9 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+	<menu>
+		
+		<!--	<add id="Centralbooks_DeliveryPartner::centralbooks_deliverypartner_partner" title="Manage Deliveryboy Partner" module="Centralbooks_DeliveryPartner" sortOrder="9999" resource="Magento_Backend::content" parent="Webkul_DeliveryBoy::expressdelivery" action="centralbooks_deliverypartner/partner/index"/> 
+		-->
+		<add id="Centralbooks_DeliveryPartner::Partner" title="Manage Deliveryboy Partner" module="Centralbooks_DeliveryPartner" sortOrder="9999" resource="Magento_Backend::content" parent="Webkul_DeliveryBoy::expressdelivery" action="centralbooks_deliverypartner/partner/index"/> 
+	</menu>
+</config>

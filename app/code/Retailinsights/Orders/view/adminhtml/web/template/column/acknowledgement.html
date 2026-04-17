@@ -1,0 +1,13 @@
+<!-- ko if: row.acknowledgement_upload -->
+    <a data-bind="attr: {
+        href: $parent.baseUrl + 'pub/media/acknowledgement_upload/' + row.acknowledgement_upload
+    }" target="_blank">
+        Download
+    </a>
+<!-- /ko -->
+<!-- ko ifnot: row.acknowledgement_upload -->
+    <button type="button" class="action-default scalable"
+            data-bind="click: function(){ $parent.uploadFile(row.item_id) }">
+        Upload
+    </button>
+<!-- /ko -->

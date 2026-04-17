@@ -1,0 +1,253 @@
+.link_image_acc{
+    width: 40px;
+        height: 43px;
+    margin-bottom: -14px;
+}
+.link_container_acc{
+     width: 50px;
+    text-align: center;
+}
+
+.login_modal{
+    width: 50px;
+  text-align: center;
+}
+.link_image{
+  width: 40px;
+  margin-bottom: -14px;
+}
+.link_container{
+   width: 50px;
+  text-align: center;
+}
+.panel{
+  height: 100px;
+}
+.zones{
+  float:left;
+ }
+ .zone_links{
+  margin-left: -496px;
+ }
+ #book_store{
+    margin-left: -403px;
+}
+#school_zone{
+    margin-left: -285px;
+}
+
+/* Rshmi code */
+.link_image_acc{
+  width: 40px;
+      height: 43px;
+  margin-bottom: -14px;
+}
+.link_container_acc{
+   width: 50px;
+  text-align: center;
+}
+
+.login_modal{
+  width: 50px;
+text-align: center;
+}
+.link_image{
+width: 40px;
+margin-bottom: -14px;
+}
+.link_container{
+ width: 50px;
+text-align: center;
+}
+.panel{
+height: 100px;
+}
+.zones{
+float:left;
+}
+.zone_links{
+margin-left: -496px;
+}
+#book_store{
+  margin-left: -403px;
+}
+#school_zone{
+  margin-left: -285px;
+}
+div.page-footer.font-small.blue.pt-4 {
+padding: 6rem;
+left: 0;
+bottom: 0;
+width: 100%;
+background-color:#0a0a8c;
+color: white
+}
+
+.row {
+  position: relative;
+  bottom: -22px;
+}
+.product-list.product-list {
+  list-style-type: none;
+  padding: 52px;
+  position: relative;
+  left: -2px;
+  top: -51px;
+  height: 170px
+}
+ul.support-list {
+  list-style-type: none;
+  padding: 0px;
+  position: relative;
+  bottom: -9px;
+  left: 67px;
+}
+.products-heading {
+  font-size: 12px;
+  margin-left: 49px;
+}
+.support-heading {
+  font-size: 12px;
+  position: relative;
+  bottom: -2px;
+  margin-left: 65px;
+}
+img, object, video, embed {
+ max-width: 100%;
+}
+ul.product-list1 {
+  position: relative;
+  bottom: -48px;
+  list-style: none;
+}
+.signup-NewsLetter {
+  position: relative;
+  right: 156px;
+  top: -5px;
+}
+.control {
+  position: relative;
+  left: 196px;
+  height: 23px;
+  top: -47px;
+}
+.col-md-6.mb-md-0.mb-6.social-wrapper {
+  position: relative;
+  left: 670px;
+  top: -110px;
+}
+.col-md-6.mb-md-0.mb-6.social-wrapper {
+  position: relative;
+  left: 710px;
+  margin-left: -34px;
+  top: -81px;
+}
+img, object, video, embed {
+  max-width: 341%;
+  height:auto;
+}
+.site-footer {
+background-color:#0a0a8c;
+  
+ text-align: center;
+ margin: 10px 0;
+ padding: 10px 0;
+}
+#social-wrapper {
+    text-align: center;
+}
+/*Social Media Icons*/
+input.email {
+ width: 360px;
+  height: 39px;
+  border-bottom-left-radius: 20px;
+  border-bottom-left-radius: 20px;
+  border-top-left-radius: 20px;
+  text-align: center;
+}
+input.SUBSCRIBE {
+  width: 93px;
+  border-bottom-right-radius: 20px;
+  border-top-right-radius: 20px;
+  font-size: 12px;
+  height: 41px;
+}
+social-wrapper {
+  text-align: center !important;
+  position: absolute !important;
+  right: -545px !important;
+  margin-right: -6px !important;
+}
+
+.social-wrapper .social-icon .social-item{
+    display: inline !important;
+    margin: 0 5px !important;
+}
+.twitter-icon,
+.facebook-icon,
+.instagram-icon,
+.linkedin-icon,
+.googleplus-icon,
+.youtube-icon,
+.foursquare-icon{
+    margin-top: .625em;
+    width: 40px;
+    height: 40px;
+    opacity: .6;
+    filter: alpha(opacity=60); /* For IE8 and earlier */
+ border-radius: 25px;
+}
+
+.twitter-icon:hover,
+.facebook-icon:hover,
+.instagram-icon:hover,
+.linkedin-icon:hover,
+.googleplus-icon:hover,
+.youtube-icon:hover,
+.foursquare-icon:hover {
+    opacity: 1.0;
+    filter: alpha(opacity=100); /* For IE8 and earlier */
+}
+
+.footer-nav p {
+    text-align: center;
+}
+.vl {
+  border-left: 2px solid white;
+  height: 250px;
+}
+hr {
+  border: 0;
+  border-top: 1px solid #d1d1d1;
+  margin-bottom: 20px;
+  margin-top: 28px;
+}
+input[type="button"] {
+  color: black;
+  background-image: linear-gradient(#ffed4b,#fdcd3b);
+}
+img.alignnone.size-full.wp-image-3083 {
+  position: absolute;
+  left: 62px;
+  margin-top: 137px;
+}
+img, object, video, embed {
+  max-width: 625%;
+  height: auto;
+}
+img.alignnone.size-full.wp-image-3084 {
+  position: absolute;
+  margin-top: 138px;
+  right: 2px;
+}
+img.viage {
+  position: absolute;
+  left: 102px;
+}
+.col-md-6.mb-md-0.mb-6.signup-NewsLetter {
+  top: -45px;
+}
+/* end */
+li {
+  list-style: none !important;
+}

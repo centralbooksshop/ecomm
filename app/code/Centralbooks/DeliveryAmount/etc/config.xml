@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+       <deliveryboy>
+            <configuration>
+		    <packagetype>Box;Cover</packagetype>
+	    </configuration>
+       </deliveryboy>
+       <!-- <deliveryamount>
+	    <deliveryboyzone>
+		<zoneprice>Zone-1Box:5;Zone-1Cover:10;Zone-2Box:10;Zone-2Cover:20;Zone-3Box:15;Zone-3Cover:30;Zone-4Box:20;Zone-4Cover:40;Zone-5Box:25;Zone-5Cover:50;Zone-6Box:30;Zone-6Cover:60;Zone-7Box:35;Zone-7Cover:70;Zone-8Box:40;Zone-8Cover:80;Zone-9Box:45;Zone-9Cover:90;Zone-10Box:50;Zone-10Cover:100;Zone-11Box:55;Zone-11Cover:110;Zone-12Box:60;Zone-12Cover:120;Zone-13Box:65;Zone-13Cover:130;Zone-14Box:70;Zone-14Cover:140;Zone-15Box:75;Zone-15Cover:150;Zone-16Box:80;Zone-16Cover:160;Zone-17Box:85;Zone-17Cover:170;Zone-18Box:90;Zone-18Cover:180;Zone-19Box:95;Zone-19Cover:190;
+                </zoneprice>
+            </deliveryboyzone>
+       </deliveryamount> -->
+    </default>
+</config>

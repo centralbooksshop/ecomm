@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="sales_order_place_after">
+        <observer name="add_student_info_to_order" instance="Retailinsights\Orders\Observer\AddStudentInfoToOrder" />
+    </event>
+    <event name="sales_model_service_quote_submit_before">
+        <observer name="optional_product_selected" instance="Retailinsights\Orders\Observer\OptionalProductSelection" />
+    </event>
+    <event name="checkout_cart_save_after">
+        <observer name="checkout_add_student_info_to_order" instance="Retailinsights\Orders\Observer\CheckoutAddStudentInfoToOrder" />
+    </event>
+    <event name="checkout_onepage_controller_success_action">
+        <observer name="status_change" instance="Retailinsights\Orders\Observer\StatusChangeinvoiceGenerate" />
+    </event>
+    <event name="checkout_cart_update_items_before">
+        <observer name="update_item_before" instance="Retailinsights\Orders\Observer\UpdateCartQtyItem" />
+    </event>
+
+	<event name="sales_order_save_after">
+        <observer name="order_delivered_email_observer"
+                  instance="Retailinsights\Orders\Observer\OrderDeliveredEmail"/>
+    </event>
+
+	<event name="sales_order_save_before">
+        <observer name="retailinsights_log_order_status_change" instance="Retailinsights\Orders\Observer\LogOrderStatusChange" />
+    </event>
+    <!-- <event name="catalog_product_import_bunch_save_after">
+        <observer name="Retailinsights_order_catalog_product_import_bunch_save_after" instance="Retailinsights\Orders\Observer\CatalogProductImportBunchSaveAfter" />
+    </event> -->
+</config>

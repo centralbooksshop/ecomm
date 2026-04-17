@@ -1,0 +1,6 @@
+{
+    "commitid": "4322h5j325j325hj24h5",
+    "branch": "master",
+    "tag": "v2.4.0.10.1",
+    "releasedat": "2022-02-21T16:45:00+0530"
+}

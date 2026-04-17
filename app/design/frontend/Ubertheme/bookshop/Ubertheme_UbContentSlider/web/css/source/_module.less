@@ -1,0 +1,420 @@
+//----
+// @category	:	Ubertheme
+// @package 	:	Ubertheme_UbContentSlider
+// @author		:	Ubertheme.com
+// @copyright :	Copyright 2009-2016 Ubertheme
+//---------------------------
+
+
+//Variable from Ub Content Slider
+
+// -----------------------------
+// Common
+// -----------------------------
+
+& when (@media-common = true) {
+	.topsl2  {
+		.owl-carousel { 
+			width: initial !important;
+		}	
+		.product-item-info {
+			.product-item-actions {
+				bottom: 5px;
+			}
+		}
+	}
+	.owl-carousel {
+		.product-item {
+			width: 100% !important;
+			.item-photo {
+				img {
+					width: 100%;
+				}
+			}
+		}
+		&.thumb-items {
+			margin-top: 6px;
+			.owl-wrapper-outer {
+				padding-top: 9px;
+				.owl-item {
+					.item	 {
+						padding: 0 10px;
+						text-align: center;
+
+					}
+					&.synced {
+						position: relative;
+						&:before {
+							content: "";
+							margin-left: -9px;
+							left: 50%;
+							height: 9px;
+							z-index: 1;
+							position: absolute;
+							top: -9px;
+							width: 17px;
+						}
+					}
+				}
+			}
+		}
+		.owl-controls { 
+			margin: 0;
+			.owl-buttons {
+				position: absolute;
+				top: 0;
+				width: 100%;
+				height: 0;
+				margin-top: -45px;
+				div {
+					background-image: url('../Ubertheme_UbContentSlider/images/default-arrow.png') !important;
+					background-color: inherit;
+					background-repeat: no-repeat;
+				  	border-radius: 0px;
+				  	color: @color-white;
+				  	display: inline-block;
+				  	font-size: 0px;
+				  	margin: 0px;
+				  	height: 19px;
+				  	opacity: 1 !important;
+				  	padding: 0;
+				  	width: 20px;
+				  	border-radius: 0;
+					&.owl-prev {
+						background-position: 0 0;
+						float: right;
+						margin-right: 0;
+						position: absolute;
+						right: 40px;
+						font-size: 0;
+						padding: 0;
+						background-color: inherit;
+						border-radius: 0;
+					}
+					&.owl-next {
+						background-position: -20px 0;
+						float: right;
+						margin-right: 10px;
+						font-size: 0;
+						padding: 0;
+						background-color: inherit;
+						border-radius: 0;
+					}
+					&:focus,
+					&:hover {
+						&.owl-prev {
+							background-position: 0 -19px;
+							background-color: @primary__link-color !important;
+						}
+						&.owl-next {
+							background-position: -20px -19px;
+							background-color: @primary__link-color !important;
+						}	
+					}
+				}
+			}
+		}
+		.owl-pagination {
+			position: absolute;
+			bottom: 10px;
+			right: 20px;
+			display: none;
+			.owl-page {
+	    	span {
+	    		background-color: #000;
+				background-repeat: no-repeat;
+				margin: 7px 5px;
+				width: 15px;
+				height: 15px;
+				margin: 5px;
+				border-radius: 20px;
+	    		&.owl-numbers {
+					color: @color-white;
+					font-size: @font-size__s;
+					padding: 5px !important;
+					width: 10px !important;
+					background: @color-orange-red4 !important;
+					height: 10px !important;
+					display: block;
+					line-height: 10px;
+					font-weight: @font-weight__semibold;
+					border-radius: 0 !important;
+					-moz-border-radius: 0 !important;
+					-webkit-border-radius: 0 !important;
+	    		}
+	    	}
+	    	&.active {
+	    		span {
+	    			background-color: @theme__primary-color;
+	    		}
+	    	}
+	    }
+		}
+		.owl-item {
+			.item {
+				.slide-content-desc {
+					left: 50px;
+					padding: 20px;
+					position: absolute;
+					top: 55px;
+					max-width: 380px;
+					.title {
+					  clear: both;
+					  color: @color-black;
+					  display: block;
+					  float: left;
+					  font-size: @font-size__base * 3 - 6;
+					  font-weight: @font-weight__light;
+					  line-height: 100%;
+					  margin: 0;
+					  padding: 0;
+					  text-transform: none;
+					  width: 100%;
+					}
+					.desc {
+					  color: @color-gray60;
+					  float: left;
+					  font-size: @font-size__base;
+					  margin: 20px 0;
+					  max-width: 240px;
+					  line-height: 25px;
+					  width: 100%;
+					}
+					.slide-readmore {
+						clear: both;
+						color: @theme__primary-color;
+						cursor: pointer;
+						display: block;
+						font-size: @font-size__base;
+						font-weight: @font-weight__semibold;
+						width: 100%;
+						text-decoration: underline;
+						&:active,
+						&:focus,
+						&:hover {
+							text-decoration: none;
+						}
+					}
+				}
+			}
+		}
+		&.owl-theme .owl-controls {
+			margin-top: 0;
+		}
+	}
+
+	.owl-carousel {
+	  .bar{
+			background: @color-orange-red4;
+			max-width: 100%;
+			height: 4px;
+			width: 0%;
+	  }
+	  .progressBar{
+			margin: 0;
+			max-width: 100%;
+			background: @color-gray92 + 2;
+	  }
+	}
+
+	.ub-content-slider-title {
+		text-transform: uppercase;
+		font-size: @font-size__l;
+		padding: 0 0 20px 10px;
+	}
+
+	.ub-content-slider.no-items{
+		border: 1px solid @color-gray82 + 5;
+		font-style: italic;
+		margin: 10px;
+		padding: 10px; 
+		text-align: center;
+	}
+
+	.ub-content-slider-items .item .slide-title{
+		font-weight: @font-weight__semibold;
+	}
+
+	.ub-content-slider-items .slide-content{
+		text-align: center;
+		a {
+			display: block;
+			float: left;
+			img {
+				float: left;
+			}
+		}
+	}
+
+	.topsl1 .ub-content-slider-items {
+		&.owl-carousel {
+			.owl-controls {
+				.owl-buttons {
+					display: none;
+					margin-top: -38px;
+					top: 50%;
+					div {
+						background: url('../Ubertheme_UbContentSlider/images/arrow-bg.png') no-repeat 0 0 !important;
+						height: 76px;
+						margin-bottom: 0;
+						margin-top: 0;
+						width: 40px;
+						&.owl-prev {
+							left: 0;
+							&:active,
+							&:focus,
+							&:hover {
+								background-color: #000 !important;
+								background-position: 0 -76px !important;	
+							}
+						}
+						&.owl-next {
+							margin-right: 5px;
+							background-position: -40px 0 !important;
+							&:active,
+							&:focus,
+							&:hover {
+								background-color: #000 !important;
+								background-position: -40px -76px !important;
+							}
+						}
+
+					}
+				}
+			}
+			&:hover {
+				.owl-controls {
+					.owl-buttons {
+						display: block;
+					}
+				}
+			}
+		}
+	}
+
+	//----
+	// Slider Thumbs
+	//---------------------------
+	.thumb-items {
+		.owl-item {
+			cursor: pointer;
+			img{
+				border: 1px solid @color-white;
+			}
+		}
+		.owl-item.synced {
+			img{
+				border: 1px solid @color-orange-red4;
+			}
+		}
+	}
+
+	.columns .column.main {
+		flex-basis: inherit !important;
+		width: 100%;
+	}
+
+}
+
+
+
+//
+//    Mobile vertical
+//--------------------------------------
+.media-width(@extremum, @break) when (@extremum = 'max') and (@break = @screen__xs) {
+	.topsl1 .owl-carousel .owl-item .item .slide-content-desc { 
+		top: 0;
+		display: block;
+		left: 0;
+		padding: 10px;
+		max-width: 150px;
+		.title {
+			font-size: 14px;
+			line-height: 20px;
+		}
+		.desc {
+			margin: 10px 0;
+			display: none;
+		}
+	}
+	.topsl2 .owl-carousel {
+		min-width: 310px;
+		margin-left: -10px !important;
+		.owl-controls .owl-buttons {
+			display: none;
+		}
+	}
+}
+
+//
+//    Mobile
+//--------------------------------------
+
+@media screen and (max-width: 1024px) {
+	.ub-content-slider-items {
+		.slide-content a {
+			width: 100%;
+			img {
+				width: 100%;
+			}
+		}
+	}
+}
+
+.media-width(@extremum, @break) when (@extremum = 'max') and (@break = @screen__m) {
+	
+	.owl-carousel .owl-item .item .slide-content-desc {
+		top: 0;
+		display: block;
+		left: 0;
+		.title {
+			font-size: 28px;
+		}
+		.desc {
+			margin: 10px 0;
+		}
+	}
+	
+	.owl-carousel {
+		// min-width: 667px;
+	}
+	.owl-theme .owl-controls .owl-buttons div {
+		margin-top: -3px;
+	}
+	
+}
+
+
+
+
+//
+//    Tablet
+//--------------------------------------
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+	.topsl1 .ub-content-slider-items {
+		display: block !important;
+		overflow: hidden;
+	}
+	.owl-carousel {
+	  // min-width: 760px;
+	}
+}
+
+//
+//    Desktop 
+//--------------------------------------
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__l) {
+	.owl-carousel {
+	  // min-width: 1000px;
+	}
+	
+}
+
+//
+//    Desktop XL
+//--------------------------------------
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__xl) { 
+	.owl-carousel {
+	  // min-width: 1170px;
+	}
+}

@@ -1,0 +1,17 @@
+<config>
+    <default>
+        <cbo>
+            <payments>
+                <orders_payment_sync_enable>0</orders_payment_sync_enable>
+                <orders_payment_sync_cron>0 4 * * *</orders_payment_sync_cron>
+				<orders_payment_failed_cron>0 4 * * *</orders_payment_failed_cron>
+                <cashfree_endpoint>http://test.cashfree.com/api/v2/orders/{order_id}/status</cashfree_endpoint>
+                <payu_endpoint>https://test.payu.in/merchant/postservice?form=2</payu_endpoint>
+                <ccavenue_endpoint>https://apitest.ccavenue.com/apis/servlet/DoWebTrans</ccavenue_endpoint>
+                <highest_orders_time>-7 days</highest_orders_time>
+                <orders_cron_start>-3 days</orders_cron_start>
+                <orders_cron_before>-2 hours</orders_cron_before>
+            </payments>
+        </cbo>
+    </default>
+</config>

@@ -1,0 +1,98 @@
+<?php
+/**
+ * Copyright © 2016 UberTheme. All rights reserved.
+ */
+?>
+<?php /* @var $block \Ubertheme\UbThemeHelper\Block\Adminhtml\Config\Form\Field\ThemeInfo */ ?>
+
+<?php
+/** @var \Magento\Theme\Model\Theme $theme */
+$theme = $block->getCurrentTheme();
+?>
+<div class="ub-themes-grid">
+    <ul class="ub-themes-grid overview">
+        <li class="theme-item preview-img">
+            <div class="preview-image">
+                 <span class="image-wrap move-long" style="background-image: url('<?php echo $block->getThemePreReviewImageUrl($theme); ?>');"></span>
+            </div>        
+        </li>
+        <li class="theme-info">
+            <div class="details">
+                <div class="theme-name">
+                    <?php echo $theme->getThemeTitle(); ?>
+                    <span class="tagline"><?php echo $block->getComposerInfo('tagline', $theme->getThemePath()); ?></span>
+                </div>
+                <div class="theme-desc">
+                    <span class="value">
+                        <?php echo $block->getComposerInfo('description', $theme->getThemePath()); ?>
+                    </span>
+                </div>
+                <div class="theme-resources">
+                    <span class="title"><?php echo __('Resources')?>: </span>
+                    <ul>
+                        <?php $resourceInfo = $block->getComposerInfo('resources', $theme->getThemePath()); ?>
+                        <?php if (isset($resourceInfo->download)): ?>
+                            <li><a class="btn" target="_blank" href="<?php echo $resourceInfo->download?>"> <?php echo __('Download');?></a></li>
+                        <?php endif; ?>
+                        <?php if (isset($resourceInfo->userguide)): ?>
+                            <li><a class="btn" target="_blank" href="<?php echo $resourceInfo->userguide?>"> <?php echo __('Userguide');?></a></li>
+                        <?php endif; ?>
+                        <?php if (isset($resourceInfo->changelog)): ?>
+                            <li><a class="btn" target="_blank" href="<?php echo $resourceInfo->changelog?>"> <?php echo __('Changelog');?></a></li>
+                        <?php endif; ?>
+                        <?php if (isset($resourceInfo->support)): ?>
+                            <li><a class="btn" target="_blank" href="<?php echo $resourceInfo->support?>"> <?php echo __('Support');?></a></li>
+                        <?php endif; ?>
+                    </ul>
+                </div>
+            </div>
+            <div class="theme-details-infomation">
+                <div class="theme-infomation"><?php echo __('Theme Infomation')?></div>
+                <div class="theme-name">
+                    <span class="title"><?php echo __('Name')?>: </span>
+                    <span class="value"><?php echo trim($theme->getThemeTitle()); ?></span>
+                </div>
+
+                <?php $parentTheme = $theme->getParentTheme(); ?>
+                <?php if ($parentTheme) :?>
+                    <div class="theme-name parent">
+                        <span class="title"><?php echo __('Parent')?>: </span>
+                        <span class="value">
+                            <?php
+                                $parentThemeName = trim($parentTheme->getThemeTitle());
+                                $codes = explode("/", strtolower($parentTheme->getCode()));
+                                if (isset($codes[0]) && $codes[0] == 'ubertheme') {
+                                    $settingUrl = $block->getUrl('ubthemehelper/config/edit', [
+                                        'themeId' => $parentTheme->getId(),
+                                        'vendor' => $block->getRequest()->getParam('vendor'),
+                                        'section' => 'overview'
+                                    ]);
+                                    $title = __('View Parent Theme\'s Configuration');
+                                    echo '<a title="'.$title.'" href="'.$settingUrl.'">'.$parentThemeName.'</a>';
+                                } else {
+                                    echo '<span>' . $parentThemeName . '</span>';
+                                }
+                            ?>
+                        </span>
+                    </div>
+                <?php endif; ?>
+
+                <div class="theme-version">
+                    <span class="title"><?php echo __('Version')?>: </span>
+                    <span class="value"><?php echo $block->getComposerInfo('version', $theme->getThemePath()); ?></span>
+                </div>
+                <div class="theme-author">
+                    <span class="title"><?php echo __('Author')?>: </span>
+                    <span class="value">
+                        <?php echo $block->getComposerInfo('author', $theme->getThemePath()); ?>
+                    </span>
+                </div>
+            </div>
+        </li>
+    </ul>
+</div>
+<!--<script type="text/javascript">
+    require(["jquery", "domReady!"],function($) {
+        $('#overview_theme_info-head').remove();
+    });
+</script>-->

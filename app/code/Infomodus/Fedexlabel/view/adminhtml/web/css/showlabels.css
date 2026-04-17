@@ -1,0 +1,14 @@
+fieldset .admin__field.field {
+    float: left;
+    width: 375px;
+}
+
+fieldset.fieldset.admin__fieldset .admin__field label.label.admin__field-label {
+    width: 50%;
+    padding: 0 15px 0 15px;
+}
+
+.admin__fieldset .admin__field .admin__field-control.control {
+    width: auto;
+    text-align: left;
+}

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+
+    <listingToolbar name="listing_top">
+        <massaction name="listing_massaction">
+            <action name="elasticrun_bulkship">
+                <settings>
+                    <url path="elasticdatasync/bulkship/index"/>
+                    <type>elasticrun_bulkship</type>
+                    <label translate="true">Ship with Elasticrun</label>
+                </settings>
+            </action>
+        </massaction>
+    </listingToolbar>
+	<columns name="sales_order_columns">
+        <column name="cbo_courier_name">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string" translate="true">Courier Name</item>
+                    <item name="filter" xsi:type="string">text</item>
+                </item>
+            </argument>
+        </column>
+
+        <column name="cbo_reference_number">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string" translate="true">Reference Number</item>
+                    <item name="filter" xsi:type="string">text</item>
+                </item>
+            </argument>
+        </column>
+
+    </columns>
+</listing>

@@ -1,0 +1,53 @@
+
+//
+//  Common
+//  _____________________________________________
+
+& when (@media-common = true) {
+	.page-product-downloadable {
+		.product-options-wrapper {
+			float: left;
+			width: 100%;
+			.fieldset:last-child {
+				margin-bottom: 0;
+			}
+			.legend.links-title {
+				display: none;
+			}
+			.fieldset {
+				br {
+					display: none;
+				}
+				> .field {
+					margin-bottom: 0;
+					&:not(.choice) > .label {
+						padding-top: 0;
+						text-align: left;
+						width: 30%;
+					}
+					&:not(.choice)>.control {
+						width: 70%;
+					}
+				}
+			}
+			.downloads {
+				.label {
+					text-align: left;
+					padding-top: 0;
+				}
+			}
+		}
+		.product-options-bottom  {
+			float: left;
+			width: 100%;
+			.price-box {
+				display: none;
+			}
+		}
+		#downloadable-links-list {
+			float: left;
+			margin: 10px 0;
+			width: 100%;
+		}
+	}	
+}

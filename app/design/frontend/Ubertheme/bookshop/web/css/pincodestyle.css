@@ -1,0 +1,12 @@
+.msgZipAvailabity{
+	border-color :	#c02230; 
+	background-color : #F5DAD3 ;
+	color: #c02230 ;
+	padding:  10px ;
+	text-align:  center ;
+	margin-top: 4px ;
+}
+.ZipCodeCODCheck{
+	clear: both;
+	padding: 5px 0 0 0;
+}

@@ -1,0 +1,475 @@
+<?xml version="1.0"?>
+<!--
+
+ * Plumrocket Inc.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the End-user License Agreement
+ * that is available through the world-wide-web at this URL:
+ * http://wiki.plumrocket.net/wiki/EULA
+ * If you are unable to obtain it through the world-wide-web, please
+ * send an email to support@plumrocket.com so we can send you a copy immediately.
+ *
+ * @package     Plumrocket RMA v2.x.x
+ * @copyright   Copyright (c) 2020 Plumrocket Inc. (http://www.plumrocket.com)
+ * @license     http://wiki.plumrocket.net/wiki/EULA  End-user License Agreement
+ -->
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">prrma_returns_filter_listing.prrma_returns_filter_listing_data_source</item>
+            <item name="deps" xsi:type="string">prrma_returns_filter_listing.prrma_returns_filter_listing_data_source</item>
+        </item>
+        <item name="spinner" xsi:type="string">prrma_returns_filter_listing_columns</item>
+        <item name="acl" xsi:type="string">Plumrocket_GDPR::removalrequests</item>
+    </argument>
+    <dataSource name="prrma_returns_filter_listing_data_source">
+        <argument name="dataProvider" xsi:type="configurableObject">
+            <!-- <argument name="class" xsi:type="string">Plumrocket\RMA\Ui\DataProvider\Returns\ReturnsDataProvider</argument> -->
+			<argument name="class" xsi:type="string">Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider</argument>
+            <argument name="name" xsi:type="string">prrma_returns_filter_listing_data_source</argument>
+            <argument name="primaryFieldName" xsi:type="string">main_table.entity_id</argument>
+            <argument name="requestFieldName" xsi:type="string">id</argument>
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="component" xsi:type="string">Magento_Ui/js/grid/provider</item>
+                    <item name="update_url" xsi:type="url" path="mui/index/render"/>
+					<item name="filter_url_params" xsi:type="array">
+						<item name="status" xsi:type="string">*</item>
+						<item name="reason_id" xsi:type="string">*</item>
+					</item>
+                    <item name="storageConfig" xsi:type="array">
+                        <item name="indexField" xsi:type="string">entity_id</item>
+                    </item>
+                </item>
+            </argument>
+        </argument>
+    </dataSource>
+    <listingToolbar name="listing_top">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="sticky" xsi:type="boolean">false</item>
+            </item>
+        </argument>
+        <bookmark name="bookmarks"/>
+        <columnsControls name="columns_controls"/>
+        <filterSearch name="fulltext"/>
+        <filters name="listing_filters">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="templates" xsi:type="array">
+                        <item name="filters" xsi:type="array">
+                            <item name="select" xsi:type="array">
+                                <item name="component" xsi:type="string">Magento_Ui/js/form/element/ui-select</item>
+                                <item name="template" xsi:type="string">ui/grid/filters/elements/ui-select</item>
+                            </item>
+                        </item>
+                    </item>
+                </item>
+            </argument>
+            <filterSelect name="store_id">
+                <argument name="optionsProvider" xsi:type="configurableObject">
+                    <argument name="class" xsi:type="string">Magento\Cms\Ui\Component\Listing\Column\Cms\Options</argument>
+                </argument>
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="provider" xsi:type="string">${ $.parentName }</item>
+                        <item name="dataScope" xsi:type="string">store_id</item>
+                        <item name="label" xsi:type="string" translate="true">Store View</item>
+                        <item name="captionValue" xsi:type="string">0</item>
+                    </item>
+                </argument>
+            </filterSelect>
+        </filters>
+        <exportButton name="export_button" class="Plumrocket\RMA\Ui\Component\ExportButton"/>
+	<massaction name="listing_massaction">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="selectProvider" xsi:type="string">prrma_returns_filter_listing.prrma_returns_filter_listing.prrma_returns_filter_listing_columns.ids</item>
+                    <item name="indexField" xsi:type="string">entity_id</item>
+                </item>
+            </argument>
+            <action name="pending">
+			   <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="type" xsi:type="string">new</item>
+                        <item name="label" xsi:type="string" translate="true">Pending</item>
+                        <item name="url" xsi:type="url" path="prrma/returns/massPending"/>
+                        <item name="confirm" xsi:type="array">
+                            <item name="title" xsi:type="string" translate="true">Pending</item>
+                            <item name="message" xsi:type="string" translate="true">Are you sure you want to pending selected records?</item>
+                        </item>
+                    </item>
+                </argument>
+            </action>
+
+			<action name="approved">
+			   <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="type" xsi:type="string">authorized</item>
+                        <item name="label" xsi:type="string" translate="true">Approved</item>
+                        <item name="url" xsi:type="url" path="prrma/returns/massApproved"/>
+                        <item name="confirm" xsi:type="array">
+                            <item name="title" xsi:type="string" translate="true">Approved</item>
+                            <item name="message" xsi:type="string" translate="true">Are you sure you want to approved selected records?</item>
+                        </item>
+                    </item>
+                </argument>
+            </action>
+			<action name="cancelled">
+			   <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="type" xsi:type="string">closed</item>
+                        <item name="label" xsi:type="string" translate="true">Cancelled</item>
+                        <item name="url" xsi:type="url" path="prrma/returns/massCancelled"/>
+                        <item name="confirm" xsi:type="array">
+                            <item name="title" xsi:type="string" translate="true">Cancelled</item>
+                            <item name="message" xsi:type="string" translate="true">Are you sure you want to cancelled selected records?</item>
+                        </item>
+                    </item>
+                </argument>
+            </action>
+		    <action name="intransit">
+            			   <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="type" xsi:type="string">received</item>
+                        <item name="label" xsi:type="string" translate="true">In Transit</item>
+                        <item name="url" xsi:type="url" path="prrma/returns/massIntransit"/>
+                        <item name="confirm" xsi:type="array">
+                            <item name="title" xsi:type="string" translate="true">In Transit</item>
+                            <item name="message" xsi:type="string" translate="true">Are you sure you want to in transit selected records?</item>
+                        </item>
+                    </item>
+                </argument>
+            </action>
+            <!--    <action name="refunded">
+            			   <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="type" xsi:type="string">cancel_refund</item>
+                        <item name="label" xsi:type="string" translate="true">Resolved (Cancel/Refunded)</item>
+                        <item name="url" xsi:type="url" path="prrma/returns/massRefunded"/>
+                        <item name="confirm" xsi:type="array">
+                            <item name="title" xsi:type="string" translate="true">Resolved (Cancel/Refunded)</item>
+                            <item name="message" xsi:type="string" translate="true">Are you sure you want to refunded selected records?</item>
+                        </item>
+                    </item>
+                </argument>
+            </action>
+            			<action name="replaced">
+            			   <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="type" xsi:type="string">replaced</item>
+                        <item name="label" xsi:type="string" translate="true">Resolved (Replaced)</item>
+                        <item name="url" xsi:type="url" path="prrma/returns/massReplaced"/>
+                        <item name="confirm" xsi:type="array">
+                            <item name="title" xsi:type="string" translate="true">Resolved (Replaced)</item>
+                            <item name="message" xsi:type="string" translate="true">Are you sure you want to replaced selected records?</item>
+                        </item>
+                    </item>
+                </argument>
+            </action> -->
+	<action name="resolved">
+			   <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="type" xsi:type="string">processed_closed</item>
+                        <item name="label" xsi:type="string" translate="true">Resolved</item>
+                        <item name="url" xsi:type="url" path="prrma/returns/massResolved"/>
+                        <item name="confirm" xsi:type="array">
+                            <item name="title" xsi:type="string" translate="true">Resolved</item>
+                            <item name="message" xsi:type="string" translate="true">Are you sure you want to resolved selected records?</item>
+                        </item>
+                    </item>
+                </argument>
+	</action>
+	<action name="mass_print">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="type" xsi:type="string">print</item>
+                <item name="label" xsi:type="string" translate="true">Print Invoice</item>
+                <item name="url" xsi:type="url" path="prrma/returns/massPrint"/>
+                <item name="confirm" xsi:type="array">
+                    <item name="title" xsi:type="string" translate="true">Print Invoice</item>
+                    <item name="message" xsi:type="string" translate="true">Are you sure you want to print selected records?</item>
+                </item>
+            </item>
+        </argument>
+       </action>
+                
+        </massaction>
+        <paging name="listing_paging"/>
+    </listingToolbar>
+    <!-- List Of Columns -->
+    <columns name="prrma_returns_filter_listing_columns" class="Plumrocket\RMA\Ui\Component\Listing\Columns" template="Plumrocket_RMA/ui/grid/listing">
+        <!-- <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="template" xsi:type="string">Plumrocket_RMA/ui/grid/listing</item>
+                <item name="childDefaults" xsi:type="array">
+                    <item name="fieldAction" xsi:type="array">
+                        <item name="provider" xsi:type="string">prrma_returns_filter_listing.prrma_returns_filter_listing.prrma_returns_filter_listing_columns.actions</item>
+                        <item name="target" xsi:type="string">applyAction</item>
+                        <item name="params" xsi:type="array">
+                            <item name="0" xsi:type="string">edit</item>
+                            <item name="1" xsi:type="string">${ $.$data.rowIndex }</item>
+                        </item>
+                    </item>
+                </item>
+            </item>
+        </argument> -->
+
+		 <selectionsColumn name="ids">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="resizeEnabled" xsi:type="boolean">false</item>
+                    <item name="resizeDefaultWidth" xsi:type="string">55</item>
+                    <item name="indexField" xsi:type="string">entity_id</item>
+                </item>
+            </argument>
+        </selectionsColumn>
+        <column name="entity_id">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">textRange</item>
+                    <item name="sorting" xsi:type="string">asc</item>
+                    <item name="label" xsi:type="string" translate="true">Entity ID</item>
+                    <item name="sortOrder" xsi:type="number">1</item>
+                </item>
+            </argument>
+        </column>
+        <column name="increment_id">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">RMA ID</item>
+                    <item name="sortOrder" xsi:type="number">10</item>
+                    <item name="visible" xsi:type="boolean">true</item>
+                </item>
+            </argument>
+        </column>
+        <!-- <column name="rma_reason">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Id reason</item>
+                    <item name="visible" xsi:type="boolean">true</item>
+                    <item name="sortOrder" xsi:type="number">25</item>
+                </item>
+            </argument>
+        </column> -->
+		
+		<column name="rma_reason">
+            <argument name="data" xsi:type="array">
+                <item name="options" xsi:type="object">Plumrocket\RMA\Model\Config\Source\ReturnsReason</item>
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">select</item>
+                    <item name="component" xsi:type="string">Magento_Ui/js/grid/columns/select</item>
+                    <item name="editor" xsi:type="string">select</item>
+                    <item name="dataType" xsi:type="string">select</item>
+                    <item name="label" xsi:type="string" translate="true">Id Reason</item>
+                    <item name="sortOrder" xsi:type="number">25</item>
+                </item>
+            </argument>
+        </column>
+		
+
+        <column name="product_name">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Product Name</item>
+                    <item name="visible" xsi:type="boolean">true</item>
+                    <item name="sortOrder" xsi:type="number">24</item>
+                </item>
+            </argument>
+        </column> 
+		
+         <column name="returned_items" class="Plumrocket\RMA\Ui\Component\Listing\Column\ReturnedItems">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="bodyTmpl" xsi:type="string">ui/grid/cells/html</item>
+                    <item name="filter" xsi:type="string">text</item>
+                    <item name="editor" xsi:type="array">
+                        <item name="editorType" xsi:type="string">text</item>
+                        <item name="validation" xsi:type="array">
+                            <item name="required-entry" xsi:type="boolean">true</item>
+                        </item>
+                    </item>
+                    <item name="label" xsi:type="string" translate="true">RMA Items</item>
+                </item>
+            </argument>
+        </column>
+
+		<column name="resolution_id" class="Plumrocket\RMA\Ui\Component\Listing\Column\ReturnedType">
+            <argument name="data" xsi:type="array">
+                <item name="options" xsi:type="object">Plumrocket\RMA\Model\Config\Source\ReturnsType</item>
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">select</item>
+                    <item name="component" xsi:type="string">Magento_Ui/js/grid/columns/select</item>
+                    <item name="editor" xsi:type="string">select</item>
+                    <item name="dataType" xsi:type="string">select</item>
+                    <item name="label" xsi:type="string" translate="true">Return Type</item>
+                    <item name="sortOrder" xsi:type="number">50</item>
+                </item>
+            </argument>
+        </column>
+
+        <column name="school_name">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="bodyTmpl" xsi:type="string">ui/grid/cells/html</item>
+                    <item name="filter" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">School Name</item>
+                    <item name="visible" xsi:type="boolean">true</item>
+                    <item name="sortOrder" xsi:type="number">30</item>
+                </item>
+            </argument>
+        </column>
+
+		<column name="location_code">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Location Code</item>
+					<item name="sortOrder" xsi:type="number">31</item>
+                </item>
+            </argument>
+        </column>
+        <column name="store_id" class="Magento\Store\Ui\Component\Listing\Column\Store">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="bodyTmpl" xsi:type="string">ui/grid/cells/html</item>
+                    <item name="sortable" xsi:type="boolean">false</item>
+                    <item name="label" xsi:type="string" translate="true">Purchase Point</item>
+                     <item name="sortOrder" xsi:type="number">20</item>
+                </item>
+            </argument>
+        </column>
+    
+		<column name="created_at" sortOrder="30" class="Magento\Ui\Component\Listing\Columns\Date" component="Magento_Ui/js/grid/columns/date">
+				<argument name="data" xsi:type="array">
+					<item name="config" xsi:type="array">
+						<item name="filter" xsi:type="string">dateRange</item>
+						<item name="editor" xsi:type="string">text</item>
+						<item name="label" xsi:type="string" translate="true">Request Date</item>
+						<item name="sortOrder" xsi:type="number">30</item>
+					</item>
+				</argument>
+	    </column>
+
+        <column name="order_increment_id">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Order Id</item>
+                    <item name="sortOrder" xsi:type="number">15</item>
+                </item>
+            </argument>
+        </column>
+        
+		<column name="customer_name">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="fieldClass" xsi:type="string">ss</item>
+                    <item name="filter" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Customer Name</item>
+                    <item name="sortOrder" xsi:type="number">60</item>
+                </item>
+            </argument>
+        </column>
+
+		<column name="customer_address">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="fieldClass" xsi:type="string">ss</item>
+                    <item name="filter" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Customer Address</item>
+                    <item name="sortOrder" xsi:type="number">60</item>
+                </item>
+            </argument>
+        </column>
+		
+        <column name="manager_name">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Manager</item>
+                    <item name="sortOrder" xsi:type="number">20</item>
+                </item>
+            </argument>
+        </column>
+
+		<column name="note">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">RMA Notes</item>
+                    <item name="sortOrder" xsi:type="number">30</item>
+                </item>
+            </argument>
+        </column>
+
+       <!--  <column name="reply_at" class="Magento\Ui\Component\Listing\Columns\Date" component="Magento_Ui/js/grid/columns/date" sortOrder="80">
+            <settings>
+                <bodyTmpl>Plumrocket_RMA/ui/grid/cells/replyAt</bodyTmpl>
+                <timezone>false</timezone>
+                <filter>dateRange</filter>
+                <dataType>date</dataType>
+                <label translate="true">Last Reply</label>
+                <dateFormat>yyyy-MM-dd HH:mm:ss</dateFormat>
+            </settings>
+        </column> -->
+
+		<column name="reply_at" sortOrder="80" class="Magento\Ui\Component\Listing\Columns\Date" component="Magento_Ui/js/grid/columns/date">
+				<argument name="data" xsi:type="array">
+					<item name="config" xsi:type="array">
+						<item name="filter" xsi:type="string">dateRange</item>
+						<item name="editor" xsi:type="string">text</item>
+						<item name="label" xsi:type="string" translate="true">Last Reply</item>
+						<item name="sortOrder" xsi:type="number">60</item>
+					</item>
+				</argument>
+	    </column>
+
+        <column name="status">
+            <argument name="data" xsi:type="array">
+                <item name="options" xsi:type="object">Plumrocket\RMA\Model\Config\Source\ReturnsStatus</item>
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">select</item>
+                    <item name="bodyTmpl" xsi:type="string">Plumrocket_RMA/ui/grid/cells/status</item>
+                    <item name="component" xsi:type="string">Magento_Ui/js/grid/columns/select</item>
+                    <item name="editor" xsi:type="string">select</item>
+                    <item name="filter" xsi:type="string">select</item>
+                    <item name="sortOrder" xsi:type="number">90</item>
+                    <item name="label" xsi:type="string" translate="true">RMA Status</item>
+                </item>
+            </argument>
+        </column>
+      <!--   <column name="status" class="Plumrocket\RMA\Ui\Component\Listing\Column\ReturnedStatus">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="bodyTmpl" xsi:type="string">ui/grid/cells/html</item>
+                    <item name="filter" xsi:type="string">text</item>
+                    <item name="editor" xsi:type="array">
+                        <item name="editorType" xsi:type="string">text</item>
+                        <item name="validation" xsi:type="array">
+                            <item name="required-entry" xsi:type="boolean">true</item>
+                        </item>
+                    </item>
+                    <item name="label" xsi:type="string" translate="true">Status</item>
+                </item>
+            </argument>
+        </column> -->
+        <actionsColumn name="actions" class="Plumrocket\RMA\Ui\Component\Listing\Column\ReturnsActions">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="indexField" xsi:type="string">entity_id</item>
+                </item>
+            </argument>
+        </actionsColumn>
+        <selectionsColumn name="ids">
+            <settings>
+                <indexField>entity_id</indexField>
+            </settings>
+        </selectionsColumn>
+    </columns>
+</listing>

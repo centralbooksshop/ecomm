@@ -1,0 +1,35 @@
+{
+    "name": "ubertheme/bookshop",
+    "tagline": "Responsive Magento Bookstore Theme",
+    "description": "A dedicated responsive Magento theme for bookstores only. Flat design, featuring Off-canvas layout, Deal offerings and  Mega Menu.",
+    "version": "1.1.1",
+    "released_date": "09/15/2017",
+    "updated_date": "05/14/2020",
+    "author": "<a href='http://UberTheme.com' title='Designing premium &amp; free Magento themes, Magento 2 themes, Magento 2 migration tool. Fast support since 2007.'>UberTheme.com</a>",
+    "resources" : {
+        "download": "https://www.ubertheme.com/magento-themes/ub-bookshop/",
+        "userguide": "https://www.ubertheme.com/docs/",
+        "changelog": "https://www.ubertheme.com/magento-updates/",
+        "support": "https://www.ubertheme.com/questions/"
+    },    
+    "require": {
+        "php": "~5.5.0|~5.6.0|~7.0.0",
+        "magento/theme-frontend-blank": "100.0.*",
+        "magento/framework": "100.0.*",
+        "ubertheme/module-base": ">=1.0.2",
+        "ubertheme/module-ubcontentslider": ">=1.1.4",
+        "ubertheme/module-ubmegamenu": ">=1.1.8",
+        "ubertheme/module-ubquickview": ">=1.0.5",
+        "ubertheme/module-ubthemehelper" : ">=1.0.6"
+    },
+    "type": "magento2-theme",
+    "license": [
+        "OSL-3.0",
+        "AFL-3.0"
+    ],
+    "autoload": {
+        "files": [
+            "registration.php"
+        ]
+    }
+}

@@ -1,0 +1,70 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+    // @codingStandardsIgnoreFile
+    /** @var \Ubertheme\UbThemeHelper\Helper\CustomTabs $tabHelper */
+    $tabHelper = $this->helper('Ubertheme\UbThemeHelper\Helper\CustomTabs');
+    $product = $block->getProduct();
+    $customTabs = $tabHelper->getEnabledTabs($product);
+    $defaultTabs = $block->getGroupChildNames('detailed_info', 'getChildHtml');
+    if (!$customTabs) $customTabs = $defaultTabs;
+?>
+<?php if ($customTabs):?>
+    <div class="product info detailed">
+        <?php $layout = $block->getLayout(); ?>
+        <div class="product data items" data-mage-init='{"tabs":{"openedState":"active", "collapsible": true}}'>
+            <?php foreach ($customTabs as $tab): ?>
+                <?php
+                if ($customTabs == $defaultTabs) {
+                    if (!$tabHelper->isActivated($tab)) {
+                        continue;
+                    }
+
+                    $html = $layout->renderElement($tab);
+                    if (!trim($html)) {
+                        continue;
+                    }
+
+                    $alias = $layout->getElementAlias($tab);
+                    $label = $block->getChildData($alias, 'title');
+                } else {
+                    $typeTab = $tab['type'];
+                    if (in_array($typeTab, $defaultTabs)) {
+                        $html = $layout->renderElement($typeTab);
+                        if (!trim($html)) {
+                            continue;
+                        }
+                        $alias = $layout->getElementAlias($typeTab);
+                        $label = $tab['title'];
+                        if ($typeTab == 'reviews.tab') {
+                            $label = str_replace(__("Reviews") , $label, $block->getChildData($alias, 'title'));
+                        }
+                    } else {
+                        $html = $tab['html'];
+                        $alias = $tab['alias'];
+                        $label = $tab['title'];
+                    }
+                }
+                ?>
+                <div class="data item title"
+                     aria-labelledby="tab-label-<?= /* @escapeNotVerified */ $alias ?>-title"
+                     data-role="collapsible" id="tab-label-<?= /* @escapeNotVerified */ $alias ?>">
+                    <a class="data switch"
+                       tabindex="-1"
+                       data-toggle="switch"
+                       href="#<?= /* @escapeNotVerified */ $alias ?>"
+                       id="tab-label-<?= /* @escapeNotVerified */ $alias ?>-title">
+                        <?= /* @escapeNotVerified */ $label ?>
+                    </a>
+                </div>
+                <div class="data item content" id="<?= /* @escapeNotVerified */ $alias ?>" data-role="content">
+                    <?= /* @escapeNotVerified */ $html ?>
+                </div>
+            <?php endforeach;?>
+        </div>
+    </div>
+<?php endif; ?>
+

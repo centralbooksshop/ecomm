@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <!-- Add a container for UB vertical menu-->
+        <referenceContainer name="columns">
+            <container name="div.vertical.ub.mega.menu" htmlTag="div" htmlClass="sidebar sidebar-main" after="main">
+                <container name="vertical.ub.mega.menu" as="vertical_ub_mega_menu" htmlTag="div" htmlClass="ub-mega-menu-vertical" label="UB Vertical Mega Menu" />
+            </container>
+        </referenceContainer>
+        <!-- Declare a new menu-->
+        <referenceContainer name="page.top">
+            <block class="Ubertheme\UbMegaMenu\Block\Menu" name="main.ub.mega.menu" template="Ubertheme_UbMegaMenu::main_menu.phtml" >
+                <arguments>
+                    <argument name="menu_key" xsi:type="string">main-menu</argument>
+                    <argument name="addition_class" xsi:type="string"></argument>
+                    <!-- You could uncomment below line to apply a custom cache lifetime -->
+                    <!--<argument name="cache_lifetime" xsi:type="string">86400</argument>-->
+                </arguments>
+            </block>
+        </referenceContainer>
+        <!-- Move it to store.menu container-->
+        <move element="main.ub.mega.menu" destination="store.menu" before="-"/>
+        <!-- Move default top menu-->
+        <move element="catalog.topnav" destination="store.menu" after="-"/>
+    </body>
+</page>

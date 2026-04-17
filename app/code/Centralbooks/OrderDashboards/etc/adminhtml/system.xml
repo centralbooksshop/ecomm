@@ -1,0 +1,45 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="cbo" translate="label" sortOrder="999">
+            <label>Central Books</label>
+            <!-- <resource>Centralbooks_OrderDashboards::cbo</resource> -->
+        </tab>
+        <section id="cbo" sortOrder="10" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
+            <label>Orders Dashboards</label>
+            <tab>cbo</tab>
+            <resource>Centralbooks_OrderDashboards::orders_dashboards</resource>
+            <group id="payments" sortOrder="10" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
+                <label>Payments Configurations</label>
+                <field id="orders_payment_sync_enable" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Enable Orders Payment Sync</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="orders_payment_sync_cron" type="text" sortOrder="10" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
+                    <label>Payment Sync Cronjob</label>
+                </field>
+				<field id="orders_payment_failed_cron" type="text" sortOrder="11" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
+                    <label>Payment Failed Cronjob</label>
+                </field>
+                <field id="cashfree_endpoint" type="text" sortOrder="10" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
+                    <label>Cashfree Endpoint</label>
+                </field>
+                <field id="payu_endpoint" type="text" sortOrder="10" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
+                    <label>Payu endpoint</label>
+                </field>
+                <field id="ccavenue_endpoint" type="text" sortOrder="10" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
+                    <label>CC Avenue Endpoint</label>
+                </field>
+                <field id="highest_orders_time" type="text" sortOrder="10" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
+                    <label>Highest Orders Time for Tabular data</label>
+                </field>
+                <field id="orders_cron_start" type="text" sortOrder="10" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
+                    <label>Orders Cron Start time</label>
+                </field>
+                <field id="orders_cron_before" type="text" sortOrder="10" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
+                    <label>Orders Cron before time</label>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

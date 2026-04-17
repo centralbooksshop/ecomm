@@ -1,0 +1,249 @@
+// /**
+//  * Copyright © 2016 Magento. All rights reserved.
+//  * See COPYING.txt for license details.
+//  */
+
+//
+//  Common
+//  _____________________________________________
+
+& when (@media-common = true) {
+
+  .block.filter {
+    float: left;
+    width: 100%;
+    display: none;
+    .page-layout-1column & {
+      display: none;
+    }
+    .filter-title {
+      margin-bottom: @indent__base;
+      strong {
+        font-size: 18px;
+      }
+    }
+    .filter-current {
+      strong {
+        margin: 0 0 20px;
+        width: 100%;
+        float: left;
+      }
+      .filter-label {
+        font-weight: bold;
+      }
+      .item {
+        float: left;
+        width: 100%;
+        padding: 5px 0;
+        .remove span {
+          display: inline-block;
+          position: relative;
+          &:before {
+            font-family: "FontAwesome";
+            content: "\f00d";
+            font-size: 12px;
+            right: -25px;
+            position: absolute;
+            top: 0;
+            text-indent: 0;
+            width: 20px;
+            height: 20px;
+            border: 1px solid #e1e1e1;
+            text-align: center;
+            line-height: 20px;
+            background: #f4f4f4;
+            border-radius: 3px;
+          }
+        }
+      } 
+    }
+    .filter-actions {
+      width: 100%;
+      float: left;
+      text-align: right;
+      margin: 20px 0;
+    }
+  }
+  .filter-subtitle {
+    display: none;
+  }
+  
+  .filter-options-content {
+    .filter-count-label {
+      &:extend(.abs-visually-hidden all);
+    }
+  }
+  .filter-options {
+      margin: 0;
+      .filter-options-title {
+        .lib-heading(h4);
+        color: #181818;
+        font-weight: 700;
+        margin: 15px 0 5px 0;
+        line-height: 1.5;
+        word-break: break-all;
+        &.toggle-avaiable {
+          margin: 0;
+        }
+      }
+      .filter-options-content {
+        float: left;
+        font-family: @font-family__base;
+        font-weight: 400;
+        margin: 0 0 15px;
+        padding: 0;
+        width: 100%;
+        .item {
+          float: left;
+          line-height: 30px;
+          margin: 0;
+          text-align: left;
+          width: 100%;
+          a {
+            color: #333;
+            float: left;
+            margin: 0 5px 0 0;
+            &:active,
+            &:focus,
+            &:hover {
+              color: @link__hover__color;
+            }
+          }
+        }
+      }
+      .count {
+          .lib-css(color, @text__color__muted);
+          &:before {
+              content: '(';
+          }
+          &:after {
+              content: ')';
+          }
+      }
+  }
+  .filter-item {
+    border-bottom: 1px solid #ddd;
+    float: left;
+    margin: 0;
+    width: 100%;
+    .toggle-avaiable {
+      position: relative;
+      padding: 10px 0;
+      cursor: pointer;
+      &:after {
+        position: absolute;
+        top: 6px;
+        right: 0;
+        height: 30px;
+        width: 30px;
+        background: url('../Ubertheme_UbMegaMenu/images/mobile-arrow.png') no-repeat left -60px;
+        content: "";
+        color: #000;
+        font-weight: bold;
+        font-size: 20px;
+      }
+      &.close:after {
+        background-position: left -10px;
+      }
+    }
+    &:last-child {
+      border-bottom: 0;
+    }
+  }
+  .items {
+      &:extend(.abs-reset-list all);
+  }
+  .filtered {
+      .items {
+          margin: 15px 0;
+      }
+      .item {
+          position: relative;
+          padding-left: 22px;
+          margin-bottom: 6px;
+          .label {
+              font-weight: @font-weight__bold;
+          }
+          .action.remove {
+              &:extend(.abs-remove-button-for-blocks all);
+              position: absolute;
+              left: -6px;
+              top: 0;
+          }
+      }
+      & + .actions {
+          margin-bottom: 35px;
+      }
+  }
+}
+
+//
+//  Mobile
+//  _____________________________________________
+
+.media-width(@extremum, @break) when (@extremum = 'max') and (@break = @screen__m) {
+  .page-with-filter {
+    .columns {
+        .sidebar-main {
+          .lib-vendor-prefix-order(0);
+          z-index: 9;
+        }
+    }
+  }
+  .block.filter {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    padding: 20px 10px 10px;
+    z-index: 99;
+    background: #fff;
+    box-sizing: border-box;
+    &.active {
+      display: block;
+      height:  100%;
+      overflow: auto;
+    }
+    .block-title {
+      position: relative;
+      &:after {
+        width: 15px;
+        height: 15px;
+        position: absolute;
+        top: -3px;
+        right: 2px;
+        z-index: 11;
+        float: right;
+        color: #000;
+        font-size: 0;
+        text-align: center;
+        line-height: 20px;
+        content: "";
+        background-position: 0 0;
+        background-image: url(../images/gallery.png);
+        background-repeat: no-repeat;
+        background-size: 100% 100%;
+      }
+    }
+  }
+}
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+  .block.filter {
+    display: block;
+    .filter-current .item {
+      width: auto;
+      padding-right: 20px;
+    }
+  }
+}
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__xl) {
+  .block.filter {
+    .filter-current .item {
+      width: 100%;
+      padding-right: 0;
+    }
+  }
+}

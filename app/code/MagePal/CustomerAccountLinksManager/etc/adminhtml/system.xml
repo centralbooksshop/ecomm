@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="magepal" translate="label" sortOrder="400">
+            <label>MYAccount Display Settings</label>
+        </tab>
+        <section id="customeraccountlinksmanager" translate="label" type="text" sortOrder="340" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Customer Account Links Manager</label>
+            <tab>magepal</tab>
+            <resource>MagePal_CustomerAccountLinksManager::customeraccountlinksmanager</resource>
+            <group id="general" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Account Links Manager Setting</label>
+                <field id="active" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+
+                <field id="action" translate="label" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Action</label>
+                    <source_model>MagePal\CustomerAccountLinksManager\Model\Config\Source\Action</source_model>
+                </field>
+
+                <field id="sections" translate="label" type="multiselect" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Dashboard Section</label>
+                    <source_model>MagePal\CustomerAccountLinksManager\Model\Config\Source\Sections</source_model>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

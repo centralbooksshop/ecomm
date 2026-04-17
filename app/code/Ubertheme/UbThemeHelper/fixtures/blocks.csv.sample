@@ -1,0 +1,222 @@
+title,identifier,content
+"Customer Service",ub-bookshop-customer-phone,"<ul class=""customer-services"">
+<li><em class=""fa fa-phone""></em>(012) 345 6789</li>
+<li><a href=""{{store url=""customer-service""}}""><em class=""fa fa-question-circle""></em>Shipping &amp; Customer Service</a></li>
+</ul>"
+"Today highlight",ub-bookshop-hero-highlight,"<div class=""today-highlight"">{{widget type=""Magento\CatalogWidget\Block\Product\ProductsList"" title=""Today Highlight"" show_pager=""0"" products_count=""4"" template=""Ubertheme_UbThemeHelper::product/widget/content/default_grid.phtml"" conditions_encoded=""^[`1`:^[`type`:`Magento||CatalogWidget||Model||Rule||Condition||Combine`,`aggregator`:`all`,`value`:`1`,`new_child`:``^]^]"" type_name=""Catalog Products List""}}</div>"
+"Product Tabs",ub-bookshop-products-tab,"<div class=""product-tab"" data-mage-init=""{&quot;tabs&quot;:{&quot;openedState&quot;:&quot;active&quot;}}"">
+<div class=""product-tab-title"">
+<div class=""product-tab-title-inner"">
+<div id=""tab-label-hot-books"" class=""data item title hot-books active"" data-role=""collapsible""><a id=""tab-label-hot-books-title"" class=""data switch"" tabindex=""-1"" href=""#hot-books"" data-toggle=""switch""> Hot Books </a></div>
+<div id=""tab-label-bestsellers"" class=""data item title bestsellers"" data-role=""collapsible""><a id=""tab-label-bestsellers-title"" class=""data switch"" tabindex=""-2"" href=""#bestsellers"" data-toggle=""switch""> Best Sellers </a></div>
+<div id=""tab-label-staffpicks"" class=""data item title staffpicks"" data-role=""collapsible""><a id=""tab-label-staffpicks-title"" class=""data switch"" tabindex=""-3"" href=""#staffpicks"" data-toggle=""switch""> Staff Picks </a></div>
+</div>
+</div>
+<div class=""tabs_content"">
+<div id=""hot-books"" class=""data item content active"" data-role=""content"">{{block class=""Ubertheme\UbContentSlider\Block\Slider"" name=""ub.content.slider.hot.books"" content_type=""hot_products"" title=""Hot Books"" number_items=""6"" number_items_desktop=""5"" number_items_desktop_small=""5"" number_items_tablet=""4"" number_items_tablet_small=""3"" number_items_mobile=""2"" show_desc=""0"" show_readmore=""0"" qty=""8"" single_item=""0"" show_review=""1"" show_price=""1"" show_add_cart=""1"" auto_run=""1"" item_width=""202"" thumb_width=""202"" auto_height=""0""}}</div>
+<div id=""bestsellers"" class=""data item content"" data-role=""content"">{{block class=""Ubertheme\UbContentSlider\Block\Slider"" name=""ub.content.slider.best.sellers"" content_type=""latest_products"" title=""Best Sellers"" number_items=""6"" number_items_desktop=""5"" number_items_desktop_small=""5"" number_items_tablet=""4"" number_items_tablet_small=""3"" number_items_mobile=""2"" show_desc=""0"" show_readmore=""0"" qty=""8"" single_item=""0"" show_review=""1"" show_price=""1"" show_add_cart=""1"" auto_run=""1"" item_width=""202"" thumb_width=""202"" auto_height=""0""}}</div>
+<div id=""staffpicks"" class=""data item content"" data-role=""content"">{{block class=""Ubertheme\UbContentSlider\Block\Slider"" name=""ub.content.slider.staff.picks"" content_type=""new_products"" title=""Staff Picks"" number_items=""6"" number_items_desktop=""5"" number_items_desktop_small=""5"" number_items_tablet=""4"" number_items_tablet_small=""3"" number_items_mobile=""2"" show_desc=""0"" show_readmore=""0"" qty=""8"" single_item=""0"" show_review=""1"" show_price=""1"" show_add_cart=""1"" auto_run=""1"" item_width=""202"" thumb_width=""202"" auto_height=""0""}}</div>
+</div>
+</div>"
+Socials,ub-bookshop-socials,"<div class=""sidebar-socials"">
+  <a href=""https://www.facebook.com/ubertheme"" class=""fa fa-facebook facebook""></a>
+  <a href=""https://twitter.com/ubertheme"" class=""fa fa-twitter twitter""></a>
+  <a href=""https://plus.google.com/+UberthemeMagento/posts"" class=""fa fa-google-plus google-plus""></a>
+  <a href=""http://www.pinterest.com/ubertheme/"" class=""fa fa-pinterest pinterest""></a>
+  <a href=""skype:call.me?call"" class=""fa fa-skype skype""></a>
+</div>"
+"Deals of the week",ub-bookshop-deals,"<div class=""deals"">{{widget type=""Magento\CatalogWidget\Block\Product\ProductsList"" title=""Deals of the week"" show_pager=""0"" products_count=""1"" cache_lifetime=""0"" template=""Ubertheme_UbThemeHelper::product/widget/content/deals_grid.phtml"" conditions_encoded=""^[`1`:^[`type`:`Magento||CatalogWidget||Model||Rule||Condition||Combine`,`aggregator`:`all`,`value`:`1`,`new_child`:``^],`1--1`:^[`type`:`Magento||CatalogWidget||Model||Rule||Condition||Product`,`attribute`:`special_price`,`operator`:`^)`,`value`:`1`^]^]"" type_name=""Catalog Products List""}}</div>"
+"Brands Logo",ub-bookshop-brands,"<ul class=""brands"">
+<li><img src=""{{media url=""wysiwyg/logo/1.jpg""}}"" alt="""" /></li>
+<li><img src=""{{media url=""wysiwyg/logo/2.jpg""}}"" alt="""" /></li>
+<li><img src=""{{media url=""wysiwyg/logo/3.jpg""}}"" alt="""" /></li>
+<li><img src=""{{media url=""wysiwyg/logo/4.jpg""}}"" alt="""" /></li>
+<li><img src=""{{media url=""wysiwyg/logo/5.jpg""}}"" alt="""" /></li>
+<li><img src=""{{media url=""wysiwyg/logo/6.jpg""}}"" alt="""" /></li>
+<li><img src=""{{media url=""wysiwyg/logo/7.jpg""}}"" alt="""" /></li>
+</ul>"
+"Sidebar Banner",ub-bookshop-sidebar-banner,"<div class=""block block-banner"">
+<div class=""block-content""><a title=""Our customer service is available 24/7. Call us at (555) 555-0123."" href=""{{config path=""web/unsecure/base_url""}}books.html""><img src=""{{media url=&quot;wysiwyg/banner/col_left_callout.jpg&quot;}}"" alt=""Our customer service is available 24/7. Call us at (555) 555-0123.""></a></div>
+</div>"
+"Special books",ub-bookshop-special,"<div class=""block block-special-books"">
+<div class=""block-title""><strong>Special Books</strong></div>
+<div class=""block-content"">
+<div id=""special-books"">{{block class=""Ubertheme\UbContentSlider\Block\Slider"" name=""ub.content.slider.special.books"" number_items=""2"" number_items_desktop=""2"" number_items_desktop_small=""2"" number_items_tablet=""2"" number_items_mobile=""1"" title=""Special Books"" show_desc=""0"" show_readmore=""0"" single_item=""0"" content_type=""latest_products"" show_review=""1"" auto_height=""0"" show_price=""1"" auto_run=""1"" qty=""4""}}</div>
+</div>
+</div>"
+"Banner ADV",ub-bookshop-banner,"<div class=""banner-adv""><a href=""{{config path=""web/unsecure/base_url""}}books.html""><img src=""{{media url=""wysiwyg/banner/banner01.jpg""}}"" alt="""" /></a></div>"
+"Footer links",ub-bookshop-footer-links,"<div class=""block block-shipping"">
+<div class=""inner"">
+<ul class=""list-shipping"">
+<li class=""shipping-item""><em class=""fa fa-plane""></em> <span class=""title"">Free Shipping</span> <span class=""desc"">on orders over $49</span></li>
+<li class=""exchange-item""><em class=""fa fa-refresh""></em> <span class=""title"">1st Exchange Free</span> <span class=""desc"">on 3 days</span></li>
+<li class=""support-item""><em class="" fa fa-comments""></em> <span class=""title"">Online support 24/7</span> <span class=""desc"">123 456 7890</span></li>
+<li class=""friends-item""><em class=""fa fa-gift""></em> <span class=""title"">Tell Friends and get $5</span> <span class=""desc"">a small gift for you</span></li>
+</ul>
+</div>
+</div>
+<div class=""block-browser col-1 first"">
+<div class=""col-inner"">
+<div class=""block-title""><strong><span>Browser</span></strong></div>
+<div class=""block-content"">
+<ul>
+<li><a href=""{{config path=""web/unsecure/base_url""}}books.html/"">Books</a></li>
+<li><a href=""{{config path=""web/unsecure/base_url""}}gift-cards.html/"">Gift Cards</a></li>
+<li><a href=""{{config path=""web/unsecure/base_url""}}teens.html/"">Teens</a></li>
+<li><a href=""{{config path=""web/unsecure/base_url""}}nook-books.html/"">Nook Book</a></li>
+<li><a href=""{{config path=""web/unsecure/base_url""}}kids.html/"">Kids</a></li>
+</ul>
+</div>
+</div>
+</div>
+<div class=""block-information col-2"">
+<div class=""col-inner"">
+<div class=""block-title""><strong><span>Information</span></strong></div>
+<div class=""block-content"">
+<ul>
+<li><a href=""{{config path=""web/unsecure/base_url""}}about-us"">About Us</a></li>
+<li><a href=""{{config path=""web/unsecure/base_url""}}customer-service/"">Customer Service</a></li>
+<li><a href=""{{config path=""web/unsecure/base_url""}}privacy-policy/"">Privacy Policy</a></li>
+<li><a href=""{{config path=""web/unsecure/base_url""}}search/term/popular/"">Search Terms</a></li>
+<li><a href=""{{config path=""web/unsecure/base_url""}}sales/guest/form/"">Orders and Returns</a></li>
+<li><a href=""{{config path=""web/unsecure/base_url""}}catalogsearch/advanced/"">Advanced Search</a></li>
+</ul>
+</div>
+</div>
+</div>
+<div class=""block-my-account col-3"">
+<div class=""col-inner"">
+<div class=""block-title""><strong><span>My account</span></strong></div>
+<div class=""block-content"">
+<ul>
+<li><a href=""{{config path=""web/unsecure/base_url""}}customer/account/login/"">Sign In</a></li>
+<li><a href=""{{config path=""web/unsecure/base_url""}}checkout/cart/"">View Cart</a></li>
+<li><a href=""{{config path=""web/unsecure/base_url""}}wishlist/"">My Wishlist</a></li>
+<li><a href=""{{config path=""web/unsecure/base_url""}}checkout/"">Check out</a></li>
+<li><a href=""{{config path=""web/unsecure/base_url""}}sales/order/history/"">Track My Orders</a></li>
+<li><a href=""{{config path=""web/unsecure/base_url""}}contact/"">Contact us</a></li>
+</ul>
+</div>
+</div>
+</div>
+<div class=""block-location col-4 last"">
+<div class=""col-inner"">
+<div class=""block-title""><strong><span>Location</span></strong></div>
+<div class=""block-content"">
+<p>Address: 2411 Any Street. Any Town. United Kingdom.</p>
+<p>Mail to: <a title=""support@yourstore.com"" href=""mailto:support@yourstore.com"">support@yourstore.com</a></p>
+<p>Phone: +123 456 7890</p>
+<p>Fax: +123 456 7890</p>
+</div>
+</div>
+</div>"
+Blog,ub-bookshop-blog,"<div class=""banner-adv"" style=""margin: 20px 0;""><a href=""books.html""><img src=""{{media url=&quot;wysiwyg/banner/banner03.jpg&quot;}}"" alt=""""></a></div>
+<div class=""blog"">
+<div class=""block-title"">FROM THE BLOG</div>
+<div class=""block-content"">
+<ul>
+<li>
+<div class=""inner""><img src=""{{media url=&quot;wysiwyg/blog01.jpg&quot;}}"" alt="""">
+<h3><a href=""#"">New Book Depot Bestsellers Lists</a></h3>
+<h4>Anna Stone</h4>
+<h5>Published in 2018</h5>
+<p>Melanie has spent her entire life working her way up in the world. By day, she studies at law school, and by night...</p>
+<p class=""buy-links""><a href=""#"">Buy on Amazon</a><a href=""#"">View on Goodreads</a></p>
+</div>
+</li>
+<li>
+<div class=""inner""><img src=""{{media url=&quot;wysiwyg/blog02.jpg&quot;}}"" alt="""">
+<h3><a href=""#"">Book Industry Articles: Notable Trends</a></h3>
+<h4>Willow Rose</h4>
+<h5>Published in 2019</h5>
+<p>When twelve-year-old Sophie Williams went on a Girl Scout summer camp, she never returned home...</p>
+<p class=""buy-links""><a href=""#"">Buy on Amazon</a><a href=""#"">View on Goodreads</a></p>
+</div>
+</li>
+<li>
+<div class=""inner""><img src=""{{media url=&quot;wysiwyg/blog03.jpg&quot;}}"" alt="""">
+<h3><a href=""#"">Book Industry Articles: Notable Trends</a></h3>
+<h4>Mia Gant</h4>
+<h5>Published in 2019</h5>
+<p>Over the years, we’ve seen many distinctive businesses take advantage of our low-cost books...</p>
+<p class=""buy-links""><a href=""#"">Buy on Amazon</a><a href=""#"">View on Goodreads</a></p>
+</div>
+</li>
+</ul>
+</div>
+</div>"
+"Popular Products",ub-bookshop-popular,"<div class=""popular-book"">{{widget type=""Magento\CatalogWidget\Block\Product\ProductsList"" title=""POPULAR BOOKS"" show_pager=""0"" products_count=""2"" template=""Ubertheme_UbThemeHelper::product/widget/content/popular_grid.phtml"" conditions_encoded=""^[`1`:^[`type`:`Magento||CatalogWidget||Model||Rule||Condition||Combine`,`aggregator`:`all`,`value`:`1`,`new_child`:``^]^]"" type_name=""Catalog Products List""}}</div>
+<p></p>"
+Masshead,ub-bookshop-masshead,"<div class=""masshead"">
+<img src=""http://bookshop.demo.ubertheme.com/media/wysiwyg/banner/banner01.jpg"" alt=""Masshead"" />
+</div>"
+"Contacts Map",ub-bookshop-contactinfo,"<div class=""contact-info"">
+<div class=""inner""><iframe src=""https://maps.google.com/maps?f=q&amp;source=s_q&amp;hl=en&amp;geocode=&amp;q=123+Main+st.+Los+Angeles,+CA,+90012,+U.S.A+&amp;sll=37.0625,-95.677068&amp;sspn=34.176059,86.572266&amp;ie=UTF8&amp;hq=&amp;hnear=123+S+Main+St,+Los+Angeles,+California+90012&amp;t=m&amp;ll=34.051877,-118.243704&amp;spn=0.027023,0.072012&amp;z=14&amp;iwloc=A&amp;output=embed"" width=""100%"" height=""295""></iframe>
+<div class=""info-inner"">
+<p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
+<div class=""info-inner2"">
+<ul class=""list-info"">
+<li class=""address""><em class=""fa fa-home"">&nbsp;</em><span>Address:</span> 123 Main st. Los Angeles, CA, 90012, U.S.A</li>
+<li class=""phone""><em class=""fa fa-phone"">&nbsp;</em><span>Phone:</span> (315) 457-0000</li>
+<li class=""fax""><em class=""fa fa-print"">&nbsp;</em><span>Fax:</span> (315) 457-1324</li>
+<li class=""email""><em class=""fa fa-envelope-o"">&nbsp;</em><span>Email:</span> admin@email.com</li>
+</ul>
+</div>
+</div>
+</div>
+</div>"
+"Custom Tab",ub-bookshop-custom-tab,"<div class=""pview_info"" style=""line-height: 22px; margin: 0px; display: block;"">In order to demonstrate the concepts and terminology of databases, we will work with a simple example of storing information about books.<br /> Each table in a database has a unique name and each column within a table has a unique name within that table.<br /> <br /> <strong>Each column in a database table also has a data type associated with it.</strong><br /> <br />
+<table border=""0"" cellspacing=""1"" cellpadding=""3"" bgcolor=""#cccccc"">
+<tbody>
+<tr>
+<td align=""center"" bgcolor=""#dddddd"" width=""105""><strong>Title </strong></td>
+<td align=""center"" bgcolor=""#dddddd"" width=""127""><strong>Author</strong></td>
+<td align=""center"" bgcolor=""#dddddd"" width=""116""><strong>Gender</strong></td>
+<td align=""center"" bgcolor=""#dddddd"" width=""116""><strong>Publisher</strong></td>
+</tr>
+<tr>
+<td align=""center"" bgcolor=""#dddddd""><strong>The Hobbit</strong></td>
+<td align=""center"" bgcolor=""#dddddd"">J. R. R. Tolkien</td>
+<td align=""center"" bgcolor=""#dddddd"">Male</td>
+<td align=""center"" bgcolor=""#dddddd"">Houghton</td>
+</tr>
+<tr>
+<td align=""center"" bgcolor=""#dddddd""><strong>Slinky Malinki</strong></td>
+<td align=""center"" bgcolor=""#dddddd"">Lynley Dodd</td>
+<td align=""center"" bgcolor=""#dddddd"">Female</td>
+<td align=""center"" bgcolor=""#dddddd"">Mallinson</td>
+</tr>
+<tr>
+<td align=""center"" bgcolor=""#dddddd""><strong>Hairy Maclary</strong></td>
+<td align=""center"" bgcolor=""#dddddd"">Lynley Dodd</td>
+<td align=""center"" bgcolor=""#dddddd"">Female</td>
+<td align=""center"" bgcolor=""#dddddd"">Mallinson</td>
+</tr>
+<tr>
+<td align=""center"" bgcolor=""#dddddd""><strong>Mechanical</strong></td>
+<td align=""center"" bgcolor=""#dddddd"">Bob Kerr</td>
+<td align=""center"" bgcolor=""#dddddd"">Male</td>
+<td align=""center"" bgcolor=""#dddddd"">Rendel</td>
+</tr>
+<tr>
+<td align=""center"" bgcolor=""#dddddd""><strong>My Cat</strong></td>
+<td align=""center"" bgcolor=""#dddddd"">Tom</td>
+<td align=""center"" bgcolor=""#dddddd"">Female</td>
+<td align=""center"" bgcolor=""#dddddd"">A.W</td>
+</tr>
+<tr>
+<td align=""center"" bgcolor=""#dddddd""><strong>Natural</strong></td>
+<td align=""center"" bgcolor=""#dddddd"">William</td>
+<td align=""center"" bgcolor=""#dddddd"">Female</td>
+<td align=""center"" bgcolor=""#dddddd"">Paley</td>
+</tr>
+<tr>
+<td align=""center"" bgcolor=""#dddddd""><strong>Praying</strong></td>
+<td align=""center"" bgcolor=""#dddddd"">Rosemary</td>
+<td align=""center"" bgcolor=""#dddddd"">Male</td>
+<td align=""center"" bgcolor=""#dddddd"">Jensen</td>
+</tr>
+</tbody>
+</table>
+</div>"
+"Deals of the week (Mobile)",ub-bookshop-deals-mobile,"<div class=""deals"">{{widget type=""Magento\CatalogWidget\Block\Product\ProductsList"" title=""Deals of the week"" show_pager=""0"" products_count=""1"" cache_lifetime=""0"" template=""Ubertheme_UbThemeHelper::product/widget/content/deals_grid.phtml"" conditions_encoded=""^[`1`:^[`type`:`Magento||CatalogWidget||Model||Rule||Condition||Combine`,`aggregator`:`all`,`value`:`1`,`new_child`:``^],`1--1`:^[`type`:`Magento||CatalogWidget||Model||Rule||Condition||Product`,`attribute`:`special_price`,`operator`:`^)`,`value`:`1`^]^]"" type_name=""Catalog Products List""}}</div>"

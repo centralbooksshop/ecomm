@@ -1,0 +1,15 @@
+<?xml version="1.0" ?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+	<table name="retailinsights_courieravailability_courier" resource="default" engine="innodb" comment="retailinsights_courieravailability_courier Table">
+		<column xsi:type="int" name="courier_id" padding="10" unsigned="true" nullable="false" identity="true" comment="Entity Id"/>
+		<constraint xsi:type="primary" referenceId="PRIMARY">
+			<column name="courier_id"/>
+		</constraint>
+		<column xsi:type="varchar" name="courier_name" nullable="false" length="255" comment="Courier Partner Name"/>
+        <column xsi:type="varchar" name="pincode" nullable="false" length="10" comment="Pincode"/>
+        <column xsi:type="smallint" name="is_available" nullable="false" default="1" comment="Availability (1=Yes, 0=No)"/>
+        <column xsi:type="timestamp" name="created_at" nullable="false" default="CURRENT_TIMESTAMP" on_update="false" comment="Created At"/>
+        <column xsi:type="timestamp" name="updated_at" nullable="false" default="CURRENT_TIMESTAMP" on_update="true" comment="Updated At"/>
+	</table>
+</schema>
+

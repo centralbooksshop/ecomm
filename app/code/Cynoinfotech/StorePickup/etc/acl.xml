@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Acl/etc/acl.xsd">
+    <acl>
+		<resources>
+			<resource id="Magento_Backend::admin">				
+				<resource id="Cynoinfotech_Base::base" title="Store Pickup"> 					
+					
+                        <resource id="Cynoinfotech_StorePickup::stores" title="stores">
+							<resource id="Cynoinfotech_StorePickup::save" title="Save" sortOrder="10" />
+                            <resource id="Cynoinfotech_StorePickup::delete" title="Delete" sortOrder="20" />
+						</resource>
+
+						<resource id="Cynoinfotech_StorePickup::storeorder" title="storeorder">
+							<resource id="Cynoinfotech_StorePickup::storeorder_save" title="Save" sortOrder="10" />
+                            <!-- <resource id="Cynoinfotech_StorePickup::delete" title="Delete" sortOrder="20" /> -->
+						</resource>	
+						
+						<resource id="Cynoinfotech_StorePickup::import" title="Import Store Csv">
+							<resource id="Cynoinfotech_StorePickup::import_save" title="Save" sortOrder="21" />
+						</resource>
+						
+						<resource id="Cynoinfotech_StorePickup::storepickup_configuration" title="Configuration">
+						</resource>
+                   
+                </resource>							
+			</resource>
+		</resources>		
+    </acl>
+</config>

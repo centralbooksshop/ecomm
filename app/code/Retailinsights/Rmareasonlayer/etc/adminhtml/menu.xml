@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!--
+/** Grid menu xml
+ * @category  Webkul
+ * @package   Webkul_Grid
+ * @author    Webkul
+ * @copyright Copyright (c) 2010-2017 Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Retailinsights_Rmareasonlayer::manager" title="Grid Manager" module="Retailinsights_Rmareasonlayer" sortOrder="90" resource="Retailinsights_Rmareasonlayer::manager" />
+        <add id="Retailinsights_Rmareasonlayer::add_row" title="Grid Manager" module="Retailinsights_Rmareasonlayer" sortOrder="90" parent="Retailinsights_Rmareasonlayer::manager" action="grid/grid" resource="Retailinsights_Rmareasonlayer::add_row"/>
+    </menu>
+</config>

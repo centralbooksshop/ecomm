@@ -1,0 +1,14 @@
+<!-- Some general js functions-->
+<script type="text/javascript">
+    require([
+        "jquery",
+        "domReady!"
+    ], function ($) {
+        'use strict';
+        //detect modes and add extra class CSS
+        var extraClass = 'ontouchstart' in window && !(/hp-tablet/gi).test(navigator.appVersion) ? 'touch' : 'no-touch';
+        $('html').addClass(extraClass);
+    });
+</script>
+
+<!-- After body start content -->

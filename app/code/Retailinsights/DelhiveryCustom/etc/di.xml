@@ -1,0 +1,52 @@
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../lib/internal/Magento/Framework/ObjectManager/etc/config.xsd">
+    <virtualType name="RHUiExampleBlogFilterPool" type="Magento\Framework\View\Element\UiComponent\DataProvider\FilterPool">
+        <arguments>
+            <argument name="appliers" xsi:type="array">
+                <item name="regular" xsi:type="object">Magento\Framework\View\Element\UiComponent\DataProvider\RegularFilter</item>
+                <item name="fulltext" xsi:type="object">Magento\Framework\View\Element\UiComponent\DataProvider\FulltextFilter</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    
+	<virtualType name="RHUiExampleBlogFilterPool" type="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider">
+        <arguments>
+            <argument name="collection" xsi:type="object" shared="false">Retailinsights\DelhiveryCustom\Model\ResourceModel\ProcessDelhiveryOrders\Collection</argument>
+            <argument name="filterPool" xsi:type="object" shared="false">RHUiExampleBlogFilterPool</argument>
+        </arguments>
+    </virtualType>
+    
+    <type name="Retailinsights\DelhiveryCustom\Model\ResourceModel\ProcessDelhiveryOrders\Grid\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">cbo_assign_shippment</argument>
+            <argument name="eventPrefix" xsi:type="string">retailinsights_processdelhiveryorders_processeddelhiveryorderslist_grid_collection</argument>
+            <argument name="eventObject" xsi:type="string">processeddelhiveryorderslist_grid_collection</argument>
+            <argument name="resourceModel" xsi:type="string">Retailinsights\DelhiveryCustom\Model\ResourceModel\ProcessDelhiveryOrders</argument>
+        </arguments>
+    </type>
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="retailinsights_processdelhiveryorders_processeddelhiveryorderslist_listing_data_source" xsi:type="string">Retailinsights\DelhiveryCustom\Model\ResourceModel\ProcessDelhiveryOrders\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+    <!-- Pending Delhivery labels -->
+   <type name="Retailinsights\DelhiveryCustom\Model\ResourceModel\PendingDelhiveryOrders\Grid\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">sales_order</argument>
+            <argument name="eventPrefix" xsi:type="string">retailinsights_processdelhiveryorders_pendingdelhiveryorderslist_grid_collection</argument>
+            <argument name="eventObject" xsi:type="string">pendingdelhiveryorderslist_grid_collection</argument>
+            <argument name="resourceModel" xsi:type="string">Retailinsights\DelhiveryCustom\Model\ResourceModel\PendingDelhiveryOrders</argument>
+        </arguments>
+    </type>
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="retailinsights_processdelhiveryorders_pendingdelhiveryorderslist_listing_data_source" xsi:type="string">Retailinsights\DelhiveryCustom\Model\ResourceModel\PendingDelhiveryOrders\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+
+
+</config>
+

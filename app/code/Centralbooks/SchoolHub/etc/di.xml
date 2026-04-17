@@ -1,0 +1,19 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+	<preference for="Centralbooks\SchoolHub\Api\SchoolhubRepositoryInterface" type="Centralbooks\SchoolHub\Model\SchoolhubRepository"/>
+	<preference for="Centralbooks\SchoolHub\Api\Data\SchoolhubInterface" type="Centralbooks\SchoolHub\Model\Schoolhub"/>
+	<preference for="Centralbooks\SchoolHub\Api\Data\SchoolhubSearchResultsInterface" type="Magento\Framework\Api\SearchResults"/>
+	<virtualType name="Centralbooks\SchoolHub\Model\ResourceModel\Schoolhub\Grid\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+		<arguments>
+			<argument name="mainTable" xsi:type="string">centralbooks_schoolhub_schoolhub</argument>
+			<argument name="resourceModel" xsi:type="string">Centralbooks\SchoolHub\Model\ResourceModel\Schoolhub\Collection</argument>
+		</arguments>
+	</virtualType>
+	<type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+		<arguments>
+			<argument name="collections" xsi:type="array">
+				<item name="centralbooks_schoolhub_schoolhub_listing_data_source" xsi:type="string">Centralbooks\SchoolHub\Model\ResourceModel\Schoolhub\Grid\Collection</item>
+			</argument>
+		</arguments>
+	</type>
+</config>

@@ -1,0 +1,110 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+/** @var $block \Magento\Catalog\Block\Product\View */
+?>
+<?php
+/**
+ * Copyright © 2016 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+/** @var $block \Magento\Catalog\Block\Product\View*/
+?>
+<?php
+    /** @var \Magento\Framework\App\ObjectManager $om */
+    $om = \Magento\Framework\App\ObjectManager::getInstance();
+    /** @var \Magento\Framework\Module\Manager $moduleManager */
+    $moduleManager = $om->get('Magento\Framework\Module\Manager');
+    if ($moduleManager->isOutputEnabled("Ubertheme_UbThemeHelper")):
+        $ubHelper                = $this->helper('Ubertheme\UbThemeHelper\Helper\Data');
+        $showAddtoCompare       = $ubHelper->getParam('element/actions/show_add_to_compare');
+        $showAddtoWishlist      = $ubHelper->getParam('element/actions/show_add_to_wishlist');
+    else: 
+        $showAddtoCompare       = 1;
+        $showAddtoWishlist      = 1;
+    endif;    
+
+$_product = $block->getProduct();
+$_wishlistSubmitParams = $this->helper('Magento\Wishlist\Helper\Data')->getAddParams($_product);
+$compareHelper = $this->helper('Magento\Catalog\Helper\Product\Compare');
+?>
+<?php $_product = $block->getProduct(); ?>
+<?php $buttonTitle = __('Update Cart'); ?>
+<?php if ($_product->isSaleable()): ?>
+    <div class="box-tocart update">
+        <fieldset class="fieldset">
+            <?php if ($block->shouldRenderQuantity()): ?>
+            <div class="field qty">
+                <label class="label" for="qty"><span><?= /* @escapeNotVerified */ __('Qty') ?></span></label>
+                <div class="control">
+                    <div class="qty-box-count">
+                        <div id='qty_down'><span>-</span></div>
+                        <input type="number"
+                            name="qty"
+                            id="qty"
+                            maxlength="12"
+                            value="<?php /* @escapeNotVerified */ echo $block->getProductDefaultQty() * 1 ?>"
+                            title="<?php /* @escapeNotVerified */ echo __('Qty') ?>" class="input-text qty"
+                            data-validate="{'required-number':true,digits:true}"
+                            />
+                        <div id='qty_up'><span>+</span></div>         
+                    </div>
+                </div>
+            </div>
+            <?php endif; ?>
+            <div class="actions">
+                <button type="submit"
+                        title="<?= /* @escapeNotVerified */ $buttonTitle ?>"
+                        class="action primary tocart"
+                        id="product-updatecart-button">
+                    <span><?= /* @escapeNotVerified */ $buttonTitle ?></span>
+                </button>
+                <?= $block->getChildHtml('', true) ?>
+
+                <?php if ($showAddtoCompare  || $showAddtoWishlist): ?>
+                    <div class="product-addto-links" data-role="add-to-links">
+                        <?php if ($showAddtoWishlist): ?>
+                            <?php if ($this->helper('Magento\Wishlist\Helper\Data')->isAllow()) : ?>
+                                <a href="#"
+                                    class="action towishlist"
+                                    data-post='<?php /* @escapeNotVerified */ echo $_wishlistSubmitParams; ?>'
+                                    data-action="add-to-wishlist"><i class="fa fa-heart"></i></a>
+                            <?php endif; ?>
+                        <?php endif; ?>
+                        <?php if ($showAddtoCompare): ?>
+                        <a href="#" data-post='<?php /* @escapeNotVerified */ echo $compareHelper->getPostDataParams($_product);?>'
+                            data-role="add-to-links"
+                            class="action tocompare"><i class="fa fa-retweet"></i></a>
+                        <?php endif; ?>
+                    </div>
+                    <script type="text/x-magento-init">
+                        {
+                            "body": {
+                                "addToWishlist": <?php /* @escapeNotVerified */ echo $this->helper('Magento\Framework\Json\Helper\Data')->jsonEncode($block->getWishlistOptions())?>
+                            }
+                        }
+                    </script>
+                <?php endif; ?>
+            </div>
+        </fieldset>
+    </div>
+    <script type="text/x-magento-init">
+        {
+            "#product_addtocart_form": {
+                "validation": {},
+                "addToCart": {
+                    "cartButtonId": "#product-updatecart-button",
+                    "cartForm": "#product_addtocart_form"
+                }
+            }
+        }
+    </script>
+<?php endif; ?>

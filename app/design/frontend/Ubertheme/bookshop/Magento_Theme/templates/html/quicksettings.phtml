@@ -1,0 +1,44 @@
+<?php
+/**
+ * Copyright © 2015 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+/** @var $block \Magento\Framework\View\Element\Template */
+
+/** @var Ubertheme\UbThemeHelper\Helper\Data $ubHelper */
+$ubHelper = $this->helper('Ubertheme\UbThemeHelper\Helper\Data');
+
+/** @var \Magento\Framework\Stdlib\Cookie\PhpCookieManager $ckm */
+$ckm = $ubHelper->getCookieManager();
+$ubcolor = isset($_GET['ubcolor']) ? $_GET['ubcolor'] : $ckm->getCookie('ubcolor');
+if (isset($_GET['ubcolor']) && $_GET['ubcolor']) {
+  $ckMeta = $ubHelper->getCookieMetadataFactory()->createPublicCookieMetadata()->setPath('/');
+  $ckm->setPublicCookie('ubcolor', $ubcolor, $ckMeta);
+}
+
+$allowedSwitchColors = $ubHelper->getParam('element/header/actions/enable_switch_colors');
+
+?>
+<div class="has-toggle quick-settings" data-ui-id="quick-settings" id="quick-settings">
+	<div class="btn-toggle">
+		<span class="fa fa-globe"></span><strong><?php echo __('Setting') ?></strong>
+	</div>
+	<div class="inner-toggle">
+		<?php if($allowedSwitchColors) : ?>
+		<div class="colors-setting">
+		<label><?php echo __('Colors:') ?></label>
+			<a class="colors-default<?php if ($ubcolor == "default") { echo ' active'; } ?>" href="<?php echo $this->getBaseUrl(); ?>?ubcolor=default"><span><?php echo __('default') ?></span></a>
+			<a class="colors-blue<?php if ($ubcolor == "blue") { echo ' active'; } ?>" href="<?php echo $this->getBaseUrl(); ?>?ubcolor=blue"><span><?php echo __('blue') ?></span></a>
+			<a class="colors-green<?php if ($ubcolor == "green") { echo ' active'; } ?>" href="<?php echo $this->getBaseUrl(); ?>?ubcolor=green"><span><?php echo __('green') ?></span></a>
+			<a class="colors-yellow<?php if ($ubcolor == "yellow") { echo ' active'; } ?>" href="<?php echo $this->getBaseUrl(); ?>?ubcolor=yellow"><span><?php echo __('yellow') ?></span></a>
+			<a class="colors-violet<?php if ($ubcolor == "violet") { echo ' active'; } ?>" href="<?php echo $this->getBaseUrl(); ?>?ubcolor=violet"><span><?php echo __('violet') ?></span></a>
+			<a class="colors-xmas<?php if ($ubcolor == "xmas") { echo ' active'; } ?>" href="<?php echo $this->getBaseUrl(); ?>?ubcolor=xmas"><span><?php echo __('xmas') ?></span></a>
+		</div>
+		<?php endif; ?>
+		<?php echo $block->getChildHtml('', false); ?>
+	</div>
+</div>
+
+
+ 

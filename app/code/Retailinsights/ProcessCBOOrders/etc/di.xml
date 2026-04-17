@@ -1,0 +1,59 @@
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../lib/internal/Magento/Framework/ObjectManager/etc/config.xsd">
+    <virtualType name="RHUiExampleBlogFilterPool" type="Magento\Framework\View\Element\UiComponent\DataProvider\FilterPool">
+        <arguments>
+            <argument name="appliers" xsi:type="array">
+                <item name="regular" xsi:type="object">Magento\Framework\View\Element\UiComponent\DataProvider\RegularFilter</item>
+                <item name="fulltext" xsi:type="object">Magento\Framework\View\Element\UiComponent\DataProvider\FulltextFilter</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="RHUiExampleBlogFilterPool" type="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider">
+        <arguments>
+            <argument name="collection" xsi:type="object" shared="false">Retailinsights\ProcessCBOOrders\Model\ResourceModel\ProcessCBOOrders\Collection</argument>
+            <argument name="filterPool" xsi:type="object" shared="false">RHUiExampleBlogFilterPool</argument>
+        </arguments>
+    </virtualType>
+    
+    <type name="Retailinsights\ProcessCBOOrders\Model\ResourceModel\ProcessCBOOrders\Grid\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">cbo_assign_shippment</argument>
+            <argument name="eventPrefix" xsi:type="string">retailinsights_processcboorders_processedcboorderslist_grid_collection</argument>
+            <argument name="eventObject" xsi:type="string">processedcboorderslist_grid_collection</argument>
+            <argument name="resourceModel" xsi:type="string">Retailinsights\ProcessCBOOrders\Model\ResourceModel\ProcessCBOOrders</argument>
+        </arguments>
+    </type>
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="retailinsights_processcboorders_processedcboorderslist_listing_data_source" xsi:type="string">Retailinsights\ProcessCBOOrders\Model\ResourceModel\ProcessCBOOrders\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <!--  for deliverd list -->
+      <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="retailinsights_processcboorders_cbodeliveredlist_listing_data_source" xsi:type="string">Retailinsights\ProcessCBOOrders\Model\ResourceModel\DeliveredCBOOrders\Grid\Collection</item>
+            </argument>
+        </arguments>
+       </type>
+         <!--  <type name="Retailinsights\ProcessCBOOrders\Model\ResourceModel\DeliveredCBOOrders\Grid\Collection">
+			<arguments>
+	            <argument name="mainTable" xsi:type="string">cbo_assign_shippment</argument>
+				<argument name="eventPrefix" xsi:type="string">retailinsights_processcboorders_cbodeliveredlist_grid_collection</argument>
+				<argument name="eventObject" xsi:type="string">cbodeliveredlist_grid_collection</argument>
+          <argument name="resourceModel" xsi:type="string">Retailinsights\ProcessCBOOrders\Model\ResourceModel\DeliveredCBOOrders</argument>
+	        </arguments>
+         </type> -->
+
+ 
+   <type name="Retailinsights\ProcessCBOOrders\Model\ResourceModel\DeliveredCBOOrders\Grid\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">cbo_assign_shippment</argument>
+            <argument name="resourceModel" xsi:type="string">Retailinsights\ProcessCBOOrders\Model\ResourceModel\DeliveredCBOOrders</argument>
+        </arguments>
+    </type> 
+
+</config>
+

@@ -1,0 +1,201 @@
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <cms_home_page>ub_home</cms_home_page>
+        <!--Tab Theme Setting -->
+        <typography>
+            <fonts>
+                <primary_font_library_var>google</primary_font_library_var><!--General Font Library-->
+                <primary_font_family_var>Roboto</primary_font_family_var><!--General Font Family-->
+                <primary_font_family_other_var>Helvetica</primary_font_family_other_var><!--General Font Family Other-->
+                <primary_google_font_var>Roboto</primary_google_font_var><!--General Google Font-->
+                <fsb_var>14</fsb_var><!--Font Size Base-->
+                <primary_font_weight_var>400</primary_font_weight_var><!--General Google Font Weight-->
+                <heading_font_library_var>default</heading_font_library_var><!--Heading Font Library-->
+                <heading_font_family_var>inherit</heading_font_family_var><!--Heading Font Family-->
+                <heading_font_family_other_var>Helvetica</heading_font_family_other_var><!--Heading Font Family Other-->
+                <heading_google_font_var>Roboto</heading_google_font_var><!--Heading Google Font-->
+                <heading_font_weight_var>700</heading_font_weight_var><!--Heading Google Font Weight-->
+            </fonts>
+        </typography>
+        <colors>
+            <general>
+                <body_background_var>1</body_background_var>
+                <body_background_color_var>#fff</body_background_color_var>
+                <body_background_image_var>blank.png</body_background_image_var>
+                <body_background_positon_var>0 0</body_background_positon_var>
+                <body_background_repeat_var>no-repeat</body_background_repeat_var>
+                <primary_color_var>#f0141e</primary_color_var>
+                <secondary_color_var>#d8121b</secondary_color_var>
+                <primary_text_color_var>#777</primary_text_color_var>
+                <secondary_text_color_var>#999</secondary_text_color_var>
+                <primary_link_color_var>#000</primary_link_color_var>
+                <primary_link_color_hover_var>#f0141e</primary_link_color_hover_var>
+                <primary_border_color_var>#eee</primary_border_color_var>
+                <secondary_border_color_var>#000</secondary_border_color_var>
+            </general>
+            <header>
+                <head_background_var>1</head_background_var>
+                <head_background_color_var>#181818</head_background_color_var>
+                <head_bg_image_var>blank.png</head_bg_image_var>
+                <head_bg_position_var>0 0</head_bg_position_var>
+                <head_bg_repeat_var>no-repeat</head_bg_repeat_var>
+                <head_text_color_var>#999</head_text_color_var>
+                <head_link_color_var>#999</head_link_color_var>
+                <head_link_color_hover_var>#fff</head_link_color_hover_var>
+                <header_background_var>1</header_background_var>
+                <header_background_color_var>#f0141e</header_background_color_var>
+                <header_bg_image_var>blank.png</header_bg_image_var>
+                <header_bg_position_var>0 0</header_bg_position_var>
+                <header_bg_repeat_var>no-repeat</header_bg_repeat_var>
+            </header>
+            <main>
+                <main_background_var>1</main_background_var>
+                <main_background_color_var>#fff</main_background_color_var>
+                <main_bg_image_var>blank.png</main_bg_image_var>
+                <main_bg_position_var>0 0</main_bg_position_var>
+                <main_bg_repeat_var>no-repeat</main_bg_repeat_var>
+            </main>
+            <footer>
+                <footer_background_var>1</footer_background_var>
+                <footer_background_color_var>#181818</footer_background_color_var>
+                <footer_bg_image_var>blank.png</footer_bg_image_var>
+                <footer_bg_position_var>0 0</footer_bg_position_var>
+                <footer_bg_repeat_var>no-repeat</footer_bg_repeat_var>
+                <footer_text_color_var>#777</footer_text_color_var>
+                <footer_link_color_var>#777</footer_link_color_var>
+                <footer_link_color_hover_var>#f0141e</footer_link_color_hover_var>
+            </footer>
+        </colors>
+        <element>
+            <header>
+                <logo>
+                    <src>logo.png</src>
+                    <alt>Responsive Magento Bookstore Theme</alt>
+                    <width>152</width>
+                    <height>26</height>
+                </logo>
+                <actions>
+                    <enable_sticky>1</enable_sticky>
+                    <enable_switch_colors>1</enable_switch_colors>
+                </actions>
+            </header>
+            <main>
+                <preloader>
+                    <enable>1</enable>
+                </preloader>
+                <back_to_top>
+                    <enable>1</enable>
+                </back_to_top>
+                <infinite_scroll>
+                    <infinite_scroll_general>
+                        <enable>1</enable>
+                        <scope>category_page,search_page</scope>
+                        <categories_ids></categories_ids>
+                        <method>scroll</method>
+                        <number_page_limit>3</number_page_limit>
+                        <show_param>0</show_param>
+                    </infinite_scroll_general>
+                    <infinite_scroll_style>
+                        <image>loading.gif</image>
+                        <loading_text>Loading - please wait...</loading_text>
+                        <done_text> Oops, no more new items </done_text>
+                        <button>Load more</button>
+                        <hide_toolbar>0</hide_toolbar>
+                    </infinite_scroll_style>
+                </infinite_scroll>
+            </main>
+        </element>
+        <category_view>
+            <general>
+                <shop_by_toggle>1</shop_by_toggle>
+                <add_to_cart>1</add_to_cart>
+                <add_to_compare>1</add_to_compare>
+                <add_to_wishlist>1</add_to_wishlist>
+                <rating>1</rating>
+                <price>1</price>
+                <show_author>1</show_author>
+                <swatches>1</swatches>
+                <enable_alternative_product>1</enable_alternative_product>
+            </general>
+            <grid>
+                <img_width>203</img_width>
+                <img_height>305</img_height>
+                <desktop_one_column_var>6</desktop_one_column_var>
+                <desktop_two_column_var>5</desktop_two_column_var>
+                <tablet_one_column_var>5</tablet_one_column_var>
+                <tablet_two_column_var>4</tablet_two_column_var>
+                <tablet_sm_one_column_var>4</tablet_sm_one_column_var>
+                <tablet_sm_two_column_var>3</tablet_sm_two_column_var>
+                <mobile_column_var>3</mobile_column_var>
+                <mobile_sm_column_var>2</mobile_sm_column_var>
+            </grid>
+            <list>
+                <img_height>228</img_height>
+                <img_width>152</img_width>
+                <enable_description>1</enable_description>
+                <max_char>350</max_char>
+            </list>
+        </category_view>
+        <product_view>
+            <gallery>
+                <general>
+                    <image_medium_width>270</image_medium_width>
+                    <image_medium_height>405</image_medium_height>
+                    <image_small_width>58</image_small_width>
+                    <image_small_height>87</image_small_height>
+                    <loop>0</loop>
+                    <caption>0</caption>
+                    <effect>crossfade</effect>
+                    <duration>500</duration>   
+                    <zoom_enabled>1</zoom_enabled>
+                    <zoom_mode>outside</zoom_mode>
+                    <magnifier_width>405</magnifier_width>
+                    <magnifier_height>405</magnifier_height>
+                </general>
+                <fullscreen>
+                    <enable>1</enable>    
+                </fullscreen>
+            </gallery>
+            <related>
+                <enable>1</enable>
+                <title>Related Products</title>
+                <image_width>203</image_width>
+                <image_height>305</image_height>
+                <limit>6</limit>
+            </related>
+            <upsell>
+                <enable>1</enable>
+                <title>We found other products you might like!</title>
+                <image_width>203</image_width>
+                <image_height>305</image_height>
+                <limit>6</limit>
+            </upsell>
+            <ub_custom_tab>
+                <tab_content>
+                    <items>{"0":{"type_default":"product.info.description","title":"Description","category_ids":"","product_ids":"","status":"on","type":"attribute_code","static_block":"","attribute_code":""},"1":{"type_default":"product.attributes","title":"More Information","category_ids":"","product_ids":"","status":"on","type":"attribute_code","static_block":"","attribute_code":""},"2":{"type_default":"reviews.tab","title":"Review(s)","category_ids":"","product_ids":"","status":"on","type":"static_block","static_block":"","attribute_code":""},"_1554718844724_724":{"type_default":"","title":"Customized","type":"static_block","static_block":"ub-bookshop-custom-tab","category_ids":"","product_ids":"","status":"on","attribute_code":""}}</items>
+                </tab_content>
+                <tab_style>
+                    <template>tab</template>
+                </tab_style>
+            </ub_custom_tab>
+        </product_view>
+        <contact_us>
+            <settings>
+                <intro>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</intro>
+                <address>123 Main st. Los Angeles, CA, 90012, U.S.A</address>
+                <email>admin@email.com</email>
+                <phone>(315) 457-0000</phone>
+                <fax>(315) 457-1324</fax>
+                <enable_map>1</enable_map>
+                <google_map_embed></google_map_embed>
+            </settings>
+        </contact_us>
+        <cart>
+            <crosssell>
+                <title>More Choices:</title>
+                <image_width>202</image_width>
+                <image_height>303</image_height>
+            </crosssell>
+        </cart>
+    </default>
+</config>

@@ -1,0 +1,130 @@
+<?xml version="1.0"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+  <table name="deliveryboy_deliveryboy" resource="default" engine="innodb" comment="Delivery Boy Table">
+    <column xsi:type="int" name="id" padding="10" unsigned="true" nullable="false" identity="true" comment="Id"/>
+    <column xsi:type="text" name="image" nullable="true" comment="Profile image"/>
+    <column xsi:type="varchar" name="name" nullable="true" length="255" comment="Deliveryboy name"/>
+    <column xsi:type="int" name="status" padding="10" unsigned="true" nullable="false" identity="false" default="0" comment="Status"/>
+    <column xsi:type="int" name="approve_status"
+      padding="10" unsigned="true" nullable="false" identity="false" default="0" comment="Approve Status"/>
+    <column xsi:type="varchar" name="email" nullable="true" length="255" comment="Email"/>
+    <column xsi:type="varchar" name="mobile_number" nullable="true" length="255" comment="Mobile Number"/>
+    <column xsi:type="varchar" name="vehicle_number" nullable="true" length="255" comment="Vehicle Number"/>
+	<column xsi:type="varchar" name="order_limit" nullable="true" length="255" comment="Order limit"/>
+    <column xsi:type="int" name="availability_status" padding="10" unsigned="true" nullable="false" identity="false" default="0" comment="Availability Status"/>
+    <column xsi:type="varchar" name="vehicle_type" nullable="false" length="255" default="0" comment="Vehicle Type"/>
+	<column xsi:type="varchar" name="partner_type" nullable="false" length="255" default="0" comment="Partner Type"/>
+    <column xsi:type="varchar" name="password" nullable="true" length="255" comment="Password"/>
+    <column xsi:type="text" name="address" nullable="true" comment="Full Address of deliveryboy"/>
+    <column xsi:type="varchar" name="latitude" nullable="true" length="255" comment="Deliveryboy current Latitude"/>
+    <column xsi:type="varchar" name="longitude" nullable="true" length="255" comment="Deliveryboy current Longitude"/>
+    <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP" comment="Creation Time"/>
+    <column xsi:type="timestamp" name="updated_at" on_update="true" nullable="false" default="CURRENT_TIMESTAMP" comment="Updation Time"/>
+    <column xsi:type="varchar" name="rp_token" nullable="true" length="255" comment="Reset password token"/>
+    <column xsi:type="timestamp" name="rp_token_created_at" on_update="true" nullable="false" default="CURRENT_TIMESTAMP" comment="Reset password request time"/>
+    <constraint xsi:type="primary" referenceId="PRIMARY">
+      <column name="id"/>
+    </constraint>
+  </table>
+  <table name="deliveryboy_rating" resource="default" engine="innodb" comment="Delivery Boy Rating Table">
+    <column xsi:type="int" name="id" padding="10" unsigned="true" nullable="false" identity="true" comment="Id"/>
+    <column xsi:type="int" name="deliveryboy_id" padding="10" unsigned="true" nullable="false" identity="false" default="0" comment="Deliveryboy Id"/>
+    <column xsi:type="varchar" name="title" nullable="true" length="255" comment="Review Title"/>
+    <column xsi:type="text" name="comment" nullable="true" comment="Review comment"/>
+    <column xsi:type="int" name="customer_id" padding="10" unsigned="true" nullable="false" identity="false" default="0" comment="Customer Id"/>
+    <column xsi:type="decimal" name="rating" scale="4" precision="12" unsigned="false" nullable="true" comment="Deliveryboy rating"/>
+    <column xsi:type="varchar" name="status" nullable="true" length="255" comment="Status"/>
+    <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP" comment="Creation Time"/>
+    <constraint xsi:type="primary" referenceId="PRIMARY">
+      <column name="id"/>
+    </constraint>
+  </table>
+  <table name="deliveryboy_orders" resource="default" engine="innodb" comment="Delivery Boy Orders Table">
+    <column xsi:type="int" name="id" padding="10" unsigned="true" nullable="false" identity="true" comment="Id"/>
+    <column xsi:type="int" name="deliveryboy_id" padding="10" unsigned="true" nullable="false" identity="false" default="0" comment="Deliveryboy Id"/>
+    <column xsi:type="int" name="order_id" padding="10" unsigned="true" nullable="false" identity="false" default="0" comment="Real order id"/>
+    <column xsi:type="varchar" name="increment_id" nullable="true" length="255" comment="Order increment id"/>
+    <column xsi:type="varchar" name="order_status" nullable="true" length="255" comment="Order status"/>
+    <column xsi:type="varchar" name="otp" nullable="true" length="255" comment="OTP for order completion"/>
+    <column xsi:type="varchar" name="assign_status" nullable="false" length="10" default="" comment="Assigned Status"/>
+    <column xsi:type="int" name="picked" padding="10" unsigned="false" nullable="false" identity="false" default="0" comment="Is Picked"/>
+    <column xsi:type="varchar" name="alternate_delivery" nullable="true" length="1023" comment="Alternate Delivery Details"/>
+    <column xsi:type="varchar" name="package_items" nullable="true" length="255" comment="Package Items"/>
+    <column xsi:type="varchar" name="delivery_amount" nullable="true" length="255" comment="Delivery Amount"/>
+    <column name="pod_image_path" xsi:type="varchar" length="255" nullable="true" comment="Path to the POD image" />
+    <column xsi:type="text" name="comments" nullable="true" comment="Comments"/>
+    <constraint xsi:type="primary" referenceId="PRIMARY">
+      <column name="id"/>
+    </constraint>
+  </table>
+  <table name="deliveryboy_devicetoken" resource="default" engine="innodb" comment="Delivery Boy Device Token Table">
+    <column xsi:type="int" name="id" padding="10" unsigned="true" nullable="false" identity="true" comment="Id"/>
+    <column xsi:type="int" name="deliveryboy_id" padding="10" unsigned="true" nullable="false" identity="false" default="0" comment="Deliveryboy Id"/>
+    <column xsi:type="varchar" name="token" nullable="true" length="255" comment="Token"/>
+    <column xsi:type="varchar" name="os" nullable="true" length="255" comment="Operating system"/>
+    <column xsi:type="int" name="is_admin" padding="10" unsigned="true" nullable="false" identity="false" default="0" comment="Is Admin token"/>
+    <constraint xsi:type="primary" referenceId="PRIMARY">
+      <column name="id"/>
+    </constraint>
+  </table>
+  <table name="deliveryboy_comments" resource="default" engine="innodb" comment="DeliveryBoy Comments Table">
+    <column xsi:type="int" name="id" padding="10" unsigned="true" nullable="false" identity="true" comment="Id"/>
+    <column xsi:type="int" name="sender_id" padding="10" unsigned="true" nullable="false" identity="false" default="0" comment="Sender Id"/>
+    <column xsi:type="varchar" name="order_increment_id" nullable="true" length="255" comment="Order Increment Id"/>
+    <column xsi:type="int" name="deliveryboy_order_id" padding="10" unsigned="true" nullable="false" identity="false" default="0" comment="Deliveryboy Order Id"/>
+    <column xsi:type="int" name="is_deliveryboy" padding="10" unsigned="true" nullable="false" identity="false" default="0" comment="Is Deliveryboy"/>
+    <column xsi:type="text" name="comment" nullable="false" comment="Comment"/>
+    <column xsi:type="varchar" name="commented_by" nullable="true" length="255" comment="Comment By"/>
+    <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP" comment="Creation Date Time"/>
+    <constraint xsi:type="primary" referenceId="PRIMARY">
+      <column name="id"/>
+    </constraint>
+  </table>
+  <table name="deliveryboy_order_location" resource="default" engine="innodb" comment="Delivery Boy Order Location Table">
+    <column xsi:type="int" name="entity_id" padding="10" unsigned="true" nullable="false" identity="true" comment="Entity Id"/>
+    <column xsi:type="int" name="order_id" padding="10" unsigned="true" nullable="false" identity="false" comment="Order Id"/>
+    <column xsi:type="varchar" name="latitude" nullable="true" length="255" comment="Customer Longitude"/>
+    <column xsi:type="varchar" name="longitude" nullable="false" length="255" comment="Customer Longitude"/>
+    <constraint xsi:type="primary" referenceId="PRIMARY">
+      <column name="entity_id"/>
+    </constraint>
+    <constraint xsi:type="foreign" referenceId="DELIVERYBOY_ORDER_LOCATION_ORDER_ID_SALES_ORDER_ENTITY_ID" table="deliveryboy_order_location" column="order_id" referenceTable="sales_order" referenceColumn="entity_id" onDelete="CASCADE"/>
+  </table>
+  <table name="deliveryboy_order_transaction" resource="default" engine="innodb" comment="Delivery Boy Order Transaction Table">
+    <column xsi:type="int" name="entity_id" padding="10" unsigned="true" nullable="false" identity="true" comment="Entity Id"/>
+    <column xsi:type="int" name="deliveryboy_order_id" padding="10" unsigned="true" nullable="false" identity="false" comment="Deliveryboy Order Id"/>
+    <column xsi:type="varchar" name="transaction_id" nullable="true" length="255" comment="Transaction Id"/>
+    <column xsi:type="decimal" name="amount" scale="4" precision="20" unsigned="false" nullable="true" comment="Amount"/>
+    <column xsi:type="smallint" name="is_closed" padding="10" unsigned="false" nullable="false" identity="false" default="0" comment="Is Closed"/>
+    <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP" comment="Created At"/>
+    <column xsi:type="timestamp" name="updated_at" on_update="true" nullable="false" default="CURRENT_TIMESTAMP" comment="Updated At"/>
+    <constraint xsi:type="primary" referenceId="PRIMARY">
+      <column name="entity_id"/>
+    </constraint>
+    <constraint xsi:type="foreign" referenceId="DELIVERYBOY_ORDER_TRANSACTION_DELIVERYBOY_ORDER_ID_DELIVERYBOY_ORDERS_ID" table="deliveryboy_order_transaction" column="deliveryboy_order_id" referenceTable="deliveryboy_orders" referenceColumn="id" onDelete="CASCADE"/>
+  </table>
+  <table name="deliveryboy_vehicle_type" resource="default" engine="innodb" comment="Delivery Vehicle Type Table">
+    <column xsi:type="int" name="entity_id" padding="10" unsigned="true" nullable="false" identity="true" comment="Entity Id"/>
+    <column xsi:type="varchar" name="value" nullable="true" length="255" comment="Vehicle type value"/>
+    <column xsi:type="varchar" name="label" nullable="true" length="255" comment="Vehicle type label"/>
+    <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP" comment="Created At"/>
+    <column xsi:type="timestamp" name="updated_at" on_update="true" nullable="false" default="CURRENT_TIMESTAMP" comment="Updated At"/>
+    <constraint xsi:type="primary" referenceId="PRIMARY">
+      <column name="entity_id"/>
+    </constraint>
+  </table>
+
+  <table name="deliveryboy_reason" resource="default" engine="innodb" comment="DeliveryBoy Reasons Table">
+    <column xsi:type="int" name="id" padding="10" unsigned="true" nullable="false" identity="true" comment="Id"/>
+    <column xsi:type="int" name="sender_id" padding="10" unsigned="true" nullable="false" identity="false" default="0" comment="Sender Id"/>
+    <column xsi:type="varchar" name="order_increment_id" nullable="true" length="255" comment="Order Increment Id"/>
+    <column xsi:type="int" name="deliveryboy_order_id" padding="10" unsigned="true" nullable="false" identity="false" default="0" comment="Deliveryboy Order Id"/>
+    <column xsi:type="int" name="is_deliveryboy" padding="10" unsigned="true" nullable="false" identity="false" default="0" comment="Is Deliveryboy"/>
+    <column xsi:type="text" name="reason" nullable="false" comment="Reason"/>
+    <column xsi:type="varchar" name="commented_by" nullable="true" length="255" comment="Comment By"/>
+    <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP" comment="Creation Date Time"/>
+    <constraint xsi:type="primary" referenceId="PRIMARY">
+      <column name="id"/>
+    </constraint>
+  </table>
+</schema>

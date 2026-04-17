@@ -1,0 +1,183 @@
+<?php
+  $baseUrl =  $block->getBaseUrl();
+  $studentData = $block->studentData();
+  $username = '';
+  $password = '';
+  $classVal = '';
+  $exist_schoolid = '';
+
+  if(isset($_GET['id'])) {
+    $id = $_GET['id'];  
+    foreach ($studentData as $value) {
+
+  // print_r($value->getData());
+        if($value['id'] == $id){
+            $entityId = $value['id'];
+            $student_name = $value['student_name'];
+            $classVal = $value['class'];
+            if(isset($value['username'])){
+              $username = $value['username'];
+            }
+            if(isset($value['password'])){
+              $password = $value['password'];
+            }
+			if(isset($value['school_name'])) {
+			   $exist_schoolid = $value['school_name'];
+			}
+            $admission_id = $value['admission_id'];
+        }
+      }
+  } else {
+    $id = '';
+  }
+  // echo  $entityId;
+ 
+  // echo  $class;
+$schoolscoll = $block->getSchools();
+$school_session = $block->getSchoolNameSessionValue();
+$user_name = preg_replace("/[^a-zA-Z\s.]/", "", $_SESSION["user_name"]);
+$user_name = str_replace('.', ' ', $user_name);
+$user_name = ucwords(strtolower($user_name));
+?>
+<div class="links_page">
+  <a href="<?= $baseUrl ?>schoolzone_customer/index/StudentInfo" class="go-back">Back</a>
+  <p class="customer-index-btn user-name studentinfo"> <?php echo "Welcome, ".$user_name; ?>  </p>
+  <a href="<?= $baseUrl ?>schoolzone_customer/index/Login" class="customer-index-btn logout-btn">Log out</a>
+  <!-- <span class="log_out">Logout</span> -->
+</div>
+<h3 class="custom-heading">Add Here</h3>
+<?php
+   $classes = $block->getOptionClass();
+    foreach ($classes as $class) {
+      if($class['label'] == $classVal){
+          $classVal = $class['value'];
+      }
+    }
+    
+if(!empty($schoolscoll)) {
+	$school_type = '';
+?>
+
+<div class="saved"><h2 style="color: green">Student Information Saved</h2></div>
+<div class="already-exists"></div>
+<div class="failed">Can't Saved</div>
+<div class="login_screen">
+<div class="error-message-container">
+<span class="fill_all"><h2>Please Fill all Fields</h2></span>
+</div>
+	  <?php if(empty($exist_schoolid)) {  ?>
+		<select name="school_name_add" class="school_name_add">
+			<option value="" disabled selected>Select School</option>
+			<?php 
+			foreach($schoolscoll as $schoolvalue) {
+			    $school_namearray = explode(',', $school_session);
+			    if(is_array($school_namearray)) {
+				   if (in_array($schoolvalue['school_name'], $school_namearray)) {
+                        $school_name_text = $schoolvalue['school_name_text'];
+					    $school_id = $schoolvalue['school_name'];
+						$school_type = $schoolvalue['school_type'];
+			?>
+				 <option value="<?php echo $school_id;?>" <?php if($exist_schoolid == $school_id) { echo 'selected';} else { echo '';} ?>><?php echo $school_name_text?><?php //echo $school_type?></option>
+			<?php
+			        }
+				}
+		    }
+			?>
+		</select>
+
+		<?php } else { ?>
+
+		<select name="school_name_add" class="school_name_add">
+			<?php 
+			foreach($schoolscoll as $schoolvalue) {
+			    $school_namearray = explode(',', $school_session);
+			    if(is_array($school_namearray)) {
+				   if (in_array($schoolvalue['school_name'], $school_namearray)) {
+                        $school_name_text = $schoolvalue['school_name_text'];
+					    $school_id = $schoolvalue['school_name'];
+						$school_type = $schoolvalue['school_type'];
+					if($exist_schoolid == $school_id) {
+			?>
+				 <option value="<?php echo $school_id;?>" <?php if($exist_schoolid == $school_id) { echo 'selected';} else { echo '';} ?>><?php echo $school_name_text?></option>
+			<?php
+					}
+			        
+			      }
+				}
+		    }
+			?>
+		</select>
+
+		<?php } ?>
+
+  <input type="hidden" name="studentId" class="studentId" value="<?php echo $id; ?>"> 
+
+	<label>Student Name</label>
+	<input type="text" class="student_name_add" name="student_name_add" value="<?php if($id!=''){ echo $student_name; }else{ echo ''; } ?>" >
+
+  <label>Student Class</label>
+  <select class="student_class" name="student_class" >
+  <?php 
+    foreach ($classes as $class) {
+      ?>
+      <option <?php if($class['value']==$classVal){ echo 'selected'; }else{ echo ''; } ?>><?php echo $class['label']; ?></option>
+    <?php } ?>
+  </select>
+
+<div class="admission_id">
+  <label >Admission Id</label>
+  <input type="text" class="admission_no" name="admission_no" value="<?php if($id!=''){ echo $admission_id; }else{ echo ''; } ?>">
+</div>
+ 
+ <?php if($school_type ==2){ ?>
+ <div class="student_username">
+  <label>Student Username</label>
+  <input type="text" class="stud_username" name="stud_username" value="<?php if($id!=''){ echo $username; }else{ echo ''; } ?>">
+  
+  <label >Student Password</label>
+  <input type="password" class="stud_password" name="stud_password" value="<?php if($id!=''){ echo $password; }else{ echo ''; } ?>">
+</div>
+<?php  } ?>
+	<button class="student_save">Save</button>
+</div>
+<?php }else{ echo 'school not added' ;} ?>
+<style>
+  .customer-index-btn.logout-btn{padding: 5px 15px;}
+ .customer-index-btn.user-name.studentinfo {
+    top: 0;
+    right: 100px;
+    position: absolute;
+    color: #144889 !important;
+    background-color: #fff !important;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    border-radius: 5px;
+    padding: 5px 10px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+}
+/* Error message container */
+.error-message-container {
+    background-color: #f8d7da; 
+    border: 1px solid #f5c6cb; 
+    color: #721c24;
+    padding: 5px;
+    margin: 20px 0;
+    border-radius: 8px; 
+    font-family: Arial, sans-serif; 
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    font-size: 16px;
+}
+.error-message-container h2 {
+    margin: 0; 
+    font-size: 18px;
+    font-weight: bold;
+}
+.fill_all {
+    display: inline-block;
+}
+
+</style>

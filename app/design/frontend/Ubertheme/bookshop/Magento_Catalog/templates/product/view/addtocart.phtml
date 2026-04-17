@@ -1,0 +1,137 @@
+<?php
+/**
+ * Copyright © 2016 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+/** @var $block \Magento\Catalog\Block\Product\View */
+
+$_product = $block->getProduct(); 
+?>
+<?php 
+  $buttonTitle = __('Add to Cart');
+  $buttonBuyNow = __('BUY NOW'); 
+  $_wishlistSubmitParams = $this->helper('Magento\Wishlist\Helper\Data')->getAddParams($_product);
+  $compareHelper = $this->helper('Magento\Catalog\Helper\Product\Compare');
+?>
+<?php if ($_product->isSaleable()): ?>
+<div class="box-tocart">
+    <div class="fieldset">
+            <?php if ($block->shouldRenderQuantity()): ?>
+            <div class="field qty">
+                <label class="label" for="qty"><span><?php /* @escapeNotVerified */ echo __('Qty:') ?></span></label>
+                <div class="control">
+                    <div class="qty-box-count">
+                        <div id='qty_down'><span>-</span>
+                        </div>
+                        <input type="number"
+                            name="qty"
+                            id="qty"
+                            maxlength="12"
+                            value="<?php /* @escapeNotVerified */ echo $block->getProductDefaultQty() * 1 ?>"
+                            title="<?php /* @escapeNotVerified */ echo __('Qty') ?>" class="input-text qty"
+                            data-validate="<?php echo $block->escapeHtml(json_encode($block->getQuantityValidators())) ?>"
+                            />
+                        <div id='qty_up'><span>+</span></div>         
+                    </div>
+                </div>
+            </div>
+            <?php endif; ?>
+            <div class="actions">
+                <button type="submit"
+                        title="<?php /* @escapeNotVerified */ echo $buttonTitle ?>"
+                        class="action primary tocart add_to_cart"
+                        id="product-addtocart-button">
+                    <span><?php /* @escapeNotVerified */ echo $buttonTitle ?></span>
+                </button>
+                
+                <button type="submit"
+                        title="<?php /* @escapeNotVerified */ echo $buttonBuyNow; ?>"
+                        class="action primary buynow tocart"
+                        id="product-buynow-button" value="<?php /* @escapeNotVerified */ echo "BUY NOW" ?>">BUY NOW
+                </button>
+                <?php echo $block->getChildHtml('', true) ?>
+            
+            </div>
+    </div>
+</div>
+
+<?php endif; ?>
+
+<script type="text/x-magento-init">
+    {
+        "body": {
+            "addToWishlist": <?php /* @escapeNotVerified */ echo $this->helper('Magento\Framework\Json\Helper\Data')->jsonEncode($block->getWishlistOptions())?>
+        }
+    }
+</script>
+
+
+
+
+
+
+<?php if ($block->isRedirectToCartEnabled()) : ?>
+<script type="text/x-magento-init">
+    {
+        "#product_addtocart_form": {
+            "Magento_Catalog/product/view/validation": {
+                "radioCheckboxClosest": ".nested"
+            }
+        }
+    }
+</script>
+<?php else : ?>
+<script>
+    require([
+        'jquery',
+        'mage/url',
+        'mage/mage',
+        'Magento_Catalog/product/view/validation',
+        'Magento_Catalog/js/catalog-add-to-cart'
+    ], function ($,urlBuilder) {
+        $(".required_entry_pname").hide();
+        $(".required_entry_pid").hide();
+
+        $(".buynow").on("click", function(e){
+            console.log($(".student_pname").val());
+            console.log($(".student_pid").val());
+
+            // if($(".student_pname").val() == '' || $(".student_pid").val()==''){
+            //     if($(".student_pname").val() == ''){
+            //          $(".required_entry_pname").show();
+            //     }else{
+            //          $(".required_entry_pname").hide();
+            //     }
+            //     if($(".student_pid").val()==''){
+            //          $(".required_entry_pid").show();
+            //     }else{
+            //          $(".required_entry_pid").hide();
+            //     }
+            // }else{
+              $(".add_to_cart").html('Add to Cart');
+              window.location.href = '<?php echo $block->getUrl("checkout/cart");?>';
+            // }
+        });
+
+        'use strict';
+        $('#product_addtocart_form').mage('validation', {
+            radioCheckboxClosest: '.nested',
+            submitHandler: function (form) {
+                var widget = $(form).catalogAddToCart({
+                    bindSubmit: false
+                });
+
+                widget.catalogAddToCart('submitForm', $(form));
+
+                return false;
+            }
+        });
+
+
+
+    });
+</script>
+<?php endif; ?>

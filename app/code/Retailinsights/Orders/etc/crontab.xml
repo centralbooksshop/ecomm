@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Cron:etc/crontab.xsd">
+    <group id="default">
+        <job name="retailinsights_orders_feedback_email" instance="Retailinsights\Orders\Cron\FeedbackEmail" method="execute">
+            <schedule>0 2 * * *</schedule> <!-- Runs daily at 2 AM -->
+        </job>
+		<job name="update_courier_availability"
+             instance="Retailinsights\Orders\Cron\UpdateCourierAvailability"
+             method="execute">
+            <!-- Runs every day at 2:00 AM -->
+            <schedule>*/5 * * * *</schedule>
+        </job>
+
+    </group>
+</config>

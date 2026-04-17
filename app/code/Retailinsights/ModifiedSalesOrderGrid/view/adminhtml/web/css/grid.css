@@ -1,0 +1,51 @@
+td.complete, .data-grid tr:hover td.complete {
+	background-color: rgb(255, 191, 90) !important;
+    /*background-color: #008000;*/
+    border: 1px solid #000000;
+}
+/* .data-grid tr:hover td.complete, .data-grid tr:hover td.closed{
+    background-color: none;
+} */
+
+td.closed, .data-grid tr:hover td.closed  {
+	background-color: rgb(224, 92, 85) !important;
+    /*background-color: #FF0000;*/
+    border: 1px solid #000000;
+}
+
+td.processing, .data-grid tr:hover td.processing  {
+	background-color: rgb(177, 255, 86) !important;
+    /*background-color: #808080;*/
+    border: 1px solid #000000;
+}
+
+/* Assigned to picker status - softer green */
+td.assigned_to_picker,
+.data-grid tr:hover td.assigned_to_picker {
+    background-color: rgb(150, 230, 80) !important;
+    border: 1px solid #000000;
+}
+
+td.pending, .data-grid tr:hover td.pending  {
+	background-color: rgb(224, 108, 105);
+    /*background-color: #FFA500;*/
+    border: 1px solid #000000;
+}
+
+td.dispatched_to_courier, .data-grid tr:hover td.dispatched_to_courier  {
+	background-color: #fd955c;
+    /*background-color: #FFA500;*/
+    border: 1px solid #000000;
+}
+
+td.order_delivered, .data-grid tr:hover td.order_delivered  {
+	background-color: #76bbff;
+    /*background-color: #FFA500;*/
+    border: 1px solid #000000;
+}
+
+td.backorder, .data-grid tr:hover td.backorder  {
+    background-color: lightgray;
+    /*background-color: #FFA500;*/
+    border: 1px solid #000000;
+}

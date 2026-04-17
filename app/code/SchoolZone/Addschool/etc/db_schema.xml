@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+   <table name="schools_registered" resource="default" engine="innodb" comment="schools registered table">
+    <column xsi:type="int" name="school_status"  padding="10" unsigned="true" nullable="false" identity="false" default="0" comment="School status" />
+	<column xsi:type="smallint" name="enable_storepickup" padding="10" unsigned="false" nullable="false" default="0" comment="Storepickup Status" />
+	<column xsi:type="varchar" name="storepickup_timings" nullable="true" length="10" comment="Store Pickup timings"/>
+	<column xsi:type="varchar" name="add_schoolhub" nullable="true" length="100" comment="Add School Hub"/>
+	<column xsi:type="int" name="handling_fee" nullable="true" comment="Add handling fee"/>
+	<column xsi:type="int" name="display_bookstore"  padding="10" unsigned="true" nullable="false" identity="false" default="0" comment="Display Bookstore" />
+	<column xsi:type="int" name="school_delivery"  padding="10" unsigned="true" nullable="false" identity="false" default="0" comment="School Delivery" />
+	<column xsi:type="int" name="hybrid_delivery"  padding="10" unsigned="true" nullable="false" identity="false" default="0" comment="Hybrid Delivery" />
+	<column xsi:type="varchar" name="pickup_stores" nullable="true" length="100" comment="Pickup Stores"/>
+	<column xsi:type="text" name="willbegiven" nullable="true" comment="will be given msg"/>
+	<column xsi:type="text" name="schoolgiven" nullable="true" comment="school given msg"/>
+	<column xsi:type="int" name="pickup_region" padding="10" unsigned="true" nullable="false" identity="false" default="1" comment="Pickup Region (1 = Telangana, 2 = Mumbai)" />
+	<column xsi:type="int" name="delhivery_pickup_region" padding="10" unsigned="true" nullable="false" identity="false" default="1" comment="Delhivery Pickup Region (1 = Telangana, 2 = Mumbai)" />
+	<column xsi:type="int" name="dtdc_pickup_region" padding="10" unsigned="true" nullable="false" identity="false" default="1" comment="DTDC Pickup Region (1 = Telangana, 2 = Mumbai)" />
+   </table>
+</schema>

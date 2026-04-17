@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/crontab.xsd">
+    <group id="default">
+        <job name="centralbooks_freshdesk_product_after_date"
+             instance="Centralbooks\Freshdesk\Cron\CreateFreshdeskProductArticle"
+             method="execute">
+            <schedule>0 */4 * * *</schedule>
+        </job>
+    </group>
+</config>

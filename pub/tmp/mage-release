@@ -1,0 +1,24 @@
+#!/bin/bash
+ME=${0##*/}
+exec > /var/tmp/${ME}.log 2>&1
+echo $(date '+%Y%m%d%H%M%S') START
+cd /var/www/magento2 || exit 1
+sudo chmod -R 777 pub/* generated/* var/*
+sudo rm -rf generated/*
+echo $(date '+%Y%m%d%H%M%S') START setup:upgrade
+sudo php -dmemory_limit=6G bin/magento setup:upgrade
+echo $(date '+%Y%m%d%H%M%S') END setup:upgrade
+echo $(date '+%Y%m%d%H%M%S') START setup:di:compile
+sudo php -dmemory_limit=6G bin/magento setup:di:compile
+echo $(date '+%Y%m%d%H%M%S') END setup:di:compile
+sudo rm -rf pub/static/*
+sudo rm -rf var/view_preprocessed/*
+echo $(date '+%Y%m%d%H%M%S') START setup:static-content-delay
+sudo php bin/magento setup:static-content:deploy -f
+echo $(date '+%Y%m%d%H%M%S') END setup:static-content-delay
+echo $(date '+%Y%m%d%H%M%S') START clear cache
+sudo php -dmemory_limit=6G bin/magento c:c
+echo $(date '+%Y%m%d%H%M%S') END clear cache
+sudo chown -R www-data:www-data app var pub generated
+sudo chmod -R 777 pub/* generated/* var/*
+echo $(date '+%Y%m%d%H%M%S') END

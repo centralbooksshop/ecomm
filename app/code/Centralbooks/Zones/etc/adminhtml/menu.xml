@@ -1,0 +1,10 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+	<menu>
+		<add id="Centralbooks::top_level" title="CBO Zones" module="Centralbooks_Zones" sortOrder="9999" resource="Magento_Backend::content"/>
+		
+		<add id="Centralbooks_Zones::addzone_index" title="Add Zones" module="Centralbooks_Zones" sortOrder="9999" resource="Centralbooks_Zones::addzone_index" parent="Centralbooks::top_level" action="zones/addzone/index"/>
+
+		<add id="Centralbooks_Zones::centralbooks_zones_zones" title="Manage Zones" module="Centralbooks_Zones" sortOrder="9999" resource="Centralbooks_Zones::centralbooks_zones_zones" parent="Centralbooks::top_level" action="centralbooks_zones/zones/index"/>
+	</menu>
+</config>

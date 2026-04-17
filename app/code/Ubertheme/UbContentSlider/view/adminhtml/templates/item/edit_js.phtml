@@ -1,0 +1,54 @@
+<?php
+/**
+ * Copyright © 2016 Ubertheme.com All rights reserved.
+ */
+?>
+<script>
+require(["jquery", "prototype"], function(jQuery){
+
+    function showHideContentFields()
+    {
+        if ($('item_content_type')){
+            if ($('item_content_type').value != 'image') {
+                $('item_video_id').up('div.field').show();
+                $('item_video_id').addClassName('required-entry');
+                $('item_video_cover').up('div.field').show();
+
+                $('item_image').up('div.field').hide();
+                $('item_image').removeClassName('required-entry');
+                $('item_mobile_image').up('div.field').hide();
+            } else {
+                $('item_video_id').up('div.field').hide();
+                $('item_video_id').removeClassName('required-entry');
+                $('item_video_cover').up('div.field').hide();
+
+                $('item_image').up('div.field').show();
+                if (!$('item_image').readAttribute('value').length){
+                    $('item_image').addClassName('required-entry');
+                }
+
+                $('item_mobile_image').up('div.field').show();
+            }
+        }
+        return true;
+    }
+    jQuery(document).ready(showHideContentFields);
+    window.showHideContentFields = showHideContentFields;
+
+    //auto select video type after fill video link
+    jQuery('#item_link').on('blur', function(){
+        var link = jQuery(this).val();
+        if (/youtu.be/i.test(link)){
+            jQuery("#item_content_type").val('youtube_video');
+        } else if (/vimeo.com/i.test(link)) {
+            jQuery("#item_content_type").val('vimeo_video');
+        }
+        jQuery("#item_content_type").change();
+    });
+
+    jQuery('.btn-clear-date').on('click', function() {
+        var $dateField = jQuery(this).parent().siblings('._has-datepicker');
+        jQuery($dateField).val('').datepicker('setDate', null);
+    });
+});
+</script>

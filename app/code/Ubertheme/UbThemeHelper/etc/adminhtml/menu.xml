@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2016 Ubertheme.com All rights reserved.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Ubertheme_UbThemeHelper::ubthemehelper_content"
+             title="Theme Helper"
+             module="Ubertheme_UbThemeHelper"
+             sortOrder="999"
+             parent="Ubertheme_Base::menu"
+             resource="Ubertheme_UbThemeHelper::ubthemehelper_content" />
+        <add id="Ubertheme_UbThemeHelper::settings"
+             title="Configuration"
+             module="Ubertheme_UbThemeHelper"
+             sortOrder="1"
+             parent="Ubertheme_UbThemeHelper::ubthemehelper_content"
+             action="ubthemehelper/theme/index/vendor/ubertheme"
+             resource="Ubertheme_UbThemeHelper::settings"/>
+    </menu>
+</config>

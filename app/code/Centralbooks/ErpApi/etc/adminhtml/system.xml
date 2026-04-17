@@ -1,0 +1,90 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="centralbooks" translate="label" class="centralbooks" sortOrder="100">
+            <label>Centralbooks Erp Api</label>
+        </tab>
+        <section id="erp" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Erp Api Configuration</label>
+            <tab>centralbooks</tab>
+            <resource>Centralbooks_ErpApi::erp</resource>
+            <group id="general" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Erp Api Configuration</label>
+                <field id="enabled" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Centralbooks ErpApi</label>
+                    <source_model>Magento\Config\Model\Config\Source\Enabledisable</source_model>
+                </field>
+            </group>
+            <group id="erpapicredential" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>API Settings</label>
+ 
+                <field id="endpoint" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Endpoint/Version/TenantID</label>
+                    <validate>required-entry</validate>
+					 <comment> <![CDATA[ERP Endpoint URL is https://api.businesscentral.dynamics.com/v2.0/2fb3e83f-4bff-43ab-bdc0-2322285eb593.]]> </comment>
+                </field>
+                <field id="environment" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Environment</label>
+                    <validate>required-entry</validate>
+                </field>
+                <field id="pagetype" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Page Type Publisher</label>
+                    <validate>required-entry</validate>
+                </field>
+
+				<field id="apigroup" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Apigroup/Apiversion</label>
+                    <validate>required-entry</validate>
+                </field>
+
+				<field id="ledgerapigroup" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Ledger Entry Apigroup/Apiversion</label>
+                    <validate>required-entry</validate>
+                </field>
+
+				<field id="invoiceapigroup" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Sales Invoice Apigroup/Apiversion</label>
+                    <validate>required-entry</validate>
+                </field>
+
+				<field id="invoicepreviousdate" translate="label" type="text" sortOrder="41" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Sales Invoice Previous Date</label>
+                </field>
+				
+				<field id="company" translate="label" type="text" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Company</label>
+                    <validate>required-entry</validate>
+                </field>
+
+				<field id="prefer" translate="label" type="text" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Prefer Page Size</label>
+                    <validate>required-entry</validate>
+	    </field>
+
+	     <field id="gst_no_local" translate="label" type="text" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>TG GST No</label>
+                    <validate>required-entry</validate>
+                    </field>
+
+                    <field id="gst_no_nonlocal" translate="label" type="text" sortOrder="80" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>MH GST No</label>
+                    <validate>required-entry</validate>
+	            </field>
+		    <field id="cin_no" translate="label" type="text" sortOrder="90" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>CIN No</label>
+                    <validate>required-entry</validate>
+                    </field>
+            </group>
+            
+    </section>
+
+    <section id="general" translate="label" type="text" sortOrder="310" showInDefault="1" showInWebsite="0" showInStore="0">
+            <group id="store_information" translate="label" type="text" sortOrder="2" showInDefault="1" showInWebsite="0" showInStore="0">
+                <field id="pdf_footer_declaration"  translate="label" type="text" sortOrder="90" showInDefault="1" showInWebsite="1" showInStore="0">
+                <label>Declaration</label>
+                </field>
+            </group>
+    </section>
+
+    </system>
+</config>

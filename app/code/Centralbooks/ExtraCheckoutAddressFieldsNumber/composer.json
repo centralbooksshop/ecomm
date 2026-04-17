@@ -1,0 +1,21 @@
+{
+    "name": "centralbooks/module-extracheckoutaddressfieldsnumber",
+    "description": "",
+    "license": "proprietary",
+    "authors": [
+        {
+            "email": "info@centralbooksonline.com",
+            "name": "Centralbooks"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {},
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Centralbooks\\ExtraCheckoutAddressFieldsNumber\\": ""
+        }
+    }
+}

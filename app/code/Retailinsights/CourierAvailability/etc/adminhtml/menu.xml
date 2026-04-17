@@ -1,0 +1,24 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+		
+		
+		<!-- <add id="Retailinsights_CourierAvailability::retailinsights_courieravailability_courier" title="Courier" module="Retailinsights_CourierAvailability" sortOrder="9999" resource="Magento_Backend::content" parent="Retailinsights::top_level" action="retailinsights_courieravailability/courier/index"/> -->
+
+	   <menu>
+        <!-- Top-level menu tab -->
+        <add id="Retailinsights_CourierAvailability::top_level"
+             title="Courier Management"
+             module="Retailinsights_CourierAvailability"
+             sortOrder="90"
+             resource="Retailinsights_CourierAvailability::top_level" />
+
+        <!-- Submenu item under top-level -->
+        <add id="Retailinsights_CourierAvailability::courieravailability"
+             title="Courier Availability"
+             module="Retailinsights_CourierAvailability"
+             sortOrder="10"
+             parent="Retailinsights_CourierAvailability::top_level"
+             action="retailinsights_courieravailability/courier/index"
+             resource="Retailinsights_CourierAvailability::courieravailability" />
+    </menu>
+</config>

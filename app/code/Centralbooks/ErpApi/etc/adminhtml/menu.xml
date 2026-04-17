@@ -1,0 +1,15 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+	<menu>
+		<add id="Centralbooks::erpapi" title="CBO Ecomm ERP API" module="Centralbooks_ErpApi" sortOrder="20" resource="Magento_Backend::content"/>
+		
+		<add id="Centralbooks_ErpApi::apilist_locations" title="Ecomm Locations Code Api" module="Centralbooks_ErpApi" sortOrder="20" resource="Centralbooks_ErpApi::apilist_locations" parent="Centralbooks::erpapi" action="erp/apilist/locations"/>
+
+		<add id="Centralbooks_ErpApi::apilist_gstgroups" title="Ecomm Gst Groups Api" module="Centralbooks_ErpApi" sortOrder="22" resource="Centralbooks_ErpApi::apilist_gstgroups" parent="Centralbooks::erpapi" action="erp/apilist/gstgroups"/>
+
+		<add id="Centralbooks_ErpApi::apilist_schoolbranches" title="Ecomm School Branches Api" module="Centralbooks_ErpApi" sortOrder="24" resource="Centralbooks_ErpApi::apilist_schoolbranches" parent="Centralbooks::erpapi" action="erp/apilist/schoolbranches"/>
+
+		<add id="Centralbooks_ErpApi::apilist_salesinvoices" title="Ecomm Sales Invoices Api" module="Centralbooks_ErpApi" sortOrder="28" resource="Centralbooks_ErpApi::apilist_salesinvoices" parent="Centralbooks::erpapi" action="erp/apilist/salesinvoices"/>
+
+	</menu>
+</config>

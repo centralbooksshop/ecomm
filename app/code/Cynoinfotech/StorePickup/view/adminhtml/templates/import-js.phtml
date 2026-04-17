@@ -1,0 +1,30 @@
+<?php
+/**
+ * @author CynoInfotech Team
+ * @package Cynoinfotech_StorePickup
+ */
+ // @codingStandardsIgnoreFile
+?>
+<?php
+$_objectManager = \Magento\Framework\App\ObjectManager::getInstance(); 
+$storeManager = $_objectManager->get('Magento\Store\Model\StoreManagerInterface'); 
+$currentStore = $storeManager->getStore();
+$mediaUrl = $currentStore->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_MEDIA).'areaimport/';
+$statiContenteUrl =$storeManager->getStore()->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_STATIC);
+$samplefiles_url = $statiContenteUrl.'adminhtml/Magento/backend/en_US/Cynoinfotech_StorePickup/samplefiles/';
+?>
+<script>
+require(['jquery'], function($){ 
+    $(document).on('change','.csvselecet',function(){
+        var val = $(this).val();
+        $(this).siblings('.sample_csv').remove();
+        if(val !=''){
+           $(this).after('<a class="sample_csv" href="<?php echo $samplefiles_url.'sample-state.csv'; ?>" download >State sample csv</a>');
+            
+        }
+    });
+})
+</script>
+<style>
+.csvselecet {margin-right: 15px;} 
+</style>

@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+
+    <!-- Optional: Add interface preferences if you have repositories later -->
+    <!--
+    <preference for="Shipsy\EcommerceExtension\Api\ServiceRepositoryInterface" type="Shipsy\EcommerceExtension\Model\ServiceRepository"/>
+    <preference for="Shipsy\EcommerceExtension\Api\Data\ServiceInterface" type="Shipsy\EcommerceExtension\Model\Service"/>
+    <preference for="Shipsy\EcommerceExtension\Api\Data\ServiceSearchResultsInterface" type="Magento\Framework\Api\SearchResults"/>
+    -->
+
+    <!--Define VirtualType for Grid Collection -->
+    <virtualType name="Shipsy\EcommerceExtension\Model\ResourceModel\Service\Grid\Collection"
+                 type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">service_types</argument>
+            <argument name="resourceModel" xsi:type="string">Shipsy\EcommerceExtension\Model\ResourceModel\Service\Collection</argument>
+        </arguments>
+    </virtualType>
+
+    <!--Register your Grid DataSource -->
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="softdatasync_service_listing_data_source" xsi:type="string">
+                    Shipsy\EcommerceExtension\Model\ResourceModel\Service\Grid\Collection
+                </item>
+            </argument>
+        </arguments>
+    </type>
+
+	 <!--  <type name="Magento\Framework\View\Element\UiComponent\DataProvider\Reporting">
+        <plugin name="sales_grid_collection" type="\Shipsy\EcommerceExtension\Model\Plugin\Sales\Order\Grid"/>
+    </type> -->
+
+</config>

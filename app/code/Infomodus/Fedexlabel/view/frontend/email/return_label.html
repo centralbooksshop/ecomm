@@ -1,0 +1,40 @@
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<!--@subject {{trans "Created a New Return Label"}} @-->
+<!--@vars {
+"var customer_name":"Sender Name",
+"var order_id":"Order Id",
+"var tracking_number":"Tracking number",
+"var date":"Date"
+} @-->
+
+{{template config_path="design/email/header_template"}}
+<h2>{{trans "Created a New Return Label"}}</h2>
+<table class="message-details">
+    <tr>
+        <td><strong>{{trans "Customer Name"}}</strong></td>
+        <td>{{var customer_name}}</td>
+    </tr>
+    <tr>
+        <td><strong>{{trans "Order #"}}</strong></td>
+        <td>{{var order_id}}</td>
+    </tr>
+    <tr>
+        <td><strong>{{trans "Carrier"}}</strong></td>
+        <td>FedEx</td>
+    </tr>
+    <tr>
+        <td><strong>{{trans "Tracking Number"}}</strong></td>
+        <td>{{var tracking_number}}</td>
+    </tr>
+    <tr>
+        <td><strong>{{trans "Date"}}</strong></td>
+        <td>{{var date}}</td>
+    </tr>
+</table>
+
+{{template config_path="design/email/footer_template"}}

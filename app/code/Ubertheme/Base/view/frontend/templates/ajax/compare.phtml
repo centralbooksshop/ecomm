@@ -1,0 +1,24 @@
+<!--
+/**
+ * Copyright © 2016 Ubertheme.com All rights reserved.
+ */
+-->
+
+<?php
+    /** @var \Ubertheme\Base\Block\Ajax\Compare $block */
+?>
+
+<!-- Initial ajax compare js function -->
+<script type="text/javascript">
+	var ubAjaxCompareOptions = <?= $block->getAjaxCompareOptions() ?>;
+	require([
+		"jquery",
+		"Ubertheme_Base/js/ajaxCompare",
+		"domReady!"
+	], function ($) {
+		'use strict';
+		$.ub.AjaxCompare(ubAjaxCompareOptions);
+	});
+</script>
+
+

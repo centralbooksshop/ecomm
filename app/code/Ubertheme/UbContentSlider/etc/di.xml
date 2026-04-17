@@ -1,0 +1,66 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2016 Ubertheme.com All rights reserved.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Ubertheme\UbContentSlider\Api\Data\SlideSearchResultsInterface" type="Magento\Framework\Api\SearchResults" />
+    <preference for="Ubertheme\UbContentSlider\Api\Data\ItemSearchResultsInterface" type="Magento\Framework\Api\SearchResults" />
+    <preference for="Ubertheme\UbContentSlider\Api\Data\SlideInterface" type="Ubertheme\UbContentSlider\Model\Slide" />
+    <preference for="Ubertheme\UbContentSlider\Api\Data\ItemInterface" type="Ubertheme\UbContentSlider\Model\Item" />
+    <preference for="Ubertheme\UbContentSlider\Api\SlideRepositoryInterface" type="Ubertheme\UbContentSlider\Model\SlideRepository" />
+    <preference for="Ubertheme\UbContentSlider\Api\ItemRepositoryInterface" type="Ubertheme\UbContentSlider\Model\ItemRepository" />
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="ubcontentslider_slide_listing_data_source" xsi:type="string">Ubertheme\UbContentSlider\Model\ResourceModel\Slide\Grid\Collection</item>
+                <item name="ubcontentslider_item_listing_data_source" xsi:type="string">Ubertheme\UbContentSlider\Model\ResourceModel\Item\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Ubertheme\UbContentSlider\Model\ResourceModel\Slide\Grid\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">ubcontentslider_slide</argument>
+            <argument name="eventPrefix" xsi:type="string">ubcontentslider_slide_grid_collection</argument>
+            <argument name="eventObject" xsi:type="string">slide_grid_collection</argument>
+            <argument name="resourceModel" xsi:type="string">Ubertheme\UbContentSlider\Model\ResourceModel\Slide</argument>
+        </arguments>
+    </type>
+    <type name="Ubertheme\UbContentSlider\Model\ResourceModel\Item\Grid\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">ubcontentslider_slide_item</argument>
+            <argument name="eventPrefix" xsi:type="string">ubcontentslider_item_grid_collection</argument>
+            <argument name="eventObject" xsi:type="string">item_grid_collection</argument>
+            <argument name="resourceModel" xsi:type="string">Ubertheme\UbContentSlider\Model\ResourceModel\Item</argument>
+        </arguments>
+    </type>
+    <virtualType name="UbContentSliderGirdFilterPool" type="Magento\Framework\View\Element\UiComponent\DataProvider\FilterPool">
+        <arguments>
+            <argument name="appliers" xsi:type="array">
+                <item name="regular" xsi:type="object">Magento\Framework\View\Element\UiComponent\DataProvider\RegularFilter</item>
+                <item name="fulltext" xsi:type="object">Magento\Framework\View\Element\UiComponent\DataProvider\FulltextFilter</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <type name="Magento\Framework\Model\Entity\RepositoryFactory">
+        <arguments>
+            <argument name="entities" xsi:type="array">
+                <item name="Ubertheme\UbContentSlider\Api\Data\SlideInterface" xsi:type="string">Ubertheme\UbContentSlider\Api\SlideRepositoryInterface</item>
+                <item name="Ubertheme\UbContentSlider\Api\Data\ItemInterface" xsi:type="string">Ubertheme\UbContentSlider\Api\ItemRepositoryInterface</item>
+            </argument>
+        </arguments>
+    </type>
+    <virtualType name="SlideGridDataProvider" type="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider">
+        <arguments>
+            <argument name="collection" xsi:type="object" shared="false">Ubertheme\UbContentSlider\Model\ResourceModel\Slide\Collection</argument>
+            <argument name="filterPool" xsi:type="object" shared="false">UbContentSliderGirdFilterPool</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="ItemGridDataProvider" type="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider">
+        <arguments>
+            <argument name="collection" xsi:type="object" shared="false">Ubertheme\UbContentSlider\Model\ResourceModel\Item\Collection</argument>
+            <argument name="filterPool" xsi:type="object" shared="false">UbContentSliderGirdFilterPool</argument>
+        </arguments>
+    </virtualType>
+</config>

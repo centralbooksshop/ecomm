@@ -1,0 +1,95 @@
+<?xml version="1.0" ?>
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="clickpost" translate="label" sortOrder="10">
+            <label>Clickpost Settings</label>
+        </tab>
+        <section id="clickpost" translate="label" sortOrder="130" showInDefault="1" showInWebsite="1" showInStore="1">
+            <class>separator-top</class>
+            <label>Configuration</label>
+            <tab>clickpost</tab>
+            <resource>Centralbooks_ClickpostExtension::configuration_config</resource>
+            <!-- Begin of services group  -->
+            <group id="clickpostservices" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Configuration</label>
+                <attribute type="expanded">1</attribute>
+
+                <!-- Begin of Clickpost Tracking API group  -->
+                
+                <field id="clickpost_username" translate="label" type="text" sortOrder="5" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Clickpost Username</label>
+                </field>
+
+				 <field id="clickpost_key" translate="label" type="text" sortOrder="6" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Clickpost Key</label>
+                </field>
+
+				<field id="clickpost_url" translate="label" type="text" sortOrder="7" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Clickpost Base URL</label>
+                </field>
+
+				<field id="clickpost_projectx_url" translate="label" type="text" sortOrder="8" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Clickpost Api URL</label>
+                </field>
+
+				<field id="clickpost_return_address" translate="label" type="text" sortOrder="9" showInDefault="1"
+                       showInWebsite="0" showInStore="0">
+                    <label>Clickpost Telangana Return Address</label>
+                    <depends>
+                        <field id="returnaddress">default</field>
+                    </depends>
+                </field>
+
+				<field id="clickpost_return_address_mh" translate="label" type="text" sortOrder="10" showInDefault="1"
+                       showInWebsite="0" showInStore="0">
+                    <label>Clickpost Maharashtra Return Address</label>
+                    <depends>
+                        <field id="returnaddress_mh">default</field>
+                    </depends>
+                </field>
+                
+                <!-- End Clickpost Tracking API -->
+
+				<field id="clickpost_reseller_name" translate="label" type="text" sortOrder="12" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Reseller Name</label>
+                </field>
+
+				 <field id="clickpost_reseller_phone" translate="label" type="text" sortOrder="13" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Telangana Reseller Phone</label>
+                </field>
+
+				 <field id="clickpost_reseller_phone_mh" translate="label" type="text" sortOrder="14" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Maharashtra Reseller Phone</label>
+                </field>
+
+				<field id="clickpost_channel_name" translate="label" type="text" sortOrder="15" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Channel Name</label>
+                </field>
+
+			    <field id="clickpost_latitude" translate="label" type="text" sortOrder="16" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Telangana Latitude</label>
+                    <validate>validate-number</validate>
+                </field>
+                
+                <field id="clickpost_longitude" translate="label" type="text" sortOrder="17" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Telangana Longitude</label>
+                    <validate>validate-number</validate>
+                </field>
+
+
+				<field id="clickpost_latitude_mh" translate="label" type="text" sortOrder="18" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Maharashtra Latitude</label>
+                    <validate>validate-number</validate>
+                </field>
+                
+                <field id="clickpost_longitude_mh" translate="label" type="text" sortOrder="19" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Maharashtra Longitude</label>
+                    <validate>validate-number</validate>
+                </field>
+
+            </group>
+            <!-- End services -->
+        </section>
+    </system>
+</config>

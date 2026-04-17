@@ -1,0 +1,89 @@
+<?xml version="1.0"?>
+<!-- system.xml for Centralbooks Amazon Token + Shipping settings -->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+
+    <system>
+	     <tab id="amazon_tab" translate="label" sortOrder="20">
+            <label>Amazon Settings</label>
+        </tab>
+        <section id="amazon_configuration" translate="label" sortOrder="900" showInDefault="1" showInWebsite="0" showInStore="0">
+            <class>separator-top</class>
+			<label>Amazon Configuration</label>
+            <tab>amazon_tab</tab>
+
+            <resource>Centralbooks_Amazon::config</resource>
+
+            <group id="general" translate="label" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0">
+                <label>General Settings</label>
+
+                <field id="token_api_url" translate="label" type="text" sortOrder="5"
+                       showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Token API URL</label>
+                </field>
+
+				<field id="oneclickshipment_api_url" translate="label" type="text" sortOrder="5"
+                       showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>oneClickShipment API URL</label>
+                </field>
+				
+				<!-- CLIENT ID -->
+                <field id="client_id" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Client ID</label>
+                </field>
+
+                <!-- CLIENT SECRET -->
+                <field id="client_secret" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Client Secret</label>
+                </field>
+
+				<field id="gst_id" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Tax Registration Number</label>
+                </field>
+
+                <!-- REFRESH TOKEN -->
+                <field id="refresh_token" translate="label" type="textarea" sortOrder="30" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Refresh Token</label>
+                </field>
+
+                <!-- ACCESS TOKEN (AUTO-FILLED BY HELPER) -->
+                <field id="x_amz_access_token" translate="label" type="textarea" sortOrder="40" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Access Token (Auto-Generated)</label>
+                    <comment>This is refreshed using the token API. Do not edit manually.</comment>
+                </field>
+
+                <!-- ACCESS TOKEN EXPIRY TIMESTAMP -->
+                <field id="x_amz_expires_at" translate="label" type="text" sortOrder="50" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Access Token Expires At (Timestamp)</label>
+                    <comment>Used internally by the refresh helper.</comment>
+                </field>
+
+                <!-- OPTIONAL: SHIP FROM JSON FIELD -->
+                <field id="ship_from_json" translate="label" type="textarea" sortOrder="60" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Ship From (JSON)(Hyderabad)</label>
+                    <comment>Use JSON to override shipFrom address for oneClickShipment API.</comment>
+                </field>
+
+				<!-- OPTIONAL: Return To JSON FIELD -->
+                <field id="return_to_json" translate="label" type="textarea" sortOrder="60" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Return To (JSON)(Hyderabad)</label>
+                    <comment>Use JSON to override returnTo address for oneClickShipment API.</comment>
+                </field>
+
+				<!-- OPTIONAL: SHIP FROM JSON FIELD -->
+                <field id="ship_from_mumbai_json" translate="label" type="textarea" sortOrder="60" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Ship From (JSON)(Mumbai)</label>
+                    <comment>Use JSON to override shipFrom address for oneClickShipment API.</comment>
+                </field>
+
+				<!-- OPTIONAL: Return To JSON FIELD -->
+                <field id="return_to_mumbai_json" translate="label" type="textarea" sortOrder="60" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Return To (JSON)(Mumbai)</label>
+                    <comment>Use JSON to override returnTo address for oneClickShipment API.</comment>
+                </field>
+
+            </group>
+        </section>
+    </system>
+
+</config>

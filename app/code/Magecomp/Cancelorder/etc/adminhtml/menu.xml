@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../Magento/Backend/etc/menu.xsd">
+    <menu>
+        <add id="Magecomp_Cancelorder::cancelorder" title="Cancel Order" module="Magecomp_Cancelorder"  sortOrder="10" resource="Magecomp_Cancelorder::cancelorder"/>
+        <add id="Magecomp_Cancelorder::cancelorder_manageitems" title="Canceled Orders List" module="Magecomp_Cancelorder" sortOrder="10" action="cancelorder/cancelorder/index" resource="Magecomp_Cancelorder::cancelorder_manageitems" parent="Magecomp_Cancelorder::cancelorder"/>
+        <add id="Magecomp_Cancelorder::cancelorder_configsetting" title="Configuration" module="Magecomp_Cancelorder" sortOrder="20" parent="Magecomp_Cancelorder::cancelorder" action="adminhtml/system_config/edit/section/cancelordersection" resource="Magecomp_Cancelorder::cancelorder_configsetting"/>
+    </menu>
+</config>

@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../Email/etc/email_templates.xsd">
+    <template id="cancelordersection_emailopt_template" label="Cancel Order" file="cancelorder_form.html" type="html" module="Magecomp_Cancelorder" area="frontend"/>
+    <template id="cancelordersection_emailopt_template_for_customer" label="Cancel Order for Customer" file="cancelorder_form_customer.html" type="html" module="Magecomp_Cancelorder" area="frontend"/>
+    <template id="cancelordersection_emailopt_template_for_cron" label="Auto Cancel Order" file="cancelorder_form_cron.html" type="html" module="Magecomp_Cancelorder" area="frontend"/>
+</config>

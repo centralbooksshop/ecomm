@@ -1,0 +1,25 @@
+<!--We can use this context to add some thing in future-->
+<?php
+//get config param example
+/** @var \Ubertheme\UbThemeHelper\Helper\Data $helper */
+/*$helper = $this->helper('Ubertheme\UbThemeHelper\Helper\Data');
+$var = $helper->getParam("ub_general/logo/logo_with");
+var_dump($var);*/
+
+//working with cookie example
+/** @var \Ubertheme\UbThemeHelper\Helper\Data $helper */
+/*$helper = $this->helper('Ubertheme\UbThemeHelper\Helper\Data');
+$ckm = $helper->getCookieManager();
+$color = isset($_GET['ub_color']) ? $_GET['ub_color'] : $ckm->getCookie('ub_color');
+if (isset($_GET['ub_color']) && $_GET['ub_color']) {
+    $ckMeta = $helper->getCookieMetadataFactory()->createPublicCookieMetadata()->setPath('/');
+    $ckm->setPublicCookie('ub_color', $color, $ckMeta);
+}
+echo $color;*/
+
+/** example to get current changed of lessjs vars from current theme */
+/** @var \Ubertheme\UbThemeHelper\Helper\Data $helper */
+//$helper = $this->helper('Ubertheme\UbThemeHelper\Helper\Data');
+//$currentThemePath = $helper->getRealPathOfCurrentTheme();
+//$ubLessJsVars = @file_get_contents("{$currentThemePath}/web/js/less-vars.js");
+

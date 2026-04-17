@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Acl/etc/acl.xsd">
+    <acl>
+        <resources>
+            <resource id="Magento_Backend::admin">
+				<resource id="Magento_Sales::sales">
+                    <resource id="Magento_Sales::sales_operation">
+						<resource id="Retailinsights_Orders::SalesOrderGrid" title="Orders Duplicate" sortOrder="10"/>
+				        <resource id="Retailinsights_Orders::SalesOrderFailed" title="Split Failed Orders List" sortOrder="11"/>
+						<resource id="Retailinsights_Orders::Willbegiven" title="Will be given Dashboard" sortOrder="12" />
+						<resource id="Retailinsights_Orders::Willbegivenitems" title="Will be given Dashboard Items" sortOrder="13" />
+						<resource id="Retailinsights_Orders::mass_partial" title="Mass Partial Update" sortOrder="14"/>
+                    </resource>
+                </resource>
+            </resource>
+        </resources>
+    </acl>
+</config>

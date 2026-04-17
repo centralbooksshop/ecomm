@@ -1,0 +1,21 @@
+<?xml version="1.0" ?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+	<table name="centralbooks_zones" resource="default" engine="innodb" comment="centralbooks_zones Table">
+		<column xsi:type="int" name="zones_id" padding="10" unsigned="true" nullable="false" identity="true" comment="Entity Id"/>
+		<constraint xsi:type="primary" referenceId="PRIMARY">
+			<column name="zones_id"/>
+		</constraint>
+		<column name="pincode" nullable="true" xsi:type="int" comment="pincode"/>
+		<column name="area" nullable="true" xsi:type="text" comment="area"/>
+		<column name="zone" nullable="true" xsi:type="text" comment="area"/>
+	</table>
+
+	<table name="centralbooks_zones_addzone" resource="default" engine="innodb" comment="centralbooks_zones_addzone Table">
+		<column xsi:type="int" name="zones_id" padding="10" unsigned="true" nullable="false" identity="true" comment="Entity Id"/>
+		<constraint xsi:type="primary" referenceId="PRIMARY">
+			<column name="zones_id"/>
+		</constraint>
+		<column name="zonelabel" nullable="true" xsi:type="text" comment="zonelabel"/>
+		<column name="zonevalue" nullable="true" xsi:type="text" comment="zonevalue"/>
+	</table>
+</schema>

@@ -1,0 +1,42 @@
+<?php
+$model = $block->getContentF();
+$orders = json_decode($model['content'], true);
+?>
+<?php if(!empty($orders)) { ?>
+<div>
+	<div>
+		<span><b>Updated Time: </b> <?php echo $model['created_at']; ?></span>
+	</div>
+	<div>
+		<span><b>No. of Orders updated: </b> <?php echo count($orders); ?></span>
+	</div>
+</div>
+<div>
+	<table>
+		<thead>
+			<th>Order No</th>
+			<th>Old Status</th>
+			<th>New Status</th>
+		</thead>
+		<tbody>
+			<?php foreach ($orders as $value) {
+				echo "<tr><td>".$value['id']."</td><td>".$value['old_status']."</td><td>".$value['new_status']."</td></tr>";
+			}?>
+		</tbody>
+	</table>
+</div>
+<?php } ?>
+<style>
+	table {
+	  border: 1;
+	  border-collapse: collapse;
+	  width: 100%;
+	}
+
+	th, td {
+	  text-align: center;
+	  padding: 8px;
+	}
+
+	tr:nth-child(even) {background-color: #f2f2f2;}
+</style>

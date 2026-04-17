@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Ui/etc/ui_configuration.xsd">
+   <container name="listing_top">
+	 <exportButton name="export_button" class="Centralbooks\DeliveryAmount\Ui\Component\ExportButton">
+             <argument name="data" xsi:type="array">
+           	   <item name="config" xsi:type="array">
+                        <item name="selectProvider" xsi:type="string">expressdelivery_deliveryboy_list.expressdelivery_deliveryboy_list.expressdelivery_deliveryboy_columns.ids</item>
+                   </item>
+             </argument>
+          </exportButton>
+  </container> 
+  <columns name="expressdelivery_deliveryboy_columns">    
+	  <!--  <column name="email">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="filter" xsi:type="string">text</item>
+                        <item name="label" xsi:type="string" translate="true">Email</item>
+                        <item name="sortOrder" xsi:type="number">11</item>
+                    </item>
+                </argument>
+	</column>
+	<column name="mobile_number">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="filter" xsi:type="string">text</item>
+                        <item name="label" xsi:type="string" translate="true">Phone</item>
+                        <item name="sortOrder" xsi:type="number">11</item>
+                    </item>
+                </argument>
+            </column>
+
+	<column name="vehicle_number">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="filter" xsi:type="string">text</item>
+                        <item name="label" xsi:type="string" translate="true">Vehicle</item>
+                        <item name="sortOrder" xsi:type="number">11</item>
+                    </item>
+                </argument>
+            </column>
+	-->
+	
+	<column name="driver_type">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="filter" xsi:type="string">text</item>
+                        <item name="label" xsi:type="string" translate="true">Driver Type</item>
+                        <item name="sortOrder" xsi:type="number">11</item>
+                    </item>
+                </argument>
+          </column>
+
+	  <column name="no_of_covers_delivered" class="Centralbooks\DeliveryAmount\Ui\Component\Listing\Column\NCoversDelivered">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="filter" xsi:type="string">text</item>
+                        <item name="label" xsi:type="string" translate="true">No of Covers Delivered</item>
+                        <item name="sortOrder" xsi:type="number">11</item>
+                    </item>
+                </argument>
+            </column>
+
+              <column name="no_of_boxes_delivered" class="Centralbooks\DeliveryAmount\Ui\Component\Listing\Column\NBoxDelivered">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="filter" xsi:type="string">text</item>
+                        <item name="label" xsi:type="string" translate="true">No of Boxes Delivered</item>
+                        <item name="sortOrder" xsi:type="number">12</item>
+                    </item>
+                </argument>
+            </column>
+
+              <column name="total_no_of_orders" class="Centralbooks\DeliveryAmount\Ui\Component\Listing\Column\TotalNDelivered">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="filter" xsi:type="string">text</item>
+                        <item name="label" xsi:type="string" translate="true">Total No Of Orders</item>
+                        <item name="sortOrder" xsi:type="number">13</item>
+                    </item>
+                </argument>
+            </column>
+
+	    <column name="total_amount_to_be_received" class="Centralbooks\DeliveryAmount\Ui\Component\Listing\Column\TotalAmount">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="filter" xsi:type="string">text</item>
+                        <item name="label" xsi:type="string" translate="true">Total Amount to be Received</item>
+                        <item name="sortOrder" xsi:type="number">14</item>
+                    </item>
+                </argument>
+	</column>
+	
+	<actionsColumn name="pay_action" class="Centralbooks\DeliveryAmount\Ui\Component\Listing\Column\Driverpay">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="indexField" xsi:type="string">entity_id</item>
+		    <item name="viewUrlPath" xsi:type="string">deliveryamount/orders/driverpay</item>
+                    <item name="urlEntityParamName" xsi:type="string">id</item>
+                    <item name="sortOrder" xsi:type="number">50</item>
+                </item>
+            </argument>
+            <settings>
+		 <label translate="true">ERP Request</label>
+            </settings>
+        </actionsColumn>
+    </columns>
+</listing>
+

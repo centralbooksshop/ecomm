@@ -1,0 +1,228 @@
+<?php $starttime = microtime(true); ?>
+<?php $paymentsStatuses = [
+    'cashfree' => 'success',
+    'ccavenue' => 'shipped',
+    'payu' => 'captured'
+];
+?>
+<div style="padding: 20px">
+    <span><b>No of days considered for metrics: <?php echo $block->highOrdersTime(); ?></b></span>
+</div>
+
+<div style="padding: 20px">
+    <table class="orders-table" border="1">
+        <thead style="background-color: #e6e684;">
+            <th>Time</th>
+            <th class="hyperlink" id="processing-btn">Processing</th>
+            <th>Complete</th>
+            <th class="hyperlink" id="disptached-to-courier-btn">Dispatched_to_courier</th>
+            <th class="hyperlink" id="order-delivered-btn">Order_delivered</th>
+            <th class="hyperlink" id="canceled-btn">Canceled</th>
+            <th class="hyperlink" id="pending-btn">Pending</th>
+            <th class="hyperlink" id="holded-btn">Holded</th>
+            <th>Closed</th>
+            <th>Total Orders</th>
+        </thead>
+        <tbody>
+            <?php foreach (['below-3', 'above-3'] as $value): ?>
+                <tr>
+                    <td style="font-weight: 600;"><?php echo str_replace('-', ' ', ucfirst($value))." days";?></td>
+                    <td><?php echo $block->ordersCountAndLink('processing', null, null, $value)['link']; ?></td>
+                    <td><?php echo $block->ordersCountAndLink('complete', null, null, $value)['link']; ?></td>
+                    <td><?php echo $block->ordersCountAndLink('dispatched_to_courier', null, null, $value)['link']; ?></td>
+                    <td><?php echo $block->ordersCountAndLink('order_delivered', null, null, $value)['link']; ?></td>
+                    <td><?php echo $block->ordersCountAndLink('canceled', null, null, $value)['link']; ?></td>
+                    <td><?php echo $block->ordersCountAndLink('pending', null, null, $value)['link']; ?></td>
+                    <td><?php echo $block->ordersCountAndLink('holded', null, null, $value)['link']; ?></td>
+                    <td><?php echo $block->ordersCountAndLink('closed', null, null, $value)['link']; ?></td>
+                    <td><?php echo $block->ordersCountAndLink(null, null, null, $value)['link']; ?></td>
+                </tr>
+            <?php endforeach;?>
+            <tr style="background-color: #b7f07f;">
+                <td style="font-weight: 600;">Total Orders</td>
+                <td><?php echo $block->ordersCountAndLink('processing', null, null, null)['link']; ?></td>
+                <td><?php echo $block->ordersCountAndLink('complete', null, null, null)['link']; ?></td>
+                <td><?php echo $block->ordersCountAndLink('dispatched_to_courier', null, null, null)['link']; ?></td>
+                <td><?php echo $block->ordersCountAndLink('order_delivered', null, null, null)['link']; ?></td>
+                <td><?php echo $block->ordersCountAndLink('canceled', null, null, null)['link']; ?></td>
+                <td><?php echo $block->ordersCountAndLink('pending', null, null, null)['link']; ?></td>
+                <td><?php echo $block->ordersCountAndLink('holded', null, null, null)['link']; ?></td>
+                <td><?php echo $block->ordersCountAndLink('closed', null, null, null)['link']; ?></td>
+                <td><?php echo $block->ordersCountAndLink(null, null, null, null)['link']; ?></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div style="padding-top: 50px; display: none;" class="disptached-to-courier-table">
+    <table border="1" style="width: 70%;">
+        <thead style="background-color: #e6e684;">
+            <tr>
+                <th>Logistic Partner</th>
+                <th>Below 3 days</th>
+                <th>Above 3 days</th>
+                <th>Grand Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php echo $block->dispatchedOrdersTabularData();?> 
+        </tbody>
+    </table>
+</div>
+
+<div style="padding-top: 50px; display: none;" class="processing-table">
+    <table border="1">
+        <thead style="background-color: #e6e684;">
+            <th>Payment Gateway</th>
+            <th>No of Orders</th>
+        </thead>
+        <tbody>
+            <?php $i = 0; ?>
+            <?php foreach ($paymentsStatuses as $payment => $status): ?>
+                <tr>
+                    <td style="font-weight: 700;"><?php echo ucfirst($payment); ?></td>
+                    <td><?php echo $block->ordersCountAndLink('processing', $payment, $status, null)['link']; ?></td>
+                </tr>
+                <?php $i++; ?>
+            <?php endforeach;?>
+        </tbody>
+    </table>    
+</div>
+
+<div style="padding-top: 50px; display: none;" class="canceled-table">
+    <table border="1">
+        <thead style="background-color: #e6e684;">
+            <th>Payment Gateway</th>
+            <th>No of Orders</th>
+        </thead>
+        <tbody>
+            <?php $i = 0; ?>
+            <?php foreach ($paymentsStatuses as $payment => $status): ?>
+                <tr>
+                    <td style="font-weight: 700;"><?php echo ucfirst($payment); ?></td>
+                    <td><?php echo $block->ordersCountAndLink('canceled', $payment, $status, null)['link']; ?></td>
+                </tr>
+                <?php $i++; ?>
+            <?php endforeach;?>
+        </tbody>
+    </table>    
+</div>
+
+<div style="padding-top: 50px; display: none;" class="pending-table">
+    <table border="1">
+        <thead style="background-color: #e6e684;">
+            <th>Payment Gateway</th>
+            <th>No of Orders</th>
+        </thead>
+        <tbody>
+            <?php $i = 0; ?>
+            <?php foreach ($paymentsStatuses as $payment => $status): ?>
+                <tr>
+                    <td style="font-weight: 700;"><?php echo ucfirst($payment); ?></td>
+                    <td><?php echo $block->ordersCountAndLink('pending', $payment, $status, null)['link']; ?></td>
+                </tr>
+                <?php $i++; ?>
+            <?php endforeach;?>
+        </tbody>
+    </table>    
+</div>
+
+<div style="padding-top: 50px; display: none;" class="holded-table">
+    <table border="1">
+        <thead style="background-color: #e6e684;">
+            <th>Payment Gateway</th>
+            <th>No of Orders</th>
+        </thead>
+        <tbody>
+            <?php $i = 0; ?>
+            <?php foreach ($paymentsStatuses as $payment => $status): ?>
+                <tr>
+                    <td style="font-weight: 700;"><?php echo ucfirst($payment); ?></td>
+                    <td><?php echo $block->ordersCountAndLink('holded', $payment, $status, null)['link']; ?></td>
+                </tr>
+                <?php $i++; ?>
+            <?php endforeach;?>
+        </tbody>
+    </table>    
+</div>
+
+<div style="padding-top: 50px; display: none;" class="order-delivered-table">
+    <?php echo $block->rmaTableData(); ?>
+</div>
+     <?php
+	 $endtime = microtime(true); // when function ends
+	 $duration  = $endtime - $starttime;
+	 echo '<!--school_custom_dashboard start='.$starttime . ' end='.$endtime. ' duration='.$duration.'-->';
+     ?>
+<style type="text/css">
+    table{
+        text-align: center;
+        width: 100%;
+    }
+    td, th {
+        padding: 4px;
+    }
+    .shipment-click:hover, .hyperlink:hover {
+        cursor: pointer;
+    }
+    .hyperlink, .shipment-click {
+        text-decoration: underline;
+        color: dodgerblue;
+    }
+</style>
+<script type="text/javascript">
+require(['jquery', 'jquery/ui'], function($){
+    $(".shipment-click").click(function(){
+        var classValue = $(this).data("shipment");
+        $('.'+classValue).toggle(1000);
+    });
+    $("#disptached-to-courier-btn").click(function(){
+        $(".disptached-to-courier-table").toggle(1000);
+        $(".processing-table").hide();
+        $(".order-delivered-table").hide();
+        $(".canceled-table").hide();
+        $(".holded-table").hide();
+        $(".pending-table").hide();
+    });
+    $("#processing-btn").click(function(){
+        $(".processing-table").toggle(1000);
+        $(".disptached-to-courier-table").hide();
+        $(".order-delivered-table").hide();
+        $(".canceled-table").hide();
+        $(".holded-table").hide();
+        $(".pending-table").hide();
+    });
+    $("#canceled-btn").click(function(){
+        $(".canceled-table").toggle(1000);
+        $(".disptached-to-courier-table").hide();
+        $(".order-delivered-table").hide();
+        $(".processing-table").hide();
+        $(".holded-table").hide();
+        $(".pending-table").hide();
+    });
+    $("#pending-btn").click(function(){
+        $(".pending-table").toggle(1000);
+        $(".disptached-to-courier-table").hide();
+        $(".order-delivered-table").hide();
+        $(".canceled-table").hide();
+        $(".processing-table").hide();
+        $(".holded-table").hide();
+    });
+    $("#holded-btn").click(function(){
+        $(".holded-table").toggle(1000);
+        $(".disptached-to-courier-table").hide();
+        $(".order-delivered-table").hide();
+        $(".canceled-table").hide();
+        $(".processing-table").hide();
+        $(".pending-table").hide();
+    });
+    $("#order-delivered-btn").click(function(){
+        $(".order-delivered-table").toggle(1000);
+        $(".disptached-to-courier-table").hide();
+        $(".processing-table").hide();
+        $(".canceled-table").hide();
+        $(".holded-table").hide();
+        $(".pending-table").hide();
+    });
+});
+</script>

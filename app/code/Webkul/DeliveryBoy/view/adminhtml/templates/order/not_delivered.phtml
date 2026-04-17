@@ -1,0 +1,76 @@
+
+
+<?php $orderstatus = $block->getOrderStatus(); ?>
+<div class="order-history-block">
+    <div class="admin__field">
+        <label for="history_comment" class="admin__field-label"><?= $block->escapeHtml(__('Reason for not delivered order')) ?></label>
+        <div class="admin__field-control">
+           <!--  <textarea name="notdelivered" rows="3" cols="5" id="notdelivered" class="admin__control-textarea"></textarea> -->
+            
+               <select name="notdelivered" id="notdelivered" class="admin__control-select">
+				<option value="0" selected="selected">Please Select Reason</option>
+				<option value="Customer not available"> Customer not available </option>
+                <option value="Incorrect Phone Number"> Incorrect Phone Number </option>
+                <option value="Customer Not Responding"> Customer Not Responding </option>
+				<option value="Customer Number Not Connecting"> Customer Number Not Connecting </option>
+                <option value="Invalid Address"> Invalid Address </option>
+                <option value="Already Delivered"> Already Delivered </option>
+<option value="Customer Rejected >> Ordered by Mistake >> Refund"> Customer Rejected >> Ordered by Mistake >> Refund </option>
+<option value="Customer Rejected >> Wrong Set Ordered >> Refund"> Customer Rejected >> Wrong Set Ordered >> Refund </option>
+<option value="WH requested the Return >> Sent with Another Delivery Boy"> WH requested the Return >> Sent with Another Delivery Boy </option>
+<option value="WH requested the Return >> Customer Self Collected the Order from WH"> WH requested the Return >> Customer Self Collected the Order from WH </option>
+
+</select>
+			<input type="hidden" id="orderId" value="<?= $block->escapeHtmlAttr($block->getOrderIncrementId()) ?>">
+
+        </div>
+    </div>
+	<?php if ($orderstatus =='dispatched_to_courier') { ?>
+    <div class="admin__field">           
+        <div class="order-history-comments-actions">
+            <button id="save" title="Submit Comment"
+                    type="button" class="action-default scalable action-save action-secondary">
+                <span>Submit Reason</span>
+            </button><br/>
+            <div class="result_msg"></div> 
+        </div>
+    </div>
+	<?php } ?>
+</div>
+<script>
+    require([
+        "jquery"
+    ], function(jQuery)  {
+        jQuery('#loading-image').hide();
+     
+        jQuery("body").on("click", "#save", function () {
+            var newReason = jQuery("#notdelivered").val();
+            var orderId = jQuery("#orderId").val();
+			var deliveryboyId = jQuery("#deliveryboy").val();
+			//alert(newReason);
+			
+            jQuery(".result_msg").html("");
+			if (newReason != '0') {
+            //if (newReason.trim()) {
+                jQuery.ajax({
+                url: '<?= $block->escapeUrl(
+                    $block->getUrl('expressdelivery/orders/saveNewReason', ['_secure' => true])
+                ) ?>',
+                data: {reason:newReason, incrementId:orderId,senderId:deliveryboyId },
+                type: "POST",
+                dataType: 'json',
+                showLoader: true,
+                }).done(function (result) {
+                    if (result == 1) {
+                        jQuery(".result_msg").html("<span style='color:green'>Reason saved successfully.</span>");
+                        setTimeout(window.location.reload(), 4000);
+                    } else {
+                        jQuery(".result_msg").html("<span style='color:green'>Some error occurred</span>");
+                    }
+                });
+            } else {
+                jQuery(".result_msg").html("<span style='color:red'>Select reason is empty</span>");
+            }
+        });
+    });
+</script>
